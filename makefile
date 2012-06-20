@@ -1,15 +1,14 @@
-CC=g++
-CFLAGS= -lGLU -lglut -lSDL -lSDL_image
-LDFLAGS=
-SOURCES=demo.cpp
-OBJECTS=$(SOURCES)
-EXECUTABLE=demo
+SHELL = /bin/sh
 
-all: $(SOURCES) $(EXECUTABLE)
-	
-$(EXECUTABLE): $(OBJECTS) 
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+RELATIVE_ROOT_DIR = ./
+TEST_DIR = ./experimental/
+BIN_DIR = ./bin/
 
-.cpp.o:
-	$(CC) $(CFLAGS) $< -o $@
- 
+.SUFFIXES:
+.SUFFIXES: .cpp .o
+
+test : $(TEST_DIR)testrunner.cpp
+	g++ -o $(BIN_DIR)test $(TEST_DIR)testrunner.cpp -std=c++0x
+
+$(TEST_DIR)testrunner.cpp : $(TEST_DIR)shared_ptr_test.ctt
+	cd $(TEST_DIR) && cxxtestgen --error-printer -o testrunner.cpp shared_ptr_test.ctt && cd $(RELATIVE_ROOT_DIR)

@@ -1,0 +1,34 @@
+#include <memory>
+#include <iostream>
+#include <cxxtest/TestSuite.h>
+#include "../geotypes.hpp"
+
+class TestSuite: public CxxTest::TestSuite{
+	public: void testSharedPtr(){
+		std::shared_ptr<int> myShared(new int);
+		*myShared = 1337;
+
+		std::shared_ptr<int> myOtherShared = myShared;
+
+		//ensure both pointers content addresses refer to the same value
+		TS_ASSERT(*myShared == 1337);
+		TS_ASSERT(*myOtherShared == 1337);
+
+		//ensure both pointers refer to the same address
+		TS_ASSERT(myShared==myOtherShared)
+		
+		//despite all the above, ensure they are in fact distinct objects
+		TS_ASSERT(&myShared!=&myOtherShared);
+	}
+	
+	public: void testInitializeBoundingBox(){
+
+		unsigned long int dimensions = 3;
+		vector<Scalar> cellSize;
+
+		for(unsigned int i=0; i<dimensions; i++){
+			cellSize.push_back(10);//each cell in the grid is a 10x10x10 cube
+		}
+		TS_ASSERT( cellSize.size() == dimensions );//has our vector been filled appropriately?
+	}
+};
