@@ -24,17 +24,17 @@ bool suite_TestSuite_init = false;
 static TestSuite suite_TestSuite;
 
 static CxxTest::List Tests_TestSuite = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_TestSuite( "shared_ptr_test.ctt", 6, "TestSuite", suite_TestSuite, Tests_TestSuite );
+CxxTest::StaticSuiteDescription suiteDescription_TestSuite( "shared_ptr_test.ctt", 7, "TestSuite", suite_TestSuite, Tests_TestSuite );
 
 static class TestDescription_suite_TestSuite_testSharedPtr : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_TestSuite_testSharedPtr() : CxxTest::RealTestDescription( Tests_TestSuite, suiteDescription_TestSuite, 7, "testSharedPtr" ) {}
+ TestDescription_suite_TestSuite_testSharedPtr() : CxxTest::RealTestDescription( Tests_TestSuite, suiteDescription_TestSuite, 8, "testSharedPtr" ) {}
  void runTest() { suite_TestSuite.testSharedPtr(); }
 } testDescription_suite_TestSuite_testSharedPtr;
 
 static class TestDescription_suite_TestSuite_testInitializeBoundingBox : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_TestSuite_testInitializeBoundingBox() : CxxTest::RealTestDescription( Tests_TestSuite, suiteDescription_TestSuite, 24, "testInitializeBoundingBox" ) {}
+ TestDescription_suite_TestSuite_testInitializeBoundingBox() : CxxTest::RealTestDescription( Tests_TestSuite, suiteDescription_TestSuite, 25, "testInitializeBoundingBox" ) {}
  void runTest() { suite_TestSuite.testInitializeBoundingBox(); }
 } testDescription_suite_TestSuite_testInitializeBoundingBox;
 

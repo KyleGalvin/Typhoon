@@ -5,7 +5,7 @@
 #include "set"
 #include "geotypes.hpp"
 #include <iostream>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 using namespace std;
 
 //Here we define algorithm complexity levels for different types of bounding
@@ -28,11 +28,11 @@ class Object{
 	public:
 
 		typedef Object Obj;
-		typedef boost::shared_ptr<Obj> PtrObj;
+		typedef std::shared_ptr<Obj> PtrObj;
 		typedef vector<PtrObj> ListPtrObj;
 
 		typedef vector<Line> LineList;
-		typedef boost::shared_ptr<LineList> PtrLineList;
+		typedef std::shared_ptr<LineList> PtrLineList;
 
 		//the object bound within the limits of this object.
 		//if this is the main object and no lower level exists, 

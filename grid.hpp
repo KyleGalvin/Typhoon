@@ -2,7 +2,7 @@
 #define __GRID_HPP__
 
 #include <vector>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include "geotypes.hpp"
 #include "collision.hpp"
 #include <set>
@@ -21,12 +21,12 @@ class grid{
 	public:
 
 		typedef Object Obj;
-		typedef boost::shared_ptr<Obj> PtrObj;
+		typedef std::shared_ptr<Obj> PtrObj;
 		typedef vector<PtrObj> ListPtrObj;
-		typedef boost::shared_ptr<ListPtrObj> PtrListPtrObj;
+		typedef std::shared_ptr<ListPtrObj> PtrListPtrObj;
 		typedef set<PtrObj> SetPtrObj;
 		typedef vector<Scalar> ListScalar;
-		typedef boost::shared_ptr<ListScalar> PtrListScalar;
+		typedef std::shared_ptr<ListScalar> PtrListScalar;
 
 		bool debug;
 

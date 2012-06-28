@@ -101,7 +101,7 @@ class singlegrid: public grid{
 		//	PtrObj Cell = ((*it).second);
 
 		//	SetPtrObj Result;
-		//	vector<boost::shared_ptr<Object> >::iterator i=Cell->BoundObjs.begin();
+		//	vector<std::shared_ptr<Object> >::iterator i=Cell->BoundObjs.begin();
 		//	while(i!=Cell->BoundObjs.end()){
 		//		if(*i!=O){
 		//			//we dont include O in the list of objects near O.
@@ -120,7 +120,7 @@ class singlegrid: public grid{
 			//Our RFoil function will use LCopy and ObjectSizeCopy
 			//to create all combinations of cells the object touches.
 			//these combinations are built and temporarily stored in Input.
-			boost::shared_ptr<Coordinate> Input(new Coordinate);
+			std::shared_ptr<Coordinate> Input(new Coordinate);
 	
 			return RFoil(O, O->Location, O->Dimensions, this->CellSize, Input);
 		}
@@ -129,7 +129,7 @@ class singlegrid: public grid{
 		//since this involves looping through all N dimensions and N is unknown,
 		//recursion is used rather than iteration.
 		vector<Coordinate> RFoil(PtrObj O, Coordinate L, \
-				Size S, Size CS, boost::shared_ptr<Coordinate> Instance){
+				Size S, Size CS, std::shared_ptr<Coordinate> Instance){
 
 			vector<Coordinate> Result;
 			vector<Coordinate> Returned;

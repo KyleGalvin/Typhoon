@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE( singlegridtest ){
 
 BOOST_AUTO_TEST_CASE( singlegrid_iterator ){
 
-	unsigned long int dimensions = 3;
+	UNSIgned long int dimensions = 3;
 	vector<Scalar> cellSize;
 
 	for(unsigned int i=0; i<dimensions; i++){

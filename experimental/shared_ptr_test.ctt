@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cxxtest/TestSuite.h>
 #include "../geotypes.hpp"
+#include "../singlegrid.hpp"
 
 class TestSuite: public CxxTest::TestSuite{
 	public: void testSharedPtr(){
@@ -30,5 +31,81 @@ class TestSuite: public CxxTest::TestSuite{
 			cellSize.push_back(10);//each cell in the grid is a 10x10x10 cube
 		}
 		TS_ASSERT( cellSize.size() == dimensions );//has our vector been filled appropriately?
-	}
+
+		singlegrid grid(cellSize);//create grid with specified size and specified # of dimesions
+		
+		for(unsigned int i=0; i<dimensions; i++){
+			//does our grid cell size mirror the dimensions requested of it?
+			TS_ASSERT( grid.GetCellSize(i) == cellSize[i] );
+		}
+	
+		//objects we will place into the 3d grid.
+		std::shared_ptr<AABB> a (new AABB);
+		std::shared_ptr<AABB> b (new AABB);
+		std::shared_ptr<AABB> c (new AABB);
+
+		//our objects are given a size and location
+		a->Location.push_back(0);
+		a->Location.push_back(0);
+		a->Location.push_back(0);
+		a->Dimensions.push_back(12);
+		a->Dimensions.push_back(12);
+		a->Dimensions.push_back(12);
+
+		b->Location.push_back(11);
+		b->Location.push_back(11);
+		b->Location.push_back(0);
+		b->Dimensions.push_back(12);
+		b->Dimensions.push_back(2);
+		b->Dimensions.push_back(2);
+	
+		c->Location.push_back(70);
+		c->Location.push_back(70);
+		c->Location.push_back(0);
+		c->Dimensions.push_back(2);
+		c->Dimensions.push_back(2);
+		c->Dimensions.push_back(2);
+		
+		/*(a) is larger than the grid cell in every dimension (but smaller than twice as large),
+		which makes it take up 2 cells in all dimensions. 2^3=8 */
+		grid.Add(a);
+		TS_ASSERT( grid.CellCount() == 8 );
+		/*(b) has one dimension larger than the grid cell, so it takes up 2 cells total
+		  one of these cells overlaps with a cell (a) is in, so this cell doesnt need
+		  to be created. 1x1x2 = 2 new cells, subtract the cell that exists for added 1 cell.*/
+		grid.Add(b);
+		TS_ASSERT( grid.CellCount() == 9 );
+		/*(c) is small and far away from (a) and (b). It should take up one cell
+		  of space which will be automatically created/initialized.*/
+		grid.Add(c);
+		TS_ASSERT( grid.CellCount() == 10 );
+	
+		/*adding an identical object twice should not add cells, as there is no new occupied space
+	  	as a note, attempting to DELETE one instance of c will result in the deletion of both.*/
+		grid.Add(c);
+		TS_ASSERT( grid.CellCount() == 10 );
+	
+		//place M's exported contents into new map 'rebuild'. This does not modify M in any way.
+		singlegrid rebuild(cellSize);
+		rebuild.Add(grid.Export());
+		TS_ASSERT( grid.CellCount() == rebuild.CellCount() );
+	
+		/*Here we test the removal of objects and the automatic cleanup/removal of empty cells.
+	  	Even though (c) has been inserted twice, both are removed in this same call.*/
+		rebuild.Remove(c);
+		TS_ASSERT( rebuild.CellCount() == 9 );
+
+		//(a) covers 8 cells, yet one of these shares a cell with (b). 7 empty cells removed
+		rebuild.Remove(a);
+		TS_ASSERT( rebuild.CellCount() == 2 );
+
+		//Remove all remaining objects, effectively removing (b) and the 2 cells it resides in.
+		rebuild.Clear();
+		TS_ASSERT( rebuild.CellCount() == 0 );
+	
+		//A more appropriate case of the above
+		TS_ASSERT( grid.CellCount() == 10 );
+		grid.Clear();
+		TS_ASSERT( grid.CellCount() == 0 );
+	}	
 };
