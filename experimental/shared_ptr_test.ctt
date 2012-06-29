@@ -108,4 +108,55 @@ class TestSuite: public CxxTest::TestSuite{
 		grid.Clear();
 		TS_ASSERT( grid.CellCount() == 0 );
 	}	
+
+
+	BOOST_AUTO_TEST_CASE( singlegrid_iterator ){
+
+		unsigned long int dimensions = 3;
+		vector<Scalar> cellSize;
+
+		for(unsigned int i=0; i<dimensions; i++){
+			cellSize.push_back(10);//each cell in the grid is a 10x10x10 cube
+		}
+		
+		singlegrid grid(cellSize);//create grid with specified size and specified # of dimesions
+		
+		std::shared_ptr<AABB> a (new AABB);
+		std::shared_ptr<AABB> b (new AABB);
+		std::shared_ptr<AABB> c (new AABB);//objects we will place into the 3d grid.
+		
+		//our objects are given locations
+		a->Location.push_back(0);
+		a->Location.push_back(0);
+		a->Location.push_back(0);
+		a->Dimensions.push_back(12);
+		a->Dimensions.push_back(12);
+		a->Dimensions.push_back(12);
+
+		b->Location.push_back(11);
+		b->Location.push_back(11);
+		b->Location.push_back(0);
+		b->Dimensions.push_back(12);
+		b->Dimensions.push_back(2);
+		b->Dimensions.push_back(2);
+
+		c->Location.push_back(70);
+		c->Location.push_back(70);
+		c->Location.push_back(0);
+		c->Dimensions.push_back(2);
+		c->Dimensions.push_back(2);
+		c->Dimensions.push_back(2);
+		
+		singlegrid::const_iterator i = grid.begin();
+		ListPtrObj::iterator j;
+		while(i != grid.end()){
+			j=(*i)->BoundObjs.begin();
+			while(j !=(*i)->BoundObjs.end()){
+						cout<<"grid "<<(*j)->Location[0]<<","<< (*j)->Location[1]<<"\n";
+			++j;
+			}
+			++i;
+
+		}
+	}
 };
