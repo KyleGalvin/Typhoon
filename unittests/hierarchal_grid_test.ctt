@@ -115,6 +115,7 @@ class TestSuiteHierarchalGrid: public CxxTest::TestSuite{
 	public: void testHierarchalIterator(){
 
 		hgrid myHGrid;
+		myHGrid.debug = true;
 
 		std::shared_ptr<AABB> a(new AABB);
 		std::shared_ptr<AABB> b(new AABB);
@@ -177,7 +178,8 @@ class TestSuiteHierarchalGrid: public CxxTest::TestSuite{
 		myHGrid.Add(f);
 
 		hgrid myHGridTwo;
-		
+		myHGridTwo.debug = true;
+
 		/*Copy one hgrid into the next. Our numbers will be different, as the
 		  objects will be repackaged into the new grid in a different sequence
 		  than when they were packaged into the original grid */
@@ -186,12 +188,16 @@ class TestSuiteHierarchalGrid: public CxxTest::TestSuite{
 		hgrid::const_iterator i = myHGridTwo.begin();
 		//cout<<"in demo\n";
 		//hgrid<areagrid>::const_iterator y = myHGridTwo.end(); 
-		//cout<<"end clear\n";
-		//cout<<(i == y)<<"trah lah lahhhh!\n";
-		//while(i!=myHGridTwo.end()){
-		//	cout<<"in demo while\n";
-		//	cout<<"Cell has "<<(*i).second->BoundObjs.size()<<" Objects.\n";
-		//	++i;
-		//}
+
+		/*debugging/test stuff */
+
+		
+
+
+		while(i!=myHGridTwo.end()){
+			cout<<"in demo while\n";
+			cout<<"Cell has "<<(**i).BoundObjs.size()<<" Objects.\n";
+			++i;
+		}
 	}
 };

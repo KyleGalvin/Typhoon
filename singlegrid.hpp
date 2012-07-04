@@ -420,6 +420,7 @@ class singlegrid: public grid{
 		
 			//Private constructor means only hgrid can create this iterator
 			friend class singlegrid;
+			friend class hgrid;
 
 			private:
 				map<string, PtrObj>::iterator Iter;
@@ -439,6 +440,9 @@ class singlegrid: public grid{
 				}
 				bool operator !=(const const_iterator& external) const{
 					return this->Iter != external.Iter;
+				}
+				bool operator ==(const const_iterator& external) const{
+					return this->Iter == external.Iter;
 				}
 		};
 
