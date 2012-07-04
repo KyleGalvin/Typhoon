@@ -150,14 +150,13 @@ class hgrid: public grid{
 					}
 				}
 
+				cout<<"Large:"<<Large<<" CellSize:"<<(*i)->GetCellSize(0)<<"\n";
 				//if we have successfully found a good grid, add the object and return.
 				if(Large > (*i)->GetCellSize(0)/2 && Large <= (*i)->GetCellSize(0) && i !=grids.end()){
-					if(debug){
-						cout<<"HGRID:\t\t Proper grid found. Placing object.\n";
-						cout<<"HGRID:\t\t Grid Cell Size: "<<(*i)->GetCellSize(0)<<"gcc:"<<(*i)->CellCount()<<"\n";
-					}
-
+					cout<<"HGRID:\t\t Proper grid found. Placing object.\n";
 					(*i)->Add(O);
+					cout<<"HGRID:\t\t Grid Cell Size: "<<(*i)->GetCellSize(0)<<"gcc:"<<(*i)->CellCount()<<"\n";
+
 					return;
 				}
 			}
@@ -273,12 +272,12 @@ class hgrid: public grid{
 			
 			//Private constructor means only hgrid can create this iterator
 			friend class hgrid;
-					
+				hgrid* myContainer;	
 				vector<std::shared_ptr<singlegrid> >::iterator Outer;
 				singlegrid::const_iterator Inner;
 			private:
 
-				const_iterator(vector<std::shared_ptr<singlegrid> >::iterator newOuter, singlegrid::const_iterator newInner): Outer(newOuter),Inner(newInner){}
+				const_iterator(vector<std::shared_ptr<singlegrid> >::iterator newOuter, singlegrid::const_iterator newInner, hgrid* newContainer): Outer(newOuter),Inner(newInner){myContainer=newContainer;}
 				//const_iterator(const hgrid::const_iterator& i): Outer(i.Outer), Inner(i.Inner){}
 			public:
 				PtrObj operator*(){
@@ -290,11 +289,23 @@ class hgrid: public grid{
 					++Inner;
 					if(Inner == (**Outer).end()){
 						++Outer;
+						if(Outer != myContainer->grids.end()){
 							Inner = (**Outer).begin();
+						}
 					}
 				
 					return *this;
 				};
+
+				const const_iterator & operator--(){
+					--Inner;
+					if(Inner ==(**Outer).begin()){
+						--Outer;
+						Inner=(**Outer).end();
+					}
+
+					return *this;
+				}
 
 				bool operator !=(const const_iterator& external) const{
 					return this->Inner != external.Inner;
@@ -305,12 +316,12 @@ class hgrid: public grid{
 		};
 		
 		const_iterator begin(){
-			const_iterator it(grids.begin(),(*grids.begin())->begin());
+			const_iterator it(grids.begin(),(*grids.begin())->begin(),this);
 			return it;
 		}
 
 		const_iterator end(){
-			const_iterator it(--grids.end(),(*(--grids.end()))->end());
+			const_iterator it(grids.end(),(*(--grids.end()))->end(),this);
 			return it;
 		}
 		

@@ -18,17 +18,17 @@ bool suite_TestSuiteHierarchalGrid_init = false;
 static TestSuiteHierarchalGrid suite_TestSuiteHierarchalGrid;
 
 static CxxTest::List Tests_TestSuiteHierarchalGrid = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_TestSuiteHierarchalGrid( "hierarchal_grid_test.ctt", 7, "TestSuiteHierarchalGrid", suite_TestSuiteHierarchalGrid, Tests_TestSuiteHierarchalGrid );
+CxxTest::StaticSuiteDescription suiteDescription_TestSuiteHierarchalGrid( "hierarchal_grid_test.ctt", 8, "TestSuiteHierarchalGrid", suite_TestSuiteHierarchalGrid, Tests_TestSuiteHierarchalGrid );
 
 static class TestDescription_suite_TestSuiteHierarchalGrid_testInitializeHierarchalBoundingBox : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_TestSuiteHierarchalGrid_testInitializeHierarchalBoundingBox() : CxxTest::RealTestDescription( Tests_TestSuiteHierarchalGrid, suiteDescription_TestSuiteHierarchalGrid, 9, "testInitializeHierarchalBoundingBox" ) {}
+ TestDescription_suite_TestSuiteHierarchalGrid_testInitializeHierarchalBoundingBox() : CxxTest::RealTestDescription( Tests_TestSuiteHierarchalGrid, suiteDescription_TestSuiteHierarchalGrid, 10, "testInitializeHierarchalBoundingBox" ) {}
  void runTest() { suite_TestSuiteHierarchalGrid.testInitializeHierarchalBoundingBox(); }
 } testDescription_suite_TestSuiteHierarchalGrid_testInitializeHierarchalBoundingBox;
 
 static class TestDescription_suite_TestSuiteHierarchalGrid_testHierarchalIterator : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_TestSuiteHierarchalGrid_testHierarchalIterator() : CxxTest::RealTestDescription( Tests_TestSuiteHierarchalGrid, suiteDescription_TestSuiteHierarchalGrid, 115, "testHierarchalIterator" ) {}
+ TestDescription_suite_TestSuiteHierarchalGrid_testHierarchalIterator() : CxxTest::RealTestDescription( Tests_TestSuiteHierarchalGrid, suiteDescription_TestSuiteHierarchalGrid, 116, "testHierarchalIterator" ) {}
  void runTest() { suite_TestSuiteHierarchalGrid.testHierarchalIterator(); }
 } testDescription_suite_TestSuiteHierarchalGrid_testHierarchalIterator;
 

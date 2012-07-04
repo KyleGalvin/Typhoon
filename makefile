@@ -25,7 +25,7 @@ $(TEST_DIR)single_grid_test.cpp : $(TEST_DIR)single_grid_test.ctt
 	cxxtestgen --part --error-printer -o single_grid_test.cpp single_grid_test.ctt && \
 	cd $(RELATIVE_ROOT_DIR)
 
-$(TEST_DIR)hierarchal_grid_test.cpp : $(TEST_DIR)hierarchal_grid_test.ctt
+$(TEST_DIR)hierarchal_grid_test.cpp : $(TEST_DIR)hierarchal_grid_test.ctt $(TEST_DIR)hierarchal_grid_debug_extension.cpp
 	cd $(TEST_DIR) && \
 	cxxtestgen --part --error-printer -o hierarchal_grid_test.cpp hierarchal_grid_test.ctt && \
 	cd $(RELATIVE_ROOT_DIR)

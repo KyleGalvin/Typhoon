@@ -438,6 +438,12 @@ class singlegrid: public grid{
 					++Iter;
 					return *this;
 				}
+
+				const const_iterator & operator--(){
+					--Iter;
+					return *this;
+				}
+
 				bool operator !=(const const_iterator& external) const{
 					return this->Iter != external.Iter;
 				}
