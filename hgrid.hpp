@@ -285,7 +285,6 @@ class hgrid: public grid{
 				}
 
 				const const_iterator & operator++(){
-					cout<<"Incriment!\n";
 					++Inner;
 					if(Inner == (**Outer).end()){
 						++Outer;
