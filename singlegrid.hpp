@@ -219,19 +219,11 @@ class singlegrid: public grid{
 
 				if(this->debug){
 					Coordinate::iterator itLoc = L.begin();
-					cout<<"GRID:\t\t inserting into cell(";
 					while(itLoc != L.end()){
-						cout<<(*itLoc);
 						++itLoc;
-						if(itLoc != L.end())
-							cout<<",";
 					}
-					cout<<") ("<<Cell->BoundObjs.size()<<" objects currently in cell)\n";
 				}
 			}else{
-				if(this->debug){
-					cout<<"GRID:\t\t Duplicate object inserted. Ignoring.\n";
-				}
 			}
 		}
 
@@ -256,20 +248,14 @@ class singlegrid: public grid{
 
 			if(this->debug){
 				Coordinate::iterator itLoc = L.begin();
-				cout<<"GRID:\t\t deleting from cell (";
 				while(itLoc != L.end()){
-					cout<<(*itLoc);
 					++itLoc;
-					if(itLoc != L.end())
-						cout<<",";
 				}
-				cout<<") ("<<Cell->BoundObjs.size()<<" objects currently in cell)\n";
 			}
 
 			//if the cell is now empty we remove the entire cell to save space
 			if(Cell->BoundObjs.size() == 0){
 				Cells.erase(this->GetKey(L));
-				cout<<"GRID:\t\t Empty cell! Removing.\n";
 			}
 		}
 

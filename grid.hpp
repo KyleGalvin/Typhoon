@@ -8,6 +8,14 @@
 #include <set>
 using namespace std;
 
+typedef Object Obj;
+typedef std::shared_ptr<Obj> PtrObj;
+typedef vector<PtrObj> ListPtrObj;
+typedef std::shared_ptr<ListPtrObj> PtrListPtrObj;
+typedef set<PtrObj> SetPtrObj;
+typedef vector<Scalar> ListScalar;
+typedef std::shared_ptr<ListScalar> PtrListScalar;
+
 /**A map containing lists of objects used for basic spatial partitioning.
 	Spatial partitioning is a requirement in complex collision detection systems.
 
@@ -20,13 +28,6 @@ class grid{
 
 	public:
 
-		typedef Object Obj;
-		typedef std::shared_ptr<Obj> PtrObj;
-		typedef vector<PtrObj> ListPtrObj;
-		typedef std::shared_ptr<ListPtrObj> PtrListPtrObj;
-		typedef set<PtrObj> SetPtrObj;
-		typedef vector<Scalar> ListScalar;
-		typedef std::shared_ptr<ListScalar> PtrListScalar;
 
 		bool debug;
 
