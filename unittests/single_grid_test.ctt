@@ -152,5 +152,17 @@ class TestSuiteSingleGrid: public CxxTest::TestSuite{
 		
 		TS_ASSERT(ObjFragmentCounter == 11);
 		TS_ASSERT(grid.CellCount() == CellCounter);
+	
+		SetPtrObj test = grid.GetNeighbours(b);
+		SetPtrObj::iterator k = test.begin();
+	
+		int BroadPhaseCullingCounter = 0;
+		while(k!= test.end()){
+			++k;
+			BroadPhaseCullingCounter++;
+		}
+		
+		//object b should be sharing one of it's four cells with object a
+		TS_ASSERT(BroadPhaseCullingCounter == 1);
 	}
 };

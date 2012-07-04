@@ -216,13 +216,6 @@ class singlegrid: public grid{
 			/*add object to cell if it isnt already here*/
 			if(!Duplicate){
 				Cell->Add((Object::PtrObj)O);
-
-				if(this->debug){
-					Coordinate::iterator itLoc = L.begin();
-					while(itLoc != L.end()){
-						++itLoc;
-					}
-				}
 			}else{
 			}
 		}

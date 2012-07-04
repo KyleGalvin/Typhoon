@@ -1,0 +1,102 @@
+#include <memory>
+#include <iostream>
+#include <cxxtest/TestSuite.h>
+#include "../geotypes.hpp"
+#include "../hgrid.hpp"
+
+class TestSuiteHierarchalGrid: public CxxTest::TestSuite{
+
+	public: void testInitializeHierarchalBoundingBox(){
+		hgrid myHGrid;
+
+		std::shared_ptr<AABB> a(new AABB);
+		std::shared_ptr<AABB> b(new AABB);
+		std::shared_ptr<AABB> c(new AABB);
+		std::shared_ptr<AABB> d(new AABB);
+		std::shared_ptr<AABB> e(new AABB);
+		std::shared_ptr<AABB> f(new AABB);//objects we will place into the 3d grid.
+		//our objects are given locations
+		a->Location.push_back(0);
+		a->Location.push_back(0);
+		a->Location.push_back(0);
+		a->Dimensions.push_back(12);
+		a->Dimensions.push_back(12);
+		a->Dimensions.push_back(12);
+
+		//located at (x,y,z) = (11,11,0)
+		//with size 12 x 2 x 2
+		b->Location.push_back(11);
+		b->Location.push_back(11);
+		b->Location.push_back(0);
+		b->Dimensions.push_back(12);
+		b->Dimensions.push_back(2);
+		b->Dimensions.push_back(2);
+
+		c->Location.push_back(70);
+		c->Location.push_back(70);
+		c->Location.push_back(0);
+		c->Dimensions.push_back(2);
+		c->Dimensions.push_back(2);
+		c->Dimensions.push_back(2);
+
+		d->Location.push_back(70);
+		d->Location.push_back(70);
+		d->Location.push_back(0);
+		d->Dimensions.push_back(4);
+		d->Dimensions.push_back(4);
+		d->Dimensions.push_back(4);
+
+		e->Location.push_back(70);
+		e->Location.push_back(70);
+		e->Location.push_back(0);
+		e->Dimensions.push_back(40);
+		e->Dimensions.push_back(40);
+		e->Dimensions.push_back(40);
+
+		f->Location.push_back(0);
+		f->Location.push_back(0);
+		f->Location.push_back(0);
+		f->Dimensions.push_back(1);
+		f->Dimensions.push_back(1);
+		f->Dimensions.push_back(1);
+
+		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		myHGrid.Add(a);
+		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		myHGrid.Add(b);
+		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		myHGrid.Add(b);
+		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		myHGrid.Add(c);
+		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		myHGrid.Add(d);
+		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		myHGrid.Add(e);
+		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		myHGrid.Add(f);
+		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+
+		hgrid myHGridTwo;
+		cout<<"Copying!\n";
+		myHGridTwo.Add(myHGrid.Export());
+		cout<<"G1: "<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		cout<<"G2: "<<myHGridTwo.CellCount()<<" cells in "<<myHGridTwo.GridCount()<<" grids.\n";
+
+		myHGrid.Clear();
+
+		cout<<"G1: "<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		cout<<"G2: "<<myHGridTwo.CellCount()<<" cells in "<<myHGridTwo.GridCount()<<" grids.\n";
+
+		//cout<<"\nIterating:\n";
+		//hgrid<areagrid>::const_iterator i = myHGridTwo.begin();
+		//cout<<"in demo\n";
+		//hgrid<areagrid>::const_iterator y = myHGridTwo.end(); 
+		//cout<<"end clear\n";
+		//cout<<(i == y)<<"trah lah lahhhh!\n";
+		//while(i!=myHGridTwo.end()){
+		//	cout<<"in demo while\n";
+		//	cout<<"Cell has "<<(*i).second->BoundObjs.size()<<" Objects.\n";
+		//	++i;
+		//}
+	}
+};

@@ -17,7 +17,7 @@ class hgrid: public grid{
 	typedef auto_ptr<NumBucket> PtrNumBucket;
 
 	protected:
-		vector<boost::shared_ptr<singlegrid> > grids;
+		vector<std::shared_ptr<singlegrid> > grids;
 
 		///Returns the largest side of object O
 		Scalar LargestDimension(PtrObj O){
@@ -37,11 +37,11 @@ class hgrid: public grid{
 		}
 
 		///Places the given grid where it belongs in the grids vector.
-		bool PlaceGrid(boost::shared_ptr<singlegrid> grid){
+		bool PlaceGrid(std::shared_ptr<singlegrid> grid){
 			//since our grids are all square, the first size speaks for all.
 			Scalar NewSize = grid->GetCellSize(0);
 
-			vector<boost::shared_ptr<singlegrid> >::iterator i = grids.begin();
+			vector<std::shared_ptr<singlegrid> >::iterator i = grids.begin();
 			bool placed = false;
 			Scalar CompSize;
 
@@ -77,7 +77,7 @@ class hgrid: public grid{
 		}
 
 		///Creates a grid that both fits O within it and fits in our grids list.
-		boost::shared_ptr<singlegrid> MakeGrid(PtrObj O){
+		std::shared_ptr<singlegrid> MakeGrid(PtrObj O){
 			Scalar NewGridSize;
 			Scalar Largest = LargestDimension(O);
 
@@ -110,7 +110,7 @@ class hgrid: public grid{
 			for(unsigned int i=0; i<O->Dimensions.size(); i++){
 				S.push_back(NewGridSize);
 			}
-			boost::shared_ptr<singlegrid> NewGrid(new singlegrid(S));
+			std::shared_ptr<singlegrid> NewGrid(new singlegrid(S));
 
 			if(debug){
 				cout<<"HGRID:\t\t Creating new grid. Size: "<<NewGridSize<<"\n";
@@ -140,7 +140,7 @@ class hgrid: public grid{
 
 				//iterate through the list of grids searching for a place
 				//to insert the new object
-				vector<boost::shared_ptr<singlegrid> >::iterator i = grids.begin();
+				vector<std::shared_ptr<singlegrid> >::iterator i = grids.begin();
 				while(Large >= (*i)->GetCellSize(0) || Large < (*i)->GetCellSize(0) ){
 					++i;
 					if(i==grids.end()){
@@ -166,7 +166,7 @@ class hgrid: public grid{
 				cout<<"HGRID:\t\t No proper grid found.\n";
 			}
 
-			boost::shared_ptr<singlegrid> NewGrid = boost::shared_ptr<singlegrid>(MakeGrid(O));
+			std::shared_ptr<singlegrid> NewGrid = std::shared_ptr<singlegrid>(MakeGrid(O));
 			PlaceGrid(NewGrid);
 			NewGrid->Add(O);
 		}
@@ -187,7 +187,7 @@ class hgrid: public grid{
 			//find the appropriate grid
 			Scalar Large = LargestDimension(O);
 
-			vector<boost::shared_ptr<singlegrid> >::iterator i = grids.begin();
+			vector<std::shared_ptr<singlegrid> >::iterator i = grids.begin();
 			while(Large < (*i)->GetCellSize(0)/2 && i != grids.end()){
 				++i;
 			}
@@ -226,7 +226,7 @@ class hgrid: public grid{
 			SetPtrObj Result;
 			SetPtrObj Temp;
 
-			vector<boost::shared_ptr<singlegrid> >::iterator i = grids.begin();
+			vector<std::shared_ptr<singlegrid> >::iterator i = grids.begin();
 			while(i!=grids.end()){
 				//the hgrid export is the sum of all it's grid exports.
 				Temp = (*i)->Export();
@@ -242,7 +242,7 @@ class hgrid: public grid{
 			bool temp = true;
 			bool result = true;
 			//clear all subgrids
-			vector<boost::shared_ptr<singlegrid> >::iterator i = grids.begin();
+			vector<std::shared_ptr<singlegrid> >::iterator i = grids.begin();
 			while(i<grids.end()){
 				(*i)->Clear();
 				++i;
@@ -255,7 +255,7 @@ class hgrid: public grid{
 		///The sum of all cells in all grids.
 		Scalar CellCount(){
 			Scalar result = 0;
-			vector<boost::shared_ptr<singlegrid> >::iterator i = grids.begin();
+			vector<std::shared_ptr<singlegrid> >::iterator i = grids.begin();
 			while(i<grids.end()){
 				result+=(*i)->CellCount();
 				++i;
@@ -271,16 +271,16 @@ class hgrid: public grid{
 };
 
 /*typedef Object Obj;
-typedef boost::shared_ptr<Obj> PtrObj;
+typedef std::shared_ptr<Obj> PtrObj;
 class hgrid_iterator : public iterator<forward_iterator_tag,PtrObj*>{
 	
 	//Private constructor means only hgrid can create this iterator
 	friend class hgrid;
 
 	private:
-		boost::shared_ptr<singlegrid> Outer;
+		std::shared_ptr<singlegrid> Outer;
 		singlegrid::iterator Inner;
-		hgrid_iterator(boost::shared_ptr<singlegrid> NewOuter): Outer(NewOuter){
+		hgrid_iterator(std::shared_ptr<singlegrid> NewOuter): Outer(NewOuter){
 			Inner = Outer->begin();
 		}
 	public:
