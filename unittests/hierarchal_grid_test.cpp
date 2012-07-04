@@ -26,3 +26,9 @@ public:
  void runTest() { suite_TestSuiteHierarchalGrid.testInitializeHierarchalBoundingBox(); }
 } testDescription_suite_TestSuiteHierarchalGrid_testInitializeHierarchalBoundingBox;
 
+static class TestDescription_suite_TestSuiteHierarchalGrid_testHierarchalIterator : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_TestSuiteHierarchalGrid_testHierarchalIterator() : CxxTest::RealTestDescription( Tests_TestSuiteHierarchalGrid, suiteDescription_TestSuiteHierarchalGrid, 115, "testHierarchalIterator" ) {}
+ void runTest() { suite_TestSuiteHierarchalGrid.testHierarchalIterator(); }
+} testDescription_suite_TestSuiteHierarchalGrid_testHierarchalIterator;
+

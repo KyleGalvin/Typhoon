@@ -60,35 +60,62 @@ class TestSuiteHierarchalGrid: public CxxTest::TestSuite{
 		f->Dimensions.push_back(1);
 		f->Dimensions.push_back(1);
 
-		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		TS_ASSERT(myHGrid.CellCount() == 0);
+		TS_ASSERT(myHGrid.GridCount() == 0);
+		
 		myHGrid.Add(a);
-		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		TS_ASSERT(myHGrid.CellCount() == 8);
+		TS_ASSERT(myHGrid.GridCount() == 1);
+		
 		myHGrid.Add(b);
-		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		TS_ASSERT(myHGrid.CellCount() == 8);
+		TS_ASSERT(myHGrid.GridCount() == 1);
+
 		myHGrid.Add(b);
-		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		TS_ASSERT(myHGrid.CellCount() == 8);
+		TS_ASSERT(myHGrid.GridCount() == 1);
+
 		myHGrid.Add(c);
-		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		TS_ASSERT(myHGrid.CellCount() == 12);
+		TS_ASSERT(myHGrid.GridCount() == 2);
+
 		myHGrid.Add(d);
-		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		TS_ASSERT(myHGrid.CellCount() == 16);
+		TS_ASSERT(myHGrid.GridCount() == 3);
+
 		myHGrid.Add(e);
-		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		TS_ASSERT(myHGrid.CellCount() == 20);
+		TS_ASSERT(myHGrid.GridCount() == 4);
+
 		myHGrid.Add(f);
-		cout<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
+		TS_ASSERT(myHGrid.CellCount() == 21);
+		TS_ASSERT(myHGrid.GridCount() == 5);
 
 		hgrid myHGridTwo;
-		cout<<"Copying!\n";
+		
+		/*Copy one hgrid into the next. Our numbers will be different, as the
+		  objects will be repackaged into the new grid in a different sequence
+		  than when they were packaged into the original grid */
 		myHGridTwo.Add(myHGrid.Export());
-		cout<<"G1: "<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
-		cout<<"G2: "<<myHGridTwo.CellCount()<<" cells in "<<myHGridTwo.GridCount()<<" grids.\n";
-
+		TS_ASSERT(myHGrid.CellCount() == 21);
+		TS_ASSERT(myHGrid.GridCount() == 5);
+		TS_ASSERT(myHGridTwo.CellCount() ==25);
+		TS_ASSERT(myHGridTwo.GridCount() == 6);
+	
+		/*Clear the grid and make sure it is empty. Also check that our copied grid
+		  has clean data after the original was stored (decoupled) */	
 		myHGrid.Clear();
+		TS_ASSERT(myHGrid.CellCount() == 0);
+		TS_ASSERT(myHGrid.GridCount() == 0);
+		TS_ASSERT(myHGridTwo.CellCount() ==25);
+		TS_ASSERT(myHGridTwo.GridCount() == 6);
 
-		cout<<"G1: "<<myHGrid.CellCount()<<" cells in "<<myHGrid.GridCount()<<" grids.\n";
-		cout<<"G2: "<<myHGridTwo.CellCount()<<" cells in "<<myHGridTwo.GridCount()<<" grids.\n";
+	}
+
+	public: void testHierarchalIterator(){
 
 		//cout<<"\nIterating:\n";
-		//hgrid<areagrid>::const_iterator i = myHGridTwo.begin();
+		hgrid::const_iterator i = myHGridTwo.begin();
 		//cout<<"in demo\n";
 		//hgrid<areagrid>::const_iterator y = myHGridTwo.end(); 
 		//cout<<"end clear\n";

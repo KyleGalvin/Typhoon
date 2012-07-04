@@ -270,23 +270,23 @@ class hgrid: public grid{
 
 };
 
-/*typedef Object Obj;
-typedef std::shared_ptr<Obj> PtrObj;
-class hgrid_iterator : public iterator<forward_iterator_tag,PtrObj*>{
+//typedef Object Obj;
+//typedef std::shared_ptr<Obj> PtrObj;
+class const_iterator : public iterator<forward_iterator_tag,PtrObj>{
 	
 	//Private constructor means only hgrid can create this iterator
 	friend class hgrid;
 
 	private:
 		std::shared_ptr<singlegrid> Outer;
-		singlegrid::iterator Inner;
-		hgrid_iterator(std::shared_ptr<singlegrid> NewOuter): Outer(NewOuter){
+		singlegrid::const_iterator Inner;
+		const_iterator(std::shared_ptr<singlegrid> NewOuter): Outer(NewOuter){
 			Inner = Outer->begin();
 		}
 	public:
 		PtrObj operator*(){
 			return *Inner;
 		}
-		const hgrid_iterator & operator++(){};
-		bool operator !=(const hgrid_iterator& external) const;
-};*/
+		const const_iterator & operator++(){};
+		bool operator !=(const const_iterator& external) const;
+};
