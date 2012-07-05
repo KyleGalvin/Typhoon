@@ -3,6 +3,7 @@
 #include "collision.hpp"
 #include <cstdlib>
 #include <ctime>
+#include <memory>
 
 #define X_PIXELS 500
 #define Y_PIXELS 500
@@ -10,9 +11,9 @@
 
 #define TO_RAD(x) ((x)/180.0 * 3.142592654f)
 typedef Object Obj;
-typedef boost::shared_ptr<Obj> PtrObj;
+typedef std::shared_ptr<Obj> PtrObj;
 typedef vector<PtrObj> ListPtrObj;
-typedef boost::shared_ptr<ListPtrObj> PtrListPtrObj;
+typedef std::shared_ptr<ListPtrObj> PtrListPtrObj;
 
 float clocation[] = {0,0,0};
 float rotation[] = {0,0,0};
@@ -21,7 +22,7 @@ PtrObj FocusObj;
 int lastx = 0;
 int lasty = 0;
 
-PtrListPtrObj MyObjects;
+PtrSetPtrObj MyObjects;
 hgrid MyGrid;
 
 PtrObj createRandObj(){
@@ -48,8 +49,8 @@ PtrObj createRandObj(){
 	return O;
 }
 
-PtrListPtrObj createObjects(){
-	PtrListPtrObj result(new ListPtrObj);
+PtrSetPtrObj createObjects(){
+	PtrSetPtrObj result(new SetPtrObj);
 
 	srand((unsigned)time(0));
 	double xratio = 1.0/X_PIXELS;
@@ -57,11 +58,11 @@ PtrListPtrObj createObjects(){
 	double zratio = 1.0/Z_PIXELS;
 
 	for(int i=0;i<10;i++){
-		result->push_back(createRandObj());
+		result->insert(createRandObj());
 	}
 	FocusObj = createRandObj();
 	FocusObj->debug = false;
-	result->push_back(FocusObj);
+	result->insert(FocusObj);
 
 	return result;
 }
@@ -80,9 +81,9 @@ void drawAABB(){
 	
 	typedef pair<Coordinate,Coordinate> Line;
 	typedef vector<Line> LineList;
-	typedef boost::shared_ptr<LineList> PtrLineList;
+	typedef std::shared_ptr<LineList> PtrLineList;
 	
-	ListPtrObj::iterator i = MyObjects->begin();
+	SetPtrObj::iterator i = MyObjects->begin();
 	PtrLineList Shape;
 
 	//start drawin lines!
@@ -111,7 +112,7 @@ void drawAABB(){
 void drawGrid(){
 	typedef pair<Coordinate,Coordinate> Line;
 	typedef vector<Line> LineList;
-	typedef boost::shared_ptr<LineList> PtrLineList;
+	typedef std::shared_ptr<LineList> PtrLineList;
 	
 	PtrLineList Shape;
 	typename hgrid::const_iterator i = MyGrid.begin();
@@ -122,7 +123,7 @@ void drawGrid(){
 	while(i!=MyGrid.end()){
 		cellcount++;
 		//cout<<"Cell: "<<cellcount<<"\n";
-		Shape = (*i).second->GetShape();
+		Shape = (*i)->GetShape();
 		LineList::iterator Si = Shape->begin();
 
 		while(Si != Shape->end()){

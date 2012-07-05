@@ -7,7 +7,10 @@ BIN_DIR = ./bin/
 .SUFFIXES:
 .SUFFIXES: .cpp .o
 
-test :	$(TEST_DIR)testrunner.cpp
+test3d :	InteractiveDemo.cpp
+	g++ -o $(BIN_DIR)test InteractiveDemo.cpp singlegrid.hpp grid.hpp hgrid.hpp -std=c++0x -lglut -lGL -lGLU
+
+testGrids :	$(TEST_DIR)testrunner.cpp
 	g++ -o $(BIN_DIR)test $(TEST_DIR)testrunner.cpp $(TEST_DIR)single_grid_test.cpp $(TEST_DIR)hierarchal_grid_test.cpp $(TEST_DIR)shared_ptr_test.cpp -std=c++0x
 
 $(TEST_DIR)testrunner.cpp : $(TEST_DIR)single_grid_test.cpp $(TEST_DIR)hierarchal_grid_test.cpp $(TEST_DIR)shared_ptr_test.cpp
