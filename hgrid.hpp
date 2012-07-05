@@ -252,6 +252,25 @@ class hgrid: public grid{
 			grids.erase(grids.begin(),grids.end());
 		}
 
+		PtrSetPtrObj GetNeighbours(PtrObj O){
+
+			PtrSetPtrObj Result;
+			PtrSetPtrObj PartialResult;
+			SetPtrObj::iterator PRit;
+			
+			for(int i=0;i<grids.size();i++){
+				PartialResult = grids[i]->GetNeighbours(O);
+
+				PRit = PartialResult->begin();
+				while(PRit != PartialResult->end()){
+					Result->insert((*PRit));
+					++PRit;
+				}
+			}
+
+			return Result;
+		}
+
 		///The sum of all cells in all grids.
 		Scalar CellCount(){
 			Scalar result = 0;

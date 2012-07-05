@@ -94,24 +94,24 @@ class singlegrid: public grid{
 			return Quotient;
 		}
 
-		//SetPtrObj GetNeighbours(PtrObj O, Coordinate L){
-		//	string Key = GetKey(L);
-		//	cout<<Key<<"\n";
-		//	map<string, PtrObj>::iterator it = Cells.find(Key);
-		//	PtrObj Cell = ((*it).second);
+		/*PtrListPtrObj GetNeighbours(PtrObj O, Coordinate L){
+			string Key = GetKey(L);
+			cout<<Key<<"\n";
+			map<string, PtrObj>::iterator it = Cells.find(Key);
+			PtrObj Cell = ((*it).second);
 
-		//	SetPtrObj Result;
-		//	vector<std::shared_ptr<Object> >::iterator i=Cell->BoundObjs.begin();
-		//	while(i!=Cell->BoundObjs.end()){
-		//		if(*i!=O){
-		//			//we dont include O in the list of objects near O.
-		//			Result.insert(*i);
-		//			++i;
-		//		}
-		//	}
-		//	
-		//	return Result;
-		//}
+			PtrListPtrObj Result;
+			vector<std::shared_ptr<Object> >::iterator i=Cell->BoundObjs.begin();
+			while(i!=Cell->BoundObjs.end()){
+				if(*i!=O){
+					//we dont include O in the list of objects near O.
+					Result->push_back(*i);
+					++i;
+				}
+			}
+			
+			return Result;
+		}*/
 
 
 		///Helper function for RFoil()
@@ -390,28 +390,28 @@ class singlegrid: public grid{
 			return -1;//Assuming cells cant be a negative length, this should work.
 		} 
 
-		SetPtrObj GetNeighbours(PtrObj O){
-			SetPtrObj Results;
+		PtrSetPtrObj GetNeighbours(PtrObj O){
+			PtrSetPtrObj Results(new SetPtrObj()); 
 
 			//Get all the cells O contacts
 			vector<Coordinate> CellLocations = FindCellOverlap(O);
 			
 			PtrObj SingleCell = (Cells.find(GetKey(CellLocations.back()))->second);
-			ListPtrObj::iterator j = SingleCell->BoundObjs.begin();
 			while(CellLocations.size() > 0){
-				while(j != SingleCell->BoundObjs.end()){
-					Results.insert((*j));
-					++j;
-				}
+				cout<<SingleCell->BoundObjs.size()<<"HERE\n";
+				Results->insert(SingleCell->BoundObjs.begin(),SingleCell->BoundObjs.end());
+				cout<<SingleCell->BoundObjs.size()<<"HERE\n";
+			
 				CellLocations.pop_back();
 				if(CellLocations.size()>0){
 					SingleCell = (Cells.find(GetKey(CellLocations.back()))->second);
-					j = SingleCell->BoundObjs.begin();
 				}
+				cout<<SingleCell->BoundObjs.size()<<"HERE\n";
 			}
 
 			//O is not a Neighbour of itself.
-			Results.erase(O);
+			Results->erase(O);
+			cout<<"HYERE\n";
 			return Results;
 
 		}

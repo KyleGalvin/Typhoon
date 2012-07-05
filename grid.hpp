@@ -13,6 +13,7 @@ typedef std::shared_ptr<Obj> PtrObj;
 typedef vector<PtrObj> ListPtrObj;
 typedef std::shared_ptr<ListPtrObj> PtrListPtrObj;
 typedef set<PtrObj> SetPtrObj;
+typedef std::shared_ptr<SetPtrObj> PtrSetPtrObj;
 typedef vector<Scalar> ListScalar;
 typedef std::shared_ptr<ListScalar> PtrListScalar;
 
@@ -35,7 +36,7 @@ class grid{
 		virtual void Add(SetPtrObj List) = 0;
 		virtual void Remove(PtrObj) = 0;
 		virtual void Remove(ListPtrObj List) = 0;
-		//virtual ListPtrObj GetNeighbours(PtrObj) = 0;//TODO: Insert this after we build the function into our grids
+		virtual PtrSetPtrObj GetNeighbours(PtrObj) = 0;//TODO: Insert this after we build the function into our grids
 		virtual SetPtrObj Export() = 0;
 		virtual void Clear() = 0;
 		virtual Scalar CellCount() = 0;

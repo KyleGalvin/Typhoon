@@ -153,11 +153,11 @@ class TestSuiteSingleGrid: public CxxTest::TestSuite{
 		TS_ASSERT(ObjFragmentCounter == 11);
 		TS_ASSERT(grid.CellCount() == CellCounter);
 	
-		SetPtrObj test = grid.GetNeighbours(b);
-		SetPtrObj::iterator k = test.begin();
+		PtrSetPtrObj test = grid.GetNeighbours(b);
+		SetPtrObj::iterator k = test->begin();
 	
 		int BroadPhaseCullingCounter = 0;
-		while(k!= test.end()){
+		while(k!= test->end()){
 			++k;
 			BroadPhaseCullingCounter++;
 		}

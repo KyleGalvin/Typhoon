@@ -116,7 +116,7 @@ class TestSuiteHierarchalGrid: public CxxTest::TestSuite{
 
 	public: void testHierarchalIterator(){
 
-		HGDE myHGrid;
+		hgrid myHGrid;
 		myHGrid.debug = true;
 
 		std::shared_ptr<AABB> a(new AABB);
@@ -179,7 +179,7 @@ class TestSuiteHierarchalGrid: public CxxTest::TestSuite{
 		myHGrid.Add(e);
 		myHGrid.Add(f);
 
-		HGDE myHGridTwo;
+		hgrid myHGridTwo;
 		myHGridTwo.debug = true;
 
 		/*Copy one hgrid into the next. Our numbers will be different, as the
