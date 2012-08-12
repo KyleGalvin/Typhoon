@@ -5,12 +5,14 @@
 #include <ctime>
 #include <memory>
 #include "SDL/SDL.h"
+#include "camera.hpp"
 
 #define X_PIXELS 500
 #define Y_PIXELS 500
 #define Z_PIXELS 500
 
 #define TO_RAD(x) ((x)/180.0 * 3.142592654f)
+
 typedef Object Obj;
 typedef std::shared_ptr<Obj> PtrObj;
 typedef vector<PtrObj> ListPtrObj;
@@ -22,6 +24,8 @@ float zoom = 45.0;
 PtrObj FocusObj;
 int lastx = 0;
 int lasty = 0;
+
+camera *cam;
 
 PtrSetPtrObj MyObjects;
 hgrid MyGrid;
@@ -273,6 +277,8 @@ int main(int argc, char **argv){
 	//glutEnterGameMode();	
 	glutCreateWindow("Space Exploder");
 	glOrtho(-1,1,-1,1,-1,1);
+
+	cam = new camera();
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 //	glutEnterGameMode();

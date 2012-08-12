@@ -1,7 +1,8 @@
-
+#include "objectstructs.hpp"
 
 class camera : public Object{
 
+	public:
 	Coordinate Up;
 	Coordinate Target;
 
@@ -90,4 +91,4 @@ class camera : public Object{
 		Normalize(Up);
 		Normalize(Target);	
 	}
-}
+};
