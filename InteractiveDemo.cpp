@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <memory>
+#include "SDL/SDL.h"
 
 #define X_PIXELS 500
 #define Y_PIXELS 500
@@ -16,7 +17,7 @@ typedef vector<PtrObj> ListPtrObj;
 typedef std::shared_ptr<ListPtrObj> PtrListPtrObj;
 
 float clocation[] = {0,0,0};
-float rotation[] = {0,0,0};
+float rotation[] = {0,180,0};
 float zoom = 45.0;
 PtrObj FocusObj;
 int lastx = 0;
@@ -146,6 +147,15 @@ void draw(){
 }
 
 void display(){
+	SDL_Event event;
+		while(SDL_PollEvent(&event)){
+			if(event.type==SDL_QUIT){
+				exit(1);
+			}
+
+			//update mouse info once we have pointer set up
+
+		}
 	//moveObjects();
 	//updateCollisionGrid();
 	glMatrixMode(GL_PROJECTION);
@@ -176,6 +186,9 @@ void keys(unsigned char key, int x, int y){
 	if(key=='d'){
 		rotation[1]+=1;
 		if(rotation[1]>=360) rotation[1]-=360;
+		float yrotradians = TO_RAD(rotation[1]);
+		clocation[0] += float(cos(yrotradians))*0.2;
+		clocation[2] += float(cos(yrotradians))*0.2;
 	}
 	if(key=='s'){	
 		float xrotradians = TO_RAD(rotation[0]);
@@ -187,6 +200,9 @@ void keys(unsigned char key, int x, int y){
 	if(key=='a'){
 		rotation[1]-=1;
 		if(rotation[1]<0) rotation[1]+=360;
+		float yrotradians = TO_RAD(rotation[1]);
+		clocation[0] -= float(cos(yrotradians))*0.2;
+		clocation[2] -= float(cos(yrotradians))*0.2;
 	}
 	if(key=='w'){	
 		float xrotradians = TO_RAD(rotation[0]);
@@ -205,6 +221,9 @@ void keys(unsigned char key, int x, int y){
 		clocation[0] -= float(cos(yrotradians))*0.2;
 		clocation[2] -= float(sin(yrotradians))*0.2;
 	}
+	if(key=='q'){
+		glutLeaveGameMode();
+	}
 	display();
 }
 
@@ -220,12 +239,28 @@ void mouse(int button, int state, int x, int y){
 }
 
 void mousemove(int x, int y){
+
+/*	if(x>X_PIXELS-1){
+		lastx = x = 1;
+	}else if(x<1){
+		lastx = x = X_PIXELS-1;
+	}
+
+	if(y>Y_PIXELS-1){
+		lasty = y = 1;
+	}else if(y<1){
+		lasty = y = Y_PIXELS-1;
+	}*/
 	float dx = float(x-lastx);
 	float dy = float(y-lasty);
 	lastx=x;
 	lasty=y;
-	rotation[0] += dy/5.0;
-	rotation[1] += dx/5.0;
+	rotation[0] += (float)dy;
+	rotation[1] += (float)dx;
+	//if(x != GLUT_WINDOW_WIDTH/2 && y != GLUT_WINDOW_HEIGHT/2){
+	//	glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
+	//}
+	//glutSetCursor(GLUT_CURSOR_NONE);	
 	display();
 }
 
@@ -235,15 +270,18 @@ int main(int argc, char **argv){
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(X_PIXELS, Y_PIXELS); 
+	//glutEnterGameMode();	
 	glutCreateWindow("Space Exploder");
 	glOrtho(-1,1,-1,1,-1,1);
-	
+
+	SDL_Init(SDL_INIT_EVERYTHING);
+//	glutEnterGameMode();
 	//define our main functions
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
-	glutKeyboardFunc(keys);
-	glutMouseFunc(mouse);
-	glutPassiveMotionFunc(mousemove);
+	//glutKeyboardFunc(keys);
+	//glutMouseFunc(mouse);
+	//glutPassiveMotionFunc(mousemove);
 	//initialize game elements
 	MyObjects = createObjects();
 	MyGrid.Add(*MyObjects);

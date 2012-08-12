@@ -36,7 +36,7 @@ class grid{
 		virtual void Add(SetPtrObj List) = 0;
 		virtual void Remove(PtrObj) = 0;
 		virtual void Remove(ListPtrObj List) = 0;
-		virtual PtrSetPtrObj GetNeighbours(PtrObj) = 0;//TODO: Insert this after we build the function into our grids
+		virtual PtrSetPtrObj GetNeighbours(PtrObj) = 0;
 		virtual SetPtrObj Export() = 0;
 		virtual void Clear() = 0;
 		virtual Scalar CellCount() = 0;
