@@ -32,14 +32,62 @@ class camera : public Object{
 			Rotation.push_back(0);
 	}
 
-	void rotateY(float amount)
+	Coordinate Normalize(Coordinate vec){
+		//normalize!
+		return vec;
+	}
+
+	void rotateX(float amount)
 	{
-		Vector target = m_target;
-		Vector right = m_right;
+		Coordinate tempTarget = Target;
+		Coordinate tempUp = Up;
 
 		amount /=57.2957795f; // convert degrees to radians
 
-		Rotation[0] = (cos(1.5708f + amount) * Rotation[0]) + (cos(amount) * right);
-	
+	//	Target[0] = (cos(1.5708f + amount) * tempTarget[0]) + (cos(amount) * tempUp[0]);
+		Target[1] = (cos(1.5708f + amount) * tempTarget[1]) + (cos(amount) * tempUp[1]);
+		Target[2] = (cos(1.5708f + amount) * tempTarget[2]) + (cos(amount) * tempUp[2]);
+	//	Up[0] = (cos(amount) * tempTarget[0]) + (cos(1.5708f - amount) * tempUp[0]);
+		Up[1] = (cos(amount) * tempTarget[1]) + (cos(1.5708f - amount) * tempUp[1]);
+		Up[2] = (cos(amount) * tempTarget[2]) + (cos(1.5708f - amount) * tempUp[2]);
+
+		Normalize(Up);
+		Normalize(Target);	
+	}
+
+	void rotateY(float amount)
+	{
+		Coordinate tempTarget = Target;
+		Coordinate tempUp = Up;
+
+		amount /=57.2957795f; // convert degrees to radians
+
+		Target[0] = (cos(1.5708f + amount) * tempTarget[0]) + (cos(amount) * tempUp[0]);
+	//	Target[1] = (cos(1.5708f + amount) * tempTarget[1]) + (cos(amount) * tempUp[1]);
+		Target[2] = (cos(1.5708f + amount) * tempTarget[2]) + (cos(amount) * tempUp[2]);
+		Up[0] = (cos(amount) * tempTarget[0]) + (cos(1.5708f - amount) * tempUp[0]);
+	//	Up[1] = (cos(amount) * tempTarget[1]) + (cos(1.5708f - amount) * tempUp[1]);
+		Up[2] = (cos(amount) * tempTarget[2]) + (cos(1.5708f - amount) * tempUp[2]);
+
+		Normalize(Up);
+		Normalize(Target);	
+	}
+
+	void rotateZ(float amount)
+	{
+		Coordinate tempTarget = Target;
+		Coordinate tempUp = Up;
+
+		amount /=57.2957795f; // convert degrees to radians
+
+		Target[0] = (cos(1.5708f + amount) * tempTarget[0]) + (cos(amount) * tempUp[0]);
+		Target[1] = (cos(1.5708f + amount) * tempTarget[1]) + (cos(amount) * tempUp[1]);
+	//	Target[2] = (cos(1.5708f + amount) * tempTarget[2]) + (cos(amount) * tempUp[2]);
+		Up[0] = (cos(amount) * tempTarget[0]) + (cos(1.5708f - amount) * tempUp[0]);
+		Up[1] = (cos(amount) * tempTarget[1]) + (cos(1.5708f - amount) * tempUp[1]);
+	//	Up[2] = (cos(amount) * tempTarget[2]) + (cos(1.5708f - amount) * tempUp[2]);
+
+		Normalize(Up);
+		Normalize(Target);	
 	}
 }
