@@ -167,10 +167,12 @@ void display(){
 	gluPerspective(zoom,1,0,100);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glRotatef( rotation[0], 1, 0, 0 );
-	glRotatef( rotation[1], 0, 1, 0 );
-	glRotatef( rotation[2], 0, 0, 1 );
-	glTranslated(clocation[0],clocation[1],clocation[2]);
+	cout<<cam->Target[0]<<"\n";
+//	glRotatef(cam->Rotation[0],1,0,0);
+//	glRotatef(cam->Rotation[1],0,1,0);
+//	glRotatef(cam->Rotation[2],0,0,1);
+
+	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],cam->Location[0]+cam->Target[0],cam->Location[1]+cam->Target[1],cam->Location[2]+cam->Target[2],cam->Location[0]+cam->Up[0],cam->Location[1]+cam->Up[1],cam->Location[2]+cam->Up[2]);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	//glEnable(GL_DEPTH_TEST);
 	//glShadeModel(GL_SMOOTH);
@@ -187,7 +189,7 @@ void reshape(int x, int y){
 }
 
 void keys(unsigned char key, int x, int y){
-	if(key=='d'){
+	/* if(key=='d'){
 		rotation[1]+=1;
 		if(rotation[1]>=360) rotation[1]-=360;
 		float yrotradians = TO_RAD(rotation[1]);
@@ -227,7 +229,48 @@ void keys(unsigned char key, int x, int y){
 	}
 	if(key=='q'){
 		glutLeaveGameMode();
+	}*/
+
+	if(key=='i'){
+		printf("W\n");
+		cam->rotateX(-5);
+	}if(key=='k'){
+		printf("S\n");
+		cam->rotateX(5);
+	}if(key=='l'){
+		printf("A\n");
+		cam->rotateY(-5);
+	}if(key=='j'){
+		printf("D\n");
+		cam->rotateY(5);
+	}if(key=='u'){
+		printf("D\n");
+		cam->rotateZ(-5);
+	}if(key=='o'){
+		printf("D\n");
+		cam->rotateZ(5);
+	}if(key=='w'){
+		printf("S\n");
+		cam->translateZ(1);
+	}if(key=='a'){
+		printf("S\n");
+		cam->translateX(-1);
+	}if(key=='s'){
+		printf("S\n");
+		cam->translateZ(-1);
+	}if(key=='d'){
+		printf("S\n");
+		cam->translateX(1);
+	}if(key=='q'){
+		printf("S\n");
+		cam->translateY(-1);
+	}if(key=='e'){
+		printf("S\n");
+		cam->translateY(1);
+	}if(key=='q'){
+		glutLeaveGameMode();
 	}
+
 	display();
 }
 
@@ -280,12 +323,12 @@ int main(int argc, char **argv){
 
 	cam = new camera();
 
-	SDL_Init(SDL_INIT_EVERYTHING);
+	//SDL_Init(SDL_INIT_EVERYTHING);
 //	glutEnterGameMode();
 	//define our main functions
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
-	//glutKeyboardFunc(keys);
+	glutKeyboardFunc(keys);
 	//glutMouseFunc(mouse);
 	//glutPassiveMotionFunc(mousemove);
 	//initialize game elements
