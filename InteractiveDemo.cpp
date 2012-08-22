@@ -172,7 +172,11 @@ void display(){
 //	glRotatef(cam->Rotation[1],0,1,0);
 //	glRotatef(cam->Rotation[2],0,0,1);
 
-	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],cam->Location[0]+cam->Target[0],cam->Location[1]+cam->Target[1],cam->Location[2]+cam->Target[2],cam->Location[0]+cam->Up[0],cam->Location[1]+cam->Up[1],cam->Location[2]+cam->Up[2]);
+	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],cam->Location[0]+cam->Target[0],cam->Location[1]+cam->Target[1],cam->Location[2]+cam->Target[2],cam->Up[0],cam->Up[1],cam->Up[2]);
+//	gluLookAt(0,0,0,cam->Target[0],cam->Target[1],cam->Target[2],cam->Up[0],cam->Up[1],cam->Up[2]);
+//	glTranslatef(cam->Location[0],cam->Location[1],cam->Location[2]);
+
+
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	//glEnable(GL_DEPTH_TEST);
 	//glShadeModel(GL_SMOOTH);
@@ -251,13 +255,13 @@ void keys(unsigned char key, int x, int y){
 		cam->rotateZ(5);
 	}if(key=='w'){
 		printf("S\n");
-		cam->translateZ(1);
+		cam->translateZ(-1);
 	}if(key=='a'){
 		printf("S\n");
 		cam->translateX(-1);
 	}if(key=='s'){
 		printf("S\n");
-		cam->translateZ(-1);
+		cam->translateZ(1);
 	}if(key=='d'){
 		printf("S\n");
 		cam->translateX(1);
@@ -270,6 +274,14 @@ void keys(unsigned char key, int x, int y){
 	}if(key=='q'){
 		glutLeaveGameMode();
 	}
+
+cout<<"xpos"<<cam->Location[0]<<"\n";
+cout<<"ypos"<<cam->Location[1]<<"\n";
+cout<<"zpos"<<cam->Location[2]<<"\n";
+
+cout<<"xrot"<<cam->Target[0]<<"\n";
+cout<<"yrot"<<cam->Target[1]<<"\n";
+cout<<"zrot"<<cam->Target[2]<<"\n";
 
 	display();
 }

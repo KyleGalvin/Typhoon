@@ -108,19 +108,19 @@ class camera : public Object{
 	
 	void translateX(float amount){
 		Location[0]+= Right[0]*amount;
-	//	Location[1]+= Right[1]*amount;
-	//	Location[2]+= Right[2]*amount;
+		Location[1]+= Right[1]*amount;
+		Location[2]+= Right[2]*amount;
 	}
 
 	void translateY(float amount){
-	//	Location[0]+= Up[0]*amount;
+		Location[0]+= Up[0]*amount;
 		Location[1]+= Up[1]*amount;
-	//	Location[2]+= Up[2]*amount;
+		Location[2]+= Up[2]*amount;
 	}
 
 	void translateZ(float amount){
-	//	Location[0]+= Target[0]*amount;
-	//	Location[1]+= Target[1]*amount;
+		Location[0]+= Target[0]*amount;
+		Location[1]+= Target[1]*amount;
 		Location[2]+= Target[2]*amount;
 	}
 };
