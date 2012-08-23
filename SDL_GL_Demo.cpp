@@ -7,6 +7,7 @@
 #include "collision.hpp"
 #include "camera.hpp"
 #include "timer.hpp"
+#include "render.hpp"
 
 #define X_PIXELS 500
 #define Y_PIXELS 500
@@ -21,6 +22,10 @@ PtrObj FocusObj;
 float zoom = 45.0;
 int mouseX;
 int mouseY;
+
+GLuint texture;
+GLint nOfColors;
+GLenum texture_format;
 
 PtrObj createRandObj(){
 
@@ -75,6 +80,8 @@ bool drawPoly(){
 }
 
 void drawAABB(){
+
+	glBindTexture(GL_TEXTURE_2D,texture);
 	typedef pair<Coordinate,Coordinate> Line;
 	typedef vector<Line> LineList;
 	typedef std::shared_ptr<LineList> PtrLineList;
@@ -84,16 +91,29 @@ void drawAABB(){
 
 	//start drawin lines!
 	glColor3f(0,0.5,0);
-	glBegin(GL_LINES);
+	glBegin(GL_QUADS);
 
 	while(i !=MyObjects->end()){
 		Shape=(*i)->GetShape();
 
 		LineList::iterator Si = Shape->begin();
 
+		int texCounter = 0;
 		while(Si != Shape->end()){
 			Coordinate Start = (*Si).first;
 			Coordinate End = (*Si).second;
+
+			if(texCounter%4==0){
+				glTexCoord2i(0,0);
+			}else if(texCounter%4==1){
+				glTexCoord2i(1,0);
+			}else if(texCounter%4==2){
+				glTexCoord2i(1,1);
+			}else if(texCounter%4==3){
+				glTexCoord2i(0,1);
+			}
+			texCounter++;
+
 			glVertex3f(Start[0],Start[1],Start[2]);
 			glVertex3f(End[0],End[1],End[2]);
 			++Si;
@@ -162,7 +182,7 @@ bool init(int x, int y){
 	if ( SDL_SetVideoMode( x,y,32,SDL_OPENGL ) == NULL ){
 		return false;
 	}
-cout<<"GL init next:\n";
+
 	if ( initGL() == false ){
 		return false;
 	}
@@ -222,14 +242,39 @@ int main(){
 	mouseY=0;
 
 	cam = new camera();
-
-	
 	MyObjects = createObjects();
 	MyGrid.Add(*MyObjects);
 
+	init(screen_w,screen_h);
+	
+	SDL_Surface* cobblestoneFloor;
+	SDL_Render::loadimage("./6903.jpg" ,&cobblestoneFloor);	
+	
+	nOfColors = cobblestoneFloor->format->BytesPerPixel;
+	if(nOfColors == 4){
+		if(cobblestoneFloor->format->Rmask = 0x000000ff){
+			texture_format = GL_RGBA;
+		}else{
+			texture_format = GL_BGRA;
+		}
+	}else if(nOfColors == 3){
+		if(cobblestoneFloor->format->Rmask = 0x000000ff){
+			texture_format = GL_RGB;
+		}else{
+			texture_format = GL_BGR;
+		}
+		
+	}
 
-	init(screen_w,screen_h);	
+	glGenTextures(1,&texture);
+	glBindTexture(GL_TEXTURE_2D,texture);
+	glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
 
+	glTexParameterf( GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+	glTexParameterf( GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+
+	glTexImage2D( GL_TEXTURE_2D,0,nOfColors,cobblestoneFloor->w,cobblestoneFloor->h,0,texture_format,GL_UNSIGNED_BYTE,cobblestoneFloor->pixels);
+	
 	SDL_Event event;
 	SDL_ShowCursor(0);
 	SDL_WM_GrabInput(SDL_GRAB_ON);
