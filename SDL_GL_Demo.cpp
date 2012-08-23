@@ -145,7 +145,7 @@ bool initGL(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],cam->Location[0]+cam->Target[0],cam->Location[1]+cam->Target[1],cam->Location[2]+cam->Target[2],cam->Up[0],cam->Up[1],cam->Up[2]);
+	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],cam->Location[0]+(*cam->Target)[0],cam->Location[1]+(*cam->Target)[1],cam->Location[2]+(*cam->Target)[2],(*cam->Up)[0],(*cam->Up)[1],(*cam->Up)[2]);
 
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -162,7 +162,7 @@ bool init(int x, int y){
 	if ( SDL_SetVideoMode( x,y,32,SDL_OPENGL ) == NULL ){
 		return false;
 	}
-
+cout<<"GL init next:\n";
 	if ( initGL() == false ){
 		return false;
 	}
@@ -184,7 +184,7 @@ void render(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],cam->Location[0]+cam->Target[0],cam->Location[1]+cam->Target[1],cam->Location[2]+cam->Target[2],cam->Up[0],cam->Up[1],cam->Up[2]);
+	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],cam->Location[0]+(*cam->Target)[0],cam->Location[1]+(*cam->Target)[1],cam->Location[2]+(*cam->Target)[2],(*cam->Up)[0],(*cam->Up)[1],(*cam->Up)[2]);
 
 
 	draw();
@@ -213,24 +213,34 @@ void MouseMove(int x, int y,int halfHeight, int halfWidth)
 
 }
 int main(){
-	const int screen_w = 768;
-	const int screen_h = 500;
+	const int screen_w = 1366;
+	const int screen_h = 768;
 	const int screen_bpp = 32;
 	const int fps = 60;
 	
 	mouseX=0;
 	mouseY=0;
-
+cout<<"before camera\n";	
 	cam = new camera();
+	
+cout<<"after camera\n";	
 	MyObjects = createObjects();
 	MyGrid.Add(*MyObjects);
+
+cout<<"before init\n";
 	init(screen_w,screen_h);	
+cout<<"after init\n";
 	SDL_Event event;
 	SDL_ShowCursor(0);
 	SDL_WM_GrabInput(SDL_GRAB_ON);
 	Timer timer;
 	bool quit = false;
+cout<<"before forces\n";
+	shared_ptr<Force> UpForce = cam->addForce(cam->Up,0);
+	shared_ptr<Force> ForwardForce = cam->addForce(cam->Target,0);
+	shared_ptr<Force> RightForce = cam->addForce(cam->Right,0);
 
+cout<<"afterForces\n";
 	//game loop
 	while(!quit){
 		timer.start();
@@ -240,22 +250,26 @@ int main(){
 				quit=true;
 			}else if(event.type == SDL_KEYDOWN){
 				switch(event.key.keysym.sym){
-					case SDLK_w:cam->addForce(cam->Target,1) ; break;
-					case SDLK_s:cam->addForce(cam->Target,-1) ; break;
-					case SDLK_d:cam->addForce(cam->Right,-1) ; break;
-					case SDLK_a:cam->addForce(cam->Right,1) ; break;
-					case SDLK_e:cam->addForce(cam->Up,-1) ; break;
-					case SDLK_q:cam->addForce(cam->Up,1) ; break;
+					case SDLK_w:ForwardForce->magnitude += 1 ; break;
+					case SDLK_s:ForwardForce->magnitude -= 1 ; break;
+					case SDLK_d:RightForce->magnitude -= 1 ; break;
+					case SDLK_a:RightForce->magnitude += 1 ; break;
+					case SDLK_e:UpForce->magnitude -= 1 ; break;
+					case SDLK_q:UpForce->magnitude +=1 ; break;
+					case SDLK_i:cam->rotateX(5) ; break;
+					case SDLK_k:cam->rotateX(-5) ; break;
+					case SDLK_j:cam->rotateY(5) ; break;
+					case SDLK_l:cam->rotateY(-5) ; break;
 					case SDLK_z:quit=true; break;
 				}
 			}else if(event.type == SDL_KEYUP){
 				switch(event.key.keysym.sym){
-					case SDLK_w:cam->addForce(cam->Target,-1) ; break;
-					case SDLK_s:cam->addForce(cam->Target,1) ; break;
-					case SDLK_d:cam->addForce(cam->Right,1) ; break;
-					case SDLK_a:cam->addForce(cam->Right,-1) ; break;
-					case SDLK_e:cam->addForce(cam->Up,1) ; break;
-					case SDLK_q:cam->addForce(cam->Up,-1) ; break;
+					case SDLK_w:ForwardForce->magnitude -= 1 ; break;
+					case SDLK_s:ForwardForce->magnitude += 1 ; break;
+					case SDLK_d:RightForce->magnitude += 1 ; break;
+					case SDLK_a:RightForce->magnitude -= 1 ; break;
+					case SDLK_e:UpForce->magnitude += 1 ; break;
+					case SDLK_q:UpForce->magnitude -=1 ; break;
 				}
 			}else if(event.type == SDL_MOUSEMOTION ){
                 		MouseMove(event.motion.xrel, event.motion.yrel, screen_h/2,screen_w/2);

@@ -4,11 +4,10 @@
 class camera : public Object{
 
 	public:
-	Coordinate Up;
-	Coordinate Target;
-	Coordinate Right;
+	shared_ptr<Coordinate> Up;
+	shared_ptr<Coordinate> Target;
+	shared_ptr<Coordinate> Right;
 
-	Coordinate NetForce;
 
 	float xVel;
 	float yVel;
@@ -19,11 +18,7 @@ class camera : public Object{
 	float zAcc;
 
 	float mass;
-
 	float friction;
-
-	shared_ptr<Force> PhantomForce;
-
 	float maxSpeed;
 
 	void calculateAcceleration(Coordinate NetForce){
@@ -33,19 +28,13 @@ class camera : public Object{
 		zAcc = (NetForce[2]/mass)-(friction*zVel);
 	}
 
-/*	Coordinate calculateFriction(NetForce){
-		Coordinate result.push_back();
-		
-	}*/
-
 	void step(){
-		//Coordinate FrictionalDapmenedForce = calculateFriction(NetForce);
-
 		vector< shared_ptr< Force > >::iterator i;
-
-		NetForce[0]=0;
-		NetForce[1]=0;
-		NetForce[2]=0;
+			
+			Coordinate NetForce;
+			NetForce.push_back(0);
+			NetForce.push_back(0);
+			NetForce.push_back(0);
 
 		for(i = Forces.begin() ; i != Forces.end() ; i++){
 			NetForce[0] += (*((*i)->direction))[0] * (*i)->magnitude;
@@ -63,27 +52,18 @@ class camera : public Object{
 		translateZ(zVel);
 	}
 
-	void modifyPhantomForce(){
-	
-	}
 
-	void addForce(Coordinate unitVector, float magnitude){
+	shared_ptr<Force>  addForce(shared_ptr<Coordinate> unitVector, float magnitude){
 
 		shared_ptr<Force> f (new Force());
-
-
+cout<<"force initialized\n";
 		f->magnitude = magnitude;	
-		
-		(f->direction)->push_back(unitVector[0]);	
-		(f->direction)->push_back(unitVector[1]);	
-		(f->direction)->push_back(unitVector[2]);
-		Forces.push_back(f);
-	
-		//REWRITE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		NetForce[0] += unitVector[0] * magnitude;		
-		NetForce[1] += unitVector[1] * magnitude;		
-		NetForce[2] += unitVector[2] * magnitude;		
+		f->direction = unitVector;	
 
+cout<<"variables set\n";
+		Forces.push_back(f);
+cout<<"added to vector\n";
+		return f;
 	}
 
 	void accUp(float y){
@@ -112,19 +92,25 @@ class camera : public Object{
 			//convention: XYZ maps to element 012 respectively
 
 			//x-axis
-			Right.push_back(1);
-			Right.push_back(0);
-			Right.push_back(0);
+			shared_ptr<Coordinate> R (new Coordinate());
+			R->push_back(1);
+			R->push_back(0);
+			R->push_back(0);
+			Right = R;
 
 			//camera looks down the z-axis
-			Target.push_back(0);
-			Target.push_back(0);
-			Target.push_back(1);
+			shared_ptr<Coordinate> T (new Coordinate());
+			T->push_back(0);
+			T->push_back(0);
+			T->push_back(1);
+			Target=T;
 
 			//y-axis at the top
-			Up.push_back(0);
-			Up.push_back(1);
-			Up.push_back(0);
+			shared_ptr<Coordinate> U (new Coordinate());
+			U->push_back(0);
+			U->push_back(1);
+			U->push_back(0);
+			Up=U;
 			
 			//camera is a point...
 			Dimensions.push_back(0);
@@ -139,18 +125,9 @@ class camera : public Object{
 			Rotation.push_back(0);
 			Rotation.push_back(0);
 		
-			NetForce.push_back(0);
-			NetForce.push_back(0);
-			NetForce.push_back(0);
-		
 			mass = 1;
 			friction = 0.3;
 			maxSpeed=10;
-
-			// add a force ptr to the camera for 'puppeteering' and leave an easy-access pointer
-			shared_ptr < Force > f ( new Force() );
-			PhantomForce = f;//use this to avoid digging through Forces array
-			Forces.push_back(f);//objects in here are used to calculate net-force (and movement) of object
 
 			xVel = 0;
 			yVel = 0;
@@ -161,13 +138,12 @@ class camera : public Object{
 			zAcc = 0;
 	}
 
-	Coordinate Normalize(Coordinate vec){
+	void Normalize(shared_ptr<Coordinate> vec){
 		//normalize!
-		float len = sqrt((vec[0]*vec[0])+(vec[1]*vec[1])+(vec[2]*vec[2]));
-		vec[0]/=len;
-		vec[1]/=len;
-		vec[2]/=len;
-		return vec;
+		float len = sqrt(((*vec)[0] * (*vec)[0])+((*vec)[1] * (*vec)[1])+((*vec)[2] * (*vec)[2]));
+		(*vec)[0]/=len;
+		(*vec)[1]/=len;
+		(*vec)[2]/=len;
 	}
 
 	void rotateX(float amount)
@@ -180,21 +156,26 @@ class camera : public Object{
 		//add the simplified whole with the fraction
 		amount +=AdjustedIntAmount;
 
-		Coordinate tempTarget = Target;
-		Coordinate tempUp = Up;
+		Coordinate tempTarget = *Target;
+		Coordinate tempUp = *Up;
 
 		amount /=57.2957795f; // convert degrees to radians
 		
-		Target[0] = (cos(amount) * tempTarget[0]) - (sin(amount) * tempUp[0]);
-		Target[1] = (cos(amount) * tempTarget[1]) - (sin(amount) * tempUp[1]);
-		Target[2] = (cos(amount) * tempTarget[2]) - (sin(amount) * tempUp[2]);
+		(*Target)[0] = (cos(amount) * tempTarget[0]) - (sin(amount) * tempUp[0]);
+		(*Target)[1] = (cos(amount) * tempTarget[1]) - (sin(amount) * tempUp[1]);
+		(*Target)[2] = (cos(amount) * tempTarget[2]) - (sin(amount) * tempUp[2]);
 
-		Up[0] = (cos(amount) * tempUp[0]) + (sin(amount) * tempTarget[0]);
-		Up[1] = (cos(amount) * tempUp[1]) + (sin(amount) * tempTarget[1]);
-		Up[2] = (cos(amount) * tempUp[2]) + (sin(amount) * tempTarget[2]);
+		(*Up)[0] = (cos(amount) * tempUp[0]) + (sin(amount) * tempTarget[0]);
+		(*Up)[1] = (cos(amount) * tempUp[1]) + (sin(amount) * tempTarget[1]);
+		(*Up)[2] = (cos(amount) * tempUp[2]) + (sin(amount) * tempTarget[2]);
 
-		Target = Normalize(Target);	
-		Up = Normalize(Up);
+		cout<<"Up:"<<(*Up)[0]<<" "<<(*Up)[1]<<" "<<(*Up)[2]<<"\n";
+		cout<<"Force Up:"<<(*(Forces[0])->direction)[0]<<" "<<(*(Forces[0])->direction)[1]<<" "<<(*(Forces[0])->direction)[2]<<" MAG:"<<(Forces[0])->magnitude<<"\n";
+		cout<<"Force Target:"<<(*(Forces[1])->direction)[0]<<" "<<(*(Forces[1])->direction)[1]<<" "<<(*(Forces[1])->direction)[2]<<" MAG:"<<(Forces[1])->magnitude<<"\n";
+		cout<<"Force Right:"<<(*(Forces[2])->direction)[0]<<" "<<(*(Forces[2])->direction)[1]<<" "<<(*(Forces[2])->direction)[2]<<" MAG:"<<(Forces[2])->magnitude<<"\n";
+		
+		Normalize(Target);	
+		Normalize(Up);
 	}
 
 	void rotateY(float amount)
@@ -207,21 +188,22 @@ class camera : public Object{
 		//add the simplified whole with the fraction
 		amount +=AdjustedIntAmount;
 		
-		Coordinate tempTarget = Target;
-		Coordinate tempRight = Right;
+		Coordinate tempTarget = *Target;
+		Coordinate tempRight = *Right;
 
 		amount /=57.2957795f; // convert degrees to radians
 
-		Target[0] = (cos(amount) * tempTarget[0]) + (sin(amount) * tempRight[0]);
-		Target[1] = (cos(amount) * tempTarget[1]) + (sin(amount) * tempRight[1]);
-		Target[2] = (cos(amount) * tempTarget[2]) + (sin(amount) * tempRight[2]);
+		(*Target)[0] = (cos(amount) * tempTarget[0]) + (sin(amount) * tempRight[0]);
+		(*Target)[1] = (cos(amount) * tempTarget[1]) + (sin(amount) * tempRight[1]);
+		(*Target)[2] = (cos(amount) * tempTarget[2]) + (sin(amount) * tempRight[2]);
 
-		Right[0] = (cos(amount) * tempRight[0]) - (sin(amount) * tempTarget[0]);
-		Right[1] = (cos(amount) * tempRight[1]) - (sin(amount) * tempTarget[1]);
-		Right[2] = (cos(amount) * tempRight[2]) - (sin(amount) * tempTarget[2]);
 
-		Right = Normalize(Right);
-		Target = Normalize(Target);	
+		(*Right)[0] = (cos(amount) * tempRight[0]) - (sin(amount) * tempTarget[0]);
+		(*Right)[1] = (cos(amount) * tempRight[1]) - (sin(amount) * tempTarget[1]);
+		(*Right)[2] = (cos(amount) * tempRight[2]) - (sin(amount) * tempTarget[2]);
+
+		Normalize(Right);
+		Normalize(Target);	
 	}
 
 	void rotateZ(float amount)
@@ -234,38 +216,48 @@ class camera : public Object{
 		//add the simplified whole with the fraction
 		amount +=AdjustedIntAmount;
 		
-		Coordinate tempRight = Right;
-		Coordinate tempUp = Up;
+		Coordinate tempRight = *Right;
+		Coordinate tempUp = *Up;
 		
 		amount /=57.2957795f; // convert degrees to radians
 
-		Up[0] = (cos(amount) * tempUp[0]) - (sin(amount) * tempRight[0]);
-		Up[1] = (cos(amount) * tempUp[1]) - (sin(amount) * tempRight[1]);
-		Up[2] = (cos(amount) * tempUp[2]) - (sin(amount) * tempRight[2]);
+		(*Up)[0] = (cos(amount) * tempUp[0]) - (sin(amount) * tempRight[0]);
+		(*Up)[1] = (cos(amount) * tempUp[1]) - (sin(amount) * tempRight[1]);
+		(*Up)[2] = (cos(amount) * tempUp[2]) - (sin(amount) * tempRight[2]);
 
-		Right[0] = (cos(amount) * tempRight[0]) + (sin(amount) * tempUp[0]);
-		Right[1] = (cos(amount) * tempRight[1]) + (sin(amount) * tempUp[1]);
-		Right[2] = (cos(amount) * tempRight[2]) + (sin(amount) * tempUp[2]);
+		(*Right)[0] = (cos(amount) * tempRight[0]) + (sin(amount) * tempUp[0]);
+		(*Right)[1] = (cos(amount) * tempRight[1]) + (sin(amount) * tempUp[1]);
+		(*Right)[2] = (cos(amount) * tempRight[2]) + (sin(amount) * tempUp[2]);
 
-		Up=Normalize(Up);
-		Right=Normalize(Right);	
+		Normalize(Up);
+		Normalize(Right);	
+	}
+
+	void translateUp(float amount){
+		Location[0]+= (*Up)[0]*amount;
+		Location[1]+= (*Up)[1]*amount;
+		Location[2]+= (*Up)[2]*amount;
+	}
+	void translateForward(float amount){
+		Location[0]+= (*Target)[0]*amount;
+		Location[1]+= (*Target)[1]*amount;
+		Location[2]+= (*Target)[2]*amount;
+	}
+	void translateRight(float amount){
+		Location[0]+= (*Right)[0]*amount;
+		Location[1]+= (*Right)[1]*amount;
+		Location[2]+= (*Right)[2]*amount;
 	}
 	
 	void translateX(float amount){
-		Location[0]+= Right[0]*amount;
-		Location[1]+= Right[1]*amount;
-		Location[2]+= Right[2]*amount;
+		Location[0]+=amount;
 	}
 
 	void translateY(float amount){
-		Location[0]+= Up[0]*amount;
-		Location[1]+= Up[1]*amount;
-		Location[2]+= Up[2]*amount;
+		Location[1]+=amount;
 	}
 
 	void translateZ(float amount){
-		Location[0]+= Target[0]*amount;
-		Location[1]+= Target[1]*amount;
-		Location[2]+= Target[2]*amount;
+		Location[2]+=amount;
 	}
 };
