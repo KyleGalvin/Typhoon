@@ -49,6 +49,7 @@ class Object{
 	float mass;
 	float friction;
 	float maxSpeed;
+
 	void calculateAcceleration(Coordinate NetForce){
 		xAcc = (NetForce[0]/mass)-(friction*xVel);
 		yAcc = (NetForce[1]/mass)-(friction*yVel);
@@ -223,6 +224,9 @@ class Object{
 		int GetComplexity(){return Complexity;}
 
 		void Add(PtrObj O){BoundObjs.push_back(O);}
+
+
+		
 
 		//This will return a list of polygons that can be used to explicitly 
 		//outline the bounding structure. This is being created for collision

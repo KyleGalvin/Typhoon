@@ -115,6 +115,17 @@ void drawAABB(){
 			texCounter++;
 
 			glVertex3f(Start[0],Start[1],Start[2]);
+
+			if(texCounter%4==0){
+				glTexCoord2i(0,0);
+			}else if(texCounter%4==1){
+				glTexCoord2i(1,0);
+			}else if(texCounter%4==2){
+				glTexCoord2i(1,1);
+			}else if(texCounter%4==3){
+				glTexCoord2i(0,1);
+			}
+			texCounter++;
 			glVertex3f(End[0],End[1],End[2]);
 			++Si;
 		}
