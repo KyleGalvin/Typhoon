@@ -220,27 +220,27 @@ int main(){
 	
 	mouseX=0;
 	mouseY=0;
-cout<<"before camera\n";	
+
 	cam = new camera();
+
 	
-cout<<"after camera\n";	
 	MyObjects = createObjects();
 	MyGrid.Add(*MyObjects);
 
-cout<<"before init\n";
+
 	init(screen_w,screen_h);	
-cout<<"after init\n";
+
 	SDL_Event event;
 	SDL_ShowCursor(0);
 	SDL_WM_GrabInput(SDL_GRAB_ON);
 	Timer timer;
 	bool quit = false;
-cout<<"before forces\n";
+
 	shared_ptr<Force> UpForce = cam->addForce(cam->Up,0);
 	shared_ptr<Force> ForwardForce = cam->addForce(cam->Target,0);
 	shared_ptr<Force> RightForce = cam->addForce(cam->Right,0);
 
-cout<<"afterForces\n";
+
 	//game loop
 	while(!quit){
 		timer.start();

@@ -56,13 +56,10 @@ class camera : public Object{
 	shared_ptr<Force>  addForce(shared_ptr<Coordinate> unitVector, float magnitude){
 
 		shared_ptr<Force> f (new Force());
-cout<<"force initialized\n";
 		f->magnitude = magnitude;	
 		f->direction = unitVector;	
 
-cout<<"variables set\n";
 		Forces.push_back(f);
-cout<<"added to vector\n";
 		return f;
 	}
 
@@ -169,11 +166,6 @@ cout<<"added to vector\n";
 		(*Up)[1] = (cos(amount) * tempUp[1]) + (sin(amount) * tempTarget[1]);
 		(*Up)[2] = (cos(amount) * tempUp[2]) + (sin(amount) * tempTarget[2]);
 
-		cout<<"Up:"<<(*Up)[0]<<" "<<(*Up)[1]<<" "<<(*Up)[2]<<"\n";
-		cout<<"Force Up:"<<(*(Forces[0])->direction)[0]<<" "<<(*(Forces[0])->direction)[1]<<" "<<(*(Forces[0])->direction)[2]<<" MAG:"<<(Forces[0])->magnitude<<"\n";
-		cout<<"Force Target:"<<(*(Forces[1])->direction)[0]<<" "<<(*(Forces[1])->direction)[1]<<" "<<(*(Forces[1])->direction)[2]<<" MAG:"<<(Forces[1])->magnitude<<"\n";
-		cout<<"Force Right:"<<(*(Forces[2])->direction)[0]<<" "<<(*(Forces[2])->direction)[1]<<" "<<(*(Forces[2])->direction)[2]<<" MAG:"<<(Forces[2])->magnitude<<"\n";
-		
 		Normalize(Target);	
 		Normalize(Up);
 	}
