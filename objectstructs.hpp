@@ -24,6 +24,12 @@ class Polygon{
 
 typedef pair<Coordinate,Coordinate> Line;
 
+class Force{
+	public:
+		std::shared_ptr< Coordinate > direction;
+		float magnitude;		
+};
+
 class Object{
 	public:
 
@@ -38,6 +44,8 @@ class Object{
 		//if this is the main object and no lower level exists, 
 		//then this value is null.
 		ListPtrObj BoundObjs;
+
+		vector< shared_ptr<Force> > Forces;
 
 		Coordinate Location;
 		Size Dimensions;

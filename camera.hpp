@@ -22,6 +22,8 @@ class camera : public Object{
 
 	float friction;
 
+	shared_ptr<Force> PhantomForce;
+
 	float maxSpeed;
 
 	void calculateAcceleration(Coordinate NetForce){
@@ -38,6 +40,19 @@ class camera : public Object{
 
 	void step(){
 		//Coordinate FrictionalDapmenedForce = calculateFriction(NetForce);
+
+		vector< shared_ptr< Force > >::iterator i;
+
+		NetForce[0]=0;
+		NetForce[1]=0;
+		NetForce[2]=0;
+
+		for(i = Forces.begin() ; i != Forces.end() ; i++){
+			NetForce[0] += (*((*i)->direction))[0] * (*i)->magnitude;
+			NetForce[1] += (*((*i)->direction))[1] * (*i)->magnitude;
+			NetForce[2] += (*((*i)->direction))[2] * (*i)->magnitude;
+		}
+	
 		calculateAcceleration(NetForce);
 
 		xVel += xAcc;	
@@ -48,10 +63,27 @@ class camera : public Object{
 		translateZ(zVel);
 	}
 
+	void modifyPhantomForce(){
+	
+	}
+
 	void addForce(Coordinate unitVector, float magnitude){
+
+		shared_ptr<Force> f (new Force());
+
+
+		f->magnitude = magnitude;	
+		
+		(f->direction)->push_back(unitVector[0]);	
+		(f->direction)->push_back(unitVector[1]);	
+		(f->direction)->push_back(unitVector[2]);
+		Forces.push_back(f);
+	
+		//REWRITE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		NetForce[0] += unitVector[0] * magnitude;		
 		NetForce[1] += unitVector[1] * magnitude;		
 		NetForce[2] += unitVector[2] * magnitude;		
+
 	}
 
 	void accUp(float y){
@@ -114,6 +146,11 @@ class camera : public Object{
 			mass = 1;
 			friction = 0.3;
 			maxSpeed=10;
+
+			// add a force ptr to the camera for 'puppeteering' and leave an easy-access pointer
+			shared_ptr < Force > f ( new Force() );
+			PhantomForce = f;//use this to avoid digging through Forces array
+			Forces.push_back(f);//objects in here are used to calculate net-force (and movement) of object
 
 			xVel = 0;
 			yVel = 0;
