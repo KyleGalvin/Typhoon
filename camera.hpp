@@ -8,6 +8,20 @@ class camera : public Object{
 	Coordinate Target;
 	Coordinate Right;
 
+	float xVel;
+	float yVel;
+	float zVel;
+
+	void velUp(float y){
+		yVel = y;
+	}
+	void velRight(float x){
+		xVel = x;
+	}
+	void velForward(float z){
+		zVel = z;
+	}
+
 	camera(){
 			//convention: XYZ maps to element 012 respectively
 
@@ -38,6 +52,10 @@ class camera : public Object{
 			Rotation.push_back(0);
 			Rotation.push_back(0);
 			Rotation.push_back(0);
+			
+			xVel = 0;
+			yVel = 0;
+			zVel = 0;
 	}
 
 	Coordinate Normalize(Coordinate vec){

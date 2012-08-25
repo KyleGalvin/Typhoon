@@ -7,6 +7,9 @@ BIN_DIR = ./bin/
 .SUFFIXES:
 .SUFFIXES: .cpp .o
 
+sdlgl :		SDL_GL_Demo.cpp
+	g++ -o $(BIN_DIR)test SDL_GL_Demo.cpp singlegrid.hpp grid.hpp hgrid.hpp -std=c++0x -lglut -lGL -lGLU -lSDL
+
 test3d :	InteractiveDemo.cpp
 	g++ -o $(BIN_DIR)test InteractiveDemo.cpp singlegrid.hpp grid.hpp hgrid.hpp -std=c++0x -lglut -lGL -lGLU -lSDL
 

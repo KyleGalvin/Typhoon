@@ -106,22 +106,13 @@ class Object{
 
 							if(debug){
 								Coordinate::iterator Ci = PreviousV.begin();
-								cout<<"Adding Line:(";
 								while(Ci != PreviousV.end()){
-									cout<<(*Ci);
 									++Ci;
-									if(Ci != PreviousV.end())
-										cout<<",";
 								}
-								cout<<") - (";
 								Ci = CurrentV.begin();
 								while(Ci != CurrentV.end()){
-									cout<<(*Ci);
 									++Ci;
-									if(Ci != CurrentV.end())
-										cout<<",";
 								}
-								cout<<")\n";
 							}
 
 							//Undo our increment and move on
