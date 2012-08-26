@@ -8,18 +8,72 @@ class camera : public Object{
 	Coordinate Target;
 	Coordinate Right;
 
+	Coordinate NetForce;
+
 	float xVel;
 	float yVel;
 	float zVel;
 
+	float xAcc;
+	float yAcc;
+	float zAcc;
+
+	float mass;
+
+	float friction;
+
+	float maxSpeed;
+
+	void calculateAcceleration(Coordinate NetForce){
+
+		xAcc = (NetForce[0]/mass)-(friction*xVel);
+		yAcc = (NetForce[1]/mass)-(friction*yVel);
+		zAcc = (NetForce[2]/mass)-(friction*zVel);
+	}
+
+/*	Coordinate calculateFriction(NetForce){
+		Coordinate result.push_back();
+		
+	}*/
+
+	void step(){
+		//Coordinate FrictionalDapmenedForce = calculateFriction(NetForce);
+		calculateAcceleration(NetForce);
+
+		xVel += xAcc;	
+		yVel += yAcc;	
+		zVel += zAcc;	
+		translateX(xVel);
+		translateY(yVel);
+		translateZ(zVel);
+	}
+
+	void addForce(Coordinate unitVector, float magnitude){
+		NetForce[0] += unitVector[0] * magnitude;		
+		NetForce[1] += unitVector[1] * magnitude;		
+		NetForce[2] += unitVector[2] * magnitude;		
+	}
+
+	void accUp(float y){
+		yAcc +=y;
+	}
+
+	void accRight(float x){
+		xAcc +=x;
+	}
+
+	void accForward(float z){
+		zAcc +=z;
+	}
+
 	void velUp(float y){
-		yVel = y;
+		yVel += y;
 	}
 	void velRight(float x){
-		xVel = x;
+		xVel += x;
 	}
 	void velForward(float z){
-		zVel = z;
+		zVel += z;
 	}
 
 	camera(){
@@ -52,10 +106,22 @@ class camera : public Object{
 			Rotation.push_back(0);
 			Rotation.push_back(0);
 			Rotation.push_back(0);
-			
+		
+			NetForce.push_back(0);
+			NetForce.push_back(0);
+			NetForce.push_back(0);
+		
+			mass = 1;
+			friction = 0.5;
+			maxSpeed=10;
+
 			xVel = 0;
 			yVel = 0;
 			zVel = 0;
+
+			xAcc = 0;
+			yAcc = 0;
+			zAcc = 0;
 	}
 
 	Coordinate Normalize(Coordinate vec){

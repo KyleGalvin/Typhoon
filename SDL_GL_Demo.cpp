@@ -132,7 +132,6 @@ void drawGrid(){
 }
 
 void draw(){
-	//drawPoly();
 	drawGrid();
 	drawAABB();
 }
@@ -148,9 +147,6 @@ bool initGL(){
 
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-	//glEnable(GL_DEPTH_TEST);
-	//glShadeModel(GL_SMOOTH);
-	//glEnable(GL_LIGHTING);
 	draw();
 	SDL_GL_SwapBuffers();
 	return true;
@@ -174,11 +170,21 @@ bool init(){
 }
 
 void update(){
-
+	cam->step();
 }
 
 void render(){
 	glClear (GL_COLOR_BUFFER_BIT);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(zoom,1,0,100);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	cout<<cam->Target[0]<<"\n";
+
+	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],cam->Location[0]+cam->Target[0],cam->Location[1]+cam->Target[1],cam->Location[2]+cam->Target[2],cam->Up[0],cam->Up[1],cam->Up[2]);
+
 
 	draw();
 	SDL_GL_SwapBuffers();
@@ -205,8 +211,25 @@ int main(){
 		while(SDL_PollEvent(&event)){
 			if(event.type==SDL_QUIT){
 				quit=true;
+			}else if(event.type == SDL_KEYDOWN){
+				switch(event.key.keysym.sym){
+					case SDLK_w:cam->addForce(cam->Target,1) ; break;
+					case SDLK_s:cam->addForce(cam->Target,-1) ; break;
+					case SDLK_d:cam->addForce(cam->Right,-1) ; break;
+					case SDLK_a:cam->addForce(cam->Right,1) ; break;
+					case SDLK_e:cam->addForce(cam->Up,-1) ; break;
+					case SDLK_q:cam->addForce(cam->Up,1) ; break;
+				}
+			}else if(event.type == SDL_KEYUP){
+				switch(event.key.keysym.sym){
+					case SDLK_w:cam->addForce(cam->Target,-1) ; break;
+					case SDLK_s:cam->addForce(cam->Target,1) ; break;
+					case SDLK_d:cam->addForce(cam->Right,1) ; break;
+					case SDLK_a:cam->addForce(cam->Right,-1) ; break;
+					case SDLK_e:cam->addForce(cam->Up,1) ; break;
+					case SDLK_q:cam->addForce(cam->Up,-1) ; break;
+				}
 			}
-
 			//update mouse info once we have pointer set up
 
 
