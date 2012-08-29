@@ -19,6 +19,8 @@ hgrid MyGrid;
 PtrObj FocusObj;
 
 float zoom = 45.0;
+int mouseX;
+int mouseY;
 
 PtrObj createRandObj(){
 
@@ -152,12 +154,12 @@ bool initGL(){
 	return true;
 }
 
-bool init(){
+bool init(int x, int y){
 	if ( SDL_Init( SDL_INIT_EVERYTHING ) < 0 ){
 		return false;
 	}
 
-	if ( SDL_SetVideoMode( X_PIXELS,Y_PIXELS,32,SDL_OPENGL ) == NULL ){
+	if ( SDL_SetVideoMode( x,y,32,SDL_OPENGL ) == NULL ){
 		return false;
 	}
 
@@ -181,7 +183,6 @@ void render(){
 	gluPerspective(zoom,1,0,100);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	cout<<cam->Target[0]<<"\n";
 
 	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],cam->Location[0]+cam->Target[0],cam->Location[1]+cam->Target[1],cam->Location[2]+cam->Target[2],cam->Up[0],cam->Up[1],cam->Up[2]);
 
@@ -189,18 +190,44 @@ void render(){
 	draw();
 	SDL_GL_SwapBuffers();
 }
+void MouseMove(int x, int y,int halfHeight, int halfWidth)
+{
+	int relativeX;
+	int relativeY;
 
+	if(x!=0){
+    		relativeX = x - mouseX;
+    		mouseX = x;
+		cout<<"X"<<x<<"\n";
+		cout<<"deltaX"<<relativeX<<"\n";
+		cam->rotateY(relativeX/-100.0);
+	}else if(y!=0){
+
+    		relativeY = y - mouseY;
+    		mouseY = y;
+		cout<<"Y"<<y<<"\n";
+		cout<<"deltaY"<<relativeY<<"\n";
+		cam->rotateX(relativeY/100.0);
+	}
+		//SDL_WarpMouse(halfWidth, halfHeight);
+
+}
 int main(){
-	const int screen_w = 1024;
-	const int screen_h = 768;
+	const int screen_w = 768;
+	const int screen_h = 500;
 	const int screen_bpp = 32;
 	const int fps = 60;
+	
+	mouseX=0;
+	mouseY=0;
+
 	cam = new camera();
 	MyObjects = createObjects();
 	MyGrid.Add(*MyObjects);
-	init();	
+	init(screen_w,screen_h);	
 	SDL_Event event;
-	
+	SDL_ShowCursor(0);
+	SDL_WM_GrabInput(SDL_GRAB_ON);
 	Timer timer;
 	bool quit = false;
 
@@ -219,6 +246,7 @@ int main(){
 					case SDLK_a:cam->addForce(cam->Right,1) ; break;
 					case SDLK_e:cam->addForce(cam->Up,-1) ; break;
 					case SDLK_q:cam->addForce(cam->Up,1) ; break;
+					case SDLK_z:quit=true; break;
 				}
 			}else if(event.type == SDL_KEYUP){
 				switch(event.key.keysym.sym){
@@ -229,8 +257,9 @@ int main(){
 					case SDLK_e:cam->addForce(cam->Up,1) ; break;
 					case SDLK_q:cam->addForce(cam->Up,-1) ; break;
 				}
+			}else if(event.type == SDL_MOUSEMOTION ){
+                		MouseMove(event.motion.xrel, event.motion.yrel, screen_h/2,screen_w/2);
 			}
-			//update mouse info once we have pointer set up
 
 
 		}

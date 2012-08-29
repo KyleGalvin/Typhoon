@@ -112,7 +112,7 @@ class camera : public Object{
 			NetForce.push_back(0);
 		
 			mass = 1;
-			friction = 0.5;
+			friction = 0.3;
 			maxSpeed=10;
 
 			xVel = 0;
@@ -135,6 +135,14 @@ class camera : public Object{
 
 	void rotateX(float amount)
 	{
+		//mod 360 for sane numbers
+		int IntAmount = (int) amount;
+		int AdjustedIntAmount = IntAmount % 360;
+		//save the decimal/fraction
+		amount -= IntAmount;
+		//add the simplified whole with the fraction
+		amount +=AdjustedIntAmount;
+
 		Coordinate tempTarget = Target;
 		Coordinate tempUp = Up;
 
@@ -154,6 +162,14 @@ class camera : public Object{
 
 	void rotateY(float amount)
 	{
+		//mod 360 for sane numbers
+		int IntAmount = (int) amount;
+		int AdjustedIntAmount = IntAmount % 360;
+		//save the decimal/fraction
+		amount -= IntAmount;
+		//add the simplified whole with the fraction
+		amount +=AdjustedIntAmount;
+		
 		Coordinate tempTarget = Target;
 		Coordinate tempRight = Right;
 
@@ -173,6 +189,14 @@ class camera : public Object{
 
 	void rotateZ(float amount)
 	{
+		//mod 360 for sane numbers
+		int IntAmount = (int) amount;
+		int AdjustedIntAmount = IntAmount % 360;
+		//save the decimal/fraction
+		amount -= IntAmount;
+		//add the simplified whole with the fraction
+		amount +=AdjustedIntAmount;
+		
 		Coordinate tempRight = Right;
 		Coordinate tempUp = Up;
 		
