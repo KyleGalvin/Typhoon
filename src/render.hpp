@@ -23,7 +23,7 @@ bool initscreen(const int SCREEN_WIDTH, const int SCREEN_HEIGHT, const int SCREE
 	}
 
 	//window caption
-	SDL_WM_SetCaption("Tankarank!",NULL);
+	SDL_WM_SetCaption("Travelling Salesman Self Organizing Map",NULL);
 
 	return true;
 }
@@ -39,7 +39,7 @@ bool loadimage(const char* imagename,SDL_Surface **loadto)
 		if(!loadedimage){
 			return false;
 		}else{
-			optimizedimage=SDL_DisplayFormat(loadedimage);
+			optimizedimage=SDL_DisplayFormatAlpha(loadedimage);
 		}
 
 			SDL_FreeSurface(loadedimage);

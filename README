@@ -1,0 +1,7 @@
+compile:
+
+cd to project directory and run $make
+
+run:
+
+cd to project directory and run $./test

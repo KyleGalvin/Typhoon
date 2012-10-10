@@ -1,13 +1,13 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_opengl.h"
 
-#include "./src/objectstructs.hpp"
-#include "./src/geotypes.hpp"
-#include "./src/hgrid.hpp"
-#include "./src/collision.hpp"
-#include "./src/camera.hpp"
-#include "./src/timer.hpp"
-#include "./src/render.hpp"
+#include "objectstructs.hpp"
+#include "geotypes.hpp"
+#include "hgrid.hpp"
+#include "collision.hpp"
+#include "camera.hpp"
+#include "timer.hpp"
+#include "render.hpp"
 
 #define X_PIXELS 500
 #define Y_PIXELS 500
