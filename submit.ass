@@ -1,0 +1,721 @@
+#include "SDL/SDL.h"
+#include "./src/render.hpp"
+#include <iostream>
+#include <vector>
+#include "./src/neuron.hpp"
+#include "./src/tspFileReader.hpp"
+#include <SDL/SDL_gfxPrimitives.h>
+#include <algorithm>
+#include <time.h>
+using namespace std;
+
+struct SDLDrawMetaData{
+	static const int screen_w=500;
+	static const int screen_h=500;
+	static const int screen_bpp=32;
+	static const int fps=60;
+	SDL_Surface *screen;
+};
+
+struct SpriteData{
+	SDL_Surface *background;
+	SDL_Surface *somMarkerStamp;
+	SDL_Surface *trainMarkerStamp;
+	SDL_Surface *nearestMarkerStamp;
+};
+
+void drawGridArrangement(float meshSize, SDLDrawMetaData sdl, vector< vector <neuron> > mySOM, 
+SpriteData sprites, vector<neuron> TrainingNeurons){
+
+	SDL_Render::mergesurface(0,0,&sprites.background,&sdl.screen);
+	for(int i=0;i<mySOM.size();i++){
+		for(int j=0;j<mySOM[0].size();j++){
+			//draw network neighbourhood relations
+			//circular array (last element +1 is first element)
+			if(i==mySOM.size()-1){//wrap columns into taurus
+			}else{
+				lineRGBA(sdl.screen,mySOM[i][j][0]*sdl.screen_w,mySOM[i][j][1]*sdl.screen_h,mySOM[i+1][j][0]*sdl.screen_w,
+				mySOM[i+1][j][1]*sdl.screen_h,255,255,255,255);
+			}
+			if(j==mySOM[0].size()-1){//wrap rows into taurus
+			}else{
+				lineRGBA(sdl.screen,mySOM[i][j][0]*sdl.screen_w,mySOM[i][j][1]*sdl.screen_h,mySOM[i][j+1][0]*sdl.screen_w,
+				mySOM[i][j+1][1]*sdl.screen_h,255,255,255,255);
+			}
+			//draw neurons in red, training vectors in green(adjust visuals for neuron sprite height/width of 10... subtract 5)
+			SDL_Render::mergesurface((int)(mySOM[i][j][0]*sdl.screen_w)-5,(int)(mySOM[i][j][1]*sdl.screen_h)-5,
+			&sprites.somMarkerStamp,&sdl.screen);
+		}
+	}
+	for(int i = 0; i < TrainingNeurons.size();i++){
+		SDL_Render::mergesurface((int)(TrainingNeurons[i][0]*sdl.screen_w)-5,(int)(TrainingNeurons[i][1]*sdl.screen_h)-5,
+		&sprites.trainMarkerStamp,&sdl.screen);
+	}
+}
+
+//draw 2d SOM vectors and 2d training vectors as sprites on our screens x/y plain. Draw neighbourhood relation of SOM vectors as lineRGBA's
+//the first SOM node is also circularly linked to the last som node (hence the name taurus)
+void drawTaurusArrangement(float meshSize, SDLDrawMetaData sdl, vector< vector <neuron> > mySOM, 
+SpriteData sprites, vector<neuron> TrainingNeurons){
+
+	SDL_Render::mergesurface(0,0,&sprites.background,&sdl.screen);
+	for(int i=0;i<mySOM.size();i++){
+		for(int j=0;j<mySOM[0].size();j++){
+			//draw network neighbourhood relations
+			//circular array (last element +1 is first element)
+			if(i==mySOM.size()-1){//wrap columns into taurus
+				lineRGBA(sdl.screen,mySOM[i][j][0]*sdl.screen_w,mySOM[i][j][1]*sdl.screen_h,mySOM[0][j][0]*sdl.screen_w,
+				mySOM[0][j][1]*sdl.screen_h,255,255,255,255);
+			}else{
+				lineRGBA(sdl.screen,mySOM[i][j][0]*sdl.screen_w,mySOM[i][j][1]*sdl.screen_h,mySOM[i+1][j][0]*sdl.screen_w,
+				mySOM[i+1][j][1]*sdl.screen_h,255,255,255,255);
+			}
+			if(j==mySOM[0].size()-1){//wrap rows into taurus
+				lineRGBA(sdl.screen,mySOM[i][j][0]*sdl.screen_w,mySOM[i][j][1]*sdl.screen_h,mySOM[i][0][0]*sdl.screen_w,
+				mySOM[i][0][1]*sdl.screen_h,255,255,255,255);
+			}else{
+				lineRGBA(sdl.screen,mySOM[i][j][0]*sdl.screen_w,mySOM[i][j][1]*sdl.screen_h,mySOM[i][j+1][0]*sdl.screen_w,
+				mySOM[i][j+1][1]*sdl.screen_h,255,255,255,255);
+			}
+			//draw neurons in red, training vectors in green(adjust visuals for neuron sprite height/width of 10... subtract 5)
+			SDL_Render::mergesurface((int)(mySOM[i][j][0]*sdl.screen_w)-5,(int)(mySOM[i][j][1]*sdl.screen_h)-5,
+			&sprites.somMarkerStamp,&sdl.screen);
+		}
+	}
+
+	for(int i = 0; i < TrainingNeurons.size();i++){
+		SDL_Render::mergesurface((int)(TrainingNeurons[i][0]*sdl.screen_w)-5,(int)(TrainingNeurons[i][1]*sdl.screen_h)-5,
+		&sprites.trainMarkerStamp,&sdl.screen);
+	}
+}
+
+void drawColorCubes(float meshSize, SDLDrawMetaData sdl, vector< vector <neuron> > mySOM, SpriteData sprites){
+	SDL_Render::mergesurface(0,0,&sprites.background,&sdl.screen);
+	for(int i=0;i<mySOM.size();i++){
+		for(int j=0;j<mySOM[0].size();j++){
+			boxRGBA(sdl.screen, meshSize*sdl.screen_w*i, meshSize*sdl.screen_h*j,meshSize*sdl.screen_w*(i+1), 
+			meshSize*sdl.screen_h*(j+1), mySOM[i][j][0], mySOM[i][j][1], mySOM[i][j][2], 255 );
+		}
+	}
+}
+
+vector< vector<neuron> > train(vector< vector<neuron> > mySOM, vector<neuron> TrainingNeurons, int i, int iMax,bool tsp){
+	if(i >0){
+		for(int j =0;j < TrainingNeurons.size();j++){
+			pos2d winner = findWinningNeuron(mySOM,TrainingNeurons[j]);
+			
+			//the travelling salesman problem uses modified SOM learning rules in order to optimize results
+			if(tsp){
+				mySOM = tspTrainNeigbours(mySOM, TrainingNeurons[j],winner,((float)i/(float)iMax),((float)i/(float)iMax));
+			}else{
+				mySOM = trainNeigbours(mySOM, TrainingNeurons[j],winner,((float)i/(float)iMax),((float)i/(float)iMax));
+			}
+		}
+	}
+
+	return mySOM;
+}
+
+int main(){
+	//use time to get more random initial SOM arrangement
+	srand(time(NULL));
+	SDLDrawMetaData sdl;
+
+	SDL_Event event;
+
+	SpriteData sprites;
+	
+	bool quit = false;
+
+	SDL_Render::initscreen(sdl.screen_w,sdl.screen_h,sdl.screen_bpp,&sdl.screen);
+	SDL_Render::loadimage("./sprites/testbackimage.png",&sprites.background);
+	SDL_Render::loadimage("./sprites/marker.png",&sprites.somMarkerStamp);
+	SDL_Render::loadimage("./sprites/trainmarker.png",&sprites.trainMarkerStamp);
+	SDL_Render::loadimage("./sprites/nearestmarker.png",&sprites.nearestMarkerStamp);
+
+	string map;
+	std::cout<<"MAPS:\n";
+	std::cout<<"[0] RGB (3D)\n";
+	std::cout<<"[1] burma14 (TSP)\n";
+	std::cout<<"[2] eil51 (TSP)\n";
+	std::cout<<"[3] d2103 (TSP)\n";
+	std::cout<<"[4] uniform mesh (2D)\n";
+	std::cout<<"[5] clustered uniform mesh (2D HSOM - incomplete)\n";
+	std::cout<<"Please enter map ID:\n";
+	getline(cin,map);
+
+	TSPFileReader trainingVectorFactory;
+	vector<neuron> TrainingNeurons;
+
+	float meshSize = 0.05;
+
+	if(map.find('0')!=string::npos){
+		TrainingNeurons = trainingVectorFactory.retrieveTrainingVectors("./maps/RGB.tsp");
+	}else if(map.find('1')!=string::npos){
+		TrainingNeurons = trainingVectorFactory.retrieveTrainingVectors("./maps/burma14.tsp");
+	}else if(map.find('2')!=string::npos){
+		TrainingNeurons = trainingVectorFactory.retrieveTrainingVectors("./maps/eil51.tsp");
+	}else if(map.find('3')!=string::npos){
+		TrainingNeurons = trainingVectorFactory.retrieveTrainingVectors("./maps/d2103.tsp");
+	}else if(map.find('4')!=string::npos){
+		TrainingNeurons = createMeshData(1/meshSize,1/meshSize);
+	}else if(map.find('5')!=string::npos){
+		TrainingNeurons = createHierarchalMeshData(1/meshSize,1/meshSize);
+	}
+
+	vector< vector<neuron> > mySOM;
+
+	if(map.find('4')!=string::npos || map.find('5')!=string::npos){
+		//mesh: 2d data, 2d mesh
+//		TrainingNeurons = scaleNeuronsToRange(TrainingNeurons,0.0,1.0);
+		mySOM =  initializeNewSOM(meshSize,0.0,1.0);
+	}else if(TrainingNeurons[0].size()==2){
+		//TSP: 2d data, 1d mesh
+		TrainingNeurons = scaleNeuronsToRange(TrainingNeurons,0.0,1.0);
+		mySOM =  initializeCircularSOM(TrainingNeurons.size()*2);
+	}else{
+		//coloursquare: 3d data, 2d mesh
+		mySOM =  initializeNewSOM(meshSize,0.0,255.0);
+	}
+	int trainingIterations = 100;
+	int iTrain = trainingIterations;
+
+	int trainingVectorLength = TrainingNeurons[0].size();
+	//game loop
+	while(!quit){
+
+		while(SDL_PollEvent(&event)){
+			if(event.type==SDL_QUIT){
+				quit=true;
+			}
+			//update mouse info once we have pointer set up
+
+		}
+		random_shuffle(TrainingNeurons.begin(),TrainingNeurons.end());
+		//we visualize 3d data with colored boxes
+		if(trainingVectorLength == 3){
+			drawColorCubes(meshSize,sdl,mySOM,sprites);
+		}else if(trainingVectorLength == 2 && map.find('4')!=string::npos){
+			drawGridArrangement(meshSize, sdl, mySOM, sprites,TrainingNeurons);
+		}else if(trainingVectorLength == 2 && map.find('5')!=string::npos){
+			drawGridArrangement(meshSize, sdl, mySOM, sprites,TrainingNeurons);
+		}else if(trainingVectorLength==2){
+			drawTaurusArrangement(meshSize, sdl, mySOM, sprites,TrainingNeurons);
+		}else{
+			cout<<"bogus training data!\n";
+		}
+
+
+		if(map.find('4')==string::npos && map.find('5')==string::npos  && TrainingNeurons[0].size()==2){
+			//TSP. winner takes all (neighbors take some)
+			mySOM = train(mySOM,TrainingNeurons,iTrain,trainingIterations,true);
+		}else{
+			//2D mesh winner takes most (neighbors take some)
+			mySOM = train(mySOM,TrainingNeurons,iTrain,trainingIterations,false);
+		}
+
+		if(SDL_Flip(sdl.screen)==-1){
+			cout<<"Screen failed to flip\n";
+		}
+
+		iTrain--;
+	}
+	return 0;
+}
+
+namespace SDL_Render{
+
+#include "SDL/SDL.h"
+#include "SDL/SDL_image.h"
+
+bool initscreen(const int, const int, const int, SDL_Surface**);
+bool loadimage(const char*, SDL_Surface**);
+void mergesurface(int,int,SDL_Surface**,SDL_Surface**);
+void mergesurface(int,int,SDL_Rect*,SDL_Surface**,SDL_Surface**);
+
+//Initializes screen and all SDL subsystems
+bool initscreen(const int SCREEN_WIDTH, const int SCREEN_HEIGHT, const int SCREEN_BPP, SDL_Surface **screen)
+{
+	//initiate all SDL subsystems
+	if(SDL_Init(SDL_INIT_EVERYTHING)==-1){
+		return false;
+	}
+
+	//open program window
+	*screen = SDL_SetVideoMode(SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_BPP,SDL_SWSURFACE/* | SDL_FULLSCREEN*/);
+	if(*screen == NULL){
+		return false;
+	}
+
+	//window caption
+	SDL_WM_SetCaption("Travelling Salesman Self Organizing Map",NULL);
+
+	return true;
+}
+
+//Takes image file and loads to variable of type SDL_Surface*
+bool loadimage(const char* imagename,SDL_Surface **loadto)
+{
+
+	SDL_Surface *loadedimage=NULL;
+	SDL_Surface *optimizedimage=NULL;
+
+	loadedimage= IMG_Load(imagename);
+		if(!loadedimage){
+			return false;
+		}else{
+			optimizedimage=SDL_DisplayFormatAlpha(loadedimage);
+		}
+
+			SDL_FreeSurface(loadedimage);
+		
+		if(optimizedimage != NULL){
+			//Hexidecimal colour code to set to sprite transparency
+			Uint32 colorkey=SDL_MapRGB(optimizedimage->format,0,0xFF,0xFF);
+			SDL_SetColorKey(optimizedimage,SDL_RLEACCEL | SDL_SRCCOLORKEY, colorkey);
+		}else{
+			return false;
+		}
+
+	*loadto=optimizedimage;
+	return true;
+			
+}
+
+//Merges surface 'top' onto surface 'base' with offsets x and y
+void mergesurface(int x,int y,SDL_Surface** top,SDL_Surface** base)
+{
+	SDL_Rect rectangle;
+	rectangle.x=x;
+	rectangle.y=y;
+
+	SDL_BlitSurface(*top,NULL,*base,&rectangle);
+}
+
+void mergesurface(int x,int y,SDL_Rect* clip,SDL_Surface** top,SDL_Surface** base)
+{
+	SDL_Rect rectangle;
+	rectangle.x=x;
+	rectangle.y=y;
+
+	SDL_BlitSurface(*top,clip,*base,&rectangle);
+}
+
+}
+#include <vector>
+#include <fstream>
+#include <string>
+#include "float.h"
+#include "math.h"
+#include "vectorMath.hpp"
+#include <iostream>
+using namespace std;
+
+typedef vector<float> neuron;
+typedef vector< vector<neuron> > som; //2d neighborhood
+
+struct pos2d{
+	int x;
+	int y;
+};
+
+vector< neuron > createHierarchalMeshData(float x, float y){
+	vector<neuron> results;
+			neuron NewTrainingData;
+	for(int i=0; i<x;i++){
+		for(int j=0; j<y; j++){
+			NewTrainingData.push_back((1/x)*(float)i);
+			NewTrainingData.push_back((1/y)*(float)j);
+			results.push_back(NewTrainingData);
+			NewTrainingData.clear();
+		}
+	}
+
+	//add clustered data
+	for(int i=0; i<x;i++){
+		for(int j=0; j<y; j++){
+			NewTrainingData.push_back(0.75+(1/x)*(float)i/x);
+			NewTrainingData.push_back(0.75+(1/y)*(float)j/y);
+			results.push_back(NewTrainingData);
+			NewTrainingData.clear();
+		}
+	}
+
+	return results;
+}
+
+vector< neuron > createMeshData(float x, float y){
+	vector<neuron> results;
+			neuron NewTrainingData;
+	for(int i=0; i<x;i++){
+		for(int j=0; j<y; j++){
+			NewTrainingData.push_back((1/x)*(float)i);
+			NewTrainingData.push_back((1/y)*(float)j);
+			results.push_back(NewTrainingData);
+			NewTrainingData.clear();
+		}
+	}
+
+	return results;
+}
+
+pos2d findWinningNeuron(som mySOM, neuron trainingNeuron){
+	//start far away so our neural network is clearly nearer.
+	float nearestDistance= FLT_MAX;
+	neuron* result;
+	pos2d winningPosition;
+	for(int i = 0 ; i < mySOM.size(); i++){
+		for(int j = 0; j < mySOM[i].size(); j++){
+			//calculate euclidian distance between training neuron and current neuron
+			float currentDistance = absDistance(trainingNeuron,mySOM[i][j]);	
+			if(currentDistance < nearestDistance){
+				nearestDistance = currentDistance;
+				winningPosition.x=i;
+				winningPosition.y=j;
+			}
+		}
+	}
+	return winningPosition;
+}
+
+som tspTrainNeigbours(som mySOM, neuron trainingNeuron, pos2d winner, float neigbourhoodSize, float learningCoefficient){
+	vector<float> meshLocWinner;
+	meshLocWinner.push_back((float)winner.x/(float)mySOM.size());
+	meshLocWinner.push_back((float)winner.y/(float)mySOM[0].size());
+
+	//placeholders will be overwritten, but we determine 2d here
+	vector<float> meshLocCurrent;
+	meshLocCurrent.push_back(0);
+	meshLocCurrent.push_back(0);
+	vector<float> centerScreen;
+	centerScreen.push_back(0.5);
+	centerScreen.push_back(0.5);
+	//we want the neighborhood to start over the radius = 0.5 from winner and decrease
+	float maxDistance = neigbourhoodSize;	
+	//iterate over all neurons
+	for(int i = 0; i < mySOM.size(); i++){
+		for(int j = 0 ; j < mySOM[0].size(); j++){
+			meshLocCurrent[0] = (float)i/(float)mySOM.size();
+			meshLocCurrent[1] = (float)j/(float)mySOM[0].size();
+			float currentDistance=absDistance(meshLocCurrent,meshLocWinner);
+			if(currentDistance < maxDistance){
+				float influence = ((maxDistance-currentDistance)/maxDistance)*learningCoefficient;
+				mySOM[i][j] = attract(trainingNeuron,mySOM[i][j],influence);
+			
+				mySOM[i][j] = repel(centerScreen,mySOM[i][j],influence);
+				
+				mySOM[i][j] = attract(midpoint(mySOM[i][(j+1)%mySOM[0].size()],
+					mySOM[0][((j-1)%mySOM[0].size())]),mySOM[i][j],influence);
+			}
+		}
+	}
+
+	mySOM[winner.x][winner.y] = attract(trainingNeuron,mySOM[winner.x][winner.y],1.0);
+
+	return mySOM;	
+}
+
+som trainNeigbours(som mySOM, neuron trainingNeuron, pos2d winner, float neigbourhoodSize, float learningCoefficient){
+	vector<float> meshLocWinner;
+	meshLocWinner.push_back((float)winner.x/(float)mySOM.size());
+	meshLocWinner.push_back((float)winner.y/(float)mySOM[0].size());
+
+	//placeholders will be overwritten, but we determine 2d here
+	vector<float> meshLocCurrent;
+	meshLocCurrent.push_back(0);
+	meshLocCurrent.push_back(0);
+
+	//we want the neighborhood to start over the radius = 0.5 from winner and decrease
+	float maxDistance = neigbourhoodSize;	
+	//iterate over all neurons
+	for(int i = 0; i < mySOM.size(); i++){
+		for(int j = 0 ; j < mySOM[0].size(); j++){
+			meshLocCurrent[0] = (float)i/(float)mySOM.size();
+			meshLocCurrent[1] = (float)j/(float)mySOM[0].size();
+			float currentDistance=absDistance(meshLocCurrent,meshLocWinner);
+			if(currentDistance < maxDistance){
+				float influence = ((maxDistance-currentDistance)/maxDistance)*learningCoefficient;
+				mySOM[i][j] = attract(trainingNeuron,mySOM[i][j],influence);
+			}
+		}
+	}
+
+	return mySOM;	
+}
+
+vector<neuron> scaleNeuronsToRange(vector<neuron> Neurons, float min, float max){
+	//start values at extremes so our data will definitely take the placeholders
+	float currentMinX=FLT_MAX;
+	float currentMaxX= 0;
+	float currentMinY=FLT_MAX;
+	float currentMaxY= 0;
+
+	//find most extreme values
+	for(int i = 0; i<Neurons.size(); i++){
+			if(Neurons[i][0] > currentMaxX)
+				currentMaxX = Neurons[i][0];
+			if(Neurons[i][0] < currentMinX)
+				currentMinX = Neurons[i][0];
+			if(Neurons[i][1] > currentMaxY)
+				currentMaxY = Neurons[i][1];
+			if(Neurons[i][1] < currentMinY)
+				currentMinY = Neurons[i][1];
+	}
+	//translate values so the minimum X and Y values are at 0
+	currentMaxX -= currentMinX;
+	currentMaxY -= currentMinY;
+	for(int i = 0; i<Neurons.size(); i++){
+		Neurons[i][0] -= currentMinX;
+		Neurons[i][1] -= currentMinY;
+	}
+
+	//scale all values to fit extremes within range [min,max]
+	float absMax;
+	absMax = ((currentMaxX > currentMaxY) ? currentMaxX : currentMaxY);
+	for(int i = 0; i<Neurons.size(); i++){
+		Neurons[i][0] /= absMax;
+		Neurons[i][1] /= absMax;
+	}
+
+	return Neurons;
+
+}
+
+float RandomFloatInRange(float startRange, float endRange){
+	float random = ((float) rand()) / (float) RAND_MAX;
+	float range = endRange-startRange;
+	return (random*range) + startRange;
+}
+
+vector< vector<neuron> > initializeNewSOM(float meshSize,float min, float max){
+
+	vector< vector<neuron> > results;
+
+	for(float i = 0.0; i < 1.0; i+=meshSize){
+		//new row
+		vector<neuron> row;
+		for(float j = 0.0; j < 1.0; j+=meshSize){
+			//new column
+			neuron NewNeuron;
+			NewNeuron.push_back(RandomFloatInRange(min,max));
+			NewNeuron.push_back(RandomFloatInRange(min,max));
+			row.push_back(NewNeuron);
+		}
+		results.push_back(row);
+	}
+	return results;
+}
+
+//beginning with random data isn't optimal for approximating TSP solution
+//circular starting data for the TSP problem. circle center = (0.5,0.5), radius = 0.5 to fill map
+vector< vector<neuron> > initializeCircularSOM(int neuronCount){
+	vector<neuron> results;
+	
+	float centerX = 0.5;
+	float centerY = 0.5;
+	float neuronX = 0.9;
+	float neuronY = 0.5;
+	float pi = 3.14159265;
+
+	//translate center of neuron radius to origin
+	float tempNeuronX = neuronX-centerX;
+	float tempNeuronY = neuronY-centerY;
+
+	float degreeInc = 360.0 / (neuronCount);
+
+	for(int i = 0; i <neuronCount; i++){
+		neuron newNeuron;
+		//x val. Before saving it, we translate back from origin to proper center
+		newNeuron.push_back((tempNeuronX * cos(degreeInc*i*pi/180) + tempNeuronY * sin(degreeInc*i*pi/180))+centerX);
+		//y val. same as above
+		newNeuron.push_back((-1*tempNeuronX * sin(degreeInc*i*pi/180) + tempNeuronY * cos(degreeInc*i*pi/180))+centerY);
+		results.push_back(newNeuron);
+	}
+
+	//TSP is 1d problem, SOM data structure is 2d. 
+	//here we wrap a 1d problem into 2d space to keep data structure consistent with library
+	vector< vector< neuron> > wrapper;
+	wrapper.push_back(results);
+	return wrapper;
+}
+#include <vector>
+#include <iostream>
+std::vector<float> scale(float scalar, std::vector<float> a){
+	for(std::vector<float>::iterator i = a.begin(); i!=a.end();i++){
+		(*i)*=scalar;
+	}
+	return a;
+}
+
+std::vector<float> translate(std::vector<float> a, std::vector<float> b){
+	std::vector<float>::iterator j = b.begin();
+	for(std::vector<float>::iterator i = a.begin(); i!=a.end();i++){
+		(*i)+=(*j);
+		j++;
+	}
+	return a;
+}
+
+float vLength(std::vector<float> v){
+	float intermediate = 0;
+	for(std::vector<float>::iterator i = v.begin(); i != v.end(); i++){
+		intermediate += pow((*i),2);
+	}
+	return sqrt(intermediate);
+
+}
+std::vector<float> normalize(std::vector<float> v){
+	float length = vLength(v);
+	for(std::vector<float>::iterator i = v.begin(); i < v.end(); i++){
+		(*i) /= length;
+	}
+
+	return v;
+}
+std::vector<float> absTranslate(float scalar, std::vector<float> a){
+	for(std::vector<float>::iterator i = a.begin(); i!=a.end();i++){
+		(*i)+=scalar;
+	}
+	return a;
+}
+
+
+float absDistance(std::vector<float> a, std::vector<float> b){
+	std::vector<float>::iterator i = a.begin();
+	std::vector<float>::iterator j = b.begin();
+
+	float intermediate = 0;
+
+	while(i!=a.end()){
+		intermediate += pow((*i)-(*j),2);
+		i++;
+		j++;
+	}
+	return sqrt(intermediate);
+}
+
+std::vector<float> midpoint(std::vector<float> a, std::vector<float> b){
+	std::vector<float> result;
+	float min;
+	//we assume a and b are of same length. If someone breaks this rule, it's their problem to debug.
+
+	//j iterator offset mirrors i iterator offset, but points to other input std::vector<float>
+	std::vector<float>::iterator j = b.begin();
+	for(std::vector<float>::iterator i=a.begin(); i!=a.end();i++){
+		if((*i)>(*j))
+			min = *j;
+		else
+			min = *i;
+		result.push_back(min+sqrt(pow((*i)-(*j),2)));
+		j++;
+	}
+
+	return result;
+}
+
+std::vector<float> repel(std::vector<float> obstacle, std::vector<float> target, float percent){
+	//return (to-from)*percent;
+	//repulsive force modelled after electrostatic repulsion of same-charge particles (charge divided by delta-distance squared)
+	float repulsiveForce = 0.025;
+	std::vector<float> result;
+
+	std::vector<float>::iterator j = target.begin();
+	for(std::vector<float>::iterator i = obstacle.begin();i!=obstacle.end();i++){
+		result.push_back((*j)-((repulsiveForce*percent) / (1+sqrt(pow((*i)-(*j),2)))));
+
+		j++;
+	}
+
+	return result;
+}
+
+//this works on a normalized map.
+std::vector<float> scaleWRTRadiusFromCenter(std::vector<float> training, std::vector<float> winner, float percent){
+	//iterate down both vectors to get magnitude of euclidian distance between the two
+	float magnitudeT=0;
+	float magnitudeW=0;
+
+	float magnitude = (-1)*sqrt((1-vLength(training))*(1-vLength(winner)));
+	float k = /*1 -*/ magnitude; //TSP and genetic algorithsm, equation 4
+	float c = 1 / sqrt(1- (2*percent * (1-percent)* k));
+
+	std::vector<float> result;
+	for(std::vector<float>::iterator j = winner.begin(); j!=winner.end();j++){
+		result.push_back((*j) * c);
+	}
+	return result;
+}
+
+
+std::vector<float> attract(std::vector<float> to, std::vector<float> from, float percent){
+	//return (to-from)*percent;
+
+	std::vector<float> result;
+
+	std::vector<float>::iterator j = from.begin();
+	for(std::vector<float>::iterator i = to.begin();i!=to.end();i++){
+		result.push_back((*j)+( percent * ((*i)-(*j)) ));
+		j++;
+	}
+
+	return result;
+}
+#include <boost/tokenizer.hpp>
+
+class TSPFileReader{
+public:
+
+	vector<neuron> retrieveTrainingVectors(string filename){
+		string line;
+		vector<neuron> myTrainingNeurons; 
+
+		ifstream myfile(filename.c_str());
+		if(myfile.is_open()){
+				//skip metadata and go right to TSP city locations
+				bool foundEndOfMetaData = false;
+				while(!foundEndOfMetaData && myfile.good()){
+					if(line.size()>0){
+					}
+					getline(myfile,line);
+					size_t found = line.find("NODE_COORD_SECTION");
+					if(found!=string::npos){
+						foundEndOfMetaData = true;
+					}
+				}
+				//TSP data is terminated with the string "EOF"
+				bool foundEndOfFile = false;
+				while(!foundEndOfFile && myfile.good()){
+					cout<<"reading tsp data\n";
+					getline(myfile,line);
+					size_t found = line.find("EOF");
+					if(found!=string::npos){
+						foundEndOfFile = true;
+					}else{
+
+						boost::char_separator<char> tokenDivider(" ");
+						//each TSP line has 3 datapoints: cityID, xLoc, yLoc. we are only interested in last 2
+						boost::tokenizer< boost::char_separator<char> > tokens(line, tokenDivider);
+
+						neuron NewTrainingNeuron;
+						int i = 0;
+						for(const auto& t: tokens){
+							if(i!=0){//skip 'index' value and go straight to vector data
+								NewTrainingNeuron.push_back(atof(t.c_str()));
+							}
+							i++;
+						}
+						
+						cout<<"size new:"<<NewTrainingNeuron.size()<<"\n";
+						myTrainingNeurons.push_back(NewTrainingNeuron);
+					}
+				}
+				cout<<"end of file\n";
+			myfile.close();
+			
+		}
+		cout<<"done reading\n";
+
+		return myTrainingNeurons;
+	}
+
+};
