@@ -183,11 +183,13 @@ class singlegrid: public grid{
 				Coordinate::iterator Ci = L.begin();
 				Size::iterator Si = CellSize.begin();
 				while(Si != CellSize.end()){
+					cout<<"adding cell dimensions:"<<(*Si)<<" ";
 					Cell->Dimensions.push_back(*Si);
 					Cell->Location.push_back((*Ci)*(*Si));
 					++Si;
 					++Ci;
 				}
+				cout<<"\n";
 
 				pair<string, PtrObj > NewCell (Key,Cell);
 				Cells.insert(NewCell);
@@ -222,27 +224,34 @@ class singlegrid: public grid{
 
 		/**	Removes O from location L if present. Removes any cells that become empty due to this removal. */
 		void Remove(PtrObj O, Coordinate L){
+
+			cout<<"removing AT\n";
+			cout<<"coordinate location:"<<L[0]<<" "<<L[1]<<" "<<L[2]<<"\n";
+			cout<<"object location:"<<O->Location[0]<<" "<<O->Location[1]<<" "<<O->Location[2]<<"\n";
+
 			//check if the cell exists. if not the object is not here and we are done
 			PtrObj Cell = this->CellAt(L);
-			if(!Cell.get())
+			if(!Cell.get()){
+				cout<<"cell does not exist\n";
 				return;
+			}
+			cout<<"cell location:"<<Cell->Location[0]<<" "<<Cell->Location[1]<<" "<<Cell->Location[2]<<"\n";
+			cout<<"cell dimensions:"<<Cell->Dimensions[0]<<" "<<Cell->Dimensions[1]<<" "<<Cell->Dimensions[2]<<"\n";
 
 			//remove the object if it is in the cell
 			ListPtrObj::iterator it;
+			cout<<"obj count:"<<Cell->BoundObjs.size()<<"\n";
 			it = Cell->BoundObjs.begin();
+
 			while(it != Cell->BoundObjs.end()){
+				cout<<"iterating through cell objects:"<<(*it)->Location[0]<<"\n";
 				if((*it).get() == O.get()){
+					cout<<"removing object from specific cell\n";
 					Cell->BoundObjs.erase(it);
+					cout<<"done removing object from specific cell\n";
 					break;
 				}else{
 					++it;
-				}
-			}
-
-			if(this->debug){
-				Coordinate::iterator itLoc = L.begin();
-				while(itLoc != L.end()){
-					++itLoc;
 				}
 			}
 
@@ -319,12 +328,15 @@ class singlegrid: public grid{
 			Removes object from grid
 		*/
 		void Remove(PtrObj O){
+			cout<<"GRID REMOVAL\n";
 			vector<Coordinate> OCells = FindCellOverlap(O);
 			vector<Coordinate>::iterator i = OCells.begin();
 			while(i!=OCells.end()){
+				cout<<"working\n";
 				Remove(O,(*i));
 				++i;
 			}
+			cout<<"DONE\n";
 		}
 		/** Removes all objects in List from the data structure as well as any empty cells. */
 		void Remove(ListPtrObj List){

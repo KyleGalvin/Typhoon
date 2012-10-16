@@ -7,17 +7,17 @@ BIN_DIR = ./bin/
 .SUFFIXES:
 .SUFFIXES: .cpp .o
 
+somgl :		somGL.cpp
+	g++ -o $(BIN_DIR)somgl somGL.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image
+
 som :		SOM.cpp
 	g++ -o $(BIN_DIR)som SOM.cpp -lSDL -lSDL_image -lSDL_gfx -std=c++0x
-
-somgl :		SOMdemo.cpp
-	g++ -o $(BIN_DIR)somgl SOMdemo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image
 
 sdlgl :		SDL_GL_Demo.cpp
 	g++ -o $(BIN_DIR)sdlgl SDL_GL_Demo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image
 
 test3d :	InteractiveDemo.cpp
-	g++ -o $(BIN_DIR)test3d InteractiveDemo.cpp singlegrid.hpp grid.hpp hgrid.hpp -std=c++0x -lglut -lGL -lGLU -lSDL
+	g++ -o $(BIN_DIR)test3d InteractiveDemo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL
 
 testGrids :	$(TEST_DIR)testrunner.cpp
 	g++ -o $(BIN_DIR)testgrids $(TEST_DIR)testrunner.cpp $(TEST_DIR)single_grid_test.cpp $(TEST_DIR)hierarchal_grid_test.cpp $(TEST_DIR)shared_ptr_test.cpp -std=c++0x

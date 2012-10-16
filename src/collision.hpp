@@ -4,8 +4,7 @@
 #include "objectstructs.hpp"
 
 class CollisionEngine{
-	private:
-
+	public:
 		bool TestAABB(AABB* O1, AABB* O2){
 
 			//L is the beginning of our object square
@@ -38,9 +37,7 @@ class CollisionEngine{
 			return collision;
 		}
 
-	public:
 		bool debug;
-
 
 		bool TestObjects(Object* O1, Object* O2){
 

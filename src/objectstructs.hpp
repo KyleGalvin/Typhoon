@@ -228,12 +228,11 @@ class Object{
 
 
 		//when we call this, we must be sure the object is 3d
-		PtrLineList Draw3DQuads(){
+		void Draw3DQuads(){
 			Coordinate::iterator Di = Dimensions.begin();
 			Coordinate::iterator Li = Location.begin();
 
 			glBegin(GL_QUADS);
-
 			//front
 			glTexCoord2f(0.0,0.0);
 			glVertex3f(Li[0]+Di[0],Li[1],Li[2]);
@@ -243,7 +242,6 @@ class Object{
 			glVertex3f(Li[0],Li[1]+Di[1],Li[2]);
 			glTexCoord2f(1.0,0.0);
 			glVertex3f(Li[0],Li[1],Li[2]);
-
 			//top
 			glTexCoord2f(0.0,0.0);
 			glVertex3f(Li[0],Li[1],Li[2]);
@@ -253,7 +251,6 @@ class Object{
 			glVertex3f(Li[0]+Di[0],Li[1],Li[2]+Di[2]);
 			glTexCoord2f(1.0,0.0);
 			glVertex3f(Li[0],Li[1],Li[2]+Di[2]);
-
 			//bottom
 			glTexCoord2f(0.0,0.0);
 			glVertex3f(Li[0],Li[1]+Di[1],Li[2]);
@@ -263,7 +260,6 @@ class Object{
 			glVertex3f(Li[0]+Di[0],Li[1]+Di[1],Li[2]+Di[2]);
 			glTexCoord2f(1.0,0.0);
 			glVertex3f(Li[0],Li[1]+Di[1],Li[2]+Di[2]);
-		
 			//back
 			glTexCoord2f(0.0,0.0);
 			glVertex3f(Li[0],Li[1],Li[2]+Di[2]);
@@ -273,7 +269,6 @@ class Object{
 			glVertex3f(Li[0]+Di[0],Li[1]+Di[1],Li[2]+Di[2]);
 			glTexCoord2f(1.0,0.0);
 			glVertex3f(Li[0],Li[1]+Di[1],Li[2]+Di[2]);
-
 			//left
 			glTexCoord2f(0.0,0.0);
 			glVertex3f(Li[0],Li[1],Li[2]+Di[2]);
@@ -283,7 +278,6 @@ class Object{
 			glVertex3f(Li[0],Li[1]+Di[1],Li[2]);
 			glTexCoord2f(1.0,0.0);
 			glVertex3f(Li[0],Li[1],Li[2]);
-			
 			//right
 			glTexCoord2f(0.0,0.0);
 			glVertex3f(Li[0]+Di[0],Li[1],Li[2]);
@@ -293,6 +287,7 @@ class Object{
 			glVertex3f(Li[0]+Di[0],Li[1]+Di[1],Li[2]+Di[2]);
 			glTexCoord2f(1.0,0.0);
 			glVertex3f(Li[0]+Di[0],Li[1],Li[2]+Di[2]);
+			glEnd();
 		}
 
 		//when we call this, we must be sure the object is 2d

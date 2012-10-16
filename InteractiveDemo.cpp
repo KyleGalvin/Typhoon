@@ -1,11 +1,11 @@
 #include <GL/glut.h>
-#include "hgrid.hpp"
-#include "collision.hpp"
+#include "./src/hgrid.hpp"
+#include "./src/collision.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <memory>
 #include "SDL/SDL.h"
-#include "camera.hpp"
+#include "./src/camera.hpp"
 
 #define X_PIXELS 500
 #define Y_PIXELS 500

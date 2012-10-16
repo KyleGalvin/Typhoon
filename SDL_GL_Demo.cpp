@@ -1,23 +1,44 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_opengl.h"
-
+#include "./src/neuron.hpp"
+#include "./src/tspFileReader.hpp"
 #include "./src/objectstructs.hpp"
 #include "./src/geotypes.hpp"
 #include "./src/hgrid.hpp"
 #include "./src/collision.hpp"
 #include "./src/camera.hpp"
-#include "./src/timer.hpp"
 #include "./src/render.hpp"
+#include <time.h>
 
 #define X_PIXELS 500
 #define Y_PIXELS 500
 #define Z_PIXELS 500
 
+struct SDLDrawMetaData{
+	static const int screen_w=500;
+	static const int screen_h=500;
+	static const int screen_bpp=32;
+	static const int fps=60;
+	SDL_Surface *screen;
+};
+
+struct SpriteData{
+	SDL_Surface *background;
+	SDL_Surface *somMarkerStamp;
+	SDL_Surface *trainMarkerStamp;
+	SDL_Surface *nearestMarkerStamp;
+};
+
+CollisionEngine ce;
+
 camera *cam;
+PtrObj camBoundingBox;
 
 PtrSetPtrObj MyObjects;
 hgrid MyGrid;
 PtrObj FocusObj;
+PtrSetPtrObj SOMbricks;
+vector< vector<neuron> > mySOM;
 
 float zoom = 45.0;
 int mouseX;
@@ -26,6 +47,28 @@ int mouseY;
 GLuint texture;
 GLint nOfColors;
 GLenum texture_format;
+
+PtrObj createCamBB(){
+	PtrObj O(new AABB);
+	O->Dimensions.push_back(0.1);
+	O->Dimensions.push_back(0.1);
+	O->Dimensions.push_back(0.1);
+	O->Location.push_back(cam->Location[0]+0.05);//add half the dimension value to center box around camera
+	O->Location.push_back(cam->Location[1]+0.05);
+	O->Location.push_back(cam->Location[2]+0.05);
+	return O;
+}
+
+PtrObj createBrick(int i,int j,float meshSize){
+	PtrObj O(new AABB);
+	O->Dimensions.push_back(meshSize);
+	O->Dimensions.push_back(meshSize);
+	O->Dimensions.push_back(meshSize);
+	O->Location.push_back(i*meshSize);
+	O->Location.push_back(0.1+(j*meshSize));//0.1 up pulls our SOM out of the floor
+	O->Location.push_back(0);
+	return O;
+}
 
 PtrObj createRandObj(){
 
@@ -51,6 +94,32 @@ PtrObj createRandObj(){
 	return O;
 }
 
+PtrSetPtrObj createSOMBricks(float meshSize){
+	PtrSetPtrObj results(new SetPtrObj);
+	int Location[3];
+	int Dimensions[3];
+	for(int i=0;i<20;i++){
+		for(int j=0;j<20;j++){
+			results->insert(createBrick(i,j,meshSize));
+		}
+	}
+	return results;
+
+}
+
+PtrObj createFloor(){
+	PtrObj O(new AABB);
+	O->Dimensions.push_back(2);
+	O->Dimensions.push_back(0.1);
+	O->Dimensions.push_back(2);
+
+	//centered at origin
+	O->Location.push_back(-1);
+	O->Location.push_back(0);
+	O->Location.push_back(-1);
+	return O;
+}
+
 PtrSetPtrObj createObjects(){
 	PtrSetPtrObj result(new SetPtrObj);
 
@@ -62,9 +131,6 @@ PtrSetPtrObj createObjects(){
 	for(int i=0;i<10;i++){
 		result->insert(createRandObj());
 	}
-	FocusObj = createRandObj();
-	FocusObj->debug = false;
-	result->insert(FocusObj);
 
 	return result;
 }
@@ -77,6 +143,20 @@ bool drawPoly(){
 	glVertex3d(1.0, 0.0, 0.0);
 	glEnd();
 
+}
+
+void drawSOM(){
+	SetPtrObj::iterator i = SOMbricks->begin();
+	int counter=0;
+	while(i !=SOMbricks->end()){
+		glColor3f(mySOM[counter/20][counter%20][0]/255.0,mySOM[counter/20][counter%20][1]/255.0,mySOM[counter/20][counter%20][2]/255.0);
+		glBindTexture(GL_TEXTURE_2D,1);
+		glBegin(GL_QUADS);
+		(*i)->Draw3DQuads();	
+		++i;
+		counter++;
+		glEnd();
+	}
 }
 
 void drawAABB(){
@@ -99,6 +179,23 @@ void drawAABB(){
 		glEnd();
 	}
 
+}
+
+vector< vector<neuron> > train(vector< vector<neuron> > mySOM, vector<neuron> TrainingNeurons, int i, int iMax,bool tsp){
+	if(i >0){
+		for(int j =0;j < TrainingNeurons.size();j++){
+			pos2d winner = findWinningNeuron(mySOM,TrainingNeurons[j]);
+			
+			//the travelling salesman problem uses modified SOM learning rules in order to optimize results
+			if(tsp){
+				mySOM = tspTrainNeigbours(mySOM, TrainingNeurons[j],winner,((float)i/(float)iMax),((float)i/(float)iMax));
+			}else{
+				mySOM = trainNeigbours(mySOM, TrainingNeurons[j],winner,((float)i/(float)iMax),((float)i/(float)iMax));
+			}
+		}
+	}
+
+	return mySOM;
 }
 
 void drawGrid(){
@@ -131,8 +228,13 @@ void drawGrid(){
 }
 
 void draw(){
+	cout<<"drawing\n";
 	drawGrid();
+	cout<<"done grid\n";
+	drawSOM();
+	cout<<"done som\n";
 	drawAABB();
+	cout<<"done aabb\n";
 }
 bool initGL(){
 
@@ -141,12 +243,12 @@ bool initGL(){
 	gluPerspective(zoom,1,0.1,100);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],cam->Location[0]+(*cam->Target)[0],cam->Location[1]+(*cam->Target)[1],cam->Location[2]+(*cam->Target)[2],(*cam->Up)[0],(*cam->Up)[1],(*cam->Up)[2]);
+	gluLookAt(cam->Location[0],cam->Location[1],cam->Location[2],
+		cam->Location[0]+(*cam->Target)[0],cam->Location[1]+(*cam->Target)[1],cam->Location[2]+(*cam->Target)[2],
+		(*cam->Up)[0],(*cam->Up)[1],(*cam->Up)[2]);
 
 	glClearDepth(1.0f);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-	draw();
 	SDL_GL_SwapBuffers();
 	return true;
 }
@@ -163,13 +265,21 @@ bool init(int x, int y){
 	if ( initGL() == false ){
 		return false;
 	}
-
 	SDL_WM_SetCaption( "SDL GL", NULL );
 	return true; 
 }
 
 void update(){
+	cout<<"updating\n";
+//	MyGrid.Remove(camBoundingBox);
+	cout<<"removed\n";
 	cam->step();
+	camBoundingBox->Location[0]=cam->Location[0];
+	camBoundingBox->Location[1]=cam->Location[1];
+	camBoundingBox->Location[2]=cam->Location[2];
+	cout<<"changed\n";
+//	MyGrid.Add(camBoundingBox);
+	cout<<"replaced\n";
 }
 
 void render(){
@@ -188,6 +298,7 @@ void render(){
 	draw();
 	SDL_GL_SwapBuffers();
 }
+
 void MouseMove(int x, int y,int halfHeight, int halfWidth)
 {
 	int relativeX;
@@ -196,38 +307,62 @@ void MouseMove(int x, int y,int halfHeight, int halfWidth)
 	if(x!=0){
     		relativeX = x - mouseX;
     		mouseX = x;
-		cout<<"X"<<x<<"\n";
-		cout<<"deltaX"<<relativeX<<"\n";
 		cam->rotateY(relativeX/-100.0);
 	}else if(y!=0){
 
     		relativeY = y - mouseY;
     		mouseY = y;
-		cout<<"Y"<<y<<"\n";
-		cout<<"deltaY"<<relativeY<<"\n";
 		cam->rotateX(relativeY/100.0);
 	}
 		//SDL_WarpMouse(halfWidth, halfHeight);
 
 }
 int main(){
-	const int screen_w = 1366;
-	const int screen_h = 768;
-	const int screen_bpp = 32;
-	const int fps = 60;
-	
-	mouseX=0;
-	mouseY=0;
+	//random number generator seeded
+	srand(time(NULL));
 
+	//sdl screen info and sprite data
+	SDLDrawMetaData sdl;
+	SpriteData sprites;
+
+	//setup camera
 	cam = new camera();
+	camBoundingBox = createCamBB();
+	//move above floor!
+	cam->Location[1]+=0.2;
+	//camera forces we will use. Keyboard input will modify these values and move us
+	shared_ptr<Force> UpForce = cam->addForce(cam->Up,0);
+	shared_ptr<Force> ForwardForce = cam->addForce(cam->Target,0);
+	shared_ptr<Force> RightForce = cam->addForce(cam->Right,0);
+
+	//create 10 random objects to test hierarchal bounding tree
 	MyObjects = createObjects();
+	//add floor to scene
+	MyObjects->insert(createFloor());
 	MyGrid.Add(*MyObjects);
 
-	init(screen_w,screen_h);
-	
+	//self organizing map creation
+	TSPFileReader trainingVectorFactory;
+	vector<neuron> TrainingNeurons;
+	//we will use 3d vectors and a colour array to demo
+	TrainingNeurons = trainingVectorFactory.retrieveTrainingVectors("./maps/RGB.tsp");
+	//SOM will eventually be scaled between 0 and 1. here we define 20x20 grid
+	float meshSize = 0.05;
+	mySOM =  initializeNewSOM(meshSize,0.0,255.0);
+	//SOM training counter
+	int trainingIterations = 100;
+	int iTrain = trainingIterations;
+	SOMbricks = createSOMBricks(meshSize);
+	//add our som bricks to our spatial partitioning structure (collision detection)
+	MyGrid.Add(*SOMbricks);
+	MyGrid.Add(camBoundingBox);
+
+	init(sdl.screen_w,sdl.screen_h);
+	//cube texture
 	SDL_Surface* cobblestoneFloor;
 	SDL_Render::loadimage("./6903.jpg" ,&cobblestoneFloor);	
 	
+	//transfer SDL surface into openGL texture
 	nOfColors = cobblestoneFloor->format->BytesPerPixel;
 	if(nOfColors == 4){
 		if(cobblestoneFloor->format->Rmask = 0x000000ff){
@@ -243,8 +378,7 @@ int main(){
 		}
 		
 	}
-
-//	glGenTextures(1,&texture);
+	//openGL texturing and depth map configuration
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
@@ -263,21 +397,21 @@ int main(){
 
 	glTexImage2D( GL_TEXTURE_2D,0,nOfColors,cobblestoneFloor->w,cobblestoneFloor->h,0,texture_format,GL_UNSIGNED_BYTE,cobblestoneFloor->pixels);
 	
+
+	//sdl cursor initialization
+	mouseX=0;
+	mouseY=0;
 	SDL_Event event;
 	SDL_ShowCursor(0);
 	SDL_WM_GrabInput(SDL_GRAB_ON);
-	Timer timer;
 	bool quit = false;
 
-	shared_ptr<Force> UpForce = cam->addForce(cam->Up,0);
-	shared_ptr<Force> ForwardForce = cam->addForce(cam->Target,0);
-	shared_ptr<Force> RightForce = cam->addForce(cam->Right,0);
 
 
 	//game loop
 	while(!quit){
-		timer.start();
 
+		//keyboard/mouse handler
 		while(SDL_PollEvent(&event)){
 			if(event.type==SDL_QUIT){
 				quit=true;
@@ -305,15 +439,17 @@ int main(){
 					case SDLK_q:UpForce->magnitude -=0.1 ; break;
 				}
 			}else if(event.type == SDL_MOUSEMOTION ){
-                		MouseMove(event.motion.xrel, event.motion.yrel, screen_h/2,screen_w/2);
+                		MouseMove(event.motion.xrel, event.motion.yrel, sdl.screen_h/2,sdl.screen_w/2);
 			}
 
 
 		}
 		update();
+		if(iTrain>0){
+			iTrain--;
+			mySOM = train(mySOM,TrainingNeurons,iTrain,trainingIterations,false);
+		}
 		render();
-		//throttle framerate
-		while(timer.get_ticks()<1000/fps){}
 	}
 
 	return 0;
