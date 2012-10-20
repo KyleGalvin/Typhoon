@@ -7,6 +7,9 @@ BIN_DIR = ./bin/
 .SUFFIXES:
 .SUFFIXES: .cpp .o
 
+kinect:		KinectDemo.cpp
+	g++ -o $(BIN_DIR)kinect KinectDemo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image
+
 somgl :		somGL.cpp
 	g++ -o $(BIN_DIR)somgl somGL.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image
 
