@@ -4,11 +4,12 @@ RELATIVE_ROOT_DIR = ./
 TEST_DIR = ./unittests/
 BIN_DIR = ./bin/
 
+
 .SUFFIXES:
 .SUFFIXES: .cpp .o
 
 kinect:		KinectDemo.cpp
-	g++ -o $(BIN_DIR)kinect KinectDemo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image
+	g++ -o $(BIN_DIR)kinect KinectDemo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image -lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml -lopencv_objdetect -lopencv_ts -lopencv_video -I/home/kgee/kinect/OpenNI-Bin-Dev-Linux-x64-v1.5.4.0/Include/ -L/home/kgee/kinect/OpenNI-Bin-Dev-Linux-x64-v1.5.4.0/Lib -lOpenNI
 
 somgl :		somGL.cpp
 	g++ -o $(BIN_DIR)somgl somGL.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image

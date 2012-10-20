@@ -1,4 +1,5 @@
 #include "SDL/SDL.h"
+#include <GL/glut.h>
 #include "SDL/SDL_opengl.h"
 #include "./src/neuron.hpp"
 #include "./src/tspFileReader.hpp"
@@ -10,6 +11,13 @@
 #include "./src/render.hpp"
 #include <time.h>
 
+#include <opencv/cv.h>
+#include <opencv/cxcore.h>
+#include <opencv/highgui.h>
+#include "/home/kgee/kinect/OpenNI/Include/XnCppWrapper.h"
+
+using namespace cv;
+//using namespace xn;
 #define X_PIXELS 500
 #define Y_PIXELS 500
 #define Z_PIXELS 500
@@ -34,10 +42,14 @@ CollisionEngine ce;
 camera *cam;
 PtrObj camBoundingBox;
 
+VideoCapture capture(CV_CAP_OPENNI); // or CV_CAP_OPENNI
 PtrSetPtrObj MyObjects;
+PtrSetPtrObj BrickArray;
 hgrid MyGrid;
 PtrObj FocusObj;
-PtrSetPtrObj SOMbricks;
+
+bool draw_AABB;
+bool draw_HGrid;
 
 float zoom = 45.0;
 int mouseX;
@@ -93,13 +105,13 @@ PtrObj createRandObj(){
 	return O;
 }
 
-PtrSetPtrObj createSOMBricks(float meshSize){
+PtrSetPtrObj createBrickArray(int x, int y){
 	PtrSetPtrObj results(new SetPtrObj);
 	int Location[3];
 	int Dimensions[3];
-	for(int i=0;i<20;i++){
-		for(int j=0;j<20;j++){
-			results->insert(createBrick(i,j,meshSize));
+	for(int i=0;i<x;i++){
+		for(int j=0;j<y;j++){
+			results->insert(createBrick(i,j,0.005));
 		}
 	}
 	return results;
@@ -144,6 +156,39 @@ bool drawPoly(){
 
 }
 
+void drawBrickGrid(Mat bgrImage, Mat depthMap){
+
+	typedef pair<Coordinate,Coordinate> Line;
+	typedef vector<Line> LineList;
+	typedef std::shared_ptr<LineList> PtrLineList;
+	
+	SetPtrObj::iterator i = BrickArray->begin();
+	PtrLineList Shape;
+
+	int rows=bgrImage.rows;
+	int columns=bgrImage.cols;
+	int ri=0;
+	int ci=0;
+	cout<<"Drawing Grid!\n";
+	while(i !=BrickArray->end()){
+		glPushMatrix();
+		glTranslatef((*i)->Location[0],(*i)->Location[1],(*i)->Location[2]);
+		//start drawin lines!
+		cout<<"Drawing Column\n";
+		glColor3f(bgrImage.at<Vec3b>(ri,ci)[2],bgrImage.at<Vec3b>(ri,ci)[1],bgrImage.at<Vec3b>(ri,ci)[0]);
+		cout<<"done finding colour\n";
+		ci++;
+		if(ci==columns){ci==0;ri++;}
+		
+		//glBindTexture(GL_TEXTURE_2D,1);
+		glBegin(GL_QUADS);
+		glutSolidCube((*i)->Dimensions[0]);
+		++i;
+		glEnd();
+		glPopMatrix();
+	}
+
+}
 void drawAABB(){
 
 	typedef pair<Coordinate,Coordinate> Line;
@@ -174,8 +219,8 @@ void drawGrid(){
 	
 	PtrLineList Shape;
 	typename hgrid::const_iterator i = MyGrid.begin();
-	glColor3f(0,0,1.0);
 	glBegin(GL_LINES);
+	glColor3f(0.0,1.0,0.0);
 
 	int cellcount = 0;
 	while(i!=MyGrid.end()){
@@ -196,12 +241,21 @@ void drawGrid(){
 }
 
 void draw(){
-	cout<<"drawing\n";
-	drawGrid();
-	cout<<"done grid\n";
-	drawAABB();
-	cout<<"done aabb\n";
+	Mat depthMap;
+	Mat bgrImage;
+
+	if(!capture.grab())
+	{
+		cout<<"\n Not able to grab images \n";
+		exit(1);
+	}
+ 
+	capture.retrieve( depthMap, CV_CAP_OPENNI_DEPTH_MAP );
+	capture.retrieve( bgrImage, CV_CAP_OPENNI_BGR_IMAGE );
+	cout<<bgrImage.at<Vec3b>(0,0)[0]<<"<==color\n";
+	drawBrickGrid(bgrImage,depthMap);
 }
+
 bool initGL(){
 
 	glMatrixMode(GL_PROJECTION);
@@ -236,16 +290,12 @@ bool init(int x, int y){
 }
 
 void update(){
-	cout<<"updating\n";
 //	MyGrid.Remove(camBoundingBox);
-	cout<<"removed\n";
 	cam->step();
 	camBoundingBox->Location[0]=cam->Location[0];
 	camBoundingBox->Location[1]=cam->Location[1];
 	camBoundingBox->Location[2]=cam->Location[2];
-	cout<<"changed\n";
 //	MyGrid.Add(camBoundingBox);
-	cout<<"replaced\n";
 }
 
 void render(){
@@ -283,76 +333,27 @@ void MouseMove(int x, int y,int halfHeight, int halfWidth)
 		//SDL_WarpMouse(halfWidth, halfHeight);
 
 }
-int main(){
-	//random number generator seeded
-	srand(time(NULL));
-
-	//sdl screen info and sprite data
-	SDLDrawMetaData sdl;
-	SpriteData sprites;
-
+int main(int argc, char** argv){
+//Context context;
+//nRetVal = context.Init();
+assert(capture.isOpened()); 
 	//setup camera
 	cam = new camera();
+	cam->Location[0]=1.5;
+	cam->Location[1]=1;
+	cam->Location[2]=-4;
 	camBoundingBox = createCamBB();
-	//move above floor!
-	cam->Location[1]+=0.2;
-	//camera forces we will use. Keyboard input will modify these values and move us
 	shared_ptr<Force> UpForce = cam->addForce(cam->Up,0);
 	shared_ptr<Force> ForwardForce = cam->addForce(cam->Target,0);
 	shared_ptr<Force> RightForce = cam->addForce(cam->Right,0);
 
-	//create 10 random objects to test hierarchal bounding tree
-	MyObjects = createObjects();
-	//add floor to scene
-	MyObjects->insert(createFloor());
-	MyGrid.Add(*MyObjects);
-	//add camera to scene
-	MyGrid.Add(camBoundingBox);
-
+	BrickArray = createBrickArray(640,480);
+	if(capture.get( CV_CAP_PROP_OPENNI_REGISTRATION ) == 0) capture.set(CV_CAP_PROP_OPENNI_REGISTRATION,1);
+	cout<<"past init\n";
+	SDLDrawMetaData sdl;	
+ 	glutInit(&argc, argv);
 	init(sdl.screen_w,sdl.screen_h);
-	//cube texture
-	SDL_Surface* cobblestoneFloor;
-	SDL_Render::loadimage("./6903.jpg" ,&cobblestoneFloor);	
 	
-	//transfer SDL surface into openGL texture
-	nOfColors = cobblestoneFloor->format->BytesPerPixel;
-	if(nOfColors == 4){
-		if(cobblestoneFloor->format->Rmask = 0x000000ff){
-			texture_format = GL_RGBA;
-		}else{
-			texture_format = GL_BGRA;
-		}
-	}else if(nOfColors == 3){
-		if(cobblestoneFloor->format->Rmask = 0x000000ff){
-			texture_format = GL_RGB;
-		}else{
-			texture_format = GL_BGR;
-		}
-		
-	}
-	//openGL texturing and depth map configuration
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_DEPTH_TEST);
-	glDepthMask(GL_TRUE);
-	glDepthFunc(GL_LEQUAL);
-	glDepthRange(0.0f,1.0f);
-
-	glBindTexture(GL_TEXTURE_2D,1);
-	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT);
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_REPEAT);
-	glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-	glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-
-	glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
-
-	glTexImage2D( GL_TEXTURE_2D,0,nOfColors,cobblestoneFloor->w,cobblestoneFloor->h,0,texture_format,GL_UNSIGNED_BYTE,cobblestoneFloor->pixels);
-	
-
-	//sdl cursor initialization
-	mouseX=0;
-	mouseY=0;
 	SDL_Event event;
 	SDL_ShowCursor(0);
 	SDL_WM_GrabInput(SDL_GRAB_ON);
@@ -379,6 +380,8 @@ int main(){
 					case SDLK_k:cam->rotateX(-5) ; break;
 					case SDLK_j:cam->rotateY(5) ; break;
 					case SDLK_l:cam->rotateY(-5) ; break;
+					case SDLK_o:cam->rotateZ(5) ; break;
+					case SDLK_u:cam->rotateZ(-5) ; break;
 					case SDLK_z:quit=true; break;
 				}
 			}else if(event.type == SDL_KEYUP){
@@ -391,7 +394,7 @@ int main(){
 					case SDLK_q:UpForce->magnitude -=0.01 ; break;
 				}
 			}else if(event.type == SDL_MOUSEMOTION ){
-                		MouseMove(event.motion.xrel, event.motion.yrel, sdl.screen_h/2,sdl.screen_w/2);
+                //		MouseMove(event.motion.xrel, event.motion.yrel, sdl.screen_h/2,sdl.screen_w/2);
 			}
 
 
