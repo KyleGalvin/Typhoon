@@ -40,6 +40,10 @@ PtrObj FocusObj;
 PtrSetPtrObj SOMbricks;
 vector< vector<neuron> > mySOM;
 
+bool draw_AABB;
+bool draw_SOM;
+bool draw_HGrid;
+
 float zoom = 45.0;
 int mouseX;
 int mouseY;
@@ -206,8 +210,8 @@ void drawGrid(){
 	
 	PtrLineList Shape;
 	typename hgrid::const_iterator i = MyGrid.begin();
-	glColor3f(0,0,1.0);
 	glBegin(GL_LINES);
+	glColor3f(0.0,1.0,0.0);
 
 	int cellcount = 0;
 	while(i!=MyGrid.end()){
@@ -228,13 +232,12 @@ void drawGrid(){
 }
 
 void draw(){
-	cout<<"drawing\n";
-	drawGrid();
-	cout<<"done grid\n";
-	drawSOM();
-	cout<<"done som\n";
-	drawAABB();
-	cout<<"done aabb\n";
+	if(draw_HGrid) 
+		drawGrid();
+	if(draw_SOM) 
+		drawSOM();
+	if(draw_AABB) 
+		drawAABB();
 }
 bool initGL(){
 
@@ -335,6 +338,10 @@ int main(){
 	shared_ptr<Force> ForwardForce = cam->addForce(cam->Target,0);
 	shared_ptr<Force> RightForce = cam->addForce(cam->Right,0);
 
+	draw_AABB=true;
+	draw_SOM=true;
+	draw_HGrid=true;
+
 	//create 10 random objects to test hierarchal bounding tree
 	MyObjects = createObjects();
 	//add floor to scene
@@ -427,6 +434,11 @@ int main(){
 					case SDLK_k:cam->rotateX(-5) ; break;
 					case SDLK_j:cam->rotateY(5) ; break;
 					case SDLK_l:cam->rotateY(-5) ; break;
+					case SDLK_o:cam->rotateZ(5) ; break;
+					case SDLK_u:cam->rotateZ(-5) ; break;
+					case SDLK_b:draw_AABB=!draw_AABB ; break;
+					case SDLK_n:draw_SOM=!draw_SOM ; break;
+					case SDLK_m:draw_HGrid=!draw_HGrid ; break;
 					case SDLK_z:quit=true; break;
 				}
 			}else if(event.type == SDL_KEYUP){
@@ -439,7 +451,7 @@ int main(){
 					case SDLK_q:UpForce->magnitude -=0.1 ; break;
 				}
 			}else if(event.type == SDL_MOUSEMOTION ){
-                		MouseMove(event.motion.xrel, event.motion.yrel, sdl.screen_h/2,sdl.screen_w/2);
+                //		MouseMove(event.motion.xrel, event.motion.yrel, sdl.screen_h/2,sdl.screen_w/2);
 			}
 
 

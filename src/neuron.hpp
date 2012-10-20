@@ -5,6 +5,9 @@
 #include "math.h"
 #include "vectorMath.hpp"
 #include <iostream>
+
+#include "Miniball.h"
+
 using namespace std;
 
 typedef vector<float> neuron;
@@ -95,6 +98,9 @@ som tspTrainNeigbours(som mySOM, neuron trainingNeuron, pos2d winner, float neig
 			meshLocCurrent[1] = (float)j/(float)mySOM[0].size();
 			float currentDistance=absDistance(meshLocCurrent,meshLocWinner);
 			if(currentDistance < maxDistance){
+
+				neuron temp = mySOM[i][j];
+
 				float influence = ((maxDistance-currentDistance)/maxDistance)*learningCoefficient;
 				mySOM[i][j] = attract(trainingNeuron,mySOM[i][j],influence);
 			
@@ -139,6 +145,66 @@ som trainNeigbours(som mySOM, neuron trainingNeuron, pos2d winner, float neigbou
 	return mySOM;	
 }
 
+vector<neuron> scaleNeuronsToRadius(vector <neuron> Neurons, float r){
+	Miniball<2> mb;
+	Point<2> p;
+	for(int i=0;i<Neurons.size(); i++){
+		p[0]=Neurons[i][0];
+		p[1]=Neurons[i][1];
+		mb.check_in(p);
+		mb.build();
+	}
+
+	cout<<"Center:"<<(mb.center())[0]<<","<<(mb.center())[1]<<"\n";
+
+	for(int i=0;i<Neurons.size(); i++){
+		//shift entire group so the center is at the origin	
+		Neurons[i][0] -= (mb.center())[0];
+		Neurons[i][1] -= (mb.center())[1];
+		//TODO: scale to (-1,1) range
+	}
+
+	//start values at extremes so our data will definitely take the placeholders
+	float currentMinX=FLT_MAX;
+	float currentMaxX= FLT_MIN;
+	float currentMinY=FLT_MAX;
+	float currentMaxY= FLT_MIN;
+
+	//find most extreme values
+	for(int i = 0; i<Neurons.size(); i++){
+			if(Neurons[i][0] > currentMaxX)
+				currentMaxX = Neurons[i][0];
+			if(Neurons[i][0] < currentMinX)
+				currentMinX = Neurons[i][0];
+			if(Neurons[i][1] > currentMaxY)
+				currentMaxY = Neurons[i][1];
+			if(Neurons[i][1] < currentMinY)
+				currentMinY = Neurons[i][1];
+	}
+	//scale all values to fit extremes within range [min,max]
+	//using abs value rather than x/y distinct prevents distortion
+	float absMax;
+	absMax = ((currentMaxX > currentMaxY) ? currentMaxX : currentMaxY);
+	float absMin;
+	absMin = ((currentMinX > currentMinY) ? currentMinX : currentMinY);
+	float absVal;
+	absVal= ((absMax*absMax > absMin*absMin) ? absMax : absMin*(-1));
+	for(int i = 0; i<Neurons.size(); i++){
+		Neurons[i][0] /= absVal;
+		Neurons[i][1] /= absVal;
+	}
+
+	//translate values so the minimum X and Y values are at 0
+	currentMaxX -= currentMinX;
+	currentMaxY -= currentMinY;
+	for(int i = 0; i<Neurons.size(); i++){
+		Neurons[i][0] -= currentMinX;
+		Neurons[i][1] -= currentMinY;
+	}
+
+	return Neurons;
+}
+
 vector<neuron> scaleNeuronsToRange(vector<neuron> Neurons, float min, float max){
 	//start values at extremes so our data will definitely take the placeholders
 	float currentMinX=FLT_MAX;
@@ -166,6 +232,7 @@ vector<neuron> scaleNeuronsToRange(vector<neuron> Neurons, float min, float max)
 	}
 
 	//scale all values to fit extremes within range [min,max]
+	//using abs value rather than x/y distinct prevents distortion
 	float absMax;
 	absMax = ((currentMaxX > currentMaxY) ? currentMaxX : currentMaxY);
 	for(int i = 0; i<Neurons.size(); i++){
@@ -209,7 +276,7 @@ vector< vector<neuron> > initializeCircularSOM(int neuronCount){
 	
 	float centerX = 0.5;
 	float centerY = 0.5;
-	float neuronX = 0.9;
+	float neuronX = 1.9;
 	float neuronY = 0.5;
 	float pi = 3.14159265;
 
