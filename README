@@ -1,10 +1,20 @@
+projects: 
+	som 
+	sdlgl 
+	kinect
+
 compile:
 
-cd to project directory and run $make
+	run the command:
+		make <project>
+	from typhoon directory
 
 run:
 
-cd to project directory and run $./test
+	from the same directory, run the project:
+		./bin/<project>
+
+check makefile for a more up-to-date list of projects
 
 Notes:
 Miniball.h - not my work. GPL Licensed.
