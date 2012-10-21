@@ -367,7 +367,7 @@ int main(){
 	init(sdl.screen_w,sdl.screen_h);
 	//cube texture
 	SDL_Surface* cobblestoneFloor;
-	SDL_Render::loadimage("./6903.jpg" ,&cobblestoneFloor);	
+	SDL_Render::loadimage("./sprites/6903.jpg" ,&cobblestoneFloor);	
 	
 	//transfer SDL surface into openGL texture
 	nOfColors = cobblestoneFloor->format->BytesPerPixel;

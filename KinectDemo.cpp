@@ -1,26 +1,42 @@
-#include "SDL/SDL.h"
+//OpenGL
 #include <GL/glut.h>
 #include "SDL/SDL_opengl.h"
-#include "./src/neuron.hpp"
-#include "./src/tspFileReader.hpp"
+
+//Collision Detection
 #include "./src/objectstructs.hpp"
 #include "./src/geotypes.hpp"
 #include "./src/hgrid.hpp"
 #include "./src/collision.hpp"
-#include "./src/camera.hpp"
-#include "./src/render.hpp"
-#include <time.h>
 
+//Dynamic Camera Class
+#include "./src/camera.hpp"
+
+//Self-Organizing Map
+#include "./src/neuron.hpp"
+#include "./src/tspFileReader.hpp"
+
+//SDL Windowing Tools
+#include "SDL/SDL.h"
+#include "./src/render.hpp"
+
+//OpenCV
 #include <opencv/cv.h>
 #include <opencv/cxcore.h>
 #include <opencv/highgui.h>
-#include "/home/kgee/kinect/OpenNI/Include/XnCppWrapper.h"
+
+//OpenNI
+#include "XnCppWrapper.h"
+
+//System clock ticker
+#include <time.h>
 
 using namespace cv;
-//using namespace xn;
+using namespace xn;
+
 #define X_PIXELS 500
 #define Y_PIXELS 500
 #define Z_PIXELS 500
+#define SAMPLE_XML_PATH "./config/SampleKinectConfig.xml"
 
 struct SDLDrawMetaData{
 	static const int screen_w=500;
@@ -30,12 +46,12 @@ struct SDLDrawMetaData{
 	SDL_Surface *screen;
 };
 
-struct SpriteData{
-	SDL_Surface *background;
-	SDL_Surface *somMarkerStamp;
-	SDL_Surface *trainMarkerStamp;
-	SDL_Surface *nearestMarkerStamp;
-};
+Context g_context;
+ScriptNode g_scriptNode;
+DepthGenerator g_depth;
+ImageGenerator g_image;
+DepthMetaData g_depthMD;
+ImageMetaData g_imageMD;
 
 CollisionEngine ce;
 
@@ -334,9 +350,18 @@ void MouseMove(int x, int y,int halfHeight, int halfWidth)
 
 }
 int main(int argc, char** argv){
-//Context context;
-//nRetVal = context.Init();
+	XnStatus rc;
+
+	EnumerationErrors errors;
+	rc = g_context.InitFromXmlFile(SAMPLE_XML_PATH, g_scriptNode, &errors);
+
+	g_depth.GetMetaData(g_depthMD);
+	g_image.GetMetaData(g_imageMD);
+
+Context context;
+context.Init();
 assert(capture.isOpened()); 
+
 	//setup camera
 	cam = new camera();
 	cam->Location[0]=1.5;

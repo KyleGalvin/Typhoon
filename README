@@ -5,3 +5,7 @@ cd to project directory and run $make
 run:
 
 cd to project directory and run $./test
+
+Notes:
+Miniball.h - not my work. GPL Licensed.
+config/SampleKinectConfig.xml taken from OpenNI template
