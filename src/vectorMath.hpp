@@ -7,6 +7,30 @@ std::vector<float> scale(float scalar, std::vector<float> a){
 	return a;
 }
 
+std::vector<float> average(std::vector< std::vector<float> > list){
+
+	//initialize our return value
+	std::vector<float> result;
+	for(int i = 0;i<list[0].size();i++){
+		result.push_back(0.0);
+	}
+
+	//sum each vector in the list into our result
+	std::vector< std::vector<float> >::iterator listIter = list.begin();
+	while(listIter != list.end()){
+		for(int i=0;i<(*listIter).size();i++){
+			result[i] += (*listIter)[i];
+		}				
+		listIter++;
+	}
+
+	//divide result by number of vectors in list
+	for(int i = 0; i<list[0].size();i++){
+		result[i]/=list.size();
+	}
+
+	return result;
+}
 std::vector<float> translate(std::vector<float> a, std::vector<float> b){
 	std::vector<float>::iterator j = b.begin();
 	for(std::vector<float>::iterator i = a.begin(); i!=a.end();i++){
@@ -66,7 +90,7 @@ std::vector<float> midpoint(std::vector<float> a, std::vector<float> b){
 			min = *j;
 		else
 			min = *i;
-		result.push_back(min+sqrt(pow((*i)-(*j),2)));
+		result.push_back(min+(sqrt(pow((*i)-(*j),2))/2.0));
 		j++;
 	}
 
