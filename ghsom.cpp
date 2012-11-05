@@ -24,7 +24,7 @@ struct SpriteData{
 	SDL_Surface *nearestMarkerStamp;
 };
 
-void drawGridArrangement(float meshSize, SDLDrawMetaData sdl, map mySOM, 
+void drawGridArrangement(float meshSize, SDLDrawMetaData sdl, som mySOM, 
 SpriteData sprites, vector<neuron> TrainingNeurons){
 
 	SDL_Render::mergesurface(0,0,&sprites.background,&sdl.screen);
@@ -53,14 +53,24 @@ SpriteData sprites, vector<neuron> TrainingNeurons){
 	}
 }
 
-void drawColorCubes(float meshSize, SDLDrawMetaData sdl, vector< vector <region> > mySOM, SpriteData sprites){
-	SDL_Render::mergesurface(0,0,&sprites.background,&sdl.screen);
+void drawColorCubesRecurse(SDLDrawMetaData sdl, vector< vector <region> > mySOM, SpriteData sprites,int offsetx,int offsety,int w,int h){
 	for(int i=0;i<mySOM.size();i++){
 		for(int j=0;j<mySOM[0].size();j++){
-			boxRGBA(sdl.screen, meshSize*sdl.screen_w*i, meshSize*sdl.screen_h*j,meshSize*sdl.screen_w*(i+1), 
-			meshSize*sdl.screen_h*(j+1), mySOM[i][j].SOMDataVector[0], mySOM[i][j].SOMDataVector[1], mySOM[i][j].SOMDataVector[2], 255 );
+			boxRGBA(sdl.screen, offsetx+(int)(w*(i/(float)mySOM.size())), offsety+(int)(h*(j/(float)mySOM[0].size())),offsetx+(int)(w*((i+1)/(float)mySOM.size())), offsety+(int)(h*((j+1)/(float)mySOM[0].size())), 
+				mySOM[i][j].SOMDataVector[0], mySOM[i][j].SOMDataVector[1], mySOM[i][j].SOMDataVector[2], 255 );
+
+				//overlay smaller maps on larger one (but only if smaller maps exist)
+				if(mySOM[i][j].myNestedSOM.size() > 0){
+					drawColorCubesRecurse(sdl,mySOM[i][j].myNestedSOM,sprites,offsetx+(w*(i/(float)mySOM.size())),offsety+(h*(j/(float)mySOM[0].size())),(w*((i)/(float)mySOM.size())),(h*((j)/(float)mySOM[0].size())));
+				}
 		}
 	}
+	
+}
+
+void drawColorCubes(SDLDrawMetaData sdl, vector< vector <region> > mySOM, SpriteData sprites){
+	SDL_Render::mergesurface(0,0,&sprites.background,&sdl.screen);
+	drawColorCubesRecurse(sdl,mySOM,sprites,0,0,sdl.screen_w,sdl.screen_h);
 }
 
 int main(){
@@ -90,35 +100,36 @@ int main(){
 	TSPFileReader trainingVectorFactory;
 	vector<neuron> TrainingNeurons;
 
-	float meshSize = 0.05;
-	float tau1 = 0.1;//breadth of each som - expanding map
-	float tau2 = 0.1;//depth of som hierarchy - recursive map
+	float tau1 = 0.25;//breadth of each som - expanding map
+	float tau2 = 0.01;//depth of som hierarchy - recursive map
 
 	if(map.find('1')!=string::npos){
 		TrainingNeurons = trainingVectorFactory.retrieveTrainingVectors("./maps/RGB.tsp");
 	}else if(map.find('2')!=string::npos){
-		TrainingNeurons = createHierarchalMeshData(1/meshSize,1/meshSize);
+	//	TrainingNeurons = createHierarchalMeshData(1/meshSize,1/meshSize);
 	}
-
-	vector< vector<region> > mySOM;
+	
+	int iterations = 100;
+	neuron bootstrapNeuron;
 
 	if(map.find('2')!=string::npos){
-		//mesh: 2d data, 2d mesh
-		//level1 ghsom starts with 4 nodes, hence 0.5, as 1/(0.5) = 2 nodes for each x and y data dimensions
-		mySOM =  initializeNewSOM(0.5,0.0,1.0);
+		//2d position data
+		bootstrapNeuron.push_back(RandomFloatInRange(0.0,1.0));
+		bootstrapNeuron.push_back(RandomFloatInRange(0.0,1.0));
 	}else{
-		//coloursquare: 3d data, 2d mesh
-		mySOM =  initializeNewSOM(meshSize,0.0,255.0);
+		//3d colour data
+		bootstrapNeuron.push_back(RandomFloatInRange(0.0,255.0));
+		bootstrapNeuron.push_back(RandomFloatInRange(0.0,255.0));
+		bootstrapNeuron.push_back(RandomFloatInRange(0.0,255.0));
 	}
-	int trainingIterations = 100;
 
-	int trainingVectorLength = TrainingNeurons[0].size();
-
-	mySOM = train(mySOM,trainingIterations,TrainingNeurons);
-	
+	region mySOM(bootstrapNeuron, iterations, tau1, tau2);
+	mySOM.loadInputVectors(TrainingNeurons);
+	mySOM.train();
+	cout<<"done training run. Ready to figure out how to draw!\n";	
 	//game loop
 	while(!quit){
-
+		cout<<"drawing\n";
 		while(SDL_PollEvent(&event)){
 			if(event.type==SDL_QUIT){
 				quit=true;
@@ -126,10 +137,10 @@ int main(){
 			//update mouse info once we have pointer set up
 
 		}
-		if(trainingVectorLength == 3){
-			drawColorCubes(meshSize,sdl,mySOM,sprites);
-		}else if(trainingVectorLength == 2 && map.find('2')!=string::npos){
-			drawGridArrangement(meshSize, sdl, mySOM, sprites,TrainingNeurons);
+		if(bootstrapNeuron.size() == 3){
+			drawColorCubes(sdl,mySOM.myNestedSOM,sprites);
+		}else if(bootstrapNeuron.size() == 2 && map.find('2')!=string::npos){
+			//drawGridArrangement(meshSize, sdl, mySOM.myNestedSOM, sprites,TrainingNeurons);
 		}else{
 			cout<<"bogus training data!\n";
 		}
@@ -140,5 +151,5 @@ int main(){
 
 	}
 	return 0;
-}
+} 
 
