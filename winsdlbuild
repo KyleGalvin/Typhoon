@@ -1,0 +1,1 @@
+"g++ -o ./bin/sdl SDLDemo.cpp -lmingw32 -lSDLMain -lSDL -lSDL_image -mwindows -std=c++0x -I C:\cygwin\usr\include\ -L C:\cygwin\usr\local\lib" 
