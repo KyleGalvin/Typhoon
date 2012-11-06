@@ -101,7 +101,7 @@ int main(){
 	vector<neuron> TrainingNeurons;
 
 	float tau1 = 0.25;//breadth of each som - expanding map
-	float tau2 = 0.01;//depth of som hierarchy - recursive map
+	float tau2 = 0.00001;//depth of som hierarchy - recursive map
 
 	if(map.find('1')!=string::npos){
 		TrainingNeurons = trainingVectorFactory.retrieveTrainingVectors("./maps/RGB.tsp");

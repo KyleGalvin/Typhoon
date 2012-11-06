@@ -32,13 +32,13 @@ public:
 
 						boost::char_separator<char> tokenDivider(" ");
 						//each TSP line has 3 datapoints: cityID, xLoc, yLoc. we are only interested in last 2
-						boost::tokenizer< boost::char_separator<char> > tokens(line, tokenDivider);
+						boost::tokenizer<> tokens(line);
 
 						neuron NewTrainingNeuron;
 						int i = 0;
-						for(const auto& t: tokens){
+						for(boost::tokenizer<>::iterator t = tokens.begin(); t!=tokens.end();++t){
 							if(i!=0){//skip 'index' value and go straight to vector data
-								NewTrainingNeuron.push_back(atof(t.c_str()));
+								NewTrainingNeuron.push_back(atof(t->c_str()));
 							}
 							i++;
 						}
