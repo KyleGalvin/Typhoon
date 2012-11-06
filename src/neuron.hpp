@@ -6,8 +6,6 @@
 #include "vectorMath.hpp"
 #include <iostream>
 
-#include "Miniball.h"
-
 using namespace std;
 
 typedef vector<float> neuron;
