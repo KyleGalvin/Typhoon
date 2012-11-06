@@ -10,7 +10,9 @@ BIN_DIR = ./bin/
 
 kinect:		KinectDemo.cpp
 	g++ -o $(BIN_DIR)kinect KinectDemo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image -lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml -lopencv_objdetect -lopencv_ts -lopencv_video -I/usr/include/ni -L/home/kgee/kinect/OpenNI-Bin-Dev-Linux-x64-v1.5.4.0/Lib -lOpenNI
-
+sdl :		SDLDemo.cpp
+	g++ -o $(BIN_DIR)sdl SDLDemo.cpp -lSDL -lSDL_image -std=c++0x
+	
 ghsom :		ghsom.cpp
 	g++ -o $(BIN_DIR)ghsom ghsom.cpp -lSDL -lSDL_image -lSDL_gfx -std=c++0x
 
