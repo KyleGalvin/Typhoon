@@ -33,7 +33,7 @@ bool init(int x, int y){
 	return true; 
 }
 
-int main(){
+int main(int count, char** args){
 	//sdl screen info and sprite data
 	SDLDrawMetaData sdl;
 	SpriteData sprites;
