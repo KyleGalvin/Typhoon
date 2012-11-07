@@ -10,6 +10,7 @@
 #include "./src/geotypes.hpp"
 #include "./src/tspFileReader.hpp"
 */
-int main(int count int** args){
+
+int main(int count, int** args){
 	return 0;
 }
