@@ -20,7 +20,7 @@ som :		SOM.cpp
 	g++ -o $(BIN_DIR)som SOM.cpp -lSDL -lSDL_image -lSDL_gfx -std=c++0x
 
 winheaders :		headers.cpp
-	g++ -o $(BIN_DIR)winheaders headers.cpp -lmingw32 -lSDLmain -lSDL -lSDL_image -std=c++0x -lglut -lGL -lGLU -mwindows -I C:/cygwin/usr/include/ -L C:/cygwin/usr/local/lib -I C:/cygwin/usr\include/w32api/ -L C:/MinGW\lib
+	g++ -o $(BIN_DIR)winheaders headers.cpp -lmingw32 -lSDLmain -lSDL -lSDL_image -std=c++0x -lglut -lGL -lGLU -mwindows -I C:/cygwin/usr/include/ -L C:/cygwin/usr/local/lib -I C:/cygwin/usr/include/w32api/ -L C:/MinGW/lib
 
 sdlgl :		SDL_GL_Demo.cpp
 	g++ -o $(BIN_DIR)sdlgl SDL_GL_Demo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image
