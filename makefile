@@ -19,6 +19,9 @@ ghsom :		ghsom.cpp
 som :		SOM.cpp
 	g++ -o $(BIN_DIR)som SOM.cpp -lSDL -lSDL_image -lSDL_gfx -std=c++0x
 
+winheaders :		headers.cpp
+	g++ -o $(BIN_DIR)winheaders headers.cpp -lmingw32 -lSDLmain -lSDL -lSDL_image -std=c++0x -lglut -lGL -lGLU -mwindows
+
 sdlgl :		SDL_GL_Demo.cpp
 	g++ -o $(BIN_DIR)sdlgl SDL_GL_Demo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image
 
