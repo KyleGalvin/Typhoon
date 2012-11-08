@@ -10,13 +10,13 @@ BIN_DIR = ./bin/
 .SUFFIXES: .cpp .o
 ifeq ($(UNAME), Linux)
 game:		game.cpp
-	g++ -o $(BIN_DIR)game game.cpp -lSDLmain -lSDL -lSDL_image -std=c++0x
+	g++ -o $(BIN_DIR)game game.cpp -lSDL -lSDL_image -std=c++0x
 
 endif
 
 ifeq ($(UNAME), CYGWIN_NT-6.1-WOW64)
 game:		game.cpp
-	g++ -o $(BIN_DIR)game game.cpp -lmingw32 -lSDLMain -lSDL -lSDL_image -mwindows -std=c++0x -I C:\cygwin\usr\include\ -L C:\cygwin\usr\local\lib
+	g++ -o $(BIN_DIR)game game.cpp -lmingw32 -lSDLMain -lSDL -lSDL_image -mwindows -std=c++0x -I C:/cygwin/usr/include/ -L C:/cygwin/usr/local/lib
 
 endif
 
