@@ -38,10 +38,26 @@ int main(int count, char** args){
 	SpriteData sprites;
 	
 	SDL_Render::initscreen(sdl.screen_w,sdl.screen_h,sdl.screen_bpp,&sdl.screen);
-	SDL_Render::loadimage("./sprites/testbackimage.png",&sprites.background);
+	SDL_Render::loadimage("./sprites/6903.jpg",&sprites.background);
 	SDL_Render::loadimage("./sprites/marker.png",&sprites.somMarkerStamp);
 	SDL_Render::loadimage("./sprites/trainmarker.png",&sprites.trainMarkerStamp);
 	SDL_Render::loadimage("./sprites/nearestmarker.png",&sprites.nearestMarkerStamp);
+
+	bool quit=false;
+	SDL_Event event;
+	
+	while(!quit){
+		
+		SDL_Render::mergesurface(0,0,&sprites.background,&sdl.screen);
+
+		while(SDL_PollEvent(&event)){
+			if(event.type==SDL_QUIT){
+				quit=true;
+			}
+		}
+		if(SDL_Flip(sdl.screen)==-1){
+		}
+	}
 
 	return 0;
 }
