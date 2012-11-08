@@ -1,12 +1,25 @@
+UNAME := $(shell uname)
+
 SHELL = /bin/sh
 
 RELATIVE_ROOT_DIR = ./
 TEST_DIR = ./unittests/
 BIN_DIR = ./bin/
 
-
 .SUFFIXES:
 .SUFFIXES: .cpp .o
+ifeq ($(UNAME), Linux)
+game:		game.cpp
+	g++ -o $(BIN_DIR)game game.cpp -lSDLmain -lSDL -lSDL_image -std=c++0x
+
+endif
+
+ifeq ($(UNAME), CYGWIN_NT-6.1-WOW64)
+game:		game.cpp
+	g++ -o $(BIN_DIR)game game.cpp -lmingw32 -lSDLmain -lSDL -lSDL_image -std=c++0x
+
+endif
+
 
 kinect:		KinectDemo.cpp
 	g++ -o $(BIN_DIR)kinect KinectDemo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image -lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml -lopencv_objdetect -lopencv_ts -lopencv_video -I/usr/include/ni -L/home/kgee/kinect/OpenNI-Bin-Dev-Linux-x64-v1.5.4.0/Lib -lOpenNI
@@ -19,7 +32,7 @@ ghsom :		ghsom.cpp
 som :		SOM.cpp
 	g++ -o $(BIN_DIR)som SOM.cpp -lSDL -lSDL_image -lSDL_gfx -std=c++0x
 
-winheaders :		headers.cpp
+winheaders :	headers.cpp
 	g++ -o $(BIN_DIR)winheaders headers.cpp -lmingw32 -lSDLmain -lSDL -lSDL_image -std=c++0x -lglut -lGL -lGLU -mwindows -I C:/cygwin/usr/include/ -L C:/Windows/System32/
 
 sdlgl :		SDL_GL_Demo.cpp
