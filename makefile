@@ -16,7 +16,7 @@ endif
 
 ifeq ($(UNAME), CYGWIN_NT-6.1-WOW64)
 game:		game.cpp
-	g++ -o $(BIN_DIR)game game.cpp -lmingw32 -lSDLMain -lSDL -lSDL_image -std=c++0x -L C:/cygwin/usr/local/lib -I C:/cygwin/usr/include
+	g++ -o $(BIN_DIR)game game.cpp -lmingw32 -lSDLMain -lSDL -lSDL_image -mwindows -std=c++0x -I C:/cygwin/usr/include -L C:/cygwin/usr/local/lib
 
 endif
 
