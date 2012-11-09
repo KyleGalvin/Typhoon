@@ -3,13 +3,13 @@ namespace SDL_Render{
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 
-bool initscreen(const int, const int, const int, SDL_Surface**);
+bool initscreen(const int, const int, const int, SDL_Surface**, const char *title);
 bool loadimage(const char*, SDL_Surface**);
 void mergesurface(int,int,SDL_Surface**,SDL_Surface**);
 void mergesurface(int,int,SDL_Rect*,SDL_Surface**,SDL_Surface**);
 
 //Initializes screen and all SDL subsystems
-bool initscreen(const int SCREEN_WIDTH, const int SCREEN_HEIGHT, const int SCREEN_BPP, SDL_Surface **screen)
+bool initscreen(const int SCREEN_WIDTH, const int SCREEN_HEIGHT, const int SCREEN_BPP, SDL_Surface **screen, const char *title)
 {
 	//initiate all SDL subsystems
 	if(SDL_Init(SDL_INIT_EVERYTHING)==-1){
@@ -23,7 +23,7 @@ bool initscreen(const int SCREEN_WIDTH, const int SCREEN_HEIGHT, const int SCREE
 	}
 
 	//window caption
-	SDL_WM_SetCaption("Travelling Salesman Self Organizing Map",NULL);
+	SDL_WM_SetCaption(title,NULL);
 
 	return true;
 }

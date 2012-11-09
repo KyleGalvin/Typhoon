@@ -8,39 +8,50 @@ BIN_DIR = ./bin/
 
 .SUFFIXES:
 .SUFFIXES: .cpp .o
+
+LIB_STD = -std=c++0x
+LIB_GRAPHICS_OPENGL = -lglut -lGL -lGLU
+LIB_GRAPHICS_OPENCV = -lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml -lopencv_objdetect -lopencv_ts -lopencv_video -I/usr/include/ni -L/home/kgee/kinect/OpenNI-Bin-Dev-Linux-x64-v1.5.4.0/Lib -lOpenNI
+
 ifeq ($(UNAME), Linux)
-game:		game.cpp
-	g++ -o $(BIN_DIR)game game.cpp -lSDL -lSDL_image -std=c++0x
+
+LIB_OS = 
+LIB_GRAPHICS_SDL = -lSDL -lSDL_image -lSDL_gfx
+LIB_PATH =
+INCLUDE_PATH = 
 
 endif
 
 ifeq ($(UNAME), CYGWIN_NT-6.1-WOW64)
-game:		game.cpp
-	g++ -o $(BIN_DIR)game game.cpp -lmingw32 -lSDLMain -lSDL -lSDL_image -mwindows -std=c++0x -I C:/cygwin/usr/include/ -L C:/cygwin/usr/local/lib
+
+LIB_OS = -lmingw32 -mwindows
+LIB_GRAPHICS_SDL = -lSDLMain -lSDL -lSDL_image -lSDL_gfx
+LIB_PATH = -L C:/cygwin/usr/local/lib
+INCLUDE_PATH = -I C:/cygwin/usr/include/
 
 endif
 
+game:		game.cpp
+	g++ -o $(BIN_DIR)game game.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_SDL) $(LIB_PATH) $(INCLUDE_PATH)
 
 kinect:		KinectDemo.cpp
-	g++ -o $(BIN_DIR)kinect KinectDemo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image -lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml -lopencv_objdetect -lopencv_ts -lopencv_video -I/usr/include/ni -L/home/kgee/kinect/OpenNI-Bin-Dev-Linux-x64-v1.5.4.0/Lib -lOpenNI
+	g++ -o $(BIN_DIR)kinect KinectDemo.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_SDL) $(LIB_GRAPHICS_OPENGL) $(LIB_GRAPHICS_OPENCV)
 
 sdl :		SDLDemo.cpp
-	g++ -o $(BIN_DIR)sdl SDLDemo.cpp -lSDL -lSDL_image -std=c++0x
+	g++ -o $(BIN_DIR)sdl SDLDemo.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_SDL)
 	
 ghsom :		ghsom.cpp
-	g++ -o $(BIN_DIR)ghsom ghsom.cpp -lSDL -lSDL_image -lSDL_gfx -std=c++0x
+	g++ -o $(BIN_DIR)ghsom ghsom.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_SDL)
 
 som :		SOM.cpp
-	g++ -o $(BIN_DIR)som SOM.cpp -lSDL -lSDL_image -lSDL_gfx -std=c++0x
-
-winheaders :	headers.cpp
-	g++ -o $(BIN_DIR)winheaders headers.cpp -lmingw32 -lSDLmain -lSDL -lSDL_image -std=c++0x -lglut -lGL -lGLU -mwindows -I C:/cygwin/usr/include/ -L C:/Windows/System32/
+	g++ -o $(BIN_DIR)som SOM.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_SDL)
 
 sdlgl :		SDL_GL_Demo.cpp
-	g++ -o $(BIN_DIR)sdlgl SDL_GL_Demo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL -lSDL_image
+	g++ -o $(BIN_DIR)sdlgl SDL_GL_Demo.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_SDL) $(LIB_GRAPHICS_OPENGL)
+
 
 test3d :	InteractiveDemo.cpp
-	g++ -o $(BIN_DIR)test3d InteractiveDemo.cpp -std=c++0x -lglut -lGL -lGLU -lSDL
+	g++ -o $(BIN_DIR)test3d InteractiveDemo.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_OPENGL)
 
 testGrids :	$(TEST_DIR)testrunner.cpp
 	g++ -o $(BIN_DIR)testgrids $(TEST_DIR)testrunner.cpp $(TEST_DIR)single_grid_test.cpp $(TEST_DIR)hierarchal_grid_test.cpp $(TEST_DIR)shared_ptr_test.cpp -std=c++0x
