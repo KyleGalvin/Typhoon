@@ -16,7 +16,7 @@ LIB_GRAPHICS_OPENCV = -lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_f
 ifeq ($(UNAME), Linux)
 
 LIB_OS = 
-LIB_GRAPHICS_SDL = -lSDL -lSDL_image -lSDL_gfx
+LIB_GRAPHICS_SDL = -lSDL -lSDL_image
 LIB_PATH =
 INCLUDE_PATH = 
 
