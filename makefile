@@ -25,9 +25,7 @@ endif
 ifeq ($(UNAME), CYGWIN_NT-6.1-WOW64)
 
 LIB_OS = -lmingw32 -mwindows
-LIB_GRAPHICS_SDL = -lSDLMain -lSDL -lSDL_image -lSDL_gfx
-LIB_PATH = -L ./lib
-INCLUDE_PATH = -I ./include
+LIB_GRAPHICS_SDL = -lSDLMain -lSDL -lSDL_image
 
 endif
 
