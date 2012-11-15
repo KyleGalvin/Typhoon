@@ -20,7 +20,7 @@ struct SpriteData{
 int main(int count, char** args){
 	//sdl screen info and sprite data
 	SDLDrawMetaData sdl;
-
+	cout<<"beginning program\n";
 	SpriteData sprites;
 	SDL_Render::initscreen(sdl.screen_w,sdl.screen_h,sdl.screen_bpp,&sdl.screen, "TeamKRASH");
 	SDL_Render::loadimage("./sprites/6903.jpg",&sprites.background);
@@ -32,7 +32,7 @@ int main(int count, char** args){
 	SDL_Event event;
 	
 	while(!quit){
-		
+		cout<<"starting frame\n";
 		SDL_Render::mergesurface(0,0,&sprites.background,&sdl.screen);
 
 		while(SDL_PollEvent(&event)){
@@ -42,6 +42,7 @@ int main(int count, char** args){
 		}
 		if(SDL_Flip(sdl.screen)==-1){
 		}
+		cout<<"ending frame\n";
 	}
 
 	return 0;
