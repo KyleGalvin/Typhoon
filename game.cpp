@@ -1,6 +1,8 @@
 
 #include "SDL/SDL.h"
 #include "./src/render.hpp"
+#include <iostream>
+using namespace std;
 
 struct SDLDrawMetaData{
 	static const int screen_w=500;
