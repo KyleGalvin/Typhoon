@@ -143,8 +143,8 @@ som trainNeigbours(som mySOM, neuron trainingNeuron, pos2d winner, float neigbou
 	return mySOM;	
 }
 
-vector<neuron> scaleNeuronsToRadius(vector <neuron> Neurons, float r){
-	Miniball<2> mb;
+/*vector<neuron> scaleNeuronsToRadius(vector <neuron> Neurons, float r){
+//	Miniball<2> mb;
 	Point<2> p;
 	for(int i=0;i<Neurons.size(); i++){
 		p[0]=Neurons[i][0];
@@ -201,7 +201,7 @@ vector<neuron> scaleNeuronsToRadius(vector <neuron> Neurons, float r){
 	}
 
 	return Neurons;
-}
+}*/
 
 vector<neuron> scaleNeuronsToRange(vector<neuron> Neurons, float min, float max){
 	//start values at extremes so our data will definitely take the placeholders
