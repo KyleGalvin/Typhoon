@@ -1,5 +1,5 @@
 //3d SOM model
-#include "somIII.hpp"
+#include "ghsomIII.hpp"
 
 //simplified adapter/wrapper for SDL library window creation & 2d drawing functions
 //SDL.h and SDL_image.h included internally, which includes SDL_Event for our controller routines
@@ -17,7 +17,7 @@
 class model{
 	public:
 		//self-organizing map model is our focus
-		som mySOM;
+		ghsom mySOM;
 
 		//camera class for viewing som model
 		camera* cam;
@@ -26,8 +26,13 @@ class model{
 		bool terminateProgram;	
 		SDL_Event event;
 
-		//this helps our picking logic find the selected object. 
-		//it should be populated on each mouse up event
+		//clicking in the window sets our mouse x/y offset here, and triggers the view to calculate
+		//any cell collisions with the mouse vector. If collisions found, the nearest is placed here
+		//Otherwise, selectedIndex < 0 (=-1).
+		//mouseX and mouseY are written to by the SDL Controller only
+		//selectedIndex is written to by the viewer only. This is done after the view reads mouse x/y
+		//once selectedIndex is set to a real value (>0), who acts on it? how/when?
+		int selectedIndex;
 		int mouseX;
 		int mouseY;
 
@@ -41,29 +46,30 @@ class model{
 			TSPFileReader trainingVectorFactory;
 			vector<neuron> TrainingNeurons;
 
-			//data from file
 			//TrainingNeurons = trainingVectorFactory.retrieveTrainingVectors("./maps/RGB.tsp");
-
+	
+			neuron myNewNeuron;
 			//data randomly generated
 			for(int i=0; i<100; i++){
-				neuron myNewNeuron;
-				for int(j=0;j<3;j++){
+				for (int j=0;j<3;j++){
 					myNewNeuron.push_back(randomFloatInRange(0,255)); 
 				}
 				TrainingNeurons.push_back(myNewNeuron);
+				myNewNeuron.clear();
 			}
 
 			//clustered data added
-			for(int i=0; i<100; i++){
-				neuron myNewNeuron;
-				for int(j=0;j<3;j++){
+			for(int i=0; i<500; i++){
+				for(int j=0;j<3;j++){
 					//add only high-blue values
-					if(j==3)
-						myNewNeuron.push_back(randomFloatInRange(127,255)); 
-					else
+					if(j==3){
+						myNewNeuron.push_back(randomFloatInRange(227,255)); 
+					}else{
 						myNewNeuron.push_back(0); 
+					}
 				}
 				TrainingNeurons.push_back(myNewNeuron);
+				myNewNeuron.clear();
 			}
 
 			cam = new camera();
@@ -71,8 +77,10 @@ class model{
 			cam->translateUp(0.75);
 			cam->translateForward(-1.75);
 
+			cout<<"size: "<<TrainingNeurons.size()<<"\n";
+
 			//colourcube: 3d data, 3d mesh(10x10x10), 1000 training iterations
-			mySOM.init(TrainingNeurons,8,8,8,100);
+			mySOM.init(TrainingNeurons,7,7,7,50);
 
 			terminateProgram = false;
 		}

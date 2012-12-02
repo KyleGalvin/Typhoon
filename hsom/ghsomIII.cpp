@@ -1,5 +1,5 @@
 #include <thread>
-#include "./src/model.hpp"//model aggregates 3d SOM model, 3d camera view, and SDL event controller into a unified state object
+#include "./src/ghmodel.hpp"//model aggregates 3d SOM model, 3d camera view, and SDL event controller into a unified state object
 #include "./src/viewer3d.hpp"//view - openGL camera rendering logic
 #include "./src/controller3d.hpp"//controller - flushes SDL event queue in order to manipulates model
 

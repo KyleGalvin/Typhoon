@@ -31,6 +31,9 @@ INCLUDE_PATH =  -IC:\MinGW\include\
 
 endif
 
+ghsomIII:	ghsomIII.cpp
+	g++ -o $(BIN_DIR)ghsomIII ghsomIII.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_SDL) $(LIB_GRAPHICS_OPENGL) -lboost_thread -lpthread
+
 somIII:		somIII.cpp
 	g++ -o $(BIN_DIR)somIII somIII.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_SDL) $(LIB_GRAPHICS_OPENGL)
 

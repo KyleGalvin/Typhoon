@@ -63,6 +63,15 @@ std::vector<float> absTranslate(float scalar, std::vector<float> a){
 	return a;
 }
 
+std::vector<float> delta(std::vector<float> a, std::vector<float> b){
+	std::vector<float>::iterator j = b.begin();
+	for(std::vector<float>::iterator i = a.begin(); i!=a.end();i++){
+		(*i)-=(*j);
+		(*i)=abs(*i);
+		j++;
+	}
+	return a;
+}
 
 float absDistance(std::vector<float> a, std::vector<float> b){
 	std::vector<float>::iterator i = a.begin();
