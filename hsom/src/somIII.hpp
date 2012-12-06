@@ -21,40 +21,8 @@ class som{
 
 	//protected so inherited functions have deep access.
 	protected:
-		//the MQE of each cell. There is a one-to-one sequential pairing of cells and cellsMQE
-		vector < int > BMUCount;
 
-		typedef boost::shared_mutex Lock;
-		typedef boost::unique_lock<Lock> WriteLock;
-		typedef boost::shared_lock<Lock> ReadLock;
 
-		//provides a read/write lock for our cells array
-		Lock r_w_lock;
-
-		//cube dimensions
-		int h;
-		int w;
-		int d;
-		
-		//data to train the SOM to
-		vector<neuron> trainingVectors;
-		queue<neuron> trainingBuffer;
-
-		//for step-by-step training (allowing for rendering between)
-		int train_max;
-		int train_current;
-
-		//the SOM data structure
-		vector < neuron > cells;
-
-		//mouse picking index
-		int selectedCellSingle;
-
-		//cloud selection group
-		vector < int > selectedCellGroup;
-
-		//cloud selection group
-		set < int > selectedBMUGroup;
 
 		//training buffer lets us view a step-by-step of each training iteration
 		void fillTrainingBuffer(){
@@ -138,69 +106,33 @@ class som{
 		}
 
 	public:
+		//cube dimensions
+		int h;
+		int w;
+		int d;
+		
+		//data to train the SOM to
+		vector<neuron> trainingVectors;
+		queue<neuron> trainingBuffer;
 
-		//read-only access functions
-		int get_h(){
-			//take read-access
-			ReadLock rLock(r_w_lock);
+		//for step-by-step training (allowing for rendering between)
+		int train_max;
+		int train_current;
 
-			return h;
-		}
-		int get_w(){
-			//take read-access
-			ReadLock rLock(r_w_lock);
-			return w;
-		}
-		int get_d(){
-			//take read-access
-			ReadLock rLock(r_w_lock);
-			return d;
-		}
-		vector<float> getCell(int i){
-			//take read-access
-			ReadLock rLock(r_w_lock);
-			return cells[i];
-		}
-		int getSelectedCell(){
-			//take read-access
-			ReadLock rLock(r_w_lock);
-			return selectedCellSingle;
-		}
-		vector < int > getCellGroup(){
-			//take read-access
-			ReadLock rLock(r_w_lock);
-			return selectedCellGroup;
-		}
-		set < int > getBMUGroup(){
-			//take read-access
-			ReadLock rLock(r_w_lock);
-			return selectedBMUGroup;
-		}
-		int getIterations(){
-			//take read-access
-			ReadLock rLock(r_w_lock);
-			return train_current;
-		}
-		void clearCellGroup(){
-			//lock read/write access
-			WriteLock wLock(r_w_lock);
-			selectedCellGroup.clear();
-		}
+		//the SOM data structure
+		vector < neuron > cells;
 
-		void setSelectedCell(int cell){
-			//lock read/write access
-			WriteLock wLock(r_w_lock);
-			selectedCellSingle = cell;
-		}
-		int getBMUCount(int cell){
-			//take read-access
-			ReadLock rLock(r_w_lock);
-			return BMUCount[cell];
-		}
+		//mouse picking index
+		int selectedCellSingle;
+
+		//cloud selection group
+		vector < int > selectedCellGroup;
+
+		//cloud selection group
+		set < int > selectedBMUGroup;
 
 		void init(vector< neuron > t_v, int x_res, int y_res, int z_res, int tIterations){
-			//lock read/write access
-			WriteLock wLock(r_w_lock);
+			cout<<"size: "<<t_v.size()<<"\n";
 
 			//no cell initially selected
 			selectedCellSingle = -1;
@@ -208,7 +140,6 @@ class som{
 			//save a copy of the vectors we are to train to
 			trainingVectors = t_v;
 
-			BMUCount.assign(trainingVectors.size(),0);//make a list of zero values.
 
 			//3d placement in a 1d vector will take some array calculation
 			h = y_res;
@@ -248,8 +179,6 @@ class som{
 		//take a single random training vector and impress it on the SOM
 		//training vectors are arranged in the queue (trainingBuffer) to ensure even distribution of training impressions
 		void trainStep(){
-			//lock read/write access
-			WriteLock wLock(r_w_lock);
 			if(trainingBuffer.size()>0){
 				vector<float> singleTrainingVector = trainingBuffer.front();
 				trainingBuffer.pop();
@@ -293,16 +222,14 @@ class som{
 			vector< int > resultIndex;
 			for(int i = 0; i<h*w*d; i++){
 				//if the cell is near enough our input vector (closer than the length of our tolerance vector)
-				if(vLength(delta(inputVector,getCell(i))) < vLength(tolerance)){
+				if(vLength(delta(inputVector,cells[i])) < vLength(tolerance)){
 					//push to our winning neuron list
-					resultData.push_back(getCell(i));
+					resultData.push_back(cells[i]);
 					resultIndex.push_back(i);
 				}
 				
 			}
 
-			//lock read/write access
-			WriteLock wLock(r_w_lock);
 
 			//save the last known selection group in our model for easy reference while rendering
 			selectedCellGroup = resultIndex;
@@ -324,8 +251,6 @@ class som{
 			for(int i = 0; i < trainingVectors.size();i++){
 				//get the set of BMU's
 				BMUIndexSet.insert(findBMU(trainingVectors[i]));
-				//while we are here, we also count the number of training vectors that map to a given cell
-			//	BMUCount[findBMU(trainingVectors[i])]++;//increment our index bmu count
 				
 			}
 			//next we make a set of all selected/hilighted cells in our cloud
@@ -340,10 +265,20 @@ class som{
 			set_intersection(BMUIndexSet.begin(), BMUIndexSet.end(),SelectedSet.begin(), SelectedSet.end(), 
 				insert_iterator< set<int> >(results, results.begin()));
 
-			//lock read/write access
-			WriteLock wLock(r_w_lock);
-
+			cout<<"Selected IV size: "<<getCloudIV().size()<<"\n";
 			selectedBMUGroup = results;
+		}
+
+		//return all input vectors coupled to the selected BMU cells
+		vector<neuron> getCloudIV(){
+			vector<neuron> results;
+			for(int i=0; i<trainingVectors.size(); i++){
+				int n = findBMU(trainingVectors[i]);
+				if(find(selectedCellGroup.begin(),selectedCellGroup.end(),n) != selectedCellGroup.end() ){
+					results.push_back(trainingVectors[i]);
+				}	
+			}
+			return results;
 		}
 
 };

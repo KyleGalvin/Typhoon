@@ -1,5 +1,8 @@
 //3d SOM model
-#include "ghsomIII.hpp"
+#include "somIII.hpp"
+
+//for hierarchal som navigation
+#include "somStack.hpp"
 
 //simplified adapter/wrapper for SDL library window creation & 2d drawing functions
 //SDL.h and SDL_image.h included internally, which includes SDL_Event for our controller routines
@@ -17,10 +20,12 @@
 class model{
 	public:
 		//self-organizing map model is our focus
-		ghsom mySOM;
+		som mySOM;
 
 		//camera class for viewing som model
 		camera* cam;
+
+		somStack mySomStack;
 
 		//sdl event pipeline handled by controller
 		bool terminateProgram;	
@@ -50,7 +55,7 @@ class model{
 	
 			neuron myNewNeuron;
 			//data randomly generated
-			for(int i=0; i<100; i++){
+			for(int i=0; i<20; i++){
 				for (int j=0;j<3;j++){
 					myNewNeuron.push_back(randomFloatInRange(0,255)); 
 				}
@@ -59,11 +64,37 @@ class model{
 			}
 
 			//clustered data added
-			for(int i=0; i<500; i++){
+			for(int i=0; i<100; i++){
 				for(int j=0;j<3;j++){
 					//add only high-blue values
-					if(j==3){
-						myNewNeuron.push_back(randomFloatInRange(227,255)); 
+					if(j==0){
+						myNewNeuron.push_back(randomFloatInRange(0,255)); 
+					}else{
+						myNewNeuron.push_back(0); 
+					}
+				}
+				TrainingNeurons.push_back(myNewNeuron);
+				myNewNeuron.clear();
+			}
+			//clustered data added
+			for(int i=0; i<100; i++){
+				for(int j=0;j<3;j++){
+					//add only high-blue values
+					if(j==1){
+						myNewNeuron.push_back(randomFloatInRange(0,255)); 
+					}else{
+						myNewNeuron.push_back(0); 
+					}
+				}
+				TrainingNeurons.push_back(myNewNeuron);
+				myNewNeuron.clear();
+			}
+			//clustered data added
+			for(int i=0; i<100; i++){
+				for(int j=0;j<3;j++){
+					//add only high-blue values
+					if(j==2){
+						myNewNeuron.push_back(randomFloatInRange(0,255)); 
 					}else{
 						myNewNeuron.push_back(0); 
 					}
@@ -77,7 +108,6 @@ class model{
 			cam->translateUp(0.75);
 			cam->translateForward(-1.75);
 
-			cout<<"size: "<<TrainingNeurons.size()<<"\n";
 
 			//colourcube: 3d data, 3d mesh(10x10x10), 1000 training iterations
 			mySOM.init(TrainingNeurons,7,7,7,50);

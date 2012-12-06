@@ -160,31 +160,30 @@ class viewer3d{
 		Dimensions.push_back(0);
 		Dimensions.push_back(0);
 
-		int selectedCell = m->mySOM.getSelectedCell();
-		set<int> BMUGroup = m->mySOM.getBMUGroup();
-		vector<int> cellGroup = m->mySOM.getCellGroup();
+		int selectedCell = m->mySOM.selectedCellSingle;
+		set<int> BMUGroup = m->mySOM.selectedBMUGroup;
+		vector<int> cellGroup = m->mySOM.selectedCellGroup;
+		for(int i = 0; i < m->mySOM.h; i++){
+			for(int j = 0; j < m->mySOM.w; j++){
+				for(int k = 0; k < m->mySOM.d; k++){
 
-		for(int i = 0; i < m->mySOM.get_h(); i++){
-			for(int j = 0; j < m->mySOM.get_w(); j++){
-				for(int k = 0; k < m->mySOM.get_d(); k++){
-
-					int index = k + (j * m->mySOM.get_d()) + (i * m->mySOM.get_d() * m->mySOM.get_w());
+					int index = k + (j * m->mySOM.d) + (i * m->mySOM.d * m->mySOM.w);
 						
-					Locations[0] = (i+1)/(float)m->mySOM.get_h();
-					Locations[1] = (j+1)/(float)m->mySOM.get_w();
-					Locations[2] = (k+1)/(float)m->mySOM.get_d();
+					Locations[0] = (i+1)/(float)m->mySOM.h;
+					Locations[1] = (j+1)/(float)m->mySOM.w;
+					Locations[2] = (k+1)/(float)m->mySOM.d;
 		
 					//divide cubes by putting spacers between them
 					Locations[0] *=1.5;
 					Locations[1] *=1.5;
 					Locations[2] *=1.5;
 
-					Dimensions[0] = 1.0/m->mySOM.get_h();
-					Dimensions[1] = 1.0/m->mySOM.get_w();
-					Dimensions[2] = 1.0/m->mySOM.get_d();
+					Dimensions[0] = 1.0/m->mySOM.h;
+					Dimensions[1] = 1.0/m->mySOM.w;
+					Dimensions[2] = 1.0/m->mySOM.d;
 						
 					//locate the cell to find color data
-					vector<float> cell = m->mySOM.getCell(index);
+					vector<float> cell = m->mySOM.cells[index];
 
 					vector<int> Color;
 					Color.push_back((int)cell[0]);
@@ -202,12 +201,6 @@ class viewer3d{
 
 					//if a BMU group has been described, render it with higher opacity.
 					//this takes precedence over the cell group, as the BMU group is contained within it
-					}else if(m->mySOM.getBMUCount(index)>5){
-						glDepthMask(GL_FALSE);
-						glPushName(index);
-						draw3DBox(Locations, Dimensions,Color,0.9);
-						glPopName();
-						glDepthMask(GL_TRUE);
 					}else if(BMUGroup.size()>0 && find(BMUGroup.begin(),BMUGroup.end(),index)!= BMUGroup.end()){
 						glDepthMask(GL_FALSE);
 						glPushName(index);
@@ -343,7 +336,7 @@ class viewer3d{
 
 		//clean up our selection triggering after determining whether an item was selected or not
 		if(tempMPP){
-			m->mySOM.setSelectedCell(stopPicking());
+			m->mySOM.selectedCellSingle = stopPicking();
 			mousePickingPass = !mousePickingPass;
 		}
 	}

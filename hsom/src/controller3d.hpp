@@ -9,9 +9,11 @@ namespace controller3d{
 	void QueryContext(model* m){
 		if(m->event.type == SDL_KEYDOWN){
 			switch(m->event.key.keysym.sym){
-				case SDLK_ESCAPE: m->mySOM.clearCellGroup(); break;
-				case SDLK_n: m->mySOM.getCloudAll(m->mySOM.getCell(m->mySOM.getSelectedCell()),0.1) ; break;
-				case SDLK_m: m->mySOM.getCloudBMU(m->mySOM.getCell(m->mySOM.getSelectedCell()),0.1) ; break;
+				case SDLK_ESCAPE: m->mySOM.selectedCellGroup.clear(); break;
+				case SDLK_n: m->mySOM.getCloudAll(m->mySOM.cells[m->mySOM.selectedCellSingle],pow(0.2,m->mySomStack.size()+1)) ; break;
+				case SDLK_m: m->mySOM.getCloudBMU(m->mySOM.cells[m->mySOM.selectedCellSingle],pow(0.2,m->mySomStack.size()+1)) ; break;
+				case SDLK_p: m->mySOM = m->mySomStack.push(m->mySOM); break;
+				case SDLK_MINUS: m->mySOM = m->mySomStack.pop(); break;
 				default: break;
 			}
 		}
@@ -74,7 +76,7 @@ namespace controller3d{
 			FirstPersonCameraContext(m,v);
 			TrainingContext(m);
 			//only allow query operations on a completely trained som with a user-selected cell
-			if(m->mySOM.getIterations() == 0 && m->mySOM.getSelectedCell() > -1){
+			if(m->mySOM.train_current == 0 && m->mySOM.selectedCellSingle > -1){
 				QueryContext(m);
 			}
 		}
