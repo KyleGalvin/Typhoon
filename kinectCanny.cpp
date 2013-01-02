@@ -12,6 +12,14 @@
 //using namespace cv;
 //using namespace std;
 
+template <typename T>
+  string NumberToString ( T Number )
+  {
+     ostringstream ss;
+     ss << Number;
+     return ss.str();
+  }
+
 //from cannyThresh.cpp to store current threshold frame
 cv::Mat src; cv::Mat src_gray;
 int thresh = 100;
@@ -149,7 +157,12 @@ int main(int argc, char **argv) {
 
 	cv::namedWindow("rgb",CV_WINDOW_AUTOSIZE);
 	cv::namedWindow("depth",CV_WINDOW_AUTOSIZE);
-  	cv::namedWindow( "RGBContours", CV_WINDOW_AUTOSIZE );
+
+	for(thresh=50;thresh<=250; thresh+=50){
+		//TODO: add number to string!
+		cv::namedWindow( "RGBContours", CV_WINDOW_AUTOSIZE );
+	}
+
 	device.startVideo();
 	device.startDepth();
     while (!die) {
@@ -164,7 +177,7 @@ int main(int argc, char **argv) {
 		cv::cvtColor( rgbMat, src_gray, CV_BGR2GRAY );
 		cv::blur( src_gray, src_gray, cv::Size(3,3) );
 
-		for(thresh = 0; thresh<250; thresh+=50){
+		for(thresh = 50; thresh<=250; thresh+=50){
 			std::cout <<"thresh="<<thresh<<"\n";
 			thresh_callback(0,0);
 		}
