@@ -165,6 +165,7 @@ int main(int argc, char **argv) {
 		cv::blur( src_gray, src_gray, cv::Size(3,3) );
 
 		for(thresh = 0; thresh<250; thresh+=50){
+			cout <<"thresh="<<thresh<<"\n";
 			thresh_callback(0,0);
 		}
 
