@@ -55,7 +55,7 @@ class model{
 	
 			neuron myNewNeuron;
 			//data randomly generated
-			for(int i=0; i<20; i++){
+			for(int i=0; i<300; i++){
 				for (int j=0;j<3;j++){
 					myNewNeuron.push_back(randomFloatInRange(0,255)); 
 				}

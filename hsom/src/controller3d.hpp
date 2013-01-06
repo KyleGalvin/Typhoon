@@ -9,11 +9,12 @@ namespace controller3d{
 	void QueryContext(model* m){
 		if(m->event.type == SDL_KEYDOWN){
 			switch(m->event.key.keysym.sym){
-				case SDLK_ESCAPE: m->mySOM.selectedCellGroup.clear(); break;
-				case SDLK_n: m->mySOM.getCloudAll(m->mySOM.cells[m->mySOM.selectedCellSingle],pow(0.2,m->mySomStack.size()+1)) ; break;
-				case SDLK_m: m->mySOM.getCloudBMU(m->mySOM.cells[m->mySOM.selectedCellSingle],pow(0.2,m->mySomStack.size()+1)) ; break;
-				case SDLK_p: m->mySOM = m->mySomStack.push(m->mySOM); break;
-				case SDLK_MINUS: m->mySOM = m->mySomStack.pop(); break;
+				case SDLK_ESCAPE: m->mySOM.selectedCellGroup.clear();
+						m->mySOM.selectedBMUGroup.clear();
+						m->mySOM.selectedCellSingle = -1; break;
+				case SDLK_g: m->mySOM.getCloudAll(m->mySOM.cells[m->mySOM.selectedCellSingle],pow(0.2,m->mySomStack.size()+1)) ; break;
+				case SDLK_t: m->mySOM.getCloudBMU(m->mySOM.cells[m->mySOM.selectedCellSingle],pow(0.2,m->mySomStack.size()+1)) ; break;
+				case SDLK_LEFTBRACKET: m->mySOM = m->mySomStack.push(m->mySOM); break;
 				default: break;
 			}
 		}
@@ -22,9 +23,14 @@ namespace controller3d{
 	void TrainingContext(model* m){
 		if(m->event.type == SDL_KEYDOWN){
 			switch(m->event.key.keysym.sym){
-				case SDLK_SPACE: m->mySOM.trainStep() ; break;
-				case SDLK_n: m->mySOM.trainPass() ; break;
-				case SDLK_m: m->mySOM.trainAll(); break;
+				//we don't need to have a selection to pop from the stack, so this is moved here
+				case SDLK_RIGHTBRACKET: 
+					if(m->mySomStack.size() >0)
+						m->mySOM = m->mySomStack.pop(); 
+					break;
+				case SDLK_1: m->mySOM.trainStep() ; break;
+				case SDLK_2: m->mySOM.trainPass() ; break;
+				case SDLK_3: m->mySOM.trainAll(); break;
 				default: break;
 			}
 		}
