@@ -25,7 +25,7 @@
 #include <opencv/highgui.h>
 
 //OpenNI
-#include "XnCppWrapper.h"
+#include <ni/XnCppWrapper.h>
 
 //System clock ticker
 #include <time.h>
