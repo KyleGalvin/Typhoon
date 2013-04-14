@@ -1,0 +1,135 @@
+#menu { 
+	margin:40px 0 0 150px; 
+}
+
+#menu ul { 
+	list-style:none; 
+}
+
+#menu ul li { 
+	display:inline; 
+	float:left; 
+	margin-bottom:20px; 
+}
+
+#menu ul li a { 
+	padding:20px; 
+	background: rgba(255,138,30,0.8); 
+	text-decoration: none; 
+	font: bold 14px Helvetica, Sans-Serif; 
+	letter-spacing: -1px; 
+	color: #402e16; 
+	text-shadow: #eee 0px 0px 2px; 
+}
+
+#menu li a:hover { 
+	background: #fcc; 
+}
+
+.panels {
+	position: relative;   
+	min-height: 477px; /* This part sucks */
+	clear: both;
+}
+
+.panel {
+	float: left;
+	min-height: 450px;
+}
+
+.panel label {
+	background: #eee; 
+	padding: 10px; 
+	border: 1px solid #ccc; 
+	margin-left: -1px; 
+	position: relative;
+	left: 1px; 
+}
+
+.panel [type=radio] {
+	display: none; 
+}
+
+.content {
+	position: absolute;
+	top: 24px;
+	left: 0;
+	background: white;
+	right: 0;
+	bottom: 0;
+	border: 1px solid #ccc; 
+}
+
+[type=radio]:checked ~ label {
+	background: white;
+	border-bottom: 1px solid white;
+	z-index: 2;
+}
+
+[type=radio]:checked ~ label ~ .content {
+	z-index: 1;
+}
+
+.CodeMirror {
+	z-index: 0;
+}
+
+body {
+	background: url(../images/bground.jpg) no-repeat center center fixed;
+	font-size: 11px;
+	font-family: Verdana, Arial, SunSans-Regular, Sans-Serif;
+	color:#564b47;
+	padding:0;
+	margin:0;
+}
+
+h1 {
+	font-size: 11px;
+	border-top:1px solid #564b47;
+	border-bottom:1px solid #564b47;
+	padding:5px 15px;
+	margin:0 
+}
+
+h2 {
+	font-size:20px;
+	font-weight: normal;
+	padding: 5px 10px;
+	margin:0;
+}
+
+video {
+	background-color: #000000;
+}
+
+#calendar {
+	float: left;
+	position: absolute;
+	width: 600px;
+	padding: 0px;
+
+	/* Fallback for web browsers that doesn't support RGBa */
+	background: rgb(0, 0, 0);
+	/* RGBa with 0.6 opacity */
+	background: rgba(0, 0, 0, 0.8);
+}
+
+#chatPanel{position: absolute; 
+	float: bottom;
+
+	background-color: #FFFFFF;
+}
+
+#right {
+	top: 24;
+	position: relative;
+	float: right;
+	width: 300px;
+	margin: 0;
+	padding: 0;
+	z-index: 3;
+}
+
+#reticle {
+	z-index: 4;
+}
