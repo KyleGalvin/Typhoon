@@ -1,0 +1,37 @@
+<html>
+<head><title>WebSocket test</title></head>
+<body>
+<link rel="stylesheet" type="text/css" href="threeColumn.css">
+
+<script src="./jsclient.js" type="text/javascript"></script>
+<!-- <script src="./webrtc.js" type="text/javascript"></script> -->
+<div id="container">
+	<div id="header">
+		<p>This is my banner space</p>
+	</div>
+	<div id="content">
+		<iframe 
+			src="https://www.google.com/calendar/embed?src=0e8nif0daglk9smoicre73mon0%40group.calendar.google.com&ctz=America/Toronto"
+			width="600" height="400" frameborder="0" scrolling="no">
+
+			<link type="text/css" rel="Stylesheet" href="./googCalendar.css" />	
+		</iframe> 
+
+		<input type="button" value="login" id="startLocal" onClick="startLocal()" />
+		<input type="button" value="call" id="call" onClick="call()" disabled='true'/>
+		<input type="button" value="accept" id="accept" onClick="answer()" disabled='true'/>
+		<input type="button" value="disconnect" id="disconnect" onClick="hangup()" disabled='true'/>
+		<div id="textField"> Not Connected... </div>
+		<input id="inputField" type="text" name="message" />
+		<input type="button" value="send" id="send" onClick="sendMsg(document.getElementById('inputField').value)" />
+
+	</div>
+	<div id="right">
+		<video id='vidLocal' autoplay style="width: 200px; height: 150px; border: 1px solid black;"></video>
+		<video id='vidRemote' autoplay style="width: 200px; height: 150px; border: 1px solid black;"></video>
+		<div id="nameList"></div>
+	</div>
+</div>
+</body>
+
+</html>
