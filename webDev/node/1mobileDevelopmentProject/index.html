@@ -1,0 +1,103 @@
+<html>
+<head><title>WebSocket test</title></head>
+<body>
+	<link rel="stylesheet" type="text/css" href="./css/mainStyle.css">
+
+	<!--websocket / webrtc include -->
+	<script src="./js/jsclient.js" type="text/javascript"></script>
+	<script src="./js/websocket_instance.js" type="text/javascript"></script>
+	<script src="./js/webrtc_instance.js" type="text/javascript"></script>
+
+	<!--github includes -->
+	<script type="text/javascript" src="./js/githubAPI/github.js" id="gitjs"></script>
+	<script type="text/javascript" src="./js/githubAPI/base64.js"></script>
+	<script type="text/javascript" src="./js/githubAPI/underscore-min.js"></script>
+	<script src="./js/github_adapter.js" type="text/javascript"></script>
+
+	<!--dropbox includes -->
+        <!--<script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropbox.js" id="dropboxjs" data-app-key="anodxvtcejcuzi0"></script>
+	<script src="./js/dropbox_adapter.js" type="text/javascript"></script>-->
+
+	<!--codemirror includes -->
+	<script src="./js/codeMirror/codemirror.js"></script>
+	<script src="./js/codeMirror/foldcode.js"></script>
+	<link rel="stylesheet" href="./css/codemirror.css">
+	<script src="./js/codeMirror/javascript.js"></script>
+	<script src="./js/codemirror_adapter.js" type="text/javascript"></script>
+
+	<div id="pageContainer">
+		<div class="panels">
+			<div class="panel">
+				<input type="radio" id="tab-1" name="tab-group-1" checked>
+				<label for="tab-1">Calendar</label>
+		       
+				<div class="content">
+					<iframe 
+					src="http://www.google.com/calendar/embed?src=0e8nif0daglk9smoicre73mon0%40group.calendar.google.com&ctz=America/Toronto"
+					width="600" height="400" frameborder="0" scrolling="no">
+
+						<link type="text/css" rel="Stylesheet" href="./css/googCalendar.css" />	
+					</iframe> 
+
+
+				</div> 
+			</div>
+			<div class="panel">
+				<input type="radio" id="tab-2" name="tab-group-1">
+				<label for="tab-2">Git Repo</label>
+		       
+				<div class="content">
+
+					Username:<input id="username" type="text"/>
+					Password:<input id="password" type="password"/>
+					<br>					
+					Repository:<input id="repo" type="text" value="Typhoon"/>
+					GetFile: <input id="file" type="text" value="node/jsclient.js"/>
+					
+					<input type="button" onclick="githubGetData()" value="get"/>
+					<div id="github">GitHub Login </div>
+					<textarea id="code">code</textarea>
+				</div> 
+			</div>
+			<div class="panel">
+				<input type="radio" id="tab-3" name="tab-group-1">
+				<label for="tab-3">DropBox</label>
+		       
+				<div class="content">
+					<!--<input type="dropbox-chooser" id="dbchooser" name="selected-file" style="visibility: hidden;"/>-->
+				</div> 
+			</div>
+			<div class="panel">
+				<input type="radio" id="tab-4" name="tab-group-1">
+				<label for="tab-4">Users</label>
+		       
+				<div class="content">
+					<div id="nameList"></div>
+				</div> 
+			</div>
+
+			<div id="right">
+				<video id='vidLocal' autoplay style="width: 300px; height: 225px; border: 1px solid black;"></video>
+				<video id='vidRemote' autoplay style="width: 300px; height: 225px; border: 1px solid black;"></video>
+				<canvas id='myCanvas' style="width: 300px; height: 225px; border: 1px solid black;"></canvas>
+			</div>
+
+		</div>
+		<div id="chatPanel">
+			<input type="button" value="login" id="startLocal" onClick="startLocal()" />
+			<input type="button" value="call" id="call" onClick="call()" disabled='true'/>
+			<input type="button" value="accept" id="accept" onClick="answer()" disabled='true'/>
+			<input type="button" value="disconnect" id="disconnect" onClick="hangup()" disabled='true'/>
+			<input type="radio" onclick="vid()" id="RadioScreen" name="group-1">Screen Share
+			<input type="radio" onclick="cam()" id="RadioCam" name="group-1" checked="true">Video Conference
+			<div id="textField"> Not Connected... </div>
+			<input id="inputField" type="text" name="message" />
+			<input type="button" value="send" id="send" onClick="sendMsg(document.getElementById('inputField').value)" />
+		</div>
+		<div id="sprites">
+			<img id="reticle" src="./images/remoteMouse.png"/>
+		</div>
+	</div>
+</body>
+
+</html>

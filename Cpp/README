@@ -1,0 +1,21 @@
+projects: 
+	som 
+	sdlgl 
+	kinect
+
+compile:
+
+	run the command:
+		make <project>
+	from typhoon directory
+
+run:
+
+	from the same directory, run the project:
+		./bin/<project>
+
+check makefile for a more up-to-date list of projects
+
+Notes:
+Miniball.h - not my work. GPL Licensed.
+config/SampleKinectConfig.xml taken from OpenNI template

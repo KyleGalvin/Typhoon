@@ -1,0 +1,26 @@
+#include <memory>
+#include <iostream>
+#include <cxxtest/TestSuite.h>
+#include "../geotypes.hpp"
+#include "../singlegrid.hpp"
+
+class TestSuiteSharedPtr: public CxxTest::TestSuite{
+
+	public: void testSharedPtr(){
+		std::shared_ptr<int> myShared(new int);
+		*myShared = 1337;
+
+		std::shared_ptr<int> myOtherShared = myShared;
+
+		//ensure both pointers content addresses refer to the same value
+		TS_ASSERT(*myShared == 1337);
+		TS_ASSERT(*myOtherShared == 1337);
+
+		//ensure both pointers refer to the same address
+		TS_ASSERT(myShared==myOtherShared)
+		
+		//despite all the above, ensure they are in fact distinct objects
+		TS_ASSERT(&myShared!=&myOtherShared);
+	}
+
+};
