@@ -2,10 +2,14 @@ local serpent = require 'serpent'
 local https = require 'ssl.https'
 local ltn12 = require 'ltn12'
 
-local host = "httpbin.org"
-local port = 443
-local file = "/post"
+--Get credentials from local file
+io.input("/home/kgee/cred")
+url = io.read("*line")
+username = io.read("*line")
+password = io.read("*line")
+local request_body = "user="..username.."&pass="..password
 
+--SSL Parameters
 local params = {
 	mode = "client",
 	protocol = "tlsv1",
@@ -14,11 +18,10 @@ local params = {
 	redirect = "false"
 }
 
+--Make the HTTP POST call
 local resp = {}
-local request_body = [[login=user&password=123]]
-
 local r,response_code,header,status = https.request{
-	url = "https://"..host..file,
+	url = "https://"..url,
 	sink = ltn12.sink.table(resp),
 	method = "POST",
 	headers = 
@@ -29,6 +32,8 @@ local r,response_code,header,status = https.request{
 	source = ltn12.source.string(request_body),
 	protocol = "tlsv1"
 }
+
+--Dump result to console
 print('content: '..serpent.dump(resp))
 print('status: '..status)
 print('response: '..r)
