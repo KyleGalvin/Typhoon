@@ -19,9 +19,11 @@ local r,response_code,header,status = https.request{
 	url = "https://"..host..file,
 	sink = ltn12.sink.table(resp),
 	protocol = "tlsv1"
+--	cookie = ""
 }
 print('content: '..serpent.dump(resp))
 print('status: '..status)
 print('response: '..r)
 print('response code: '..response_code)
 print('header: '..serpent.dump(header))
+print('cookie: '..header["set-cookie"])
