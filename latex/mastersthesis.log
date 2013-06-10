@@ -1,0 +1,127 @@
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.7)  9 JUN 2013 11:04
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**mastersthesis.tex
+(./mastersthesis.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2012-05-30, ngerman-x-2012-05-30, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, friulan, galician, german, ngerman, swissgerman, monogreek, greek, h
+ungarian, icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, ma
+rathi, oriya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, 
+kurmanji, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk,
+ polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbianc, s
+lovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, 
+welsh, loaded.
+(/usr/share/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (./titling.sty
+Package: titling 2009/09/04 v2.1d maketitle typesetting
+\thanksmarkwidth=\skip43
+\thanksmargin=\skip44
+\droptitle=\skip45
+)
+(./mastersthesis.aux)
+\openout1 = `mastersthesis.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 10.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 10.
+ [1
+
+] (./mastersthesis.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 2.
+
+Overfull \hbox (5.70563pt too wide) in paragraph at lines 3--3
+ [][] []\OT1/cmr/m/n/12 Microcontrollers & cus-tomized Sys-tem on a Chip (SoaC)
+ 
+ []
+
+)
+\tf@toc=\write3
+\openout3 = `mastersthesis.toc'.
+
+ [1
+
+]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [2
+
+]
+Chapter 1.
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+[3
+
+]
+Overfull \hbox (15.00577pt too wide) in paragraph at lines 52--52
+[]\OT1/cmr/bx/n/17.28 Telepresence & Real-Time com-mu-ni-ca-tions 
+ []
+
+[4]
+Overfull \hbox (1.2945pt too wide) in paragraph at lines 78--78
+[]\OT1/cmr/bx/n/12 Improved ac-cu-racy through domain-specific en-vi-ron-ments/
+contexts 
+ []
+
+(./mastersthesis.bbl [5] [6
+
+]
+Underfull \hbox (badness 3250) in paragraph at lines 77--82
+\OT1/cmr/m/n/12 Surveil-lance Video Com-pres-sion Us-ing Backward-Channel Aware
+
+ []
+
+[7]) [8] (./mastersthesis.aux) ) 
+Here is how much of TeX's memory you used:
+ 344 strings out of 493489
+ 3802 string characters out of 3146916
+ 53432 words of memory out of 3000000
+ 3717 multiletter control sequences out of 15000+200000
+ 9761 words of font info for 34 fonts, out of 3000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 23i,6n,19p,1010b,211s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on mastersthesis.dvi (9 pages, 15652 bytes).
