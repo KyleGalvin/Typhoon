@@ -1,18 +1,18 @@
 \contentsline {chapter}{\numberline {1}Lightweight Telepresence Technologies}{3}
 \contentsline {section}{\numberline {1.1}Emerging Mobile Technologies}{3}
-\contentsline {subsection}{\numberline {1.1.1}Microcontrollers \& customized System on a Chip (SoaC) components}{3}
-\contentsline {subsection}{\numberline {1.1.2}Mobile phones \& Cellular devices}{4}
-\contentsline {section}{\numberline {1.2}Telepresence \& Real-Time communications}{4}
-\contentsline {subsection}{\numberline {1.2.1}Audio/Video compression}{4}
-\contentsline {subsection}{\numberline {1.2.2}Cellular network bandwidth flow \& optimization}{4}
-\contentsline {subsection}{\numberline {1.2.3}Privacy}{4}
-\contentsline {section}{\numberline {1.3}Digital identification and modeling}{5}
-\contentsline {subsection}{\numberline {1.3.1}Bar codes \& QR codes}{5}
-\contentsline {subsection}{\numberline {1.3.2}RFID; NFC}{5}
-\contentsline {subsection}{\numberline {1.3.3}real-time digital modeling}{5}
-\contentsline {subsubsection}{Stitching multiple images/videos together}{5}
-\contentsline {subsubsection}{Depth matricies/maps for 3D imaging}{5}
-\contentsline {subsection}{\numberline {1.3.4}Image recognition and classification}{5}
-\contentsline {subsubsection}{Vector Quantization}{5}
-\contentsline {subsubsection}{Uncertainty / Fuzzy Logic}{5}
-\contentsline {subsubsection}{Improved accuracy through domain-specific environments/contexts}{5}
+\contentsline {subsection}{\numberline {1.1.1}Microcontrollers \& customized System on a Chip (SoaC) components}{4}
+\contentsline {subsection}{\numberline {1.1.2}Mobile phones \& Cellular devices}{5}
+\contentsline {section}{\numberline {1.2}Telepresence \& Real-Time communications}{6}
+\contentsline {subsection}{\numberline {1.2.1}Audio/Video compression}{6}
+\contentsline {subsection}{\numberline {1.2.2}Cellular network bandwidth flow \& optimization}{6}
+\contentsline {subsection}{\numberline {1.2.3}Privacy}{6}
+\contentsline {section}{\numberline {1.3}Digital identification and modeling}{6}
+\contentsline {subsection}{\numberline {1.3.1}Bar codes \& QR codes}{6}
+\contentsline {subsection}{\numberline {1.3.2}RFID; NFC}{6}
+\contentsline {subsection}{\numberline {1.3.3}real-time digital modeling}{6}
+\contentsline {subsubsection}{Stitching multiple images/videos together}{6}
+\contentsline {subsubsection}{Depth matricies/maps for 3D imaging}{7}
+\contentsline {subsection}{\numberline {1.3.4}Image recognition and classification}{7}
+\contentsline {subsubsection}{Vector Quantization}{7}
+\contentsline {subsubsection}{Uncertainty / Fuzzy Logic}{7}
+\contentsline {subsubsection}{Improved accuracy through domain-specific environments/contexts}{7}

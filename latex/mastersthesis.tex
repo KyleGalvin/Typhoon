@@ -2,9 +2,8 @@
 \usepackage{titling}
 \begin{document}
 \begin{titlepage}
-\title{Development of an OTA (Over the Air) Mobile Learning Telepresence Platform\\ MSc (Project/Thesis) Proposal}
-\author{Kyle Galvin\\ Computer Science Department, Lakehead University\\
-Jinan Fiaidhi and Sabah Mohammed}
+	\title{Development of an OTA (Over the Air) Mobile Learning Telepresence Platform\\ MSc (Project/Thesis) Proposal}
+	\author{Kyle Galvin\\ Computer Science Department, Lakehead University\\ Supervisor: Jinan Fiaidhi and Sabah Mohammed}
 \end{titlepage}
 
 \maketitle
@@ -16,8 +15,22 @@ Telepresence has been used in many forms in academia university for more than a 
 
 \chapter{Lightweight Telepresence Technologies}
 Microprocessors have shaped the world over the last century. Reducing in size over time at an exponential rate, we are now able to achieve things that would have been unimaginable in the past. We can squeeze more bits per volume, transport more bits and calculate more atomic operations per time than ever before. With this explosion of portability and connectivity comes a renaissance of technological growth that is unfolding before our eyes.
-\section{Emerging Mobile Technologies}
 
+Density of information and computation as well as the speed of communication are at the core of modern digital technology, yet focusing on these features displays a very hands-on white box approach. There is also much to be learned with respect to the interaction between digital components and their environments, which could be considered more of a black box "I/O" style description. The interface a device is engineered to supply is just as important as the computational and communicative abilities the device has to process the environment around it.
+
+\begin{quotation}
+Telepresence systems provide a human operator with the feeling of actual presence in a remote environment, the target environment. The feeling of presence is achieved by visual and acoustic sensory information recorded from the target environment and presented to the user on an immersive display.
+	\begin{flushright}
+		\cite{6094998}
+	\end{flushright}
+\end{quotation}
+
+\section{Emerging Mobile Technologies}
+As microchip density increases, so does the mobility of computational and processing devices. While PDA and handheld gaming devices have been around for decades, the advance of cellular networks which allow for on-the-go personal telecommunications and widely dispersed access to internet services has really driven the shape and design of the current generation of mobile devices.
+
+Smart phones and telecommunications aren't the only technology in this arena, but they are certainly the largest and most influential. Other devices to consider when discussing telepresence devices are lightweight microprocessors and system on a chip designs. These devices can allow industry and hobbiests alike to create a wide array of telepresence hardware that is capable of interacting with the environment around it on another's behalf. In this case, we are now less bound by strict computational limits and are now merely bound by the sensors, motors, and analog/digital conversions available to read from (and interact with) the environment around us.
+
+When we combine our new-found freedom to invent any sort of sensory device with our fully connected and always online 'internet of things', we can begin to explore and create all sorts of ideas that were inaccessable to the real-world and thus bound to the realm of fiction, futurism, and sci-fi.
 \subsection{Microcontrollers \& customized System on a Chip (SoaC) components}
 
 \begin{quotation}{
@@ -33,6 +46,18 @@ Microprocessors have shaped the world over the last century. Reducing in size ov
 	\end{flushright}
 \end{quote}
 \begin{quote}
+In this telepresence domain, as remote manipulators become more sophisticated and the tasks they undertake become more complex. Three main sensory obstacles to effective widespread use have been identified [15]:
+	\begin{enumerate}
+		\item The detection of sensory signals
+		\item The feedback of real-time sensory information to the operator
+		\item The presentation of this information in a form that can be easily detected, processed by the brain as a reflex action and responded to, since an excessive need for thought would detract from performance of the primary task.
+	\end{enumerate}
+	\begin{flushright}
+		\cite{540147}
+	\end{flushright}
+\end{quote}
+
+\begin{quote}
 
 The main objective of tele-robotics has been to develop methodologies for the control of robots at remote sites by human users at local sites. Tele-robots are suitable in certain situations such as:
 \begin{enumerate}
@@ -44,6 +69,8 @@ The main objective of tele-robotics has been to develop methodologies for the co
 		\cite{726589}
 	\end{flushright}
 \end{quote}
+
+The idea of presence fidelity can be considered a continuum. We can consider verbal descriptions and printed material on the low-fidelity end of the spectrum, while actual presence would be on the highest end. Our goal is to bring virtual telepresence farther along this continuum until it is as close to actual presence as possible \cite{726589}
 
 \subsection{Mobile phones \& Cellular devices}
 \cite{4469080}
@@ -65,18 +92,43 @@ The main objective of tele-robotics has been to develop methodologies for the co
 \cite{1032602}
 \section{Digital identification and modeling}
 \subsection{Bar codes \& QR codes}
-\cite{6182398}
+QR codes (or two-dimensional bar codes) can reference nearly anything. Ranging in size from 25x25 to 177x177, they are most often used to redirect a user to a URL containing anything from videos to product info to social media content \cite{6182398}
+Basic compression is done using run-length coding, where sequences of identical values are replaced with a single instance of that value followed by the repetition count. \cite{6182398}
 \subsection{RFID; NFC}
 \cite{5340296}
 \subsection{real-time digital modeling}
 \subsubsection{Stitching multiple images/videos together}
+In cases where images are not aligned, unwanted artifacts can be produced. Color and lighting inconsistencies can also be introduced which would create an unbalanced effect. A lack of references and identifiable control points can also make it difficult to correctly position image fragments. \cite{4359344}
+
 \cite{5397590}
 \subsubsection{Depth matricies/maps for 3D imaging}
+Depth imaging techniques have only previously existed in costly special-purpose applications. With the spread of large-scale production on Time-Of-Flight sensors (specifically, the Microsoft Kinect) the accessability and spread of these devices has grown considerably. Time-Of-Flight technology involves measuring the delay between sending and recieving an infared signal. With this information, triangulation techniques can be used to measure the depth between the device and the target. 
+
+These devices have been designed with object recognition in mind and are not particularly suited for 3d scanning applications. Low resolution and a large amount of noise are certainly factors when re-purposing these technologies for scanning\cite{6296662} 
 \subsection{Image recognition and classification}
+Image recognition is a complex problem often approached with a neural network model or similar fuzzy categorical organizer. If RGB information is augmented with depth information we can achieve much better results than if we were to rely on RGB information alone.
 \subsubsection{Vector Quantization}
 \subsubsection{Uncertainty / Fuzzy Logic}
 \subsubsection{Improved accuracy through domain-specific environments/contexts}
+telepresence surgery model - live data can be collected, then used to simulate the procedure virtually. 
+This effectively allows us to generate training programs which are extremely accurate within the domain of the live collected data.
+
+Imagine a doctor in front of device operates instrumentation which performs surgery on a remote patient.
+instrumentation includes a wide variety of I/O (controls and sensory output via microphone, video, and even tactic feedback)
+Assume access to highly detailed descriptions of our I/O over the duration of many operations (live experience captures)
+The challenge is to make a virtual model of the operating procedure in which the doctor can interact with a virtual patient in a way which is synonymous with the standard interactions they would encounter with a live patient.
+
+The challenge is considered 'solved' when the doctor cannot differentiate between a live patient telepresence experience and a simulated patient telepresence experience
+I call this challenge the "Telepresence Turing Test", and it can be applied to any activity or domain in which telepresence can augment.
+
+This challenge has a few interesting unknowns.
+
+How 'synonymous' with live data can we realistically make the experience?
+
+What are the most important factors we need to capture in our training data? What instrumentation can best capture those factors?
+
+From the training data (live experience captures), how can we best create and improve upon a simulation model?\cite{391769} 
 
 \bibliography{mastersthesis}
-\bibliographystyle{plain}
+\bibliographystyle{alpha}
 \end{document}

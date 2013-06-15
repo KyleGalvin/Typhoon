@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.7)  9 JUN 2013 11:04
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.10)  12 JUN 2013 21:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -55,9 +55,9 @@ LaTeX Font Info:    ... okay on input line 3.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 10.
+(Font)              <14.4> on input line 9.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 10.
+(Font)              <7> on input line 9.
  [1
 
 ] (./mastersthesis.toc
@@ -87,41 +87,40 @@ Missing character: There is no ô in font cmr12!
 
 ]
 Chapter 1.
+[3
+
+]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ú in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ù in font cmr12!
-[3
-
-]
-Overfull \hbox (15.00577pt too wide) in paragraph at lines 52--52
+ [4]
+Overfull \hbox (15.00577pt too wide) in paragraph at lines 79--79
 []\OT1/cmr/bx/n/17.28 Telepresence & Real-Time com-mu-ni-ca-tions 
  []
 
-[4]
-Overfull \hbox (1.2945pt too wide) in paragraph at lines 78--78
+[5] [6]
+Overfull \hbox (1.2945pt too wide) in paragraph at lines 112--112
 []\OT1/cmr/bx/n/12 Improved ac-cu-racy through domain-specific en-vi-ron-ments/
 contexts 
  []
 
-(./mastersthesis.bbl [5] [6
+[7] (./mastersthesis.bbl [8] [9
 
-]
-Underfull \hbox (badness 3250) in paragraph at lines 77--82
-\OT1/cmr/m/n/12 Surveil-lance Video Com-pres-sion Us-ing Backward-Channel Aware
+] [10]) [11] (./mastersthesis.aux)
 
- []
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-[7]) [8] (./mastersthesis.aux) ) 
+ ) 
 Here is how much of TeX's memory you used:
- 344 strings out of 493489
- 3802 string characters out of 3146916
+ 349 strings out of 493489
+ 3845 string characters out of 3146915
  53432 words of memory out of 3000000
- 3717 multiletter control sequences out of 15000+200000
+ 3722 multiletter control sequences out of 15000+200000
  9761 words of font info for 34 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
  23i,6n,19p,1010b,211s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on mastersthesis.dvi (9 pages, 15652 bytes).
+Output written on mastersthesis.dvi (12 pages, 25884 bytes).
