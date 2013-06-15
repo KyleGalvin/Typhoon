@@ -66,6 +66,13 @@ When we combine our new-found freedom to invent any sort of sensory device with 
 \subsection{Microcontrollers \& customized System on a Chip (SoaC) components}
 
 Microcontrollers have become the de-facto platform for lightweight, mobile, and miniaturized devices. Much of the power of microcontrollers has been achieved by clever specializations and optimizations of the CPU unit. By diverging from the Desktop model where raw power takes precedence over power consuption, there are now a variety of architectures and specialized components that are well-suited to mobility. In fact there is now a wide spectrum of hardware ranging from high performance to low power consumption. With server and desktop harware on one end of the spectrum, we have recently expanded the power efficient end with a range of ARM general-purpose CPUs capable of of supporting a general-purpose operating system and related peripheral components. To continue down the spectrum we depart from a traditional operating system and move towards programmable integrated circuits (PIC) and pure-hardware components which perform more specialized tasks.
+
+Because of this balance between portability and power, it is important to keep in mind the practical limitations on the applications a device can support. While a computationally demanding task such as image processing, we are unlikely to get satisfactory results with a PIC controller, yet the current generation of ARM controllers which are recently emerging are just beginning to practically handle these tasks.
+
+An interesting idea to consider is delegation of the heavy processing to a more capable device. However, this strategy simply moves the problem from the computational I/O boundaries of the device towards the networking I/O boundaries. To achieve practical results, we can use a hybrid approach by allowing the device to pre-process the data (assuming such a pre-processing can reduce the size of the raw data, preferrably an order of magnitude or more) before sending the derived result over the network to a more capable device.
+
+Moving from our internal capabilities towards our external interactivity, we are capable of hooking up a wide array of sensors, displays, and feedback devices. From motors to spectroscopy sensors to audio capture and processing (and many, many more) the possibilities are limited only by the fidelity/accuracy of the sensors around us and our own creativity.
+
 \begin{quotation}{
 	...the BCI collects the EEG brain activity and decodes the user's intentions, which are transferred to the robot via the Internet. The robot autonomously executes the orders using the navigation system (implemented with a combination of dynamic online grid maping with scan matching, dynamic path planning, and obstacle avoidance) or the camera orientation system. Thus, the shared-control strategy is built by means  of the mental selection of robot navigation or active visual exploration task-related orders, which can be autonomously executed by the robot.}
 	\begin{flushright}
@@ -105,9 +112,8 @@ The main objective of tele-robotics has been to develop methodologies for the co
 
 The idea of presence fidelity can be considered a continuum. We can consider verbal descriptions and printed material on the low-fidelity end of the spectrum, while actual presence would be on the highest end. Our goal is to bring virtual telepresence farther along this continuum until it is as close to actual presence as possible \cite{726589}
 
-\subsection{Mobile phones \& Cellular devices}
-\cite{4469080}
-\cite{6001904}
+\subsection{Mobile phones \& Cellular devices} When discussing mobile telepresence, the recent emergence of smart phones is undeniably the most important event to occur to date. In a learning environment they are indespensable for personal organization, time managment, and real-time updates. It has been stated by others that they can now allow students to ''...be informed of all necessary notices, assignment deadlines and supervisor advices during their busy schedule''. In fact, ''Mobile education is defined ... as any service or facility that supplies a learner with general electronic information and educational content that aids in acquisition of knowledge regardless of location and time.'' \cite{4469080}
+
 \cite{6007847}
 \section{Telepresence \& Real-Time communications}
 \subsection{Audio/Video compression}
@@ -123,6 +129,7 @@ The idea of presence fidelity can be considered a continuum. We can consider ver
 \cite{4471983}
 \cite{6270872}
 \cite{1032602}
+\subsection{Cloud Based Assisted Technologies}
 \section{Digital identification and modeling}
 \subsection{Bar codes \& QR codes}
 QR codes (or two-dimensional bar codes) can reference nearly anything. Ranging in size from 25x25 to 177x177, they are most often used to redirect a user to a URL containing anything from videos to product info to social media content \cite{6182398}
@@ -162,6 +169,8 @@ What are the most important factors we need to capture in our training data? Wha
 
 From the training data (live experience captures), how can we best create and improve upon a simulation model?\cite{391769} 
 
+\section{Identifying the Major Elements for a Lightweight Mobile Telepresence System}
+\section{Summary}
 \bibliography{mastersthesis}
 \bibliographystyle{alpha}
 \end{document}

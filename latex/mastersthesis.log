@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.7)  15 JUN 2013 12:35
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.10)  15 JUN 2013 15:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -78,6 +78,12 @@ Overfull \hbox (5.70563pt too wide) in paragraph at lines 3--3
  
  []
 
+
+Overfull \hbox (2.2335pt too wide) in paragraph at lines 20--20
+ [][] []\OT1/cmr/m/n/12 Identifying the Ma-jor El-e-ments for a Lightweight Mo-
+bile Telep- 
+ []
+
 )
 \tf@toc=\write3
 \openout3 = `mastersthesis.toc'.
@@ -101,34 +107,39 @@ Missing character: There is no ú in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ù in font cmr12!
- [4]
+ [4] [5]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ú in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ù in font cmr12!
- [5] [6]
-Overfull \hbox (15.00577pt too wide) in paragraph at lines 112--112
+ [6]
+Overfull \hbox (15.00577pt too wide) in paragraph at lines 118--118
 []\OT1/cmr/bx/n/17.28 Telepresence & Real-Time com-mu-ni-ca-tions 
  []
 
-[7]
-Overfull \hbox (1.2945pt too wide) in paragraph at lines 145--145
+[7] [8]
+Overfull \hbox (1.2945pt too wide) in paragraph at lines 152--152
 []\OT1/cmr/bx/n/12 Improved ac-cu-racy through domain-specific en-vi-ron-ments/
 contexts 
  []
 
-[8] (./mastersthesis.bbl [9] [10
+[9]
+Overfull \hbox (62.27768pt too wide) in paragraph at lines 172--172
+[]\OT1/cmr/bx/n/17.28 Identifying the Ma-jor El-e-ments for a Lightweight
+ []
 
-] [11]) [12] (./mastersthesis.aux) ) 
+(./mastersthesis.bbl [10] [11
+
+] [12]) [13] (./mastersthesis.aux) ) 
 Here is how much of TeX's memory you used:
  353 strings out of 493489
- 3894 string characters out of 3146916
+ 3894 string characters out of 3146915
  53432 words of memory out of 3000000
  3725 multiletter control sequences out of 15000+200000
  10363 words of font info for 36 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 23i,6n,19p,1010b,205s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 23i,6n,19p,1010b,226s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on mastersthesis.dvi (14 pages, 30984 bytes).
+Output written on mastersthesis.dvi (15 pages, 34800 bytes).
