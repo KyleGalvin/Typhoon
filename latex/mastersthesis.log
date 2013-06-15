@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.10)  12 JUN 2013 21:52
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.7)  15 JUN 2013 12:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -54,13 +54,18 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 9.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 9.
  [1
 
-] (./mastersthesis.toc
+]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 26.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 26.
+
+
+LaTeX Warning: No \author given.
+
+[1] (./mastersthesis.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 2.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -97,30 +102,33 @@ Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ù in font cmr12!
  [4]
-Overfull \hbox (15.00577pt too wide) in paragraph at lines 79--79
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+ [5]
+Overfull \hbox (15.00577pt too wide) in paragraph at lines 108--108
 []\OT1/cmr/bx/n/17.28 Telepresence & Real-Time com-mu-ni-ca-tions 
  []
 
-[5] [6]
-Overfull \hbox (1.2945pt too wide) in paragraph at lines 112--112
+[6] [7]
+Overfull \hbox (1.2945pt too wide) in paragraph at lines 141--141
 []\OT1/cmr/bx/n/12 Improved ac-cu-racy through domain-specific en-vi-ron-ments/
 contexts 
  []
 
-[7] (./mastersthesis.bbl [8] [9
+(./mastersthesis.bbl [8] [9
 
-] [10]) [11] (./mastersthesis.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] [10]) [11] (./mastersthesis.aux) ) 
 Here is how much of TeX's memory you used:
- 349 strings out of 493489
- 3845 string characters out of 3146915
+ 353 strings out of 493489
+ 3894 string characters out of 3146916
  53432 words of memory out of 3000000
- 3722 multiletter control sequences out of 15000+200000
- 9761 words of font info for 34 fonts, out of 3000000 for 9000
+ 3725 multiletter control sequences out of 15000+200000
+ 10363 words of font info for 36 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 23i,6n,19p,1010b,211s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 23i,6n,19p,1010b,223s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on mastersthesis.dvi (12 pages, 25884 bytes).
+Output written on mastersthesis.dvi (13 pages, 29444 bytes).
