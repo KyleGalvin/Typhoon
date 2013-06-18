@@ -1,0 +1,153 @@
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.7)  17 JUN 2013 21:06
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**mastersthesis.tex
+(./mastersthesis.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2012-05-30, ngerman-x-2012-05-30, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, friulan, galician, german, ngerman, swissgerman, monogreek, greek, h
+ungarian, icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, ma
+rathi, oriya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, 
+kurmanji, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk,
+ polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbianc, s
+lovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, 
+welsh, loaded.
+(/usr/share/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (./titling.sty
+Package: titling 2009/09/04 v2.1d maketitle typesetting
+\thanksmarkwidth=\skip43
+\thanksmargin=\skip44
+\droptitle=\skip45
+)
+(./mastersthesis.aux)
+\openout1 = `mastersthesis.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+ [1
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 34--40
+
+ []
+
+[1] (./mastersthesis.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 2.
+
+Overfull \hbox (5.70563pt too wide) in paragraph at lines 3--3
+ [][] []\OT1/cmr/m/n/12 Microcontrollers & cus-tomized Sys-tem on a Chip (SoaC)
+ 
+ []
+
+
+Overfull \hbox (2.2335pt too wide) in paragraph at lines 21--21
+ [][] []\OT1/cmr/m/n/12 Identifying the Ma-jor El-e-ments for a Lightweight Mo-
+bile Telep- 
+ []
+
+)
+\tf@toc=\write3
+\openout3 = `mastersthesis.toc'.
+
+ [2
+
+]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [3
+
+]
+Chapter 1.
+[4
+
+]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+ [5] [6]
+Overfull \hbox (0.714pt too wide) in paragraph at lines 90--91
+[]\OT1/cmr/m/n/12 Before we wan-der into fan-ci-ful and eclec-tic de-scrip-tion
+s of ad-vanced robots
+ []
+
+[7]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+ [8]
+Overfull \hbox (15.00577pt too wide) in paragraph at lines 143--143
+[]\OT1/cmr/bx/n/17.28 Telepresence & Real-Time com-mu-ni-ca-tions 
+ []
+
+[9] [10]
+Overfull \hbox (6.232pt too wide) in paragraph at lines 182--183
+\OT1/cmr/m/n/12 means) are within com-mu-ni-ca-tion range, it is pos-si-ble to 
+use time-synchronized
+ []
+
+[11]
+Overfull \hbox (1.2945pt too wide) in paragraph at lines 198--198
+[]\OT1/cmr/bx/n/12 Improved ac-cu-racy through domain-specific en-vi-ron-ments/
+contexts 
+ []
+
+[12]
+Overfull \hbox (62.27768pt too wide) in paragraph at lines 218--218
+[]\OT1/cmr/bx/n/17.28 Identifying the Ma-jor El-e-ments for a Lightweight
+ []
+
+(./mastersthesis.bbl [13] [14
+
+] [15]) [16] (./mastersthesis.aux) ) 
+Here is how much of TeX's memory you used:
+ 348 strings out of 493489
+ 3821 string characters out of 3146916
+ 54432 words of memory out of 3000000
+ 3720 multiletter control sequences out of 15000+200000
+ 9750 words of font info for 34 fonts, out of 3000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 23i,5n,19p,1059b,236s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on mastersthesis.dvi (17 pages, 42092 bytes).
