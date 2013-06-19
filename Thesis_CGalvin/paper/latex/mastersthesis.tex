@@ -144,15 +144,26 @@ The idea of presence fidelity can be considered a continuum. We can consider ver
 \subsection{Audio/Video compression}
 \cite{4297087}
 \cite{4801602}
+
+Within the context of mobile devices we need to consider not only the computational complexity and bandwidth consumption of video streaming, but the power consumption of the encoder as well.
 \cite{5054795}
 \subsection{Cellular network bandwidth flow \& optimization}
+
+Network traffic can be prioritized using QoS (Quality of Service) classification. By prioritizing traffic types into real-time and non-real-time categories we can decrease the average latency on timing-critical services. By extending these concepts and including cooperative game theory strategies (by exploring Nash Bargaining Systems). A game theory strategy can be broken down into three components: Players, Strategies, and Interactions (or game utilities). If we can determine a metric for success in the context of each player, than we can create strategies which each player can use to interact with the system in a way which optimizes the collective success of all the players. Applied to bandwidth optimization, each network device is a player which utilizes a strategy for sharing the limited resources of the network.
+
+The trend among wireless networks is an increased number of cells over smaller and smaller areas serving users. By reducing this cell size, we introduce an increased number of hand offs when the user is mobile. When a user passes from the range of one operator to the next, this hand-off should not interrupt the user's communication. Because of this, our QoS strategies should include a percentage of bandwidth reserved for hand-off services. 
+
+With many different use-cases and bandwidth categories our goal is to create a strategy which optimizes the usability of all devices on the network. By ordering our bandwidth categories by highest to lowest priority we can allocate each users traffic into their respective categories while also dynamically adjusting the maximum flow of each category to reflect (as well as prioritize) the immediate demand in real-time
 \cite{5710522}
 \cite{1300874}
 \cite{1376696}
 \subsection{Privacy}
 \cite{4698190}
 \cite{4471983}
+
+With the advent of Location Based Services (LBS) it is becoming increasingly difficult to control the extent in which a users locational information is used. Mix networks use short-term psudo-anonymous names to mask the identities of participants. With this mechanism, it becomes much more difficult for an adversary to correlate which actions in the system were performed by which users of the system.
 \cite{6270872}
+\cite{freudiger2007mix}
 \cite{1032602}
 \subsection{Cloud Based Assisted Technologies}
 
@@ -216,7 +227,25 @@ What are the most important factors we need to capture in our training data? Wha
 From the training data (live experience captures), how can we best create and improve upon a simulation model?\cite{391769} 
 
 \section{Identifying the Major Elements for a Lightweight Mobile Telepresence System}
+
+Lightweight mobile telepresence systems is a rapidly-evolving concept. Traditionally we have been bound by heavy and cumbersome desktop hardware, high-latency, and low network throughput. As these barriers have been reduced and removed, we have begun to redefine what it means to be connected.
+
+Always-Available network communication
+
+Real-Time video streaming
+
+Geolocational services
+
+Screen sharing (also useful for remote presentation)
+
+File sharing (p2p for reducing infrastructure and bottle necks)
+
+User/Group management and authentication
+
 \section{Summary}
+
+In conclusion, we are capable of much more than what is currently offered in terms of increasing the fidelity of our telepresence systems. On top of the increase in raw information storage capabilities, improvements in sensors as well as interactive peripherals have reshaped the way we use technology. If current trends continue we will soon find ourselves in a high density and highly distributed network of minniature devices, both as stand alone technologies (such as currently emerging smart phones) as well as embedded into every day consumer objects (as is the case with RFID tagging, QR coded items, and micro-controller enabled electronics). With this emerging paradigm it becomes much easier for computers to identify and process the objects around them, leading the way to many new modelling and digitizing techniques.
+
 \bibliography{mastersthesis}
 \bibliographystyle{alpha}
 \end{document}
