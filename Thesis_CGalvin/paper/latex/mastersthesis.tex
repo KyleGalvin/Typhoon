@@ -246,6 +246,28 @@ User/Group management and authentication
 
 In conclusion, we are capable of much more than what is currently offered in terms of increasing the fidelity of our telepresence systems. On top of the increase in raw information storage capabilities, improvements in sensors as well as interactive peripherals have reshaped the way we use technology. If current trends continue we will soon find ourselves in a high density and highly distributed network of minniature devices, both as stand alone technologies (such as currently emerging smart phones) as well as embedded into every day consumer objects (as is the case with RFID tagging, QR coded items, and micro-controller enabled electronics). With this emerging paradigm it becomes much easier for computers to identify and process the objects around them, leading the way to many new modelling and digitizing techniques.
 
+\chapter{Design Document}
+
+\section{Goals}
+Mobile Telepresence device which can traverse flat open space.
+
+A camera with pan/tilt functionality
+
+A phone application which can view the camera and control the base device
+
+A system used to aid in telepresence integration for the remote viewee
+
+\section{Design}
+Telepresence device equipped with ARM board controller which drives servos
+Telepresence device also equipped with webcam and microphone
+Android (Platform agnostic?) device on the client side for viewing live video and audio from telepresence device
+Client side android device capable of driving the telepresence device
+Computer vision techniques gives the viewer extended interactions with the remote environment. 
+
+For example, a QR code the telepresence device encounters can open the resource on the viewers mobile device
+For example, facial tracking techniques can be used to alert the remote viewer when somebody has entered the frame
+
+
 \bibliography{mastersthesis}
 \bibliographystyle{alpha}
 \end{document}
