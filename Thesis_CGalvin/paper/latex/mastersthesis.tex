@@ -267,6 +267,34 @@ Computer vision techniques gives the viewer extended interactions with the remot
 For example, a QR code the telepresence device encounters can open the resource on the viewers mobile device
 For example, facial tracking techniques can be used to alert the remote viewer when somebody has entered the frame
 
+This consists of 3 major components:
+
+Networking
+
+	hardware needs high bandwidth, low latency
+	software limits?
+		how many video streams simultaneously?
+		latency? Client<->DSP<->Hardware vs Client<->Hardware direct
+		performance trade-offs of doing DSP on robot or mobile device?
+
+Hardware
+	vehicle
+	2 servo drive
+	pan / tilt
+	camera
+	wifi
+
+	smart phone (android?IOS?) optionally desktop (if web app)
+		Web stream in <video> element served by computer vision module
+
+Digital Signal Processing
+	computer vision module
+	raw video stream gathered from telepresence hardware
+	video analyzed using computer vision and pattern recognition (opencv)
+	client connected to this module will recieve events via the audio/video analyzer
+	scripting language? HighGUI enough?
+	client can also potentially recieve augmented audio/video data with the DSP module overlay
+	
 
 \bibliography{mastersthesis}
 \bibliographystyle{alpha}

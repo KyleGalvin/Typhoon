@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.10)  19 JUN 2013 16:27
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.10)  6 AUG 2013 19:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -138,9 +138,13 @@ Overfull \hbox (62.27768pt too wide) in paragraph at lines 229--229
 []\OT1/cmr/bx/n/17.28 Identifying the Ma-jor El-e-ments for a Lightweight
  []
 
-[13] (./mastersthesis.bbl [14] [15
+[13] [14]
+Chapter 2.
+(./mastersthesis.bbl [15
 
-] [16]) [17] (./mastersthesis.aux) ) 
+] [16
+
+] [17]) [18] (./mastersthesis.aux) ) 
 Here is how much of TeX's memory you used:
  351 strings out of 493489
  3855 string characters out of 3146915
@@ -150,4 +154,4 @@ Here is how much of TeX's memory you used:
  957 hyphenation exceptions out of 8191
  23i,5n,19p,1059b,236s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on mastersthesis.dvi (18 pages, 47512 bytes).
+Output written on mastersthesis.dvi (19 pages, 49616 bytes).
