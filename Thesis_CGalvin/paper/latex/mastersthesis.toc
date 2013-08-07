@@ -23,3 +23,11 @@
 \contentsline {chapter}{\numberline {2}Design Document}{15}
 \contentsline {section}{\numberline {2.1}Goals}{15}
 \contentsline {section}{\numberline {2.2}Design}{15}
+\contentsline {section}{\numberline {2.3}Networking}{15}
+\contentsline {subsection}{\numberline {2.3.1}I/O Limitations}{15}
+\contentsline {subsection}{\numberline {2.3.2}Formal Grammar}{16}
+\contentsline {subsubsection}{Commands}{16}
+\contentsline {subsubsection}{Data}{16}
+\contentsline {subsubsection}{Multiple Roles}{16}
+\contentsline {section}{\numberline {2.4}Hardware}{16}
+\contentsline {section}{\numberline {2.5}Digital Signal Processing}{17}
