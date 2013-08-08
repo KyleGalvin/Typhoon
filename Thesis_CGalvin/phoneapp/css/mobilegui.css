@@ -5,9 +5,23 @@ left: 0;
 }
 #leftslider{
 position: absolute;
+background: #000;
+border: 1px solid white;
 }
 #rightslider{
 position: absolute;
+background: #000;
+border: 1px solid white;
+}
+#leftsliderknob{
+position: absolute;
+background: #0C0;
+border: 1px solid white;
+}
+#rightsliderknob{
+position: absolute;
+background: #0C0;
+border: 1px solid white;
 }
 #mutetoggle{
 position: absolute;
