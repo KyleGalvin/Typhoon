@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.10)  19 JUN 2013 16:27
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.10)  7 AUG 2013 17:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -138,16 +138,27 @@ Overfull \hbox (62.27768pt too wide) in paragraph at lines 229--229
 []\OT1/cmr/bx/n/17.28 Identifying the Ma-jor El-e-ments for a Lightweight
  []
 
-[13] (./mastersthesis.bbl [14] [15
+[13] [14]
+Chapter 2.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 276.
 
-] [16]) [17] (./mastersthesis.aux) ) 
+(/usr/share/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 276.
+ [15
+
+] [16] (./mastersthesis.bbl [17] [18
+
+] [19]) [20] (./mastersthesis.aux) ) 
 Here is how much of TeX's memory you used:
- 351 strings out of 493489
- 3855 string characters out of 3146915
+ 368 strings out of 493489
+ 4128 string characters out of 3146915
  54432 words of memory out of 3000000
- 3723 multiletter control sequences out of 15000+200000
+ 3737 multiletter control sequences out of 15000+200000
  9750 words of font info for 34 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
  23i,5n,19p,1059b,236s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on mastersthesis.dvi (18 pages, 47512 bytes).
+Output written on mastersthesis.dvi (21 pages, 54040 bytes).

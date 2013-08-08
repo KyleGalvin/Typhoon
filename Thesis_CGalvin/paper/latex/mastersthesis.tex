@@ -248,6 +248,88 @@ User/Group management and authentication
 
 In conclusion, we are capable of much more than what is currently offered in terms of increasing the fidelity of our telepresence systems. On top of the increase in raw information storage capabilities, improvements in sensors as well as interactive peripherals have reshaped the way we use technology. If current trends continue we will soon find ourselves in a high density and highly distributed network of minniature devices, both as stand alone technologies (such as currently emerging smart phones) as well as embedded into every day consumer objects (as is the case with RFID tagging, QR coded items, and micro-controller enabled electronics). With this emerging paradigm it becomes much easier for computers to identify and process the objects around them, leading the way to many new modelling and digitizing techniques.
 
+\chapter{Design Document}
+
+\section{Goals}
+Mobile Telepresence device which can traverse flat open space.
+Battery operated
+An on board camera
+
+A phone application which can view the camera and control the base device
+
+A system used to aid in telepresence integration for the remote viewee
+
+\section{Design}
+Telepresence device equipped with ARM board controller which drives servos
+Telepresence device also equipped with webcam and microphone
+Android (Platform agnostic?) device on the client side for viewing live video and audio from telepresence device
+Client side android device capable of driving the telepresence device
+Computer vision techniques gives the viewer extended interactions with the remote environment. 
+
+For example, a QR code the telepresence device encounters can open the resource on the viewers mobile device
+For example, facial tracking techniques can be used to alert the remote viewer when somebody has entered the frame
+
+This consists of 3 major components:
+
+\section{Networking}
+	\subsection{I/O Limitations}
+		hardware needs high bandwidth, low latency
+		how many video streams simultaneously?
+		latency? Client\textless -\textgreater DSP\textless -\textgreater Hardware vs Client\textless -\textgreater Hardware direct
+		performance trade-offs of doing DSP on robot or mobile device?
+		how can we optimize performance?
+			video compression
+			audio compression
+			measure opencv processing latency
+			opencv gpgpu techniques
+	\subsection{Formal Grammar}
+		develop a formal grammar to convey information from each module to the next
+		\subsubsection{Commands}
+			left,right,forward,backward
+			toggle mute
+			connect
+		\subsubsection{Data}
+			audio
+			video
+			augmented overlay (another video stream)
+		\subsubsection{Multiple Roles}
+			in some cases, data and commands are not divisible. eg: signal processing allows for commands to be encoded in video
+
+\section{Hardware}
+	The hardware component of the project is largely an exercise in manufacturing both structural and electronic devices. Many of the parts are off-the-shelf, while others will be hand crafted. The hardware for the project will consist of three parts. The first part is a simple smart phone. While a web-enabled client could technically be used on a desktop (and in practice it could be) a mobile phone allows the user a great deal of flexibility and mobility. Assuming the user has access to a broadband connection, the client application should be simple enough to run on a small device. The client application will 
+
+	The second part
+	vehicle
+		weld steel chassis
+		2 servo drive
+			raspberry pi piface interface acts as the controller
+			pan / tilt? (maybe just tilt, tank already moves)
+		camera
+			standard webcam. 30fps streamed over wifi
+		microphone
+			built into camera
+		speakers
+			for speaking with remote users
+		wifi
+			usb wifi dongle.
+
+	smart phone client (android?IOS?) optionally desktop (if web app)
+		Web stream in \textless video\textgreater element served by computer vision module
+		touchscreen controls for left, right, forward, and reverse
+		mute button turns speakers on and off
+	
+	cloud computation unit
+		Basically a desktop computer with a GPU more capable than any of the embedded mobile devices
+	
+\section{Digital Signal Processing}
+	computer vision module
+	raw video stream gathered from telepresence hardware
+	video analyzed using computer vision and pattern recognition (opencv)
+	client connected to this module will recieve events via the audio/video analyzer
+		scripting language? HighGUI enough?
+	client can also potentially recieve augmented audio/video data with the DSP module overlay
+	
+
 \bibliography{mastersthesis}
 \bibliographystyle{alpha}
 \end{document}

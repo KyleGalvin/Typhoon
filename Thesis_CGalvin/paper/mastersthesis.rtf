@@ -72,7 +72,7 @@
 }
 {\info
 {\title Original file was mastersthesis.tex}
-{\doccomm Created using latex2rtf 2.3.3 r1230 (released Feb 26, 2013) on Wed Jun 19 16:27:29 2013
+{\doccomm Created using latex2rtf 2.3.3 r1230 (released Feb 26, 2013) on Wed Aug  7 17:00:50 2013
 }
 }
 {\footer\pard\plain\f0\fs24\qc\chpgn\par}
@@ -272,6 +272,34 @@ The robot must operate in a location where it would be too costly for the human 
 \pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \fi360 User/Group management and authentication\par
 \pard\plain\s3\ql\sb240\sa120\keepn\f0\b\fs32\sl240\slmult1 \sb240 \fi0 1.5  Summary\par
 \pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \sb60 \fi0 In conclusion, we are capable of much more than what is currently offered in terms of increasing the fidelity of our telepresence systems. On top of the increase in raw information storage capabilities, improvements in sensors as well as interactive peripherals have reshaped the way we use technology. If current trends continue we will soon find ourselves in a high density and highly distributed network of minniature devices, both as stand alone technologies (such as currently emerging smart phones) as well as embedded into every day consumer objects (as is the case with RFID tagging, QR coded items, and micro-controller enabled electronics). With this emerging paradigm it becomes much easier for computers to identify and process the objects around them, leading the way to many new modelling and digitizing techniques.\par
+\page
+\pard\plain\ql\sb240\sa120\keepn\f0\b\fs40\sl240\slmult1 \fi0 Chapter 2\par
+\pard\plain\s2\ql\sb240\sa120\keepn\f0\b\fs40\sl240\slmult1 \sb240 \fi0 Design Document\par
+\pard\plain\s3\ql\sb240\sa120\keepn\f0\b\fs32\sl240\slmult1 \sb480 \fi0 2.1  Goals\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \sb60 \fi0 Mobile Telepresence device which can traverse flat open space. Battery operated An on board camera\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \fi360 A phone application which can view the camera and control the base device\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \fi360 A system used to aid in telepresence integration for the remote viewee\par
+\pard\plain\s3\ql\sb240\sa120\keepn\f0\b\fs32\sl240\slmult1 \sb240 \fi0 2.2  Design\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \sb60 \fi0 Telepresence device equipped with ARM board controller which drives servos Telepresence device also equipped with webcam and microphone Android (Platform agnostic? ) device on the client side for viewing live video and audio from telepresence device Client side android device capable of driving the telepresence device Computer vision techniques gives the viewer extended interactions with the remote environment. \par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \fi360 For example, a QR code the telepresence device encounters can open the resource on the viewers mobile device For example, facial tracking techniques can be used to alert the remote viewer when somebody has entered the frame\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \fi360 This consists of 3 major components:\par
+\pard\plain\s3\ql\sb240\sa120\keepn\f0\b\fs32\sl240\slmult1 \sb240 \fi0 2.3  Networking\par
+\pard\plain\s4\ql\sb240\sa120\keepn\f0\b\fs32\sl240\slmult1 \sb180 \fi0 2.3.1  I/O Limitations\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \sb60 \fi0 hardware needs high bandwidth, low latency how many video streams simultaneously?  latency?  Client<->DSP<->Hardware vs Client<->Hardware direct performance trade-offs of doing DSP on robot or mobile device?  how can we optimize performance?  video compression audio compression measure opencv processing latency opencv gpgpu techniques \par
+\pard\plain\s4\ql\sb240\sa120\keepn\f0\b\fs32\sl240\slmult1 \sb120 \fi0 2.3.2  Formal Grammar\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \sb60 \fi0 develop a formal grammar to convey information from each module to the next \par
+\pard\plain\s5\ql\sb240\sa120\keepn\f0\b\fs24\sl240\slmult1 \sb120 \fi0 Commands\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \sb60 \fi0 left,right,forward,backward toggle mute connect \par
+\pard\plain\s5\ql\sb240\sa120\keepn\f0\b\fs24\sl240\slmult1 \sb120 \fi0 Data\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \sb60 \fi0 audio video augmented overlay (another video stream) \par
+\pard\plain\s5\ql\sb240\sa120\keepn\f0\b\fs24\sl240\slmult1 \sb120 \fi0 Multiple Roles\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \sb60 \fi0 in some cases, data and commands are not divisible. eg: signal processing allows for commands to be encoded in video\par
+\pard\plain\s3\ql\sb240\sa120\keepn\f0\b\fs32\sl240\slmult1 \sb240 \fi0 2.4  Hardware\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \sb60 \fi0 The hardware component of the project is largely an exercise in manufacturing both structural and electronic devices. Many of the parts are off-the-shelf, while others will be hand crafted. vehicle weld steel chassis 2 servo drive raspberry pi piface interface acts as the controller pan / tilt?  (maybe just tilt, tank already moves) camera standard webcam. 30fps streamed over wifi microphone built into camera speakers for speaking with remote users wifi usb wifi dongle.\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \fi360 smart phone client (android? IOS? ) optionally desktop (if web app) Web stream in <video>element served by computer vision module touchscreen controls for left, right, forward, and reverse mute button turns speakers on and off\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \fi360 cloud computation unit Basically a desktop computer with a GPU more capable than any of the embedded mobile devices\par
+\pard\plain\s3\ql\sb240\sa120\keepn\f0\b\fs32\sl240\slmult1 \sb240 \fi0 2.5  Digital Signal Processing\par
+\pard\plain\s9\qc\sb120\sa120\keep\widctlpar\f0\sl240\slmult1 \sb60 \fi0 computer vision module raw video stream gathered from telepresence hardware video analyzed using computer vision and pattern recognition (opencv) client connected to this module will recieve events via the audio/video analyzer scripting language?  HighGUI enough?  client can also potentially recieve augmented audio/video data with the DSP module overlay\par
 {\pard\plain\s61\ql\sb240\sa120\keepn\f0\b\fs32\sl240\slmult1 \sb120 \fi0 {\plain\b\fs32 Bibliography}\par
 \pard\plain\s62\ql\fi-567\li567\sb0\sa0\f0\fs20\sl240\slmult1 \sb60 \li450\fi0 [{\v\*\bkmkstart BIB_6094998}AH11{\*\bkmkend BIB_6094998}]\tab
 A.P. Arias and U.D. Hanebeck. {Motion control of a semi-mobile haptic interface for extended range telepresence}. In {\i {Intelligent Robots and Systems (IROS), 2011 IEEE/RSJ International Conference on}}, pages 3053\endash 3059, 2011.\par
