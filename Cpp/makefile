@@ -11,7 +11,7 @@ BIN_DIR = ./bin/
 
 LIB_STD = -std=c++0x
 LIB_GRAPHICS_OPENGL = -lglut -lGL -lGLU
-LIB_GRAPHICS_OPENCV = -lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml -lopencv_objdetect -lopencv_ts -lopencv_video -I/usr/include/ni -L/home/kgee/kinect/OpenNI-Bin-Dev-Linux-x64-v1.5.4.0/Lib -lOpenNI
+LIB_GRAPHICS_OPENCV = -lopencv_calib3d -lopencv_contrib -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml -lopencv_objdetect -lopencv_ts -lopencv_video -I/usr/include/ni -lOpenNI
 
 ifeq ($(UNAME), Linux)
 

@@ -1,3 +1,4 @@
+
 //OpenGL
 #include <GL/glut.h>
 #include "SDL/SDL_opengl.h"
@@ -6,14 +7,14 @@
 #include "./src/objectstructs.hpp"
 #include "./src/geotypes.hpp"
 #include "./src/hgrid.hpp"
-#include "./src/collision.hpp"
+//#include "./src/collision.hpp"
 
 //Dynamic Camera Class
 #include "./src/camera.hpp"
 
 //Self-Organizing Map
-#include "./src/neuron.hpp"
-#include "./src/tspFileReader.hpp"
+//#include "./src/neuron.hpp"
+//#include "./src/tspFileReader.hpp"
 
 //SDL Windowing Tools
 #include "SDL/SDL.h"
@@ -32,6 +33,7 @@
 
 using namespace cv;
 using namespace xn;
+using namespace std;
 
 #define X_PIXELS 500
 #define Y_PIXELS 500
@@ -350,14 +352,17 @@ void MouseMove(int x, int y,int halfHeight, int halfWidth)
 
 }
 int main(int argc, char** argv){
+	printf("Program Init...");
 	XnStatus rc;
 
 	EnumerationErrors errors;
 	rc = g_context.InitFromXmlFile(SAMPLE_XML_PATH, g_scriptNode, &errors);
 
+	std::cout<<"Kinect Init...";
 	g_depth.GetMetaData(g_depthMD);
 	g_image.GetMetaData(g_imageMD);
 
+	std::cout<<"Kinect Data...";
 Context context;
 context.Init();
 assert(capture.isOpened()); 
@@ -372,18 +377,23 @@ assert(capture.isOpened());
 	shared_ptr<Force> ForwardForce = cam->addForce(cam->Target,0);
 	shared_ptr<Force> RightForce = cam->addForce(cam->Right,0);
 
+	std::cout<<"Camera Init...";
 	BrickArray = createBrickArray(640,480);
 	if(capture.get( CV_CAP_PROP_OPENNI_REGISTRATION ) == 0) capture.set(CV_CAP_PROP_OPENNI_REGISTRATION,1);
 	cout<<"past init\n";
 	SDLDrawMetaData sdl;	
+	std::cout<<"SDL Init 1/2...";
  	glutInit(&argc, argv);
+	std::cout<<"OpenGL Init...";
 	init(sdl.screen_w,sdl.screen_h);
 	
+	std::cout<<"Voxel Grid Init...";
 	SDL_Event event;
 	SDL_ShowCursor(0);
 	SDL_WM_GrabInput(SDL_GRAB_ON);
 	bool quit = false;
 
+	std::cout<<"SDL Init 2/2...";
 
 
 	//game loop
@@ -431,3 +441,4 @@ assert(capture.isOpened());
 	return 0;
 
 }
+

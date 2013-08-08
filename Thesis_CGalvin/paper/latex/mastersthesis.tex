@@ -194,6 +194,8 @@ If many radio-enabled devices (whether via wifi, bluetooth, gps, or other means)
 
 If any of these devices were equipped with an accelerometer and a camera, it is theoretically possible to calculate a position and orientation vector for the camera, effectively letting the device give extremely precise descriptions of what region of space is being recorded. This information (spatial meta-data, as well as the raw audio/video data) can be combined with other similar information from the region in order to provide high-fidelity reconstructions of recorded events. This information can be further augmented by other sensory input such as spectroscopes, depth-sensors, and environment monitors.
 
+Time-synchronization techniques are limited by the sample speed of the measuring apparatus' clock. Determining distance by means of the recieved signal strenth do not require a clock, however the distance cannot be deduced from the signal strength alone without a calibration phase which takes into account the variance of each device's radio signal.
+
 \subsubsection{Stitching multiple images/videos together}
 In cases where images are not aligned, unwanted artifacts can be produced. Color and lighting inconsistencies can also be introduced which would create an unbalanced effect. A lack of references and identifiable control points can also make it difficult to correctly position image fragments. \cite{4359344}
 
