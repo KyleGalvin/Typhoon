@@ -1,71 +1,88 @@
 $(document).ready(function() {
 	console.log("height:",$(window).height())
+
+	var tracklength = 100
+	var trackwidth = 10
+	var buttonshort = 15
+	var buttonlong = 35
+	var hitboxlength = tracklength*4
+	var hitboxwidth = trackwidth*15
+
+	var leftslider = $("#leftslider")
+	var leftsliderknob = $("#leftsliderknob")
+	var rightslider = $("#rightslider")
+	var rightsliderknob = $("#rightsliderknob")
+
 	$("#underlay").attr('width',$(window).width())
 	$("#underlay").attr('height',$(window).height())
-	$("#leftslider").css('height', 10)
-	$("#leftslider").css('width', 100) 
-	$("#leftsliderknob").css('height', 15)
-	$("#leftsliderknob").css('width', 15) 
-	$("#leftslider").css('top', $(window).height()/2.0 - $("#rightslider").height()/2.0)
-	$("#leftslider").css('left', $("#leftslider").width()*1.5)
-	$("#leftsliderknob").css('top', $(window).height()/2.0 - ($("#leftsliderknob").height()-$("#leftslider").height())/2.0)
-	$("#leftsliderknob").css('left', $("#leftslider").position().left + $("#leftslider").width()/2.0 - $("#leftsliderknob").width()/2.0)// + $("#leftslider").width()/2 )
-	$("#rightslider").css('height', 100)
-	$("#rightslider").css('width', 10) 
-	$("#rightsliderknob").css('height', 15)
-	$("#rightsliderknob").css('width', 15) 
-	$("#rightslider").css('top', $(window).height()/2.0 - $("#rightslider").height()/2.0)
-	$("#rightslider").css('left', $(window).width() - ($("#rightslider").height()*1.5))
-	$("#rightsliderknob").css('top', $(window).height()/2.0 - $("#rightsliderknob").height()/2.0)
-	$("#rightsliderknob").css('left', $("#rightslider").position().left + $("#rightslider").width()/2.0 - $("#rightsliderknob").width()/2.0)
 	$("#mutetoggle").css('top',0 )
 	$("#mutetoggle").css('left', $(window).width()/2.0 - $("#mutetoggle").width()/2.0)
 
+	leftslider.css('height', trackwidth)
+	leftslider.css('width', tracklength) 
+	leftslider.css('top', $(window).height()/2.0 - $("#rightslider").height()/2.0)
+	leftslider.css('left', leftslider.width()*1.5)
+	leftsliderknob.css('height', buttonlong)
+	leftsliderknob.css('width', buttonshort) 
+	leftsliderknob.css('top', $(window).height()/2.0 - (leftsliderknob.height()-leftslider.height())/2.0)
+	leftsliderknob.css('left', $("#leftslider").position().left + leftslider.width()/2.0 - leftsliderknob.width()/2.0)
+	$("#leftsliderhitbox").css('height', hitboxwidth)
+	$("#leftsliderhitbox").css('width', hitboxlength) 
+	$("#leftsliderhitbox").css('top', $(window).height()/2.0 - $("#leftsliderhitbox").height()/2.0)
+	$("#leftsliderhitbox").css('left', $("#leftslider").position().left + leftslider.width()/2.0 - $("#leftsliderhitbox").width()/2.0)
+
+	rightslider.css('height', tracklength)
+	rightslider.css('width', trackwidth) 
+	rightslider.css('top', $(window).height()/2.0 - rightslider.height()/2.0)
+	rightslider.css('left', $(window).width() - (rightslider.height()*1.5))
+	rightsliderknob.css('height', buttonshort)
+	rightsliderknob.css('width', buttonlong) 
+	rightsliderknob.css('top', $(window).height()/2.0 - rightsliderknob.height()/2.0)
+	rightsliderknob.css('left', $("#rightslider").position().left + rightslider.width()/2.0 - rightsliderknob.width()/2.0)
+	$("#rightsliderhitbox").css('height', hitboxlength)
+	$("#rightsliderhitbox").css('width', hitboxwidth) 
+	$("#rightsliderhitbox").css('top', $(window).height()/2.0 - $("#rightsliderhitbox").height()/2.0)
+	$("#rightsliderhitbox").css('left', $("#rightslider").position().left + rightslider.width()/2.0 - $("#rightsliderhitbox").width()/2.0)
+
 	var leftdrag = false
-	var lastleft = 0
-	var rightdrag = false
-	var lastright = 0
-	$("#leftsliderknob").on("mousedown", function(e){
-		console.log("lk mousedown")
-		leftdrag = true
-		lastleft = e.offsetY
-	})
-	$("#leftsliderknob").on("mouseup", function(e){
-		console.log("lk mouseup")
-		leftdrag = false
-	})
-	$("#leftsliderknob").on("mousemove", function(e){
-		console.log("lk mousemove")
+	function leftslide(e){
 		if(leftdrag){
-			console.log("dragging", e)
-			lastleft = e.pageX - lastleft
-			var t1 = $("#leftslider").position().left
-			var t2 =  $("#leftslider").position().left+ $("#leftslider").width()
-			console.log(t1, " ", t2, " ", e.pageX)
-			if(e.pageX > $("#leftslider").position().left && e.pageX < $("#leftslider").position().left+ $("#leftslider").width()){
-				console.log("ready!")
-				$("#leftsliderknob").css('left',e.pageX- $("#leftsliderknob").width()/2.0)
+			if(e.pageX > $("#leftslider").position().left && e.pageX < $("#leftslider").position().left + leftslider.width()){
+				leftsliderknob.css('left',e.pageX- leftsliderknob.width()/2.0)
 			}
 		}
-	})
-	$("#leftsliderknob").on("mouseout", function(e){
-		console.log("lk mouseout")
-			if(e.pageX > $("#leftslider").position().left && e.pageX < $("#leftslider").position().left+ $("#leftslider").width()){
-				console.log("ready!")
-				$("#leftsliderknob").css('left',e.pageX- $("#leftsliderknob").width()/2.0)
+	}
+
+	leftsliderknob.on("mousedown", function(e){leftdrag = true})
+
+	
+	leftslider.on("mouseup", function(e){leftdrag = false})
+	leftsliderknob.on("mouseup", function(e){leftdrag = false})
+	$("#leftsliderhitbox").on("mouseup", function(e){leftdrag = false})
+
+	leftslider.on("mousemove", leftslide)
+	leftsliderknob.on("mousemove", leftslide)
+	$("#leftsliderhitbox").on("mousemove", leftslide)
+
+	//$("#leftsliderhitbox").on("mouseout", function(e){})//turn off drag if we are OUTSIDE hit box (must test; event can be triggered over other divs while still inside
+
+	var rightdrag = false
+	function rightslide(e){
+		if(rightdrag){
+			console.log("right sliding active")
+			if(e.pageY > $("#rightslider").position().top && e.pageY < $("#rightslider").position().top + rightslider.height()){
+				rightsliderknob.css('top',e.pageY- rightsliderknob.height()/2.0)
 			}
-	})
-	$("#rightsliderknob").on("mousedown", function(e){
-		console.log("rk mousedown")
-		rightdrag = true
-	})
-	$("#rightsliderknob").on("mouseup", function(e){
-		console.log("rk mouseup")
-	})
-	$("#rightsliderknob").on("mousemove", function(e){
-		console.log("rk mousemove")
-	})
-	$("#rightsliderknob").on("mouseout", function(e){
-		console.log("rk mouseout")
-	})
+		}
+	}
+
+	rightsliderknob.on("mousedown", function(e){rightdrag = true})i
+
+	rightslider.on("mouseup", function(e){rightdrag = false})
+	rightsliderknob.on("mouseup", function(e){rightdrag = false})
+	$("#rightsliderhitbox").on("mouseup", function(e){rightdrag = false})
+
+	rightslider.on("mousemove", rightslide)
+	rightsliderknob.on("mousemove", rightslide)
+	$("#rightsliderhitbox").on("mousemove", rightslide)
 });

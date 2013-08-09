@@ -26,3 +26,7 @@ border: 1px solid white;
 #mutetoggle{
 position: absolute;
 }
+.hitbox{
+position: absolute;
+//background: #8CC;
+border: 1px solid white;
