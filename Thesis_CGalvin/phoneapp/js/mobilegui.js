@@ -76,7 +76,7 @@ $(document).ready(function() {
 		}
 	}
 
-	rightsliderknob.on("mousedown", function(e){rightdrag = true})i
+	rightsliderknob.on("mousedown", function(e){rightdrag = true})
 
 	rightslider.on("mouseup", function(e){rightdrag = false})
 	rightsliderknob.on("mouseup", function(e){rightdrag = false})
