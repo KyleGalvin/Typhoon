@@ -1,4 +1,4 @@
-\documentclass[final,a4paper,12pt]{report}
+\documentclass[a4paper,12pt]{report}
 \usepackage{titling}
 \usepackage{graphicx}
 \DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
@@ -253,48 +253,55 @@ In conclusion, we are capable of much more than what is currently offered in ter
 \chapter{Design Document}
 
 \section{Goals}
-\includegraphics{networkProfile_Labeled}
 
 Mobile Telepresence device which can traverse flat open space.
 Battery operated
 An on board camera
 
-\includegraphics{MobileGUI_Labeled}
 A phone application which can view the camera and control the base device
 
 A system used to aid in telepresence integration for the remote viewee
 
 \section{Design}
-Telepresence device equipped with ARM board controller which drives servos
-Telepresence device also equipped with webcam and microphone
-Android (Platform agnostic?) device on the client side for viewing live video and audio from telepresence device
-Client side android device capable of driving the telepresence device
-Computer vision techniques gives the viewer extended interactions with the remote environment. 
+\begin{itemize}
+\item Telepresence device equipped with ARM board controller which drives servos
+\item Telepresence device also equipped with webcam and microphone
+\item Android (Platform agnostic?) device on the client side for viewing live video and audio from telepresence device
+\item Client side android device capable of driving the telepresence device
+\item Computer vision techniques gives the viewer extended interactions with the remote environment. 
 
-For example, a QR code the telepresence device encounters can open the resource on the viewers mobile device
-For example, facial tracking techniques can be used to alert the remote viewer when somebody has entered the frame
+\item For example, a QR code the telepresence device encounters can open the resource on the viewers mobile device
+\item For example, facial tracking techniques can be used to alert the remote viewer when somebody has entered the frame
 
-augmented data systems applied to telecommunications and mobile telepresence
+\item augmented data systems applied to telecommunications and mobile telepresence
 
-tons of data is available everywhere. There are many types of data and ways to visualize them and helpful calculations that can be done.
+\item tons of data is available everywhere. There are many types of data and ways to visualize them and helpful calculations that can be done.
 
-'live' real time data is becoming more dense. from traditional IRC to VoIP and video streaming, bandwidth has come a long way
+\item 'live' real time data is becoming more dense. from traditional IRC to VoIP and video streaming, bandwidth has come a long way
 
-This live data can be parsed and processed immediately upon arrival
+\item This live data can be parsed and processed immediately upon arrival
 
-if we can process useful derivitive information in real-time with a small enough (how small?) latency, we can act on the results in a real-time manner.
+\item if we can process useful derivitive information in real-time with a small enough (how small?) latency, we can act on the results in a real-time manner.
 
+\end{itemize}
 \section{Networking}
+
+\includegraphics[width=12cm]{networkProfile_Labeled}
+
 	\subsection{I/O Limitations}
-		hardware needs high bandwidth, low latency
-		how many video streams simultaneously?
-		latency? Client\textless -\textgreater DSP\textless -\textgreater Hardware vs Client\textless -\textgreater Hardware direct
-		performance trade-offs of doing DSP on robot or mobile device?
-		how can we optimize performance?
-			video compression
-			audio compression
-			measure opencv processing latency
-			opencv gpgpu techniques
+		\begin{itemize}
+		\item hardware needs high bandwidth, low latency
+		\item how many video streams simultaneously?
+		\item latency? Client\textless -\textgreater DSP\textless -\textgreater Hardware vs Client\textless -\textgreater Hardware direct
+		\item performance trade-offs of doing DSP on robot or mobile device?
+		\end{itemize}
+		\subsubsection{optimizing performance}
+			\begin{itemize}
+			\item video compression
+			\item audio compression
+			\item measure opencv processing latency
+			\item opencv gpgpu techniques
+			\end{itemize}
 	\subsection{Formal Grammar}
 		develop a formal grammar to convey information from each module to the next
 		\subsubsection{Commands}
@@ -310,38 +317,49 @@ if we can process useful derivitive information in real-time with a small enough
 
 \section{Hardware}
 	The hardware component of the project is largely an exercise in manufacturing both structural and electronic devices. Many of the parts are off-the-shelf, while others will be hand crafted. The hardware for the project will consist of three parts. 
-	The first part is a simple smart phone. While a web-enabled client could technically be used on a desktop (and in practice it could be) a mobile phone allows the user a great deal of flexibility and mobility. Assuming the user has access to a broadband connection, the client application should be simple enough to run on a small device. 
-	The second part is the cloud server which does the signal processing. The computational requirements are not extreme, so a simple desktop computer will do for a laboratory environment.
-	The final part is the telepresence avatar.
-	vehicle
-		weld steel chassis
-		2 servo drive
-			raspberry pi piface interface acts as the controller
-			pan / tilt? (maybe just tilt, tank already moves)
-		camera
-			standard webcam. 30fps streamed over wifi
-		microphone
-			built into camera
-		speakers
-			for speaking with remote users
-		wifi
-			usb wifi dongle.
 
-	smart phone client (android?IOS?) optionally desktop (if web app)
-		Web stream in \textless video\textgreater element served by computer vision module
-		touchscreen controls for left, right, forward, and reverse
-		mute button turns speakers on and off
-	
-	cloud computation unit
-		Basically a desktop computer with a GPU more capable than any of the embedded mobile devices
-	
+	The first part is a simple smart phone. While a web-enabled client could technically be used on a desktop (and in practice it could be) a mobile phone allows the user a great deal of flexibility and mobility. Assuming the user has access to a broadband connection, the client application should be simple enough to run on a small device. 
+\includegraphics[width=12cm]{MobileGUI_Labeled}
+\begin{itemize}
+	\item smart phone client (android?IOS?) optionally desktop (if web app)
+	\item Web stream in \textless video\textgreater element served by computer vision module
+	\item touchscreen controls for left, right, forward, and reverse
+	\item mute button turns speakers on and off
+\end{itemize}
+
+	The second part is the cloud server which does the signal processing. The computational requirements are not extreme, so a simple desktop computer will do for a laboratory environment.
+\begin{itemize}
+	\item cloud computation unit
+	\item Basically a desktop computer with a GPU more capable than any of the embedded mobile devices
+\end{itemize}
+
+	The final part is the telepresence avatar.
+\begin{itemize}
+	\item vehicle
+	\item weld steel chassis
+	\item 2 servo drive
+	\item raspberry pi piface interface acts as the controller
+	\item pan / tilt? (maybe just tilt, tank already moves)
+	\item camera
+	\item standard webcam. 30fps streamed over wifi
+	\item microphone
+	\item built into camera
+	\item speakers
+	\item for speaking with remote users
+	\item wifi
+	\item usb wifi dongle.
+\end{itemize}
+
 \section{Digital Signal Processing}
-	computer vision module
-	raw video stream gathered from telepresence hardware
-	video analyzed using computer vision and pattern recognition (opencv)
-	client connected to this module will recieve events via the audio/video analyzer
-		scripting language? HighGUI enough?
-	client can also potentially recieve augmented audio/video data with the DSP module overlay
+\includegraphics[width=12cm]{signalProcessing}
+\begin{itemize}
+	\item computer vision module
+	\item raw video stream gathered from telepresence hardware
+	\item video analyzed using computer vision and pattern recognition (opencv)
+	\item client connected to this module will recieve events via the audio/video analyzer
+	\item scripting language? HighGUI enough?
+	\item client can also potentially recieve augmented audio/video data with the DSP module overlay
+\end{itemize}
 	
 \subsection{Components}
 
