@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.10)  7 AUG 2013 17:00
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.10)  13 AUG 2013 00:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -39,25 +39,49 @@ Package: titling 2009/09/04 v2.1d maketitle typesetting
 \thanksmargin=\skip44
 \droptitle=\skip45
 )
-(./mastersthesis.aux)
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+
+(/usr/share/texmf-dist/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+) (./mastersthesis.aux)
 \openout1 = `mastersthesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
- [1
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+
+[1
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 34--40
+Underfull \hbox (badness 10000) in paragraph at lines 35--41
 
  []
 
@@ -104,7 +128,7 @@ Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ù in font cmr12!
  [5] [6]
-Overfull \hbox (0.714pt too wide) in paragraph at lines 90--91
+Overfull \hbox (0.714pt too wide) in paragraph at lines 91--92
 []\OT1/cmr/m/n/12 Before we wan-der into fan-ci-ful and eclec-tic de-scrip-tion
 s of ad-vanced robots
  []
@@ -117,48 +141,60 @@ Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ù in font cmr12!
  [8]
-Overfull \hbox (15.00577pt too wide) in paragraph at lines 143--143
+Overfull \hbox (15.00577pt too wide) in paragraph at lines 144--144
 []\OT1/cmr/bx/n/17.28 Telepresence & Real-Time com-mu-ni-ca-tions 
  []
 
 [9] [10]
-Overfull \hbox (6.232pt too wide) in paragraph at lines 193--194
+Overfull \hbox (6.232pt too wide) in paragraph at lines 194--195
 \OT1/cmr/m/n/12 means) are within com-mu-ni-ca-tion range, it is pos-si-ble to 
 use time-synchronized
  []
 
 [11] [12]
-Overfull \hbox (1.2945pt too wide) in paragraph at lines 209--209
+Overfull \hbox (1.2945pt too wide) in paragraph at lines 212--212
 []\OT1/cmr/bx/n/12 Improved ac-cu-racy through domain-specific en-vi-ron-ments/
 contexts 
  []
 
 
-Overfull \hbox (62.27768pt too wide) in paragraph at lines 229--229
+Overfull \hbox (62.27768pt too wide) in paragraph at lines 232--232
 []\OT1/cmr/bx/n/17.28 Identifying the Ma-jor El-e-ments for a Lightweight
  []
 
 [13] [14]
 Chapter 2.
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 276.
 
-(/usr/share/texmf-dist/tex/latex/base/omlcmr.fd
+! LaTeX Error: File `networkProfile_Labeled' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.255 \includegraphics{networkProfile_Labeled}
+                                              
+? 
+[15
+
+]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 289.
+
+ (/usr/share/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 276.
- [15
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 289.
+ [16] [17]
+(./mastersthesis.bbl [18] [19
 
-] [16] (./mastersthesis.bbl [17] [18
-
-] [19]) [20] (./mastersthesis.aux) ) 
+] [20]) [21] (./mastersthesis.aux) ) 
 Here is how much of TeX's memory you used:
- 368 strings out of 493489
- 4128 string characters out of 3146915
- 54432 words of memory out of 3000000
- 3737 multiletter control sequences out of 15000+200000
+ 682 strings out of 493489
+ 8049 string characters out of 3146915
+ 59611 words of memory out of 3000000
+ 4026 multiletter control sequences out of 15000+200000
  9750 words of font info for 34 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 23i,5n,19p,1059b,236s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 25i,5n,19p,1059b,236s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on mastersthesis.dvi (21 pages, 54040 bytes).
+Output written on mastersthesis.dvi (22 pages, 58056 bytes).
