@@ -5,12 +5,12 @@ paper:	mastersthesis.tex
 	bibtex8 mastersthesis
 	latex mastersthesis.tex
 	dvipdfm mastersthesis.dvi
-	latex2rtf -o ../mastersth`esis.rtf ./mastersthesis.tex	
+	latex2rtf -o ../mastersthesis.rtf ./mastersthesis.tex	
 	latex2html mastersthesis.tex -split 0 -no_navigation -info "" -address "" -html_version 4.0,unicode
 	rm -rf ../html
-	mv -r ./mastersthesis/ ../html
 	sudo libreoffice --headless --convert-to odt:"OpenDocument Text Flat XML" ./mastersthesis/index.html
 	sudo libreoffice --headless --convert-to doc ./mastersthesis/index.html
+	mv ./mastersthesis/ ../html
 
 bundle:
 	rm -rf Kyle_Galvin_Project 
@@ -22,5 +22,11 @@ bundle:
 clean:
 	rm -rf ../html
 	rm -rf Kyle_Galvin_Project
-	rm ./index.doc	
-	rm ./index.odt
+	rm -f ./index.doc	
+	rm -f ./index.odt
+	rm -f ./texput.log
+	rm -f ./mastersthesis.toc
+	rm -f ./mastersthesis.pdf
+	rm -f ./mastersthesis.dvi
+	rm -f ./mastersthesis.blg
+	rm -f ./mastersthesis.log
