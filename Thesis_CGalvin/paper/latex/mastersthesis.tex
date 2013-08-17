@@ -269,6 +269,35 @@ Computer vision techniques gives the viewer extended interactions with the remot
 For example, a QR code the telepresence device encounters can open the resource on the viewers mobile device
 For example, facial tracking techniques can be used to alert the remote viewer when somebody has entered the frame
 
+Project:
+
+augmented data systems applied to telecommunications and mobile telepresence
+
+Breakdown:
+
+tons of data is available everywhere. There are many types of data and ways to visualize them and helpful calculations that can be done.
+
+'live' real time data is becoming more dense. from traditional IRC to VoIP and video streaming, bandwidth has come a long way
+
+This live data can be parsed and processed immediately upon arrival
+
+if we can process useful derivitive information in real-time with a small enough (how small?) latency, we can act on the results in a real-time manner.
+
+
+
+Several parts to this project:
+
+Sensors/Input - generate data from the environment. Keyboard/Mouse are basic sensors. Video Cameras are more complex yet they are becoming extremely common. Many other sensors exist. GPS, microphone, accelerometer, etc.
+
+Processor - consists of a three part pipeline:
+	Data Extraction - reads the raw sensor data somewhere between the sensors and the client. Pre-processing can be done on the raw data, reducing it's size
+	Pattern Recognition - the pre-processed data can be analyzed and compared against a database of models. If the data matches the models (within a degree of tolerance) than properties can be assigned to the data
+	Action/Augmentation - As properties are discovered in the live data stream, they will trigger actions within the system. Actions can then be sent along with the raw data towards the client device which is capable of acting on the augmented stream
+
+Client/Output - will recieve the real-time data along with augmented action events. Action events will be acted on.
+
+Actions can get as complex as you like. For example, the client's device could initiate a video call if it detects a series of actions such as "a presenter is in the room and the presenter is speaking and the client has just raised their hand"
+
 This consists of 3 major components:
 
 \section{Networking}

@@ -1,10 +1,31 @@
 $(document).ready(function() {
-	console.log("height:",$(window).height())
+	var optionalRoom
+
+	var video = document.getElementById("underlay")
+	navigator.getMedia = ( navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia ||
+		navigator.msGetUserMedia);
+	// use the chrome specific GetUserMedia function
+	console.log(video);
+	navigator.getMedia({video:true, audio:true},
+            function(stream) {
+                video.src = window.URL.createObjectURL(stream);
+		console.log("set stream")
+		video.onloadedmetadata = function(e){
+			console.log("onladedmetadata")
+		}
+            },
+            function(err) {
+                console.log("Unable to get video stream!")
+            }
+    )
+
 
 	var tracklength = 100
 	var trackwidth = 10
-	var buttonshort = 15
-	var buttonlong = 35
+	var buttonshort = 85
+	var buttonlong = 135
 	var hitboxlength = tracklength*4
 	var hitboxwidth = trackwidth*15
 
