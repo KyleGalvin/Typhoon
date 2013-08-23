@@ -33,3 +33,4 @@ clean:
 	rm -f ./mastersthesis.log
 	rm -f ./mastersthesis.aux
 	rm -f ./mastersthesis.bbl
+	rm -f ./mastersthesis.rtf
