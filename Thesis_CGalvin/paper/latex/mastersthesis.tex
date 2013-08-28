@@ -51,11 +51,11 @@ Telepresence has been used in many forms in academia university for more than a 
 
 Microprocessors have shaped the world over the last century. Reducing in size over time exponentially, we are now able to achieve things that would have been unimaginable in the past. We can squeeze more bits per volume, transport more information and crunch more data each second than ever before. With this explosion of portability and connectivity comes a renaissance of technological growth that is unfolding before our eyes.
 
-Density of information and computation as well as the speed of communication are at the core of modern digital technology, yet focusing on these features displays a very hands-on white box approach. There is also much to be learned with respect to the interaction between digital components and their environments, which could be considered more of a black box "I/O" style description. The interface a device supplies for others to interact with is just as important as the computational and communicative abilities the device has intenally to process the environment around it.
+Density of information and computation as well as the speed of communication are at the core of modern digital technology, yet focusing on these features displays a very hands-on 'white box' approach. There is also much to be learned with respect to the interaction between digital components and their environments, which could be considered more of an external 'black box' style description. The interface and sensors a device supplies for others to interact with is just as important as the computational and communicative abilities the device has internally to process the environment around it.
 
-By extrapolating on current computational growth trends, we can imagine many applications in which technology will soon improve our every day lives. By studying these applications both mundane and whimsical alike, we are likely to find many exciting ideas which are attainable much more immediately than they first appeared.
+By extrapolating on current computational growth trends, we can easily imagine the capabilities we will soon weild while developing applications to improve our every day lives. By studying these applications (both mundane and whimsical alike) we are likely to find many exciting ideas which are attainable much more immediately than they first appeared as well as many which are just around the bend.
 
-Arthur C. Clarke once wrote "Any sufficiently advanced technology is indistinguishable from magic". Indeed many amazing discoveries can find roots in sci-fi and futuristic predictions which push the boundaries of our collective knowlege and explore the potential and logical conclusions of current technological progress. The most recent ideas which are moving from science fiction to science fact are telepresence and augmented reality. 
+Arthur C. Clarke once wrote "Any sufficiently advanced technology is indistinguishable from magic", and I am inclined to agree. Indeed many amazing discoveries can find roots in sci-fi and futuristic predictions which push the boundaries of our collective knowlege and explore the potential and logical conclusions of current technological progress. The most recent ideas which are moving from science fiction to science fact are telepresence and augmented reality. 
 
 To introduce these ideas, I will borrow from the definitions others have supplied:
 \begin{quotation}
@@ -82,9 +82,9 @@ Smart phones and telecommunications aren't the only technology in this arena, bu
 When we combine our new-found freedom to invent any sort of sensory device with our fully connected and always online 'internet of things', we can begin to explore and create all sorts of ideas that were inaccessable to the real-world and thus bound to the realm of fiction, futurism, and sci-fi.
 \subsection{Microcontrollers \& customized System on a Chip (SoaC) components}
 
-Microcontrollers have become the de-facto platform for lightweight, mobile, and miniaturized devices. Much of the power of microcontrollers has been achieved by clever specializations and optimizations of the CPU unit. By diverging from the Desktop model where raw power takes precedence over power consuption, there are now a variety of architectures and specialized components that are well-suited to mobility. In fact there is now a wide spectrum of hardware ranging from high performance to low power consumption. With server and desktop harware on one end of the spectrum, we have recently expanded the power efficient end with a range of miniaturized ARM general-purpose CPUs capable of of supporting a general-purpose operating system and related peripheral components in an extremely small enclosure. To continue down the spectrum we depart from a traditional operating system and move towards programmable integrated circuits (PIC) and pure-hardware components which perform more specialized tasks using even less space and power.
+Microcontrollers have become the de-facto platform for lightweight, mobile, and miniaturized devices. Much of the power of microcontrollers has been achieved by clever specializations and optimizations of the CPU unit. By diverging from the Desktop model where raw power takes precedence over power consuption, there are now a variety of architectures and specialized components that are well-suited to mobility. In fact there is now a wide spectrum of hardware ranging from high performance to low power consumption. With server and desktop harware on one end of the spectrum, we have recently expanded the power efficient end of the spectrum with a range of miniaturized ARM general-purpose CPUs capable of of supporting a general-purpose operating system and related peripheral components in an extremely small enclosure. To continue down the spectrum we depart from a traditional operating system and move towards programmable integrated circuits (PIC) and pure-hardware components which perform more specialized tasks using even less space and power.
 
-Because of this balance between portability and power, it is important to keep in mind the practical limitations on the applications a device can support. While a computationally demanding task such as image processing, we are unlikely to get satisfactory results with a PIC controller, yet the current generation of ARM controllers which are recently emerging are just beginning to practically handle these tasks.
+Because of this balance between portability and power, it is important to keep in mind the practical limitations on the applications a device can support. While a computationally demanding task such as image processing, we are unlikely to get satisfactory results with a PIC controller, yet the current generation of ARM controllers which are recently emerging are just beginning to practically handle these tasks, and this can be echoed by the libraries and toolkits developers have ported to the platforms. For example, there are now openCV ports on both the android and IOS platforms. This is a testament to their increasingly pervasive capabilities.
 
 An interesting idea to consider is delegation of the heavy processing to a more capable device. However, this strategy simply moves the problem from the computational I/O boundaries of the device towards the networking I/O boundaries. To achieve practical results, we can use a hybrid approach by allowing the device to pre-process the data (assuming such a pre-processing can reduce the size of the raw data, preferrably an order of magnitude or more) before sending the derived result over the network to a more capable device.
 
@@ -252,88 +252,73 @@ User/Group management and authentication
 In conclusion, we are capable of much more than what is currently offered in terms of increasing the fidelity of our telepresence systems. On top of the increase in raw information storage capabilities, improvements in sensors as well as interactive peripherals have reshaped the way we use technology. If current trends continue we will soon find ourselves in a high density and highly distributed network of minniature devices, both as stand alone technologies (such as currently emerging smart phones) as well as embedded into every day consumer objects (as is the case with RFID tagging, QR coded items, and micro-controller enabled electronics). With this emerging paradigm it becomes much easier for computers to identify and process the objects around them, leading the way to many new modelling and digitizing techniques.
 
 \chapter{Design Document}
-
 \section{Goals}
 
-Mobile Telepresence device which can traverse flat open space.
-Battery operated
-An on board camera
+In order to improve on current telepresence technologies, we must revisit the main sensory obstacles in telepresence interaction and modify our implementations in a way that reduces such obstacles. To reiterate, these obstacles are:
+	\begin{enumerate}
+		\item The detection of sensory signals
+		\item The feedback of real-time sensory information to the operator
+		\item The presentation of this information in a form that can be easily detected, processed by the brain as a reflex action and responded to, since an excessive need for thought would detract from performance of the primary task.
+	\end{enumerate}
+	\begin{flushright}
+		\cite{540147}
+	\end{flushright}
 
-A phone application which can view the camera and control the base device
+The goal of this project is to create a system which automates and facilitates the above in a helpful and intuitive way via data augmentation of the live stream. These three points will each be addressed individually by it's own software module placed between the telepresence device and the user's device.
 
-A system used to aid in telepresence integration for the remote viewee
+A good example would be to recognize and highlight a QR code should one come into the visual frame. The users options could be as simple as 'open URL in browser' or 'ignore'.
+
+A second example would be to alert the user when a presenter has entered the frame after a lengthy abscence.
+
+Finally, if a group of two or more people collaborate to make a 'digital audience', tags, notes, and comments can be passed among audience members in real time. For example, if the professor leaves a particularly difficult equation on the board, audience members could be enabled to directly click on the location of the equation within the video in question and communicate their interest in a real time collaborative way. This information can be saved along with the video for the professors review at a later time.
+
+\section{Assumptions}
+
+There are a wide variety of telepresence devices available, each with it's own features and limitations. This project will focus on the most common telepresence software available, which is the modern smart phone. We can assume that the telepresence device will come equipped with a camera and a microphone, as well as a wireless network connection capable of simultaneously transmitting and recieving audio/video data with latency low enough to qualify for 'real-time communication'. If required, benchmarks and data may later be supplied to demonstrate that this is indeed a common feature of modern hardware.
 
 \section{Design}
-\begin{itemize}
-\item Telepresence device equipped with ARM board controller which drives servos
-\item Telepresence device also equipped with webcam and microphone
-\item Android (Platform agnostic?) device on the client side for viewing live video and audio from telepresence device
-\item Client side android device capable of driving the telepresence device
-\item Computer vision techniques gives the viewer extended interactions with the remote environment. 
 
-\item For example, a QR code the telepresence device encounters can open the resource on the viewers mobile device
-\item For example, facial tracking techniques can be used to alert the remote viewer when somebody has entered the frame
+In order to achieve our goals, the approach I intend to take involves scanning the raw telepresence data between clients in order to parse and extract some of the high level information out of it. If we can automate the detection of useful signals, gestures, queues, and events in the raw audio/video data, we can highlight and emphasize this information to the user. Furthermore, if the signals we parse can be responded with by a minimal subset of actions we are entirely capable of supplying these options in real-time and allowing the user to quickly decide how they choose to respond.
+ 
+If the mobile telepresence devices which collect and transmit the raw audio/video data are most likely to be modern smart phones, than we would be wise to treat these devices as thin clients in the sense that their purpose is limited to data collection and user interaction. The heavy processing involved with computer vision over large streams of image matricies would quickly overwhelm such devices.
 
-\item augmented data systems applied to telecommunications and mobile telepresence
+Because of this limitation I plan on deploying a cloud server which intercepts the data streams between clients in order to process the large amounts of raw data. This cloud will also store the streams and act as a database of past transmissions along with all the key metadata we accumulate through our processing techniques.
 
-\item tons of data is available everywhere. There are many types of data and ways to visualize them and helpful calculations that can be done.
-
-\item 'live' real time data is becoming more dense. from traditional IRC to VoIP and video streaming, bandwidth has come a long way
-
-\item This live data can be parsed and processed immediately upon arrival
-
-\item if we can process useful derivitive information in real-time with a small enough (how small?) latency, we can act on the results in a real-time manner.
-
-\end{itemize}
 \section{Networking}
 
 \includegraphics[width=12cm]{networkProfile_Labeled}
 
 	\subsection{I/O Limitations}
-		\begin{itemize}
-		\item hardware needs high bandwidth, low latency
-		\item how many video streams simultaneously?
-		\item latency? Client\textless -\textgreater DSP\textless -\textgreater Hardware vs Client\textless -\textgreater Hardware direct
-		\item performance trade-offs of doing DSP on robot or mobile device?
-		\end{itemize}
-		\subsubsection{optimizing performance}
-			\begin{itemize}
-			\item video compression
-			\item audio compression
-			\item measure opencv processing latency
-			\item opencv gpgpu techniques
-			\end{itemize}
-	\subsection{Formal Grammar}
-		develop a formal grammar to convey information from each module to the next
-		\subsubsection{Commands}
+
+The hardware needed to deploy such a system requires high bandwidth and low latency. The proxy characteristics of the proposed computer vision cloud server will negatively effect latency, but should be appropriate for live communications in most cases.
+
+While I suspect treating the mobile end-point devices as a thin client (by offloading the live signal processing to a clound server) is an obvious gain, the increased latency of adding a proxy server could theoretically be measured against the reduced computational power of the smartphone devices with respect to computer vision processing. For bandwidth reduction, a hybrid approach can be imagined in which the visual stream is pre-processed on site and only the derivitive data is sent to the server directly, however this leaves the server without raw video data which would force the users to result to more contrived and elaborate means of seeing the presenters environment.
+
+In the situation where large groups of users wish to view a single location at the same time, it is increasingly likely that the host cannot serve the entire crowd at once. There are several ways to deal with this, the most obvious being that the host serves to one or more mirror sites which divide the user base amongst themselves. A more collaborative method would be to use the users as peer to peer mirrors, but the bandwidth available to the average peer could limit their outbound streaming ability past the point of usability.
+
+	\subsubsection{optimizing performance}
+Using the above architecture, the cloud server recieves live audio and video data from the presentation room and transmits it to each of the connected clients simultaneously. This data is further expanded with the augmented meta-data and communication between peers. A worthwhile study would include measuring the bandwidth this metadata occupies, and deciding if there would be significant performance gains by offloading the task of relaying this information between peers to another device.
+
+Another consideration is which codec to use when compressing the audio and video data. Industry standards are heavily pushing the mpeg4 h264 codec, and after a brief overview I am inclined to agree with their methodology.
+
+Finally, the digital signal processing of the audio/video data on the server is certainly the most complex component of this project. The best technique to extract and process the incoming data is a vast and complex topic; One that is extremely circumstantial and unlikely to have a single clear-cut solution. Furthermore, the ability to accelerate real-time video data crunching via gpgpu and parallel techniques is extremely promising in an application such as this.
+
+\section{Message Passing}
+
+	Plenty of data needs to be transmitted through this system. Not only do we have the raw audio and video data, but we have to arrange a communication protocol which does at least two things. First, it needs to create and manage user sessions in a way that allows them to reliably connect to each other. Second, it needs to communicate the information we derive from each streaming session back to the user associated with the session.
+	\subsection{Command Schema}
+		Because the two message passing use-cases are so mutually exclusive, it is entirely possible to divide the workload across two different servers; the first of which would handle authentication and user sessions and the second of which would be tasked with using visualization techniques on the streams and returning any results back to the users.
+		\subsubsection{Authentication}
 			left,right,forward,backward
 			toggle mute
 			connect
-		\subsubsection{Data}
+		\subsubsection{Visualization}
 			audio
 			video
 			augmented overlay (another video stream)
-		\subsubsection{Multiple Roles}
-			in some cases, data and commands are not divisible. eg: signal processing allows for commands to be encoded in video
-
-\section{Hardware}
+\section{Components}
 	The hardware component of the project is largely an exercise in manufacturing both structural and electronic devices. Many of the parts are off-the-shelf, while others will be hand crafted. The hardware for the project will consist of three parts. 
-
-	The first part is a simple smart phone. While a web-enabled client could technically be used on a desktop (and in practice it could be) a mobile phone allows the user a great deal of flexibility and mobility. Assuming the user has access to a broadband connection, the client application should be simple enough to run on a small device. 
-\includegraphics[width=12cm]{MobileGUI_Labeled}
-\begin{itemize}
-	\item smart phone client (android?IOS?) optionally desktop (if web app)
-	\item Web stream in \textless video\textgreater element served by computer vision module
-	\item touchscreen controls for left, right, forward, and reverse
-	\item mute button turns speakers on and off
-\end{itemize}
-
-	The second part is the cloud server which does the signal processing. The computational requirements are not extreme, so a simple desktop computer will do for a laboratory environment.
-\begin{itemize}
-	\item cloud computation unit
-	\item Basically a desktop computer with a GPU more capable than any of the embedded mobile devices
-\end{itemize}
-
+\subsection{Presenter}
 	The final part is the telepresence avatar.
 \begin{itemize}
 	\item vehicle
@@ -350,6 +335,26 @@ A system used to aid in telepresence integration for the remote viewee
 	\item wifi
 	\item usb wifi dongle.
 \end{itemize}
+\subsection{Client}
+	The first part is a simple smart phone. While a web-enabled client could technically be used on a desktop (and in practice it could be) a mobile phone allows the user a great deal of flexibility and mobility. Assuming the user has access to a broadband connection, the client application should be simple enough to run on a small device. 
+
+\includegraphics[width=12cm]{MobileGUI_Labeled}
+
+\begin{itemize}
+	\item smart phone client (android?IOS?) optionally desktop (if web app)
+	\item Web stream in \textless video\textgreater element served by computer vision module
+	\item touchscreen controls for left, right, forward, and reverse
+	\item mute button turns speakers on and off
+\end{itemize}
+
+\subsection{Cloud Service}
+
+	The second part is the cloud server which does the signal processing. The computational requirements are not extreme, so a simple desktop computer will do for a laboratory environment.
+\begin{itemize}
+	\item cloud computation unit
+	\item Basically a desktop computer with a GPU more capable than any of the embedded mobile devices
+\end{itemize}
+
 
 \section{Digital Signal Processing}
 \includegraphics[width=12cm]{signalProcessing}
