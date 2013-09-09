@@ -1,7 +1,9 @@
 \documentclass[a4paper,12pt]{report}
+\usepackage{html}
 \usepackage{titling}
+\usepackage{cite}
 \usepackage{graphicx}
-\graphicspath{ {./images/} }
+\graphicspath{ {images/} }
 \DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
 \begin{document}
 \begin{titlepage}
@@ -56,10 +58,13 @@ Density of information and computation as well as the speed of communication are
 By extrapolating on current computational growth trends, we can easily imagine the capabilities we will soon weild while developing applications to improve our every day lives. By studying these applications (both mundane and whimsical alike) we are likely to find many exciting ideas which are attainable much more immediately than they first appeared as well as many which are just around the bend.
 
 Arthur C. Clarke once wrote "Any sufficiently advanced technology is indistinguishable from magic", and I am inclined to agree. Indeed many amazing discoveries can find roots in sci-fi and futuristic predictions which push the boundaries of our collective knowlege and explore the potential and logical conclusions of current technological progress. The most recent ideas which are moving from science fiction to science fact are telepresence and augmented reality. 
+	\begin{flushright}
+		\cite{0001}
+	\end{flushright}
 
 To introduce these ideas, I will borrow from the definitions others have supplied:
 \begin{quotation}
-Telepresence systems provide a human operator with the feeling of actual presence in a remote environment, the target environment. The feeling of presence is achieved by visual and acoustic sensory information recorded from the target environment and presented to the user on an immersive display.
+"Telepresence systems provide a human operator with the feeling of actual presence in a remote environment, the target environment. The feeling of presence is achieved by visual and acoustic sensory information recorded from the target environment and presented to the user on an immersive display."
 	\begin{flushright}
 		\cite{6094998}
 	\end{flushright}
@@ -68,31 +73,15 @@ Telepresence systems provide a human operator with the feeling of actual presenc
 Likewise, an accurate and compelling description of augmented reality:
 
 \begin{quotation}
-AR is a variation of the more known concept of Virtual Reality Technology (VR), which is often defined as “the use of real-time digital computers and other special hardware and software to generate a simulation of an alternate world or environment, which is believable as real or true by the users”. VR technology creates an environment in which the user feels and seems to be moving inside a computer-created virtual world in the same way people move inside natural environment; while immersed in the virtual world, the user cannot perceive the real one which still surrounds him. On the contrary, AR allows the user to see the real world, augmenting it with superimposed virtual objects. In other words, while VR replaces reality, AR supplements it, creating an environment in which real and virtual objects harmonically coexist.
+"AR is a variation of the more known concept of Virtual Reality Technology (VR), which is often defined as “the use of real-time digital computers and other special hardware and software to generate a simulation of an alternate world or environment, which is believable as real or true by the users. VR technology creates an environment in which the user feels and seems to be moving inside a computer-created virtual world in the same way people move inside natural environment; while immersed in the virtual world, the user cannot perceive the real one which still surrounds him. On the contrary, AR allows the user to see the real world, augmenting it with superimposed virtual objects. In other words, while VR replaces reality, AR supplements it, creating an environment in which real and virtual objects harmonically coexist."
 	\begin{flushright}
 		\cite{5970856}
 	\end{flushright}
 \end{quotation}
 
-\section{Emerging Mobile Technologies}
-As microchip density increases, so does the mobility of computational and processing devices. While PDA and handheld gaming devices have been around for decades, the advance of cellular networks which allow for on-the-go personal telecommunications and widely dispersed access to internet services has really driven the shape and design of the current generation of mobile devices.
-
-Smart phones and telecommunications aren't the only technology in this arena, but they are certainly the largest and most influential. Other devices to consider when discussing telepresence devices are lightweight microprocessors and system on a chip designs. These devices can allow industry and hobbiests alike to create a wide array of telepresence hardware that is capable of interacting with the environment around it on another's behalf. In this case, we are now less bound by strict computational limits and are now merely bound by the sensors, motors, and analog/digital conversions available to read from (and interact with) the environment around us.
-
-When we combine our new-found freedom to invent any sort of sensory device with our fully connected and always online 'internet of things', we can begin to explore and create all sorts of ideas that were inaccessable to the real-world and thus bound to the realm of fiction, futurism, and sci-fi.
-\subsection{Microcontrollers \& customized System on a Chip (SoaC) components}
-
-Microcontrollers have become the de-facto platform for lightweight, mobile, and miniaturized devices. Much of the power of microcontrollers has been achieved by clever specializations and optimizations of the CPU unit. By diverging from the Desktop model where raw power takes precedence over power consuption, there are now a variety of architectures and specialized components that are well-suited to mobility. In fact there is now a wide spectrum of hardware ranging from high performance to low power consumption. With server and desktop harware on one end of the spectrum, we have recently expanded the power efficient end of the spectrum with a range of miniaturized ARM general-purpose CPUs capable of of supporting a general-purpose operating system and related peripheral components in an extremely small enclosure. To continue down the spectrum we depart from a traditional operating system and move towards programmable integrated circuits (PIC) and pure-hardware components which perform more specialized tasks using even less space and power.
-
-Because of this balance between portability and power, it is important to keep in mind the practical limitations on the applications a device can support. While a computationally demanding task such as image processing, we are unlikely to get satisfactory results with a PIC controller, yet the current generation of ARM controllers which are recently emerging are just beginning to practically handle these tasks, and this can be echoed by the libraries and toolkits developers have ported to the platforms. For example, there are now openCV ports on both the android and IOS platforms. This is a testament to their increasingly pervasive capabilities.
-
-An interesting idea to consider is delegation of the heavy processing to a more capable device. However, this strategy simply moves the problem from the computational I/O boundaries of the device towards the networking I/O boundaries. To achieve practical results, we can use a hybrid approach by allowing the device to pre-process the data (assuming such a pre-processing can reduce the size of the raw data, preferrably an order of magnitude or more) before sending the derived result over the network to a more capable device.
-
-Moving from our internal capabilities towards our external interactivity, we are capable of hooking up a wide array of sensors, displays, and feedback devices. From motors to spectroscopy sensors to audio capture and processing (and many, many more) the possibilities are limited only by the fidelity/accuracy of the sensors around us and our own creativity.
-
-Before we wander into fanciful and eclectic descriptions of advanced robots and artificial intelligence which could easily be the plot of the next sci-fi thriller, we should take note of the challenges and limitations of today's robotic and so-called 'smart' devices. For example, to apply the concept of tele-robotics (where the telepresence user is represented and mimiced as a robotic avatar on the opposite end) the following challenges have been identified and discussed:
-
+Augmented Reality is a multifaceted topic that not only lends itself extremely well to telepresence applications but extends far beyond it. Here we will focus primarily on the intersection of the two ideas despite each existing independently of the other. Applications in this domain will not only use telepresence technologies to unite two remote locations, but they will use augmented reality techniques in order to make up for the loss in fidelity that occurs when we replace the user's natural environment with a virtual representation. This loss of information has been identified and addressed by others as such:
 \begin{quote}
+
 In this telepresence domain, as remote manipulators become more sophisticated and the tasks they undertake become more complex. Three main sensory obstacles to effective widespread use have been identified [15]:
 	\begin{enumerate}
 		\item The detection of sensory signals
@@ -104,7 +93,7 @@ In this telepresence domain, as remote manipulators become more sophisticated an
 	\end{flushright}
 \end{quote}
 
-Aside from end-to-end synchronization and operator awareness, the question of usefulness and usability must also be addressed. Applicability has been fomrmally described as follows:
+It is important to note that this lack of fidelity is a huge obstacle to telepresence adoption. Why would I send an e-mail to somebody if I know I can call them directly? Why would I call them if they were available in person? In order to be useful, telepresence needs to solve a direct need. Typically, the following circumstances have allowed telepresence to improve our ability to interact:
 
 \begin{quote}
 
@@ -118,6 +107,23 @@ The main objective of tele-robotics has been to develop methodologies for the co
 		\cite{726589}
 	\end{flushright}
 \end{quote}
+
+
+\section{Emerging Mobile Technologies}
+As microchip density increases, so does the mobility of computational and processing devices. While PDA and handheld gaming devices have been around for decades, the advance of cellular networks which allow for on-the-go personal telecommunications and widely dispersed access to internet services has really driven the shape and design of the current generation of mobile devices.
+
+Smart phones and telecommunications aren't the only technology in this arena, but they are certainly the largest and most influential. Other devices to consider when discussing telepresence devices are lightweight microprocessors and system on a chip designs. These devices can allow industry and hobbiests alike to create a wide array of telepresence hardware that is capable of interacting with the environment around it on another's behalf. In this case, we are now less bound by strict computational limits and are now merely bound by the sensors, motors, and analog/digital conversions available to read from (and interact with) the environment around us.
+
+When we combine our new-found freedom to invent any sort of sensory device with our fully connected and always online 'internet of things', we can begin to explore and create all sorts of ideas that were inaccessable to the real-world and thus bound to the realm of fiction, futurism, and sci-fi.
+\subsection{Microcontrollers \& customized System on a Chip (SoaC) Components}
+
+Microcontrollers have become the de-facto platform for lightweight, mobile, and miniaturized devices. Much of the power of microcontrollers has been achieved by clever specializations and optimizations of the CPU unit. By diverging from the Desktop model where raw power takes precedence over power consuption, there are now a variety of architectures and specialized components that are well-suited to mobility. In fact there is now a wide spectrum of hardware ranging from high performance to low power consumption. With server and desktop harware on one end of the spectrum, we have recently expanded the power efficient end of the spectrum with a range of miniaturized ARM general-purpose CPUs capable of of supporting a general-purpose operating system and related peripheral components in an extremely small enclosure. To continue down the spectrum we depart from a traditional operating system and move towards programmable integrated circuits (PIC) and pure-hardware components which perform more specialized tasks using even less space and power.
+
+Because of this balance between portability and power, it is important to keep in mind the practical limitations on the applications a device can support. While a computationally demanding task such as image processing, we are unlikely to get satisfactory results with a PIC controller, yet the current generation of ARM controllers which are recently emerging are just beginning to practically handle these tasks, and this can be echoed by the libraries and toolkits developers have ported to the platforms. For example, there are now openCV ports on both the android and IOS platforms. This is a testament to their increasingly pervasive capabilities.
+
+An interesting idea to consider is delegation of the heavy processing to a more capable device. However, this strategy simply moves the problem from the computational I/O boundaries of the device towards the networking I/O boundaries. To achieve practical results, we can use a hybrid approach by allowing the device to pre-process the data (assuming such a pre-processing can reduce the size of the raw data, preferrably an order of magnitude or more) before sending the derived result over the network to a more capable device.
+
+Moving from our internal capabilities towards our external interactivity, we are capable of hooking up a wide array of sensors, displays, and feedback devices. From motors to spectroscopy sensors to audio capture and processing (and many, many more) the possibilities are limited only by the fidelity/accuracy of the sensors around us and our own creativity.
 
 It begins to become clear that tele-robotics is not an idea that would lend itself to any situation. The reduction in fidelity we introduce by using a proxy or avatar robot is severe enough that we have only found successful use-cases in well-defined environments such as laboratories and factories where there are little or no unknown variables. Situations where there are people in close proximity to the robots are often too dangerous for the technology to be applied, and furthermore the decrease in the awareness a user would have with their remote surroundings makes the potential for interaction very limited. This barrier to adoption can be seen echoed in the following passage:
 
@@ -140,34 +146,30 @@ It begins to become clear that tele-robotics is not an idea that would lend itse
 
 The idea of presence fidelity can be considered a continuum. We can consider verbal descriptions and printed material on the low-fidelity end of the spectrum, while actual presence would be on the highest end. Our goal is to bring virtual telepresence farther along this continuum until it is as close to actual presence as possible \cite{726589}
 
-\subsection{Mobile phones \& Cellular devices} When discussing mobile telepresence, the recent emergence of smart phones is undeniably the most important event to occur to date. In a learning environment they are indespensable for personal organization, time managment, and real-time updates. It has been stated by others that they can now allow students to ''...be informed of all necessary notices, assignment deadlines and supervisor advices during their busy schedule''. In fact, ''Mobile education is defined ... as any service or facility that supplies a learner with general electronic information and educational content that aids in acquisition of knowledge regardless of location and time.'' \cite{4469080}
+\subsection{Mobile Phones \& Cellular Devices} When discussing mobile telepresence, the recent emergence of smart phones is undeniably the most important event to occur to date. In a learning environment they are indespensable for personal organization, time managment, and real-time updates. It has been stated by others that they can now allow students to ''...be informed of all necessary notices, assignment deadlines and supervisor advices during their busy schedule''. In fact, ''Mobile education is defined ... as any service or facility that supplies a learner with general electronic information and educational content that aids in acquisition of knowledge regardless of location and time.'' \cite{4469080,6007847}
 
-\cite{6007847}
-\section{Telepresence \& Real-Time communications}
-\subsection{Audio/Video compression}
-\cite{4297087}
-\cite{4801602}
+\section{Telepresence \& Real-Time Communications}
+
+The need to provide high fidelity information in real-time is the defining challenge of telepresence systems. Current telepresence infrastructure comes with restrictive limitations due to network latency and available throughput. These challenges have been met with several techniques such as lowering the fidelity rate transmitted, compressing the data in transit, and prioritizing which data is most relevant to the situation.
+
+\subsection{Audio/Video Compression}
+\cite{4297087,4801602}
 
 Within the context of mobile devices we need to consider not only the computational complexity and bandwidth consumption of video streaming, but the power consumption of the encoder as well.
 \cite{5054795}
-\subsection{Cellular network bandwidth flow \& optimization}
+\subsection{Cellular Network Bandwidth Flow \& Optimization}
 
 Network traffic can be prioritized using QoS (Quality of Service) classification. By prioritizing traffic types into real-time and non-real-time categories we can decrease the average latency on timing-critical services. By extending these concepts and including cooperative game theory strategies (by exploring Nash Bargaining Systems). A game theory strategy can be broken down into three components: Players, Strategies, and Interactions (or game utilities). If we can determine a metric for success in the context of each player, than we can create strategies which each player can use to interact with the system in a way which optimizes the collective success of all the players. Applied to bandwidth optimization, each network device is a player which utilizes a strategy for sharing the limited resources of the network.
 
 The trend among wireless networks is an increased number of cells over smaller and smaller areas serving users. By reducing this cell size, we introduce an increased number of hand offs when the user is mobile. When a user passes from the range of one operator to the next, this hand-off should not interrupt the user's communication. Because of this, our QoS strategies should include a percentage of bandwidth reserved for hand-off services. 
 
 With many different use-cases and bandwidth categories our goal is to create a strategy which optimizes the usability of all devices on the network. By ordering our bandwidth categories by highest to lowest priority we can allocate each users traffic into their respective categories while also dynamically adjusting the maximum flow of each category to reflect (as well as prioritize) the immediate demand in real-time
-\cite{5710522}
-\cite{1300874}
-\cite{1376696}
+\cite{5710522,1300874,1376696}
 \subsection{Privacy}
-\cite{4698190}
-\cite{4471983}
+\cite{4698190,4471983}
 
 With the advent of Location Based Services (LBS) it is becoming increasingly difficult to control the extent in which a users locational information is used. Mix networks use short-term psudo-anonymous names to mask the identities of participants. With this mechanism, it becomes much more difficult for an adversary to correlate which actions in the system were performed by which users of the system.
-\cite{6270872}
-\cite{freudiger2007mix}
-\cite{1032602}
+\cite{6270872,freudiger2007mix,1032602}
 \subsection{Cloud Based Assisted Technologies}
 
 With the advance of internet connectivity, it is rare that modern mobile cellular devices are offline. If we are constantly in communication by means of a global (universal) IP address, It follows that we can achieve two things which we previously could not. 
@@ -176,7 +178,7 @@ First, we can synchronize our local data with the data of others in real-time. T
 
 Second, we can now outsource services which are not desired or capable of running on the mobile device to another computer. While this is typically (as of yet) a cloud service provider's machine, it is reasonable to consider that over time software will develop which allows users to host their own content from a simple always-on home computer which serves as a personal hub for content including but not limited to public social media, geosecure proxy access, private home surveillance, and data storage. By using strict private/public tags, and 'group' authentication on a server's data as well as RSS-style content aggregators, it should be possible to design a decentralized 'home cloud' service which can serve many useful purposes to a mobile user in the field.
 
-\section{Digital identification and modeling}
+\section{Digital Identification and Modeling}
 
 As our current trend of minniaturized mobile networked devices continues, the ability to stream high definition real-time media from many simple cellular devices is beginning to unfold. With higher quality cameras emerging in consumer devices as well as faster network connnectivity emerging in the forms of 3G and 4G telecommunication services it is completely feasible (even today) to use two phones to achieve a long distance video conversation.
 
@@ -184,12 +186,12 @@ It is interesting to consider that if we can stream enough information between t
 
 While the topic of Artificial Intelligence and Computer Vision is far from bridging this gap, impressive results have been found by re-thinking the ways we can facilitate enhanced modelling and identification techniques.
 
-\subsection{Bar codes \& QR codes}
+\subsection{Bar Codes \& QR Codes}
 QR codes (or two-dimensional bar codes) can reference nearly anything. Ranging in size from 25x25 to 177x177, they are most often used to redirect a user to a URL containing anything from videos to product info to social media content \cite{6182398}
 Basic compression is done using run-length coding, where sequences of identical values are replaced with a single instance of that value followed by the repetition count. \cite{6182398}
 \subsection{RFID; NFC}
 \cite{5340296}
-\subsection{real-time digital modeling}
+\subsection{Real-Time Digital Modeling}
 
 \subsubsection{Triangulation \& Accelerometer based Orientated Positioning}
 
@@ -199,19 +201,18 @@ If any of these devices were equipped with an accelerometer and a camera, it is 
 
 Time-synchronization techniques are limited by the sample speed of the measuring apparatus' clock. Determining distance by means of the recieved signal strenth do not require a clock, however the distance cannot be deduced from the signal strength alone without a calibration phase which takes into account the variance of each device's radio signal.
 
-\subsubsection{Stitching multiple images/videos together}
-In cases where images are not aligned, unwanted artifacts can be produced. Color and lighting inconsistencies can also be introduced which would create an unbalanced effect. A lack of references and identifiable control points can also make it difficult to correctly position image fragments. \cite{4359344}
+\subsubsection{Stitching Multiple Images Together}
+In cases where images are not aligned, unwanted artifacts can be produced. Color and lighting inconsistencies can also be introduced which would create an unbalanced effect. A lack of references and identifiable control points can also make it difficult to correctly position image fragments. \cite{4359344,5397590}
 
-\cite{5397590}
-\subsubsection{Depth matricies/maps for 3D imaging}
+\subsubsection{Depth Maps for 3D Imaging}
 Depth imaging techniques have only previously existed in costly special-purpose applications. With the spread of large-scale production on Time-Of-Flight sensors (specifically, the Microsoft Kinect) the accessability and spread of these devices has grown considerably. Time-Of-Flight technology involves measuring the delay between sending and recieving an infared signal. With this information, triangulation techniques can be used to measure the depth between the device and the target. 
 
 These devices have been designed with object recognition in mind and are not particularly suited for 3d scanning applications. Low resolution and a large amount of noise are certainly factors when re-purposing these technologies for scanning\cite{6296662} 
-\subsection{Image recognition and classification}
+\subsection{Image Recognition and Classification}
 Image recognition is a complex problem often approached with a neural network model or similar fuzzy categorical organizer. If RGB information is augmented with depth information we can achieve much better results than if we were to rely on RGB information alone.
 \subsubsection{Vector Quantization}
 \subsubsection{Uncertainty / Fuzzy Logic}
-\subsubsection{Improved accuracy through domain-specific environments/contexts}
+\subsubsection{Improved Accuracy Through Domain-Specific Environments}
 telepresence surgery model - live data can be collected, then used to simulate the procedure virtually. 
 This effectively allows us to generate training programs which are extremely accurate within the domain of the live collected data.
 
@@ -286,8 +287,9 @@ Because of this limitation I plan on deploying a cloud server which intercepts t
 
 \section{Networking}
 
-\includegraphics[width=12cm]{networkProfile_Labeled}
-
+\includegraphics[width=12cm]{overview}
+	\subsection{NAT traversal}
+		\includegraphics[width=12cm]{networkModel}
 	\subsection{I/O Limitations}
 
 The hardware needed to deploy such a system requires high bandwidth and low latency. The proxy characteristics of the proposed computer vision cloud server will negatively effect latency, but should be appropriate for live communications in most cases.
@@ -296,18 +298,19 @@ While I suspect treating the mobile end-point devices as a thin client (by offlo
 
 In the situation where large groups of users wish to view a single location at the same time, it is increasingly likely that the host cannot serve the entire crowd at once. There are several ways to deal with this, the most obvious being that the host serves to one or more mirror sites which divide the user base amongst themselves. A more collaborative method would be to use the users as peer to peer mirrors, but the bandwidth available to the average peer could limit their outbound streaming ability past the point of usability.
 
-	\subsubsection{optimizing performance}
+	\subsubsection{Optimizing Performance}
 Using the above architecture, the cloud server recieves live audio and video data from the presentation room and transmits it to each of the connected clients simultaneously. This data is further expanded with the augmented meta-data and communication between peers. A worthwhile study would include measuring the bandwidth this metadata occupies, and deciding if there would be significant performance gains by offloading the task of relaying this information between peers to another device.
 
 Another consideration is which codec to use when compressing the audio and video data. Industry standards are heavily pushing the mpeg4 h264 codec, and after a brief overview I am inclined to agree with their methodology.
 
 Finally, the digital signal processing of the audio/video data on the server is certainly the most complex component of this project. The best technique to extract and process the incoming data is a vast and complex topic; One that is extremely circumstantial and unlikely to have a single clear-cut solution. Furthermore, the ability to accelerate real-time video data crunching via gpgpu and parallel techniques is extremely promising in an application such as this.
 
-\section{Message Passing}
+\subsection{Message Passing}
+\includegraphics[width=12cm]{blockDiagram}
 
 	Plenty of data needs to be transmitted through this system. Not only do we have the raw audio and video data, but we have to arrange a communication protocol which does at least two things. First, it needs to create and manage user sessions in a way that allows them to reliably connect to each other. Second, it needs to communicate the information we derive from each streaming session back to the user associated with the session.
-	\subsection{Command Schema}
-		Because the two message passing use-cases are so mutually exclusive, it is entirely possible to divide the workload across two different servers; the first of which would handle authentication and user sessions and the second of which would be tasked with using visualization techniques on the streams and returning any results back to the users.
+		
+	Because the two message passing use-cases are so mutually exclusive, it is entirely possible to divide the workload across two different servers; the first of which would handle authentication and user sessions and the second of which would be tasked with using visualization techniques on the streams and returning any results back to the users.
 		\subsubsection{Authentication}
 			left,right,forward,backward
 			toggle mute
@@ -316,44 +319,6 @@ Finally, the digital signal processing of the audio/video data on the server is 
 			audio
 			video
 			augmented overlay (another video stream)
-\section{Components}
-	The hardware component of the project is largely an exercise in manufacturing both structural and electronic devices. Many of the parts are off-the-shelf, while others will be hand crafted. The hardware for the project will consist of three parts. 
-\subsection{Presenter}
-	The final part is the telepresence avatar.
-\begin{itemize}
-	\item vehicle
-	\item weld steel chassis
-	\item 2 servo drive
-	\item raspberry pi piface interface acts as the controller
-	\item pan / tilt? (maybe just tilt, tank already moves)
-	\item camera
-	\item standard webcam. 30fps streamed over wifi
-	\item microphone
-	\item built into camera
-	\item speakers
-	\item for speaking with remote users
-	\item wifi
-	\item usb wifi dongle.
-\end{itemize}
-\subsection{Client}
-	The first part is a simple smart phone. While a web-enabled client could technically be used on a desktop (and in practice it could be) a mobile phone allows the user a great deal of flexibility and mobility. Assuming the user has access to a broadband connection, the client application should be simple enough to run on a small device. 
-
-\includegraphics[width=12cm]{MobileGUI_Labeled}
-
-\begin{itemize}
-	\item smart phone client (android?IOS?) optionally desktop (if web app)
-	\item Web stream in \textless video\textgreater element served by computer vision module
-	\item touchscreen controls for left, right, forward, and reverse
-	\item mute button turns speakers on and off
-\end{itemize}
-
-\subsection{Cloud Service}
-
-	The second part is the cloud server which does the signal processing. The computational requirements are not extreme, so a simple desktop computer will do for a laboratory environment.
-\begin{itemize}
-	\item cloud computation unit
-	\item Basically a desktop computer with a GPU more capable than any of the embedded mobile devices
-\end{itemize}
 
 
 \section{Digital Signal Processing}
@@ -367,19 +332,11 @@ Finally, the digital signal processing of the audio/video data on the server is 
 	\item client can also potentially recieve augmented audio/video data with the DSP module overlay
 \end{itemize}
 	
-\subsection{Components}
+\section{UI}
 
-Sensors/Input - generate data from the environment. Keyboard/Mouse are basic sensors. Video Cameras are more complex yet they are becoming extremely common. Many other sensors exist. GPS, microphone, accelerometer, etc.
+\includegraphics[width=16cm]{MobileGUI_Labeled}
 
-Processor - consists of a three part pipeline:
-	Data Extraction - reads the raw sensor data somewhere between the sensors and the client. Pre-processing can be done on the raw data, reducing it's size
-	Pattern Recognition - the pre-processed data can be analyzed and compared against a database of models. If the data matches the models (within a degree of tolerance) than properties can be assigned to the data
-	Action/Augmentation - As properties are discovered in the live data stream, they will trigger actions within the system. Actions can then be sent along with the raw data towards the client device which is capable of acting on the augmented stream
-
-Client/Output - will recieve the real-time data along with augmented action events. Action events will be acted on.
-
-Actions can get as complex as you like. For example, the client's device could initiate a video call if it detects a series of actions such as "a presenter is in the room and the presenter is speaking and the client has just raised their hand"
-
+\includegraphics[width=12cm]{MobileUI}
 
 \bibliography{mastersthesis}
 \bibliographystyle{alpha}

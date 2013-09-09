@@ -1,21 +1,11 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Arch Linux) (format=latex 2013.6.7)  8 JUN 2013 21:29
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Arch Linux) (format=latex 2013.9.5)  8 SEP 2013 19:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **titling/titling.ins
 (./titling/titling.ins
 LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
-rman-x-2012-05-30, ngerman-x-2012-05-30, afrikaans, ancientgreek, ibycus, arabi
-c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
-h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
-h, french, friulan, galician, german, ngerman, swissgerman, monogreek, greek, h
-ungarian, icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, ma
-rathi, oriya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, 
-kurmanji, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk,
- polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbianc, s
-lovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, 
-welsh, loaded.
+Babel <3.9f> and hyphenation patterns for 78 languages loaded.
 (/usr/share/texmf-dist/tex/latex/base/docstrip.tex
 \blockLevel=\count79
 \emptyLines=\count80
@@ -69,14 +59,30 @@ English documentation    <1999/03/31>
                                                   \fi \else \ifDefault \Msg ...
 l.1092 \process@first@batchfile
                                
-? X
+? 
+
+****************************************************
+* First type the extension of your input file(s):  *
+\infileext=
+****************************************************
+
+****************************************************
+* Now type the extension of your output file(s)  : *
+\outfileext=
+! Emergency stop.
+<read *> 
+         
+l.1092 \process@first@batchfile
+                               
+End of file on the terminal!
+
  
 Here is how much of TeX's memory you used:
- 291 strings out of 493489
- 3119 string characters out of 3146916
- 52179 words of memory out of 3000000
- 3692 multiletter control sequences out of 15000+200000
- 3640 words of font info for 14 fonts, out of 3000000 for 9000
+ 289 strings out of 493316
+ 2967 string characters out of 6143731
+ 55259 words of memory out of 5000000
+ 3836 multiletter control sequences out of 15000+600000
+ 3640 words of font info for 14 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 7i,0n,9p,139b,10s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 9i,0n,9p,139b,10s stack positions out of 5000i,500n,10000p,200000b,80000s
 No pages of output.
