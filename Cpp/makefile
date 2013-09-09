@@ -46,6 +46,12 @@ sdl :		SDLDemo.cpp
 ghsom :		ghsom.cpp
 	g++ -o $(BIN_DIR)ghsom ghsom.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_SDL)
 
+zbar :		zbar.cpp
+	g++ -o $(BIN_DIR)zbar zbar.cpp $(LIB_GRAPHICS_OPENCV) 
+
+webcam :		webcam.cpp
+	g++ -o $(BIN_DIR)webcam webcam.cpp $(LIB_GRAPHICS_OPENCV) 
+	
 som :		SOM.cpp
 	g++ -o $(BIN_DIR)som SOM.cpp $(LIB_OS) $(LIB_STD) $(LIB_GRAPHICS_SDL)
 
