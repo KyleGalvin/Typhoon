@@ -16,6 +16,9 @@ app.set( 'view engine', 'ejs' )
 app.get('/',function(req,res){
 	res.render('index')
 })
+app.get('/voip',function(req,res){
+	res.render('voip')
+})
 server.listen(80)
 
 //create websocket server/listener overtop the existing express.js web server
