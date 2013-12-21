@@ -2,7 +2,8 @@
 var express = require('express')
 var app = express()
 var server = require('http').createServer(app)
-
+var dispatcher = require('./cmdDispatch') 
+var sessions = {}
 //allow the user full read access of our public javascript directory
 //this allows us to link/embed custom javascript into the client application
 app.use(express.static(__dirname + '/public'))
@@ -20,8 +21,23 @@ server.listen(80)
 //create websocket server/listener overtop the existing express.js web server
 var io = require('socket.io').listen(server)
 
+//when an incoming connection is detected, we save the connection in our sessions table.
+//when we recieve a message from the client, we send the message to our command dispatcher.
+//if the dispatcher returns a response, we relay it back to the client application via the open socket.
 io.sockets.on('connection',function(socket){
-	console.log("Incoming Connection!")
+	console.log("Incoming Connection!",socket)
+	sessions[socket.id] = {}
+	sessions[socket.id].created = new Date()
+	sessions[socket.id].socket = socket
+	socket.on('message',function(data){
+		console.log("message recieved: ",data)
+		if(data.command != null && data.args != null){
+			var response = dispatcher.call(data.command,data.args)
+			if(response){
+				socket.send(response)
+			}
+		}
+	})
 })
 //var WocketServer = require('websocket').server
 //var http = require("http")
