@@ -23,17 +23,15 @@ server.listen(80)
 
 //create websocket server/listener overtop the existing express.js web server
 var io = require('socket.io').listen(server)
-
+console.log("server stuff")
 //when an incoming connection is detected, we save the connection in our sessions table.
 //when we recieve a message from the client, we send the message to our command dispatcher.
 //if the dispatcher returns a response, we relay it back to the client application via the open socket.
 io.sockets.on('connection',function(socket){
-	console.log("Incoming Connection!",socket)
 	sessions[socket.id] = {}
 	sessions[socket.id].created = new Date()
 	sessions[socket.id].socket = socket
 	socket.on('message',function(data){
-		console.log("message recieved: ",data)
 		if(data.command != null && data.args != null){
 			var response = dispatcher.call(data.command,data.args)
 			if(response){

@@ -1,7 +1,7 @@
 var modelHandler = require('./modelHandler')
 
 module.exports = {
-	call: function(cmd,args){
+	call: function(cmd,args,fqid){
 		console.log("calling command:",cmd)
 		if(_cmds[cmd]){
 			var result = _cmds[cmd](args)
@@ -13,13 +13,29 @@ module.exports = {
 		}
 	}
 }
+function stringToModelID(string){
+	return string.replace(' ','_')
+}
 
 _cmds = {
 	make_user : function(args){
 		console.log('in make user!',args)
-		var isExistingUser = modelHandler.query('read','model.users['+args[0]+']')
-		if(!isExistingUser){
-			modelHandler.query('create','model.users['+args[0]+']',{passwordSignature:args[1]})
+		if(args[1] == args[2] && args[1] !=null){
+			var isExistingUser = modelHandler.query('read',["model","users",stringToModelID(args[0])])
+			console.log("does user exist?",isExistingUser)
+			if(!isExistingUser){
+				var result = modelHandler.query('create',["model","users",stringToModelID(args[0])],{username:args[0] ,passwordSignature:stringToModelID(args[1])})
+				if (result){
+					return {success:true}
+				}else{
+					return {success:false,error:"unknown error with model creation"}
+
+				}
+			}else{
+				return {success:false,error:"user already exists"}
+			}
+		}else{
+			return {success:false,error:"passwords do not match"}
 		}
 	},
 	login : function(args){
