@@ -13,12 +13,12 @@ paper:	mastersthesis.tex
 format: odt	doc
 	
 odt:	./mastersthesis/mastersthesis.html
-	unoconv -o mastersthesis.odt ./mastersthesis/mastersthesis.html
+	unoconv -f -o mastersthesis.odt ./mastersthesis/mastersthesis.html
 #	sudo libreoffice --headless --convert-to odt:"OpenDocument Text Flat XML" ./mastersthesis/mastersthesis.html
 
 doc:	./mastersthesis.odt
-	unoconv -o mastersthesis.docx ./mastersthesis.odt
-	unoconv -o mastersthesis.doc ./mastersthesis.odt
+	unoconv -f docx-o mastersthesis.docx ./mastersthesis/mastersthesis.html
+	unoconv -f doc -o mastersthesis.doc ./mastersthesis/mastersthesis.html
 	#libreoffice --headless --convert-to docx ./mastersthesis.odt
 
 bundle:
