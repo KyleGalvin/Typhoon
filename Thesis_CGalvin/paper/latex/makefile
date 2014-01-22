@@ -28,6 +28,7 @@ bundle:
 	cp ./mastersthesis.doc Kyle_Galvin_Project/Kyle_Galvin_Thesis.doc
 	cp ./mastersthesis.odt Kyle_Galvin_Project/Kyle_Galvin_Thesis.odt
 	cp ./mastersthesis.pdf Kyle_Galvin_Project/Kyle_Galvin_Thesis.pdf
+	cp ./mastersthesis.pdf ../../../webDev/node/final/js/public/Kyle_Galvin_Thesis.pdf
 	cp ./mastersthesis.rtf Kyle_Galvin_Project/Kyle_Galvin_Thesis.rtf
 
 clean:
