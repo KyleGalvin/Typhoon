@@ -13,11 +13,11 @@ paper:	mastersthesis.tex
 format: odt	doc
 	
 odt:	./mastersthesis/mastersthesis.html
-	unoconv -f -o mastersthesis.odt ./mastersthesis/mastersthesis.html
+	unoconv -f odt -o mastersthesis.odt ./mastersthesis/mastersthesis.html
 #	sudo libreoffice --headless --convert-to odt:"OpenDocument Text Flat XML" ./mastersthesis/mastersthesis.html
 
 doc:	./mastersthesis.odt
-	unoconv -f docx-o mastersthesis.docx ./mastersthesis/mastersthesis.html
+	unoconv -f docx -o mastersthesis.docx ./mastersthesis/mastersthesis.html
 	unoconv -f doc -o mastersthesis.doc ./mastersthesis/mastersthesis.html
 	#libreoffice --headless --convert-to docx ./mastersthesis.odt
 
@@ -26,6 +26,7 @@ bundle:
 	rm -rf Kyle_Galvin_Project 
 	mkdir Kyle_Galvin_Project
 	cp ./mastersthesis.doc Kyle_Galvin_Project/Kyle_Galvin_Thesis.doc
+	cp ./mastersthesis.doc ../../../webDev/node/final/js/public/Kyle_Galvin_Thesis.doc
 	cp ./mastersthesis.odt Kyle_Galvin_Project/Kyle_Galvin_Thesis.odt
 	cp ./mastersthesis.pdf Kyle_Galvin_Project/Kyle_Galvin_Thesis.pdf
 	cp ./mastersthesis.pdf ../../../webDev/node/final/js/public/Kyle_Galvin_Thesis.pdf
