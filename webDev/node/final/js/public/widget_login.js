@@ -1,6 +1,5 @@
 define(['clientConnection'], function(){
-	var widget = function(dependencies){
-		var socket = dependencies[0];
+	var widget = function(socket){
 		var loginaction = function(){
 			console.log("Logging In")
 			var username = $("#loginname").val()

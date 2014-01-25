@@ -34,7 +34,9 @@ io.sockets.on('connection',function(socket){
 	socket.on('message',function(data){
 		if(data.command != null && data.args != null){
 			var response = dispatcher.call(data.command,data.args)
+			console.log("response?",response)
 			if(response){
+				console.log('sending response')
 				socket.send(response)
 			}
 		}

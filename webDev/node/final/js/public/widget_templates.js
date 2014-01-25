@@ -4,13 +4,16 @@ var WidgetTemplates ={
 	login:widget_login,	
 	contactList:widget_contactList,	
 	raphaelWindow:widget_realtimeMediaPresenter,
-
+	
 	counter: 0,
-	create : function(type, dependencies){
-		console.log("Counter:",this.counter, "type:",type, "deps:",dependencies)
+	create : function(type, socket){
+		console.log("Counter:",this.counter, "type:",type, "deps:",socket)
 		this.counter = this.counter + 1
-		return new this[type](dependencies)
-	}
+		return new this[type](socket)
+	},
+	register : function(widget, id){
+
+	},
 }
 return WidgetTemplates
 })
