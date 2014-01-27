@@ -6,6 +6,7 @@ module.exports = {
 		if(_cmds[cmd]){
 			var result = _cmds[cmd](args)
 			if(result){
+				console.log("returning result to sender")
 				return result
 			}
 		}else{
@@ -40,5 +41,6 @@ _cmds = {
 	},
 	login : function(args){
 		console.log('in login!',args)
+		return {success:false,error:"function not built yet"}
 	}
 }

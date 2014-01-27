@@ -91,23 +91,34 @@ var runApplication = function() {
 
     var topmenu = $("<div id='topmenu'>")
         .css({
-			"font-family":"Lucida",
-            "line-height":"16px",
+	    "font-family":"Lucida",
+            //"line-height":"16px",
             "width":"75%",
-            "margin-top":"-8px",
+            //"margin-top":"-8px",
             "vertical-align":"middle",
             "text-align":"right",
             "padding":"0px 5% 0px 0px",
             "position":"relative",
-            "top":"50%",
+            //"top":"50%",
             "color":"white",
             "float":"right",
         })
-    var voiplink = $("<a href='./voip'>VoIP Software</a>")
+    var voiplink = $("<a href='./voip'>VoIP Software</a><br/>")
         .css({
             "color":"#FFF"
         })
+	var paperPdfLink = $('<a href="./Kyle_Galvin_Thesis.pdf" target="_blank">Project Paper PDF format</a><br/>')
+	.css({
+		"color":"#FFF"
+	})
+
+	var paperDocLink = $('<a href="./Kyle_Galvin_Thesis.doc" target="_blank">Project Paper DOC format</a><br/>')
+	.css({
+		"color":"#FFF"
+	})
     topmenu.append(voiplink)
+	topmenu.append(paperPdfLink)
+	topmenu.append(paperDocLink)
 //        topmenu.append(" | Curriculum Vitae | Image Gallery | News")
     header.append(topmenu)
 

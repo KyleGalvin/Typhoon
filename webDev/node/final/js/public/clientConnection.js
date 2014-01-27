@@ -1,6 +1,7 @@
 function clientConnection(){
 
 	var socket = new io.Socket()
+	var widgetLookupTable
 
 	this.connect = function(ip,port){
 		console.log("connecting")

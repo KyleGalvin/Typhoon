@@ -107,7 +107,7 @@ $(document).ready(function(){
 			// constraints
 			{
 				video: true,
-				audio: true
+		//		audio: true
 			},
 		 
 			// successCallback
@@ -225,7 +225,7 @@ $(document).ready(function(){
 	function dragRectFile(dx,dy){
 		this.attr({x: parseInt(this.ox + dx), y: parseInt(this.oy + dy)})
 		fileTexts[this.oi].attr({x:parseInt(fileTexts[this.oi].ox + dx),y: parseInt(fileTexts[this.oi].oy + dy)})
-		console.log('dragging file')
+		console.log('dragging file '+ this.name)
 
 	}
 	function startDragFile(){
@@ -293,8 +293,7 @@ $(document).ready(function(){
 	}
 	
 	window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
-
-	window.requestFileSystem(window.PERSISTENT, 5*1024*1024, onInitFs, errorHandler)
+	//window.requestFileSystem(window.PERSISTENT, 5*1024*1024, onInitFs, errorHandler)
 
 	function toArray(list) {
 	  return Array.prototype.slice.call(list || [], 0);
@@ -311,7 +310,9 @@ $(document).ready(function(){
 
 				files.push({name: entries[i].name, dir: entries[i].isDirectory});
 				var rect = paper.rect(rect3.getBBox().x+5,rect3.getBBox().y + 8, 150, 15).attr('fill','#AAC');
+				rect.name = i
 				var elem = paper.text(rect3.getBBox().x+10, rect3.getBBox().y + (i*20)+15, entries[i].name).attr({'text-anchor': 'start','stroke-width':2})
+				elem.name = i
 				fileGraphics.push(rect)
 				fileTexts.push(elem)
 				rect.drag(dragRectFile,startDragFile,endDragFile)
@@ -375,7 +376,7 @@ $(document).ready(function(){
 		readEntries(); // Start reading dirs.
 	}
 
-	function errorHandler(){
+	function errorHandler(e){
 		var msg = '';
 
 		switch (e.code) {
