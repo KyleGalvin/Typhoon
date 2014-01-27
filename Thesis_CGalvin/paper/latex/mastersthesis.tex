@@ -268,16 +268,16 @@ The authentication server is in charge of identifying and connecting users. When
 The authentication server receives data from the user in a 3-tuple form: <sender, command, args>. The sender includes detailed information about the request origin. Not only are the user credentials included, but also which of the client application widgets made the request. This is to allow us to create a return route for the request. The command field is the name of the function we wish to invoke, and the args field is an array of arguments to pass to the function. The commands for authentication have been kept intentionally simple, consisting of operations to sign up, log in, and request contacts. 
 \section{Server Side RESTful Model}
 The authentication server works as a simple RESTful model. RESTful operations are primarily invoked from the server side command dispatcher which houses the business logic of the application. Our RESTful API only consists of four commands: 'create', 'read', 'update', and 'delete'. The user name of the client invoking the request is also included, allowing us to create permissive rules to limit who can access or modify groups of data.
-\section{WebSocket Connection}
 \section{Client Side Command Dispatcher}
 The client side command dispatcher is broken down into multiple parts. Commands may be launched from external sources such as the authentication server (eg. Describing bad log in credentials, or supplying a list of online users) or a P2P connection (such as a remote user initiating a call). Commands may also be launched from the clients web GUI.
 
 Each client widget has it's own command API, and the application has naming and routing mechanisms to relay commands from these various sources to the appropriate widget. The widget then handles the command however it pleases.
 \section{Client Side Widget Factory}
+As the list of client side widgets grow, the widget factory serves as a way to create and register new widgets. The widget factory is in charge of creating unique names for each widget for message routing.
 \section{Client Side Widget Structure}
-\section{Widgets}
+Each widget should be contain a function called 'widget' which will be invoked when the client creates a new widget instance. As input, we pass in any external dependencies the widget requires. This function is in charge of initializing the widget, building the widgets DOM and layout, as well as defining the external API the widget provides.
 \section{P2P Connection}
-\section{WebRTC}
+A key component of this application will be the P2P widget. The P2P widget will be in charge of facilitating P2P connections with other users. Through this connection, users will be able to share VoIP communications, screencasts, and share files. The P2P connection will be in charge of connectivity, P2P routing, as well as stopping/starting telepresence calls.
 \section{Goals}
 
 In order to improve on current telepresence technologies, we must revisit the main sensory obstacles in telepresence interaction and modify our implementations in a way that reduces such obstacles. To reiterate, these obstacles are:
