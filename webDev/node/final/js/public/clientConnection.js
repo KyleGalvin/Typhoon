@@ -12,6 +12,7 @@ function clientConnection(){
 		socket.emit('message',json)
 	}
 	socket.on('message', function(data){
+		console.log("client?")
 		if(data.message){
 			console.log('client recieved message:',data.message)
 		}	

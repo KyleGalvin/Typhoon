@@ -92,33 +92,52 @@ var runApplication = function() {
     var topmenu = $("<div id='topmenu'>")
         .css({
 	    "font-family":"Lucida",
-            //"line-height":"16px",
+            "line-height":"16px",
             "width":"75%",
-            //"margin-top":"-8px",
+            "margin-top":"-8px",
             "vertical-align":"middle",
             "text-align":"right",
             "padding":"0px 5% 0px 0px",
             "position":"relative",
-            //"top":"50%",
+            "top":"50%",
             "color":"white",
             "float":"right",
         })
-    var voiplink = $("<a href='./voip'>VoIP Software</a><br/>")
+    var voiplink = $("<a href='./voip'>VoIP Software</a> | ")
         .css({
             "color":"#FFF"
         })
-	var paperPdfLink = $('<a href="./Kyle_Galvin_Thesis.pdf" target="_blank">Project Paper PDF format</a><br/>')
+	var computerVisionLink = $('<a href="http://www.youtube.com/watch?v=DE0C4kQ_ygI" target="_blank">Kinect Computer Vision</a> | ')
+	.css({
+		"color":"#FFF"
+	})
+	var paperPdfLink = $('<a href="./Kyle_Galvin_Thesis.pdf" target="_blank">MSc Project Paper PDF format</a> | ')
 	.css({
 		"color":"#FFF"
 	})
 
-	var paperDocLink = $('<a href="./Kyle_Galvin_Thesis.doc" target="_blank">Project Paper DOC format</a><br/>')
+	var paperDocLink = $('<a href="./APPresentation.pptx" target="_blank">HBSc Final Project Presentation</a> | ')
 	.css({
 		"color":"#FFF"
 	})
-    topmenu.append(voiplink)
-	topmenu.append(paperPdfLink)
+	var column1 = $("<div>")
+	.css({
+		'position':'relative'
+	})
+	var column2 = $("<div>")
+	.css({
+		'position':'relative',
+		'left':'100px'
+	})
+	topmenu.append(voiplink)
+	topmenu.append(" | ")
+	topmenu.append(computerVisionLink)
+	topmenu.append(" | ")
 	topmenu.append(paperDocLink)
+	topmenu.append(" | ")
+	topmenu.append(paperPdfLink)
+	//column1.append(paperDocLink)
+	topmenu.append(column1)
 //        topmenu.append(" | Curriculum Vitae | Image Gallery | News")
     header.append(topmenu)
 
@@ -165,6 +184,6 @@ var runApplication = function() {
 	login.command='login'
 	login.args=[username, new Hashes.SHA256().hex(username+password)]
 	
-	client.write(login)
-
+	var resp = client.write(login)
+	console.log("response?!", resp)
 }
