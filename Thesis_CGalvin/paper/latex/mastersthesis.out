@@ -1,0 +1,33 @@
+\BOOKMARK [0][-]{chapter.1}{Lightweight Telepresence Technologies}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Emerging Mobile Technologies}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Telepresence \046 Real-Time Communications}{chapter.1}% 3
+\BOOKMARK [2][-]{subsection.1.2.1}{Audio/Video Compression}{section.1.2}% 4
+\BOOKMARK [2][-]{subsection.1.2.2}{Cellular Network Bandwidth Flow \046 Optimization}{section.1.2}% 5
+\BOOKMARK [2][-]{subsection.1.2.3}{Security}{section.1.2}% 6
+\BOOKMARK [2][-]{subsection.1.2.4}{Privacy}{section.1.2}% 7
+\BOOKMARK [2][-]{subsection.1.2.5}{Cloud Based Assisted Technologies}{section.1.2}% 8
+\BOOKMARK [1][-]{section.1.3}{Identifying the Major Elements for a Lightweight Mobile Telepresence System}{chapter.1}% 9
+\BOOKMARK [1][-]{section.1.4}{Summary}{chapter.1}% 10
+\BOOKMARK [0][-]{chapter.2}{Designing OTA Mobile Telepresence Services}{}% 11
+\BOOKMARK [1][-]{section.2.1}{Authentication Server}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.2}{Server Side Command Dispatcher}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.3}{Server Side RESTful Model}{chapter.2}% 14
+\BOOKMARK [1][-]{section.2.4}{Client Side Command Dispatcher}{chapter.2}% 15
+\BOOKMARK [1][-]{section.2.5}{Client Side Widget Factory}{chapter.2}% 16
+\BOOKMARK [1][-]{section.2.6}{Client Side Widget Structure}{chapter.2}% 17
+\BOOKMARK [1][-]{section.2.7}{P2P Connection}{chapter.2}% 18
+\BOOKMARK [1][-]{section.2.8}{Goals}{chapter.2}% 19
+\BOOKMARK [1][-]{section.2.9}{Assumptions}{chapter.2}% 20
+\BOOKMARK [1][-]{section.2.10}{Design}{chapter.2}% 21
+\BOOKMARK [1][-]{section.2.11}{Networking}{chapter.2}% 22
+\BOOKMARK [2][-]{subsection.2.11.1}{NAT traversal}{section.2.11}% 23
+\BOOKMARK [2][-]{subsection.2.11.2}{I/O Limitations}{section.2.11}% 24
+\BOOKMARK [2][-]{subsection.2.11.3}{Message Passing}{section.2.11}% 25
+\BOOKMARK [1][-]{section.2.12}{Digital Signal Processing}{chapter.2}% 26
+\BOOKMARK [1][-]{section.2.13}{UI}{chapter.2}% 27
+\BOOKMARK [0][-]{chapter.3}{Implementation Details}{}% 28
+\BOOKMARK [1][-]{section.3.1}{Generic Video Capture}{chapter.3}% 29
+\BOOKMARK [1][-]{section.3.2}{Authentication}{chapter.3}% 30
+\BOOKMARK [1][-]{section.3.3}{Video Streaming}{chapter.3}% 31
+\BOOKMARK [1][-]{section.3.4}{QR Code reading}{chapter.3}% 32
+\BOOKMARK [1][-]{section.3.5}{Event Handlers}{chapter.3}% 33

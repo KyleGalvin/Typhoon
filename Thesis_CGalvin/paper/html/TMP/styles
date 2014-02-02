@@ -1,0 +1,5 @@
+report a4paper, 12pt,
+html 
+titling 
+cite 
+graphicx 

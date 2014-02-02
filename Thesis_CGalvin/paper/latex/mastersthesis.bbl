@@ -1,0 +1,106 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{CWKG96}
+
+\bibitem[AH11]{6094998}
+A.P. Arias and U.D. Hanebeck.
+\newblock {Motion control of a semi-mobile haptic interface for extended range
+  telepresence}.
+\newblock In {\em {Intelligent Robots and Systems (IROS), 2011 IEEE/RSJ
+  International Conference on}}, pages 3053--3059, 2011.
+
+\bibitem[AKK09]{5054795}
+J.J. Ahmad, H.A. Khan, and S.A. Khayam.
+\newblock {Energy efficient video compression for wireless sensor networks}.
+\newblock In {\em {Information Sciences and Systems, 2009. CISS 2009. 43rd
+  Annual Conference on}}, pages 629--634, 2009.
+
+\bibitem[AWZ98]{726589}
+A.~Agah, R.~Walker, and R.~Ziemer.
+\newblock {A mobile camera robotic system controlled via a head mounted display
+  for telepresence}.
+\newblock In {\em {Systems, Man, and Cybernetics, 1998. 1998 IEEE International
+  Conference on}}, volume~4, pages 3526--3531 vol.4, 1998.
+
+\bibitem[Bra05]{1420259}
+J.~Brassil.
+\newblock Using mobile communications to assert privacy from video
+  surveillance.
+\newblock In {\em Parallel and Distributed Processing Symposium, 2005.
+  Proceedings. 19th IEEE International}, pages 8 pp.--, 2005.
+
+\bibitem[Cav07]{4117949}
+A.~Cavallaro.
+\newblock Privacy in video surveillance [in the spotlight].
+\newblock {\em Signal Processing Magazine, IEEE}, 24(2):168--166, 2007.
+
+\bibitem[CFB{\etalchar{+}}ar]{0001}
+Samuel~L. Clemens, William~C. Faulkner, Elizabeth~B. Browning, Judith~S.
+  Murray, Louisa~M. Alcott, Harriet~B. Stowe, and Carl~A. Sandburg.
+\newblock Primarytitle.
+\newblock In Ralph~W. Emerson, William~B. Yeats, and Robert~L. Frost, editors,
+  {\em SecondaryTitle}, volume Volume of {\em ThirdTitle}, pages
+  StartPg--OtherPg, PlaceofPub, PubDateFreeForm PubYear. AuthorAddress,
+  Publisher.
+\newblock Notes.
+
+\bibitem[CWKG96]{540147}
+D.~Caldwell, A.~Wardle, O.~Kocak, and M.~Goodwin.
+\newblock {Telepresence feedback and input systems for a twin armed mobile
+  robot}.
+\newblock {\em Robotics Automation Magazine, IEEE}, 3(3):29--38, 1996.
+
+\bibitem[Feh13]{6550384}
+G.~Feher.
+\newblock The price of secure mobile video streaming.
+\newblock In {\em Advanced Information Networking and Applications Workshops
+  (WAINA), 2013 27th International Conference on}, pages 126--131, 2013.
+
+\bibitem[FRF{\etalchar{+}}07]{freudiger2007mix}
+Julien Freudiger, Maxim Raya, M{\'a}rk F{\'e}legyh{\'a}zi, Panos
+  Papadimitratos, et~al.
+\newblock Mix-zones for location privacy in vehicular networks.
+\newblock In {\em Proceedings of the first international workshop on wireless
+  networking for intelligent transportation systems (Win-ITS)}, 2007.
+
+\bibitem[HR13]{6597703}
+M.A. Hossain and S.M.M. Rahman.
+\newblock Towards privacy preserving multimedia surveillance system: A secure
+  privacy vault design.
+\newblock In {\em Biometrics and Security Technologies (ISBAST), 2013
+  International Symposium on}, pages 280--285, 2013.
+
+\bibitem[Kim11]{5710522}
+S.~Kim.
+\newblock {Cellular network bandwidth management scheme by using nash
+  bargaining solution}.
+\newblock {\em Communications, IET}, 5(3):371--380, 2011.
+
+\bibitem[KV04]{1300874}
+Sungwook Kim and P.K. Varshney.
+\newblock {An integrated adaptive bandwidth-management framework for
+  QoS-sensitive multimedia cellular networks}.
+\newblock {\em Vehicular Technology, IEEE Transactions on}, 53(3):835--846,
+  2004.
+
+\bibitem[LL12]{6270872}
+Xinxin Liu and Xiaolin Li.
+\newblock {Privacy Preserving Techniques for Location Based Services in Mobile
+  Networks}.
+\newblock In {\em {Parallel and Distributed Processing Symposium Workshops PhD
+  Forum (IPDPSW), 2012 IEEE 26th International}}, pages 2474--2477, 2012.
+
+\bibitem[LYC04]{1376696}
+Kam-Yiu Lam, Joe Yuen, and E.~Chan.
+\newblock {On using buffered bandwidth to support real-time mobile video
+  playback in cellular networks}.
+\newblock In {\em {Multimedia Software Engineering, 2004. Proceedings. IEEE
+  Sixth International Symposium on}}, pages 466--473, 2004.
+
+\bibitem[PHE02]{1032602}
+Sang~Yun Park, Moon~Seog Han, and Young~Ik Eom.
+\newblock {An efficient authentication protocol supporting privacy in mobile
+  computing environments}.
+\newblock In {\em {High Speed Networks and Multimedia Communications 5th IEEE
+  International Conference on}}, pages 332--334, 2002.
+
+\end{thebibliography}
