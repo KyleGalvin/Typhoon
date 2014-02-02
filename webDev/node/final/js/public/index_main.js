@@ -1,6 +1,6 @@
 _WidgetTemplates = {}
 var Hashes = {}
-requirejs(['jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection){
+requirejs(['galleria/galleria-1.3.5.min.js','jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection){
 	console.log("Done collecting requirements")
 	_WidgetTemplates = WidgetTemplates
 	Hashes = incomingHashes
@@ -157,33 +157,12 @@ var runApplication = function() {
 	footer.append(bottommenu)
 	logocontainer.appendTo("#footer, #header")
 
-	var client = new clientConnection()
-	client.connect("216.211.23.156",80)
-
-	var contactList_widget = _WidgetTemplates.create('contactList',client)
-	content.append(contactList_widget.view)
-
-	var raphGraph = _WidgetTemplates.create('raphaelWindow', null)	
-	content.append(raphGraph.view)
-
-	var login_widget = _WidgetTemplates.create('login',client)
-	console.log('WIDGET"',raphGraph)
-	content.append(login_widget.view)
-
-	console.log("Creating User")
-	var username = 'Kyle Galvin'
-	var password = '123'
-	var makeUser = {}
-	makeUser.command='make_user',
-	makeUser.args=[username, new Hashes.SHA256().hex(username+password)]
+	var gallery = $("<div class='galleria'>")
+	$('<style>.galleria {width:100%; height:100%;}</style>').appendTo(gallery)
+	var img1 = $("<img data-title='My Title' data-description='This is my description' src='img/background.png'>")
+	gallery.append(img1)
+	content.append(gallery)
+	Galleria.loadTheme('galleria/themes/classic/galleria.classic.min.js')
+	Galleria.run('.galleria')
 	
-	client.write(makeUser)
-
-	console.log("Logging In")
-	var login = {}
-	login.command='login'
-	login.args=[username, new Hashes.SHA256().hex(username+password)]
-	
-	var resp = client.write(login)
-	console.log("response?!", resp)
 }
