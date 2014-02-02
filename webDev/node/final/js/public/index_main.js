@@ -1,6 +1,6 @@
 _WidgetTemplates = {}
 var Hashes = {}
-requirejs(['jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection){
+requirejs(['galleria/galleria-1.3.5.min.js','jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection){
 	console.log("Done collecting requirements")
 	_WidgetTemplates = WidgetTemplates
 	Hashes = incomingHashes
@@ -92,33 +92,52 @@ var runApplication = function() {
     var topmenu = $("<div id='topmenu'>")
         .css({
 	    "font-family":"Lucida",
-            //"line-height":"16px",
+            "line-height":"16px",
             "width":"75%",
-            //"margin-top":"-8px",
+            "margin-top":"-8px",
             "vertical-align":"middle",
             "text-align":"right",
             "padding":"0px 5% 0px 0px",
             "position":"relative",
-            //"top":"50%",
+            "top":"50%",
             "color":"white",
             "float":"right",
         })
-    var voiplink = $("<a href='./voip'>VoIP Software</a><br/>")
+    var voiplink = $("<a href='./voip'>VoIP Software</a> | ")
         .css({
             "color":"#FFF"
         })
-	var paperPdfLink = $('<a href="./Kyle_Galvin_Thesis.pdf" target="_blank">Project Paper PDF format</a><br/>')
+	var computerVisionLink = $('<a href="http://www.youtube.com/watch?v=DE0C4kQ_ygI" target="_blank">Kinect Computer Vision</a> | ')
+	.css({
+		"color":"#FFF"
+	})
+	var paperPdfLink = $('<a href="./Kyle_Galvin_Thesis.pdf" target="_blank">MSc Project Paper PDF format</a> | ')
 	.css({
 		"color":"#FFF"
 	})
 
-	var paperDocLink = $('<a href="./Kyle_Galvin_Thesis.doc" target="_blank">Project Paper DOC format</a><br/>')
+	var paperDocLink = $('<a href="./APPresentation.pptx" target="_blank">HBSc Final Project Presentation</a> | ')
 	.css({
 		"color":"#FFF"
 	})
-    topmenu.append(voiplink)
-	topmenu.append(paperPdfLink)
+	var column1 = $("<div>")
+	.css({
+		'position':'relative'
+	})
+	var column2 = $("<div>")
+	.css({
+		'position':'relative',
+		'left':'100px'
+	})
+	topmenu.append(voiplink)
+	topmenu.append(" | ")
+	topmenu.append(computerVisionLink)
+	topmenu.append(" | ")
 	topmenu.append(paperDocLink)
+	topmenu.append(" | ")
+	topmenu.append(paperPdfLink)
+	//column1.append(paperDocLink)
+	topmenu.append(column1)
 //        topmenu.append(" | Curriculum Vitae | Image Gallery | News")
     header.append(topmenu)
 
@@ -138,33 +157,12 @@ var runApplication = function() {
 	footer.append(bottommenu)
 	logocontainer.appendTo("#footer, #header")
 
-	var client = new clientConnection()
-	client.connect("216.211.23.156",80)
-
-	var contactList_widget = _WidgetTemplates.create('contactList',client)
-	content.append(contactList_widget.view)
-
-	var raphGraph = _WidgetTemplates.create('raphaelWindow', null)	
-	content.append(raphGraph.view)
-
-	var login_widget = _WidgetTemplates.create('login',client)
-	console.log('WIDGET"',raphGraph)
-	content.append(login_widget.view)
-
-	console.log("Creating User")
-	var username = 'Kyle Galvin'
-	var password = '123'
-	var makeUser = {}
-	makeUser.command='make_user',
-	makeUser.args=[username, new Hashes.SHA256().hex(username+password)]
+	var gallery = $("<div class='galleria'>")
+	$('<style>.galleria {width:100%; height:100%;}</style>').appendTo(gallery)
+	var img1 = $("<img data-title='My Title' data-description='This is my description' src='img/background.png'>")
+	gallery.append(img1)
+	content.append(gallery)
+	Galleria.loadTheme('galleria/themes/classic/galleria.classic.min.js')
+	Galleria.run('.galleria')
 	
-	client.write(makeUser)
-
-	console.log("Logging In")
-	var login = {}
-	login.command='login'
-	login.args=[username, new Hashes.SHA256().hex(username+password)]
-	
-	client.write(login)
-
 }

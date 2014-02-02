@@ -6,7 +6,7 @@ module.exports = {
 		if(_cmds[cmd]){
 			var result = _cmds[cmd](args)
 			if(result){
-				console.log("returning result to sender")
+				console.log("returning result to sender",result)
 				return result
 			}
 		}else{
