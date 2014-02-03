@@ -625,18 +625,33 @@ Designing OTA Mobile Telepresence Services</A>
 <H1><A NAME="SECTION00310000000000000000">
 Overview</A>
 </H1>
+This telepresence system is built using both centralized and P2P routing techniques. While individual calls are handled using a P2P connection, a centralized authentication server is used to allow users to view who is currently online. The central server also plays a role in bootstrapping the P2P route when a call is first initialized.
+
+<P>
 <IMG
   WIDTH="630" HEIGHT="343" ALIGN="BOTTOM" BORDER="0"
  SRC="./NetworkModules.png"
  ALT="Image NetworkModules">
+
+<P>
+The client application is built using javascript within a browser environment. The main application library consists of a widget factory which is in charge of creating the major application components and injecting their UI into the DOM. Several of these widgets depend on network connectivity, so we provide these upon widget initialization using dependency injection. Because of these network components, it is important that we initialize our network objects before building most of our widget components.
+
+<P>
 <IMG
   WIDTH="630" HEIGHT="365" ALIGN="BOTTOM" BORDER="0"
  SRC="./WidgetStructure.png"
  ALT="Image WidgetStructure">
+
+<P>
+The authentication server contains an abstract model coupled with a controller allowing for basic read/write operations. The model is managed by an authentication API, which is the interface that client applications directly interact with over a webSocket channel. This authentication API allows for applications to perform various authentication tasks such as creating a user, logging in, and checking which other users are currently online. The authentication API is coupled with a publisher/subscriber module which allows a client to be notified if a particular part of the model changes. This is useful for being alerted when another client changes status from online to offline.
+
+<P>
 <IMG
   WIDTH="630" HEIGHT="667" ALIGN="BOTTOM" BORDER="0"
  SRC="./AuthServerOverview.png"
  ALT="Image AuthServerOverview">
+
+<P>
 
 <H1><A NAME="SECTION00320000000000000000">
 Authentication Server</A>

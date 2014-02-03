@@ -9,7 +9,7 @@
 \contentsline {section}{\numberline {1.3}Identifying the Major Elements for a Lightweight Mobile Telepresence System}{11}{section.1.3}
 \contentsline {section}{\numberline {1.4}Summary}{11}{section.1.4}
 \contentsline {chapter}{\numberline {2}Designing OTA Mobile Telepresence Services}{12}{chapter.2}
-\contentsline {section}{\numberline {2.1}Overview}{13}{section.2.1}
+\contentsline {section}{\numberline {2.1}Overview}{12}{section.2.1}
 \contentsline {section}{\numberline {2.2}Authentication Server}{14}{section.2.2}
 \contentsline {section}{\numberline {2.3}Server Side Command Dispatcher}{15}{section.2.3}
 \contentsline {section}{\numberline {2.4}Server Side RESTful Model}{15}{section.2.4}

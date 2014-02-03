@@ -256,9 +256,18 @@ In conclusion, we are capable of much more than what is currently offered in ter
 \begin<<321>>tex2html_deferred<<321>>\par\end<<322>>tex2html_deferred<<322>>
 \chapter<<100>>Designing OTA Mobile Telepresence Services<<100>>
 \section<<101>>Overview<<101>>
+This telepresence system is built using both centralized and P2P routing techniques. While individual calls are handled using a P2P connection, a centralized authentication server is used to allow users to view who is currently online. The central server also plays a role in bootstrapping the P2P route when a call is first initialized.
+\begin<<323>>tex2html_deferred<<323>>\par\end<<324>>tex2html_deferred<<324>>
 \includegraphics[width=16cm]<<102>>NetworkModules<<102>>
+\begin<<325>>tex2html_deferred<<325>>\par\end<<326>>tex2html_deferred<<326>>
+The client application is built using javascript within a browser environment. The main application library consists of a widget factory which is in charge of creating the major application components and injecting their UI into the DOM. Several of these widgets depend on network connectivity, so we provide these upon widget initialization using dependency injection. Because of these network components, it is important that we initialize our network objects before building most of our widget components.
+\begin<<327>>tex2html_deferred<<327>>\par\end<<328>>tex2html_deferred<<328>>
 \includegraphics[width=16cm]<<103>>WidgetStructure<<103>>
+\begin<<329>>tex2html_deferred<<329>>\par\end<<330>>tex2html_deferred<<330>>
+The authentication server contains an abstract model coupled with a controller allowing for basic read/write operations. The model is managed by an authentication API, which is the interface that client applications directly interact with over a webSocket channel. This authentication API allows for applications to perform various authentication tasks such as creating a user, logging in, and checking which other users are currently online. The authentication API is coupled with a publisher/subscriber module which allows a client to be notified if a particular part of the model changes. This is useful for being alerted when another client changes status from online to offline.
+\begin<<331>>tex2html_deferred<<331>>\par\end<<332>>tex2html_deferred<<332>>
 \includegraphics[width=16cm]<<104>>AuthServerOverview<<104>>
+\begin<<333>>tex2html_deferred<<333>>\par\end<<334>>tex2html_deferred<<334>>
 \section<<105>>Authentication Server<<105>>
 The authentication server is in charge of identifying and connecting users. When a user connects to the website, a websocket connection is made between the authentication server and the client. Along with this connection a session ID is provided which we can use to identify the user over multiple transactions. When a user logs in, this session ID is coupled to their user name and marked as an active session. This allows other users to identify the user as online, as the session ID can be decoupled from the user name the moment the socket connection is closed.
 \section<<106>>Server Side Command Dispatcher<<106>>
@@ -267,7 +276,7 @@ The authentication server receives data from the user in a 3-tuple form: ;SPMlt;
 The authentication server works as a simple RESTful model. RESTful operations are primarily invoked from the server side command dispatcher which houses the business logic of the application. Our RESTful API only consists of four commands: 'create', 'read', 'update', and 'delete'. The user name of the client invoking the request is also included, allowing us to create permissive rules to limit who can access or modify groups of data.
 \section<<108>>Client Side Command Dispatcher<<108>>
 The client side command dispatcher is broken down into multiple parts. Commands may be launched from external sources such as the authentication server (eg. Describing bad log in credentials, or supplying a list of online users) or a P2P connection (such as a remote user initiating a call). Commands may also be launched from the clients web GUI.
-\begin<<323>>tex2html_deferred<<323>>\par\end<<324>>tex2html_deferred<<324>>
+\begin<<335>>tex2html_deferred<<335>>\par\end<<336>>tex2html_deferred<<336>>
 Each client widget has it's own command API, and the application has naming and routing mechanisms to relay commands from these various sources to the appropriate widget. The widget then handles the command however it pleases.
 \section<<109>>Client Side Widget Factory<<109>>
 As the list of client side widgets grow, the widget factory serves as a way to create and register new widgets. The widget factory is in charge of creating unique names for each widget for message routing.
@@ -276,7 +285,7 @@ Each widget should be contain a function called 'widget' which will be invoked w
 \section<<111>>P2P Connection<<111>>
 A key component of this application will be the P2P widget. The P2P widget will be in charge of facilitating P2P connections with other users. Through this connection, users will be able to share VoIP communications, screencasts, and share files. The P2P connection will be in charge of connectivity, P2P routing, as well as stopping/starting telepresence calls.
 \section<<112>>Goals<<112>>
-\begin<<325>>tex2html_deferred<<325>>\par\end<<326>>tex2html_deferred<<326>>
+\begin<<337>>tex2html_deferred<<337>>\par\end<<338>>tex2html_deferred<<338>>
 In order to improve on current telepresence technologies, we must revisit the main sensory obstacles in telepresence interaction and modify our implementations in a way that reduces such obstacles. To reiterate, these obstacles are:
 	\begin<<113>>enumerate<<113>>
 		\item The detection of sensory signals
@@ -286,53 +295,53 @@ In order to improve on current telepresence technologies, we must revisit the ma
 	\begin<<115>>flushright<<115>>
 		\cite<<116>>540147<<116>>
 	\end<<117>>flushright<<117>>
-\begin<<327>>tex2html_deferred<<327>>\par\end<<328>>tex2html_deferred<<328>>
-The goal of this project is to create a system which automates and facilitates the above in a helpful and intuitive way via data augmentation of the live stream. These three points will each be addressed individually by it's own software module placed between the telepresence device and the user's device.
-\begin<<329>>tex2html_deferred<<329>>\par\end<<330>>tex2html_deferred<<330>>
-A good example would be to recognize and highlight a QR code should one come into the visual frame. The users options could be as simple as 'open URL in browser' or 'ignore'.
-\begin<<331>>tex2html_deferred<<331>>\par\end<<332>>tex2html_deferred<<332>>
-A second example would be to alert the user when a presenter has entered the frame after a lengthy absence.
-\begin<<333>>tex2html_deferred<<333>>\par\end<<334>>tex2html_deferred<<334>>
-Finally, if a group of two or more people collaborate to make a 'digital audience', tags, notes, and comments can be passed among audience members in real time. For example, if the professor leaves a particularly difficult equation on the board, audience members could be enabled to directly click on the location of the equation within the video in question and communicate their interest in a real time collaborative way. This information can be saved along with the video for the professors review at a later time.
-\begin<<335>>tex2html_deferred<<335>>\par\end<<336>>tex2html_deferred<<336>>
-\section<<118>>Assumptions<<118>>
-\begin<<337>>tex2html_deferred<<337>>\par\end<<338>>tex2html_deferred<<338>>
-There are a wide variety of telepresence devices available, each with it's own features and limitations. This project will focus on the most common telepresence software available, which is the modern smart phone. We can assume that the telepresence device will come equipped with a camera and a microphone, as well as a wireless network connection capable of simultaneously transmitting and receiving audio/video data with latency low enough to qualify for 'real-time communication'. If required, benchmarks and data may later be supplied to demonstrate that this is indeed a common feature of modern hardware.
 \begin<<339>>tex2html_deferred<<339>>\par\end<<340>>tex2html_deferred<<340>>
-\section<<119>>Design<<119>>
+The goal of this project is to create a system which automates and facilitates the above in a helpful and intuitive way via data augmentation of the live stream. These three points will each be addressed individually by it's own software module placed between the telepresence device and the user's device.
 \begin<<341>>tex2html_deferred<<341>>\par\end<<342>>tex2html_deferred<<342>>
-In order to achieve our goals, the approach I intend to take involves scanning the raw telepresence data between clients in order to parse and extract some of the high level information out of it. If we can automate the detection of useful signals, gestures, queues, and events in the raw audio/video data, we can highlight and emphasize this information to the user. Furthermore, if the signals we parse can be responded with by a minimal subset of actions we are entirely capable of supplying these options in real-time and allowing the user to quickly decide how they choose to respond.
+A good example would be to recognize and highlight a QR code should one come into the visual frame. The users options could be as simple as 'open URL in browser' or 'ignore'.
 \begin<<343>>tex2html_deferred<<343>>\par\end<<344>>tex2html_deferred<<344>>
-If the mobile telepresence devices which collect and transmit the raw audio/video data are most likely to be modern smart phones, than we would be wise to treat these devices as thin clients in the sense that their purpose is limited to data collection and user interaction. The heavy processing involved with computer vision over large streams of image matrices would quickly overwhelm such devices.
+A second example would be to alert the user when a presenter has entered the frame after a lengthy absence.
 \begin<<345>>tex2html_deferred<<345>>\par\end<<346>>tex2html_deferred<<346>>
-Because of this limitation I plan on deploying a cloud server which intercepts the data streams between clients in order to process the large amounts of raw data. This cloud will also store the streams and act as a database of past transmissions along with all the key meta-data we accumulate through our processing techniques.
+Finally, if a group of two or more people collaborate to make a 'digital audience', tags, notes, and comments can be passed among audience members in real time. For example, if the professor leaves a particularly difficult equation on the board, audience members could be enabled to directly click on the location of the equation within the video in question and communicate their interest in a real time collaborative way. This information can be saved along with the video for the professors review at a later time.
 \begin<<347>>tex2html_deferred<<347>>\par\end<<348>>tex2html_deferred<<348>>
-\section<<120>>Networking<<120>>
+\section<<118>>Assumptions<<118>>
 \begin<<349>>tex2html_deferred<<349>>\par\end<<350>>tex2html_deferred<<350>>
+There are a wide variety of telepresence devices available, each with it's own features and limitations. This project will focus on the most common telepresence software available, which is the modern smart phone. We can assume that the telepresence device will come equipped with a camera and a microphone, as well as a wireless network connection capable of simultaneously transmitting and receiving audio/video data with latency low enough to qualify for 'real-time communication'. If required, benchmarks and data may later be supplied to demonstrate that this is indeed a common feature of modern hardware.
+\begin<<351>>tex2html_deferred<<351>>\par\end<<352>>tex2html_deferred<<352>>
+\section<<119>>Design<<119>>
+\begin<<353>>tex2html_deferred<<353>>\par\end<<354>>tex2html_deferred<<354>>
+In order to achieve our goals, the approach I intend to take involves scanning the raw telepresence data between clients in order to parse and extract some of the high level information out of it. If we can automate the detection of useful signals, gestures, queues, and events in the raw audio/video data, we can highlight and emphasize this information to the user. Furthermore, if the signals we parse can be responded with by a minimal subset of actions we are entirely capable of supplying these options in real-time and allowing the user to quickly decide how they choose to respond.
+\begin<<355>>tex2html_deferred<<355>>\par\end<<356>>tex2html_deferred<<356>>
+If the mobile telepresence devices which collect and transmit the raw audio/video data are most likely to be modern smart phones, than we would be wise to treat these devices as thin clients in the sense that their purpose is limited to data collection and user interaction. The heavy processing involved with computer vision over large streams of image matrices would quickly overwhelm such devices.
+\begin<<357>>tex2html_deferred<<357>>\par\end<<358>>tex2html_deferred<<358>>
+Because of this limitation I plan on deploying a cloud server which intercepts the data streams between clients in order to process the large amounts of raw data. This cloud will also store the streams and act as a database of past transmissions along with all the key meta-data we accumulate through our processing techniques.
+\begin<<359>>tex2html_deferred<<359>>\par\end<<360>>tex2html_deferred<<360>>
+\section<<120>>Networking<<120>>
+\begin<<361>>tex2html_deferred<<361>>\par\end<<362>>tex2html_deferred<<362>>
 \includegraphics[width=12cm]<<121>>overview<<121>>
 	\subsection<<122>>NAT traversal<<122>>
 		(Graph to be completed soon)
 		\includegraphics[width=12cm]<<123>>networkModel<<123>>
 	\subsection<<124>>I/O Limitations<<124>>
-\begin<<351>>tex2html_deferred<<351>>\par\end<<352>>tex2html_deferred<<352>>
+\begin<<363>>tex2html_deferred<<363>>\par\end<<364>>tex2html_deferred<<364>>
 The hardware needed to deploy such a system requires high bandwidth and low latency. The proxy characteristics of the proposed computer vision cloud server will negatively effect latency, but should be appropriate for live communications in most cases.
-\begin<<353>>tex2html_deferred<<353>>\par\end<<354>>tex2html_deferred<<354>>
+\begin<<365>>tex2html_deferred<<365>>\par\end<<366>>tex2html_deferred<<366>>
 While I suspect treating the mobile end-point devices as a thin client (by offloading the live signal processing to a cloud server) is an obvious gain, the increased latency of adding a proxy server could theoretically be measured against the reduced computational power of the smart phone devices with respect to computer vision processing. For bandwidth reduction, a hybrid approach can be imagined in which the visual stream is pre-processed on site and only the derivative data is sent to the server directly, however this leaves the server without raw video data which would force the users to result to more contrived and elaborate means of seeing the presenters environment.
-\begin<<355>>tex2html_deferred<<355>>\par\end<<356>>tex2html_deferred<<356>>
+\begin<<367>>tex2html_deferred<<367>>\par\end<<368>>tex2html_deferred<<368>>
 In the situation where large groups of users wish to view a single location at the same time, it is increasingly likely that the host cannot serve the entire crowd at once. There are several ways to deal with this, the most obvious being that the host serves to one or more mirror sites which divide the user base amongst themselves. A more collaborative method would be to use the users as peer to peer mirrors, but the bandwidth available to the average peer could limit their outbound streaming ability past the point of usability.
-\begin<<357>>tex2html_deferred<<357>>\par\end<<358>>tex2html_deferred<<358>>
+\begin<<369>>tex2html_deferred<<369>>\par\end<<370>>tex2html_deferred<<370>>
 \subsubsection<<125>>Optimizing Performance<<125>>
 Using the above architecture, the cloud server receives live audio and video data from the presentation room and transmits it to each of the connected clients simultaneously. This data is further expanded with the augmented meta-data and communication between peers. A worthwhile study would include measuring the bandwidth this meta-data occupies, and deciding if there would be significant performance gains by offloading the task of relaying this information between peers to another device.
-\begin<<359>>tex2html_deferred<<359>>\par\end<<360>>tex2html_deferred<<360>>
+\begin<<371>>tex2html_deferred<<371>>\par\end<<372>>tex2html_deferred<<372>>
 Another consideration is which codec to use when compressing the audio and video data. Industry standards are heavily pushing the mpeg4 h264 codec, and after a brief overview I am inclined to agree with their methodology.
-\begin<<361>>tex2html_deferred<<361>>\par\end<<362>>tex2html_deferred<<362>>
+\begin<<373>>tex2html_deferred<<373>>\par\end<<374>>tex2html_deferred<<374>>
 Finally, the digital signal processing of the audio/video data on the server is certainly the most complex component of this project. The best technique to extract and process the incoming data is a vast and complex topic; One that is extremely circumstantial and unlikely to have a single clear-cut solution. Furthermore, the ability to accelerate real-time video data crunching via gpgpu and parallel techniques is extremely promising in an application such as this.
-\begin<<363>>tex2html_deferred<<363>>\par\end<<364>>tex2html_deferred<<364>>
+\begin<<375>>tex2html_deferred<<375>>\par\end<<376>>tex2html_deferred<<376>>
 \subsection<<126>>Message Passing<<126>>
 \includegraphics[width=12cm]<<127>>blockDiagram<<127>>
-\begin<<365>>tex2html_deferred<<365>>\par\end<<366>>tex2html_deferred<<366>>
+\begin<<377>>tex2html_deferred<<377>>\par\end<<378>>tex2html_deferred<<378>>
 Plenty of data needs to be transmitted through this system. Not only do we have the raw audio and video data, but we have to arrange a communication protocol which does at least two things. First, it needs to create and manage user sessions in a way that allows them to reliably connect to each other. Second, it needs to communicate the information we derive from each streaming session back to the user associated with the session.
-\begin<<367>>tex2html_deferred<<367>>\par\end<<368>>tex2html_deferred<<368>>
+\begin<<379>>tex2html_deferred<<379>>\par\end<<380>>tex2html_deferred<<380>>
 Because the two message passing use-cases are so mutually exclusive, it is entirely possible to divide the workload across two different servers; the first of which would handle authentication and user sessions and the second of which would be tasked with using visualization techniques on the streams and returning any results back to the users.
 		\subsubsection<<128>>Authentication<<128>>
 			left,right,forward,backward
@@ -342,7 +351,7 @@ Because the two message passing use-cases are so mutually exclusive, it is entir
 			audio
 			video
 			augmented overlay (another video stream)
-\begin<<369>>tex2html_deferred<<369>>\par\end<<370>>tex2html_deferred<<370>>
+\begin<<381>>tex2html_deferred<<381>>\par\end<<382>>tex2html_deferred<<382>>
 \section<<130>>Digital Signal Processing<<130>>
 \includegraphics[width=12cm]<<131>>signalProcessing<<131>>
 \begin<<132>>itemize<<132>>
@@ -353,13 +362,13 @@ Because the two message passing use-cases are so mutually exclusive, it is entir
 	\item scripting language? HighGUI enough?
 	\item client can also potentially receive augmented audio/video data with the DSP module overlay
 \end<<133>>itemize<<133>>
-\begin<<371>>tex2html_deferred<<371>>\par\end<<372>>tex2html_deferred<<372>>
+\begin<<383>>tex2html_deferred<<383>>\par\end<<384>>tex2html_deferred<<384>>
 \section<<134>>UI<<134>>
-\begin<<373>>tex2html_deferred<<373>>\par\end<<374>>tex2html_deferred<<374>>
+\begin<<385>>tex2html_deferred<<385>>\par\end<<386>>tex2html_deferred<<386>>
 \includegraphics[width=16cm]<<135>>MobileGUI_Labeled<<135>>
-\begin<<375>>tex2html_deferred<<375>>\par\end<<376>>tex2html_deferred<<376>>
+\begin<<387>>tex2html_deferred<<387>>\par\end<<388>>tex2html_deferred<<388>>
 \includegraphics[width=12cm]<<136>>MobileUI<<136>>
-\begin<<377>>tex2html_deferred<<377>>\par\end<<378>>tex2html_deferred<<378>>
+\begin<<389>>tex2html_deferred<<389>>\par\end<<390>>tex2html_deferred<<390>>
 \chapter<<137>>Implementation Details<<137>>
 \section<<138>>Generic Video Capture<<138>>
 \section<<139>>Authentication<<139>>

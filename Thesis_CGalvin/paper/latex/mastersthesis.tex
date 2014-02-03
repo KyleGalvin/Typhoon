@@ -264,9 +264,18 @@ In conclusion, we are capable of much more than what is currently offered in ter
 
 \chapter{Designing OTA Mobile Telepresence Services}
 \section{Overview}
+This telepresence system is built using both centralized and P2P routing techniques. While individual calls are handled using a P2P connection, a centralized authentication server is used to allow users to view who is currently online. The central server also plays a role in bootstrapping the P2P route when a call is first initialized.
+
 \includegraphics[width=16cm]{NetworkModules}
+
+The client application is built using javascript within a browser environment. The main application library consists of a widget factory which is in charge of creating the major application components and injecting their UI into the DOM. Several of these widgets depend on network connectivity, so we provide these upon widget initialization using dependency injection. Because of these network components, it is important that we initialize our network objects before building most of our widget components.
+
 \includegraphics[width=16cm]{WidgetStructure}
+
+The authentication server contains an abstract model coupled with a controller allowing for basic read/write operations. The model is managed by an authentication API, which is the interface that client applications directly interact with over a webSocket channel. This authentication API allows for applications to perform various authentication tasks such as creating a user, logging in, and checking which other users are currently online. The authentication API is coupled with a publisher/subscriber module which allows a client to be notified if a particular part of the model changes. This is useful for being alerted when another client changes status from online to offline.
+
 \includegraphics[width=16cm]{AuthServerOverview}
+
 \section{Authentication Server}
 The authentication server is in charge of identifying and connecting users. When a user connects to the website, a websocket connection is made between the authentication server and the client. Along with this connection a session ID is provided which we can use to identify the user over multiple transactions. When a user logs in, this session ID is coupled to their user name and marked as an active session. This allows other users to identify the user as online, as the session ID can be decoupled from the user name the moment the socket connection is closed.
 \section{Server Side Command Dispatcher}
