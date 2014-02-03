@@ -3,24 +3,24 @@
 \usepackage<<3>>titling<<3>>
 \usepackage<<4>>cite<<4>>
 \usepackage<<5>>graphicx<<5>>
-\graphicspath<<145>> <<6>>images/<<6>> <<145>>
-\begin<<150>>tex2html_nowrap<<150>>
-\DeclareGraphicsExtensions<<7>>.eps,.pdf,.png,.jpg<<7>>\end<<151>>tex2html_nowrap<<151>> 
+\graphicspath<<146>> <<6>>images/<<6>> <<146>>
+\begin<<151>>tex2html_nowrap<<151>>
+\DeclareGraphicsExtensions<<7>>.eps,.pdf,.png,.jpg<<7>>\end<<152>>tex2html_nowrap<<152>> 
 \begin<<8>>document<<8>>
 \begin<<9>>titlepage<<9>>
 	\begin<<10>>center<<10>>
 	<tex2html_comment_mark>1
-\title<<11>>\begin<<152>>tex2html_deferred<<152>>\Large\end<<153>>tex2html_deferred<<153>>Development of an OTA (Over the Air) Mobile Learning Telepresence Platform<<11>>
+\title<<11>>\begin<<153>>tex2html_deferred<<153>>\Large\end<<154>>tex2html_deferred<<154>>Development of an OTA (Over the Air) Mobile Learning Telepresence Platform<<11>>
 	\thetitle<<12>>\\ <<12>>
-	\textsc<<13>>\begin<<154>>tex2html_deferred<<154>>\normalsize\end<<155>>tex2html_deferred<<155>>by\\ <<13>>
-	\begin<<156>>tex2html_deferred<<156>>\author<<14>>\normalsize Kyle Galvin<<14>>\end<<157>>tex2html_deferred<<157>>
+	\textsc<<13>>\begin<<155>>tex2html_deferred<<155>>\normalsize\end<<156>>tex2html_deferred<<156>>by\\ <<13>>
+	\begin<<157>>tex2html_deferred<<157>>\author<<14>>\normalsize Kyle Galvin<<14>>\end<<158>>tex2html_deferred<<158>>
 	\theauthor<<15>>\\ <<15>>
-	\begin<<158>>tex2html_deferred<<158>>\normalsize\end<<159>>tex2html_deferred<<159>>\textsc<<16>>HBSc Computer Science, Lakehead University, 2013\\ [0.5cm]<<16>>
-\begin<<160>>tex2html_deferred<<160>>\par\end<<161>>tex2html_deferred<<161>>
+	\begin<<159>>tex2html_deferred<<159>>\normalsize\end<<160>>tex2html_deferred<<160>>\textsc<<16>>HBSc Computer Science, Lakehead University, 2013\\ [0.5cm]<<16>>
+\begin<<161>>tex2html_deferred<<161>>\par\end<<162>>tex2html_deferred<<162>>
 \textsc<<17>>A Thesis Submitted in Partial Fulfillment of the Requirements for the Degree of\\ [0.5cm]<<17>>
 	\textsc<<18>>MSC COMPUTER SCIENCE\\ <<18>>
 	\textsc<<19>>in the department of Computer Science\\ [11.5cm]<<19>>
-\begin<<162>>tex2html_deferred<<162>>\par\end<<163>>tex2html_deferred<<163>>
+\begin<<163>>tex2html_deferred<<163>>\par\end<<164>>tex2html_deferred<<164>>
 \textsc<<20>>Copyright Kyle Galvin, 2013\\ <<20>>
 	\textsc<<21>>Lakehead University\\ [0.5cm]<<21>>
 	\textsc<<22>>All rights reserved. This thesis may not be reproduced in whole or in part, py photocopy or other means, without the permission of the author.<<22>>
@@ -28,47 +28,47 @@
 \end<<24>>titlepage<<24>>
 \newpage
 	\begin<<25>>center<<25>>
-		\textsc<<26>>\begin<<164>>tex2html_deferred<<164>>\LARGE\end<<165>>tex2html_deferred<<165>>Supervisory Committee\\ [2cm]<<26>>
+		\textsc<<26>>\begin<<165>>tex2html_deferred<<165>>\LARGE\end<<166>>tex2html_deferred<<166>>Supervisory Committee\\ [2cm]<<26>>
 		\thetitle<<27>>\\ <<27>>
-		\textsc<<28>>\begin<<166>>tex2html_deferred<<166>>\normalsize\end<<167>>tex2html_deferred<<167>>by\\ <<28>>
+		\textsc<<28>>\begin<<167>>tex2html_deferred<<167>>\normalsize\end<<168>>tex2html_deferred<<168>>by\\ <<28>>
 		\theauthor<<29>>\\ <<29>>
-		\begin<<168>>tex2html_deferred<<168>>\normalsize\end<<169>>tex2html_deferred<<169>>\textsc<<30>>HBSc Computer Science, Lakehead University, 2013\\ [10cm]<<30>>
+		\begin<<169>>tex2html_deferred<<169>>\normalsize\end<<170>>tex2html_deferred<<170>>\textsc<<30>>HBSc Computer Science, Lakehead University, 2013\\ [10cm]<<30>>
 	\end<<31>>center<<31>>
-	\textsc<<32>>\begin<<170>>tex2html_deferred<<170>>\Large\end<<171>>tex2html_deferred<<171>>Supervisory Committee\\ [0.5cm]<<32>>
+	\textsc<<32>>\begin<<171>>tex2html_deferred<<171>>\Large\end<<172>>tex2html_deferred<<172>>Supervisory Committee\\ [0.5cm]<<32>>
 	\textsc<<33>>Jinan Fiaidhi and Sabah Mohammed\\ <<33>>
-	\textsc<<146>>\emph<<34>>Supervisor<<34>>\\ <<146>>
-	\textsc<<147>>\emph<<35>>Co-Supervisor or Departmental Member<<35>>\\ <<147>>
-	\textsc<<148>>\emph<<36>>Departmental Member<<36>>\\ <<148>>
-	\textsc<<149>>\emph<<37>>Outside Member<<37>>\\ <<149>>
+	\textsc<<147>>\emph<<34>>Supervisor<<34>>\\ <<147>>
+	\textsc<<148>>\emph<<35>>Co-Supervisor or Departmental Member<<35>>\\ <<148>>
+	\textsc<<149>>\emph<<36>>Departmental Member<<36>>\\ <<149>>
+	\textsc<<150>>\emph<<37>>Outside Member<<37>>\\ <<150>>
 \newpage
-\begin<<172>>tex2html_deferred<<172>>\par\end<<173>>tex2html_deferred<<173>>
-\begin<<174>>tex2html_deferred<<174>>\tableofcontents\end<<175>>tex2html_deferred<<175>>
-\begin<<176>>tex2html_deferred<<176>>\par\end<<177>>tex2html_deferred<<177>>
+\begin<<173>>tex2html_deferred<<173>>\par\end<<174>>tex2html_deferred<<174>>
+\begin<<175>>tex2html_deferred<<175>>\tableofcontents\end<<176>>tex2html_deferred<<176>>
+\begin<<177>>tex2html_deferred<<177>>\par\end<<178>>tex2html_deferred<<178>>
 \chapter<<38>>Lightweight Telepresence Technologies<<38>>
-\begin<<178>>tex2html_deferred<<178>>\par\end<<179>>tex2html_deferred<<179>>
+\begin<<179>>tex2html_deferred<<179>>\par\end<<180>>tex2html_deferred<<180>>
 Microprocessors have shaped the world over the last century. Reducing in size over time exponentially, we are now able to achieve things that would have been unimaginable in the past. We can squeeze more bits per volume, transport more information and crunch more data each second than ever before. With this explosion of portability and connectivity comes a renaissance of technological growth that is unfolding before our eyes.
-\begin<<180>>tex2html_deferred<<180>>\par\end<<181>>tex2html_deferred<<181>>
+\begin<<181>>tex2html_deferred<<181>>\par\end<<182>>tex2html_deferred<<182>>
 Density of information and computation as well as the speed of communication are at the core of modern digital technology, yet focusing on these features displays a very hands-on 'white box' approach. There is also much to be learned with respect to the interaction between digital components and their environments, which could be considered more of an external 'black box' style description. The interface and sensors a device supplies for others to interact with is just as important as the computational and communicative abilities the device has internally to process the environment around it.
-\begin<<182>>tex2html_deferred<<182>>\par\end<<183>>tex2html_deferred<<183>>
+\begin<<183>>tex2html_deferred<<183>>\par\end<<184>>tex2html_deferred<<184>>
 By extrapolating on current computational growth trends, we can easily imagine the capabilities we will soon wield while developing applications to improve our everyday lives. By studying these applications (both mundane and whimsical alike) we are likely to find many exciting ideas which are attainable much more immediately than they first appeared as well as many which are just around the bend.
-\begin<<184>>tex2html_deferred<<184>>\par\end<<185>>tex2html_deferred<<185>>
+\begin<<185>>tex2html_deferred<<185>>\par\end<<186>>tex2html_deferred<<186>>
 Arthur C. Clarke once wrote ;SPMquot;Any sufficiently advanced technology is indistinguishable from magic;SPMquot;, and I am inclined to agree. Indeed many amazing discoveries can find roots in sci-fi and futuristic predictions which push the boundaries of our collective knowledge and explore the potential and logical conclusions of current technological progress. The most recent ideas which are moving from science fiction to science fact are telepresence and augmented reality. 
 	\begin<<39>>flushright<<39>>
 		\cite<<40>>0001<<40>>
 	\end<<41>>flushright<<41>>
-\begin<<186>>tex2html_deferred<<186>>\par\end<<187>>tex2html_deferred<<187>>
+\begin<<187>>tex2html_deferred<<187>>\par\end<<188>>tex2html_deferred<<188>>
 To introduce these ideas, I will start by defining telepresence:
-\begin<<188>>tex2html_deferred<<188>>\par\end<<189>>tex2html_deferred<<189>>
+\begin<<189>>tex2html_deferred<<189>>\par\end<<190>>tex2html_deferred<<190>>
 \begin<<42>>quotation<<42>>
 ;SPMquot;Telepresence systems provide a human operator with the feeling of actual presence in a remote environment, the target environment. The feeling of presence is achieved by visual and acoustic sensory information recorded from the target environment and presented to the user on an immersive display.;SPMquot;
 	\begin<<43>>flushright<<43>>
 		\cite<<44>>6094998<<44>>
 	\end<<45>>flushright<<45>>
 \end<<46>>quotation<<46>>
-\begin<<190>>tex2html_deferred<<190>>\par\end<<191>>tex2html_deferred<<191>>
+\begin<<191>>tex2html_deferred<<191>>\par\end<<192>>tex2html_deferred<<192>>
 Augmented Reality (which is a branch of virtual reality (VR) technology) is a multifaceted topic that not only lends itself extremely well to telepresence applications but extends far beyond it. Here we will focus primarily on the intersection of the two ideas despite each existing independently of the other. Applications in this domain will not only use telepresence technologies to unite two remote locations, but they will use augmented reality techniques in order to make up for the loss in fidelity that occurs when we replace the user's natural environment with a virtual representation. Three sensory obstacles causing loss of information have been identified:
 \begin<<47>>quote<<47>>
-\begin<<192>>tex2html_deferred<<192>>\par\end<<193>>tex2html_deferred<<193>>
+\begin<<193>>tex2html_deferred<<193>>\par\end<<194>>tex2html_deferred<<194>>
 \begin<<48>>enumerate<<48>>
 		\item The detection of sensory signals
 		\item The feedback of real-time sensory information to the operator
@@ -78,11 +78,11 @@ Augmented Reality (which is a branch of virtual reality (VR) technology) is a mu
 		\cite<<51>>540147<<51>>
 	\end<<52>>flushright<<52>>
 \end<<53>>quote<<53>>
-\begin<<194>>tex2html_deferred<<194>>\par\end<<195>>tex2html_deferred<<195>>
+\begin<<195>>tex2html_deferred<<195>>\par\end<<196>>tex2html_deferred<<196>>
 It is important to note that this lack of fidelity is a huge obstacle to telepresence adoption. Why would I send an e-mail to somebody if I know I can call them directly? Why would I call them if they were available in person? In order to be useful, telepresence needs to solve a direct need. Typically, the following circumstances have allowed telepresence to improve our ability to interact, especially with the addition of telepresence robots:
-\begin<<196>>tex2html_deferred<<196>>\par\end<<197>>tex2html_deferred<<197>>
+\begin<<197>>tex2html_deferred<<197>>\par\end<<198>>tex2html_deferred<<198>>
 \begin<<54>>quote<<54>>
-\begin<<198>>tex2html_deferred<<198>>\par\end<<199>>tex2html_deferred<<199>>
+\begin<<199>>tex2html_deferred<<199>>\par\end<<200>>tex2html_deferred<<200>>
 \begin<<55>>enumerate<<55>>
 \item The robot must operate in environments that are hazardous to human health.
 \item The robot must operate at a scale that is much smaller or larger than the human size and scale.
@@ -92,123 +92,123 @@ It is important to note that this lack of fidelity is a huge obstacle to telepre
 		\cite<<58>>726589<<58>>
 	\end<<59>>flushright<<59>>
 \end<<60>>quote<<60>>
-\begin<<200>>tex2html_deferred<<200>>\par\end<<201>>tex2html_deferred<<201>>
+\begin<<201>>tex2html_deferred<<201>>\par\end<<202>>tex2html_deferred<<202>>
 \section<<61>>Emerging Mobile Technologies<<61>>
 As microchip density increases, so does the mobility of computational and processing devices. While PDA and hand held gaming devices have been around for decades, the advance of cellular networks which allow for on-the-go personal telecommunications and widely dispersed access to internet services has really driven the shape and design of the current generation of mobile devices.
-\begin<<202>>tex2html_deferred<<202>>\par\end<<203>>tex2html_deferred<<203>>
+\begin<<203>>tex2html_deferred<<203>>\par\end<<204>>tex2html_deferred<<204>>
 Smart phones and telecommunications aren't the only technology in this arena, but they are certainly the largest and most influential. Other devices to consider when discussing telepresence devices are lightweight microprocessors and system on a chip designs. These devices can allow industry and hobbiests alike to create a wide array of telepresence hardware that is capable of interacting with the environment around it on another's behalf. In this case, we are now less bound by strict computational limits and are now merely bound by the sensors, motors, and analog/digital conversions available to read from (and interact with) the environment around us.
-\begin<<204>>tex2html_deferred<<204>>\par\end<<205>>tex2html_deferred<<205>>
+\begin<<205>>tex2html_deferred<<205>>\par\end<<206>>tex2html_deferred<<206>>
 When we combine our new-found freedom to invent any sort of sensory device with our fully connected and always online 'internet of things', we can begin to explore and create all sorts of ideas that were inaccessible to the real-world and thus bound to the realm of fiction, futurism, and sci-fi.
 \iffalse
 \subsection<<62>>Microcontrollers \& customized System on a Chip Components<<62>>
-\begin<<206>>tex2html_deferred<<206>>\par\end<<207>>tex2html_deferred<<207>>
+\begin<<207>>tex2html_deferred<<207>>\par\end<<208>>tex2html_deferred<<208>>
 Microcontrollers have become the de-facto platform for lightweight, mobile, and miniaturized devices. Much of the power of microcontrollers has been achieved by clever specializations and optimizations of the CPU unit. By diverging from the Desktop model where raw power takes precedence over power consumption, there are now a variety of architectures and specialized components that are well-suited to mobility. In fact there is now a wide spectrum of hardware ranging from high performance to low power consumption. With server and desktop hardware on one end of the spectrum, we have recently expanded the power efficient end of the spectrum with a range of miniaturized ARM general-purpose CPUs capable of of supporting a general-purpose operating system and related peripheral components in an extremely small enclosure. To continue down the spectrum we depart from a traditional operating system and move towards programmable integrated circuits (PIC) and pure-hardware components which perform more specialized tasks using even less space and power.
-\begin<<208>>tex2html_deferred<<208>>\par\end<<209>>tex2html_deferred<<209>>
+\begin<<209>>tex2html_deferred<<209>>\par\end<<210>>tex2html_deferred<<210>>
 Because of this balance between portability and power, it is important to keep in mind the practical limitations on the applications a device can support. While a computationally demanding task such as image processing, we are unlikely to get satisfactory results with a PIC controller, yet the current generation of ARM controllers which are recently emerging are just beginning to practically handle these tasks, and this can be echoed by the libraries and toolkits developers have ported to the platforms. For example, there are now openCV ports on both the android and IOS platforms. This is a testament to their increasingly pervasive capabilities.
-\begin<<210>>tex2html_deferred<<210>>\par\end<<211>>tex2html_deferred<<211>>
+\begin<<211>>tex2html_deferred<<211>>\par\end<<212>>tex2html_deferred<<212>>
 An interesting idea to consider is delegation of the heavy processing to a more capable device. However, this strategy simply moves the problem from the computational I/O boundaries of the device towards the networking I/O boundaries. To achieve practical results, we can use a hybrid approach by allowing the device to pre-process the data (assuming such a pre-processing can reduce the size of the raw data, preferably an order of magnitude or more) before sending the derived result over the network to a more capable device.
-\begin<<212>>tex2html_deferred<<212>>\par\end<<213>>tex2html_deferred<<213>>
+\begin<<213>>tex2html_deferred<<213>>\par\end<<214>>tex2html_deferred<<214>>
 Moving from our internal capabilities towards our external interactivity, we are capable of hooking up a wide array of sensors, displays, and feedback devices. From motors to spectroscopy sensors to audio capture and processing (and many, many more) the possibilities are limited only by the fidelity/accuracy of the sensors around us and our own creativity.
-\begin<<214>>tex2html_deferred<<214>>\par\end<<215>>tex2html_deferred<<215>>
+\begin<<215>>tex2html_deferred<<215>>\par\end<<216>>tex2html_deferred<<216>>
 It begins to become clear that tele-robotics is not an idea that would lend itself to any situation. The reduction in fidelity we introduce by using a proxy or avatar robot is severe enough that we have only found successful use-cases in well-defined environments such as laboratories and factories where there are little or no unknown variables. Situations where there are people in close proximity to the robots are often too dangerous for the technology to be applied, and furthermore the decrease in the awareness a user would have with their remote surroundings makes the potential for interaction very limited.
-\begin<<216>>tex2html_deferred<<216>>\par\end<<217>>tex2html_deferred<<217>>
+\begin<<217>>tex2html_deferred<<217>>\par\end<<218>>tex2html_deferred<<218>>
 \cite<<63>>540147,6104414<<63>>
-\begin<<218>>tex2html_deferred<<218>>\par\end<<219>>tex2html_deferred<<219>>
+\begin<<219>>tex2html_deferred<<219>>\par\end<<220>>tex2html_deferred<<220>>
 The idea of presence fidelity can be considered a continuum. We can consider verbal descriptions and printed material on the low-fidelity end of the spectrum, while actual presence would be on the highest end. \cite<<64>>726589<<64>><tex2html_comment_mark>4
-\begin<<220>>tex2html_deferred<<220>>\par\end<<221>>tex2html_deferred<<221>>
+\begin<<221>>tex2html_deferred<<221>>\par\end<<222>>tex2html_deferred<<222>>
 \subsection<<65>>Cellular Phones \& Mobile Collaboration<<65>> When discussing mobile telepresence, the recent emergence of smart phones is undeniably the most important event to occur to date. In a learning environment they are indispensable for personal organization, time management, and real-time updates. It has been stated by others that they can now allow students to ''...be informed of all necessary notices, assignment deadlines and supervisor advices during their busy schedule''. In fact, ''Mobile education is defined ... as any service or facility that supplies a learner with general electronic information and educational content that aids in acquisition of knowledge regardless of location and time.'' \cite<<66>>4469080,6007847<<66>>
 \fi
 \section<<67>>Telepresence \& Real-Time Communications<<67>>
-\begin<<222>>tex2html_deferred<<222>>\par\end<<223>>tex2html_deferred<<223>>
+\begin<<223>>tex2html_deferred<<223>>\par\end<<224>>tex2html_deferred<<224>>
 The need to provide high fidelity information in real-time is the defining challenge of telepresence systems. Current telepresence infrastructure comes with restrictive limitations due to network latency and available throughput. These challenges have been met with several techniques such as lowering the fidelity rate transmitted, compressing the data in transit, and prioritizing which data is most relevant to the situation.
-\begin<<224>>tex2html_deferred<<224>>\par\end<<225>>tex2html_deferred<<225>>
+\begin<<225>>tex2html_deferred<<225>>\par\end<<226>>tex2html_deferred<<226>>
 \subsection<<68>>Audio/Video Compression<<68>>
-\begin<<226>>tex2html_deferred<<226>>\par\end<<227>>tex2html_deferred<<227>>
+\begin<<227>>tex2html_deferred<<227>>\par\end<<228>>tex2html_deferred<<228>>
 Within the context of mobile devices we need to consider not only the computational complexity and bandwidth consumption of video streaming, but the power consumption of the encoder as well.
 \cite<<69>>5054795<<69>>
 \subsection<<70>>Cellular Network Bandwidth Flow \& Optimization<<70>>
-\begin<<228>>tex2html_deferred<<228>>\par\end<<229>>tex2html_deferred<<229>>
+\begin<<229>>tex2html_deferred<<229>>\par\end<<230>>tex2html_deferred<<230>>
 Network traffic can be prioritized using QoS (Quality of Service) classification. By prioritizing traffic types into real-time and non-real-time categories we can decrease the average latency on timing-critical services. By extending these concepts and including cooperative game theory strategies (by exploring Nash Bargaining Systems). A game theory strategy can be broken down into three components: Players, Strategies, and Interactions (or game utilities). If we can determine a metric for success in the context of each player, than we can create strategies which each player can use to interact with the system in a way which optimizes the collective success of all the players. Applied to bandwidth optimization, each network device is a player which utilizes a strategy for sharing the limited resources of the network.
-\begin<<230>>tex2html_deferred<<230>>\par\end<<231>>tex2html_deferred<<231>>
+\begin<<231>>tex2html_deferred<<231>>\par\end<<232>>tex2html_deferred<<232>>
 The trend among wireless networks is an increased number of cells over smaller and smaller areas serving users. By reducing this cell size, we introduce an increased number of hand offs when the user is mobile. When a user passes from the range of one operator to the next, this hand-off should not interrupt the user's communication. Because of this, our QoS strategies should include a percentage of bandwidth reserved for hand-off services. 
-\begin<<232>>tex2html_deferred<<232>>\par\end<<233>>tex2html_deferred<<233>>
+\begin<<233>>tex2html_deferred<<233>>\par\end<<234>>tex2html_deferred<<234>>
 With many different use-cases and bandwidth categories our goal is to create a strategy which optimizes the usability of all devices on the network. By ordering our bandwidth categories by highest to lowest priority we can allocate each users traffic into their respective categories while also dynamically adjusting the maximum flow of each category to reflect (as well as prioritize) the immediate demand in real-time
 \cite<<71>>5710522,1300874,1376696<<71>>
 \subsection<<72>>Security<<72>>
-\begin<<234>>tex2html_deferred<<234>>\par\end<<235>>tex2html_deferred<<235>>
+\begin<<235>>tex2html_deferred<<235>>\par\end<<236>>tex2html_deferred<<236>>
 As telepresence technology matures, we will find ourselves relying on it in many new ways. The amount of information each device will be capable of collecting from our every day lives underscores the importance of security policies and data management. We may, for instance, be comfortable sharing a live video stream with a friend, yet that same video stream may reveal information about our location or activities which we would not want to share with others. The need for confidentiality is important to both individuals as well as businesses and institutions.
-\begin<<236>>tex2html_deferred<<236>>\par\end<<237>>tex2html_deferred<<237>>
+\begin<<237>>tex2html_deferred<<237>>\par\end<<238>>tex2html_deferred<<238>>
 To address these circumstances, access policies must be put into place. The use-cases for these access policies can be quite diverse, and any proposed system must properly address them all in order to be widely accepted. For instance, if I have a telepresence system at home it would be reasonable to allow my own cellular device to view my house at any time. However, another user trying to view my home environment should be denied access unless I have explicitly granted it to them. Once their session has ended, their access should again be revoked.
-\begin<<238>>tex2html_deferred<<238>>\par\end<<239>>tex2html_deferred<<239>>
+\begin<<239>>tex2html_deferred<<239>>\par\end<<240>>tex2html_deferred<<240>>
 In access control systems, the concept of groups is not new. However, in telepresence systems groups apply to more than just users, they apply to the devices as well. If I have two or more telepresence devices in my home or an organization, I should be able to facilitate another user to view from either environment (and even switch between seamlessly) for the duration of their session. In this way, the remote user is less constrained by the software and can have the flexibility of interacting wherever the hardware allows.
-\begin<<240>>tex2html_deferred<<240>>\par\end<<241>>tex2html_deferred<<241>>
+\begin<<241>>tex2html_deferred<<241>>\par\end<<242>>tex2html_deferred<<242>>
 So far we have used the term 'session' in two different scenarios, but have left the details a little vague. A session may not be limited to a series of sequential actions with one agent as in the traditional sense of the word. A session can move beyond the hardware it was created on and travel across several telepresence devices in a group.
-\begin<<242>>tex2html_deferred<<242>>\par\end<<243>>tex2html_deferred<<243>>
+\begin<<243>>tex2html_deferred<<243>>\par\end<<244>>tex2html_deferred<<244>>
 The access control should be aware of other variables, such as time and geo-location. This allows for much more dynamic and easily defined roles.
-\begin<<244>>tex2html_deferred<<244>>\par\end<<245>>tex2html_deferred<<245>>
+\begin<<245>>tex2html_deferred<<245>>\par\end<<246>>tex2html_deferred<<246>>
 Now that we've provided a background on our improved access control model, we can come up with some use-cases to describe how this control system should work.
 	\begin<<73>>enumerate<<73>>
 		\item Trigger Duration 6:00PM to 8:00PM - Allow All in User Group: Family Access to Device Group: MyHousehold
 		\item Trigger Location Office And Trigger Duration 9:00AM to 5:00PM - Allow All in User Group: Peers Access to Device MyPhone
 		\item Trigger Duration 5:00PM to 10:00PM - Allow All in User Group: Friends Request Device Group: MyHousehold
 	\end<<74>>enumerate<<74>>
-\begin<<246>>tex2html_deferred<<246>>\par\end<<247>>tex2html_deferred<<247>>
+\begin<<247>>tex2html_deferred<<247>>\par\end<<248>>tex2html_deferred<<248>>
 The first item states that anyone in the 'family' group can access my household telepresence devices freely for a short duration after dinner. The second states that my work peers can instantly appear on my phone at their own discretion when I am at the office during working hours. The third states that friends can call me between 5 and 10 PM, but I must answer for them to connect.
-\begin<<248>>tex2html_deferred<<248>>\par\end<<249>>tex2html_deferred<<249>>
+\begin<<249>>tex2html_deferred<<249>>\par\end<<250>>tex2html_deferred<<250>>
 \subsection<<75>>Privacy<<75>>
-\begin<<250>>tex2html_deferred<<250>>\par\end<<251>>tex2html_deferred<<251>>
+\begin<<251>>tex2html_deferred<<251>>\par\end<<252>>tex2html_deferred<<252>>
 Encrypting live video streams is computationally expensive. Because of this, there is a trade off between bit rate and security that must be addressed. On one hand, we want to be reasonably confident that our communications are not being intercepted. On the other hand, we want the highest quality video and the longest use of our mobile device batteries. There is much to be gained by exploring this continuum, as well as the possibility of selective encryption to hide only the most sensitive data.
 \cite<<76>>6550384<<76>>
-\begin<<252>>tex2html_deferred<<252>>\par\end<<253>>tex2html_deferred<<253>>
+\begin<<253>>tex2html_deferred<<253>>\par\end<<254>>tex2html_deferred<<254>>
 With the advent of Location Based Services (LBS) it is becoming increasingly difficult to control the extent in which a users locational information is used. Mix networks use short-term psudo-anonymous names to mask the identities of participants. With this mechanism, it becomes much more difficult for an adversary to correlate which actions in the system were performed by which users of the system. Since mix networks leverage multiple proxy servers to achieve anonymity, this is going to cause a tremendous spike in latency and bandwidth utilization.
 \cite<<77>>6270872,freudiger2007mix,1032602<<77>>
-\begin<<254>>tex2html_deferred<<254>>\par\end<<255>>tex2html_deferred<<255>>
+\begin<<255>>tex2html_deferred<<255>>\par\end<<256>>tex2html_deferred<<256>>
 The ubiquity of cameras and CCTV devices along with the proliferation of digital signal processors and facial tracking techniques are making the collection and centralization of user activities increasingly simple. Proposed countermeasures include using DSP techniques to selectively scramble identifying information such as license plates and faces to preserve user privacy, however these techniques rely on the cooperation of the surveillance administrators as well as the addition of costly components to the surveillance system. Currently the only countermeasure users have to prevent privacy intrusion is to opt-out of an otherwise useful service. In many cases such as public CCTV opting out is difficult if not entirely impossible.
 \cite<<78>>4117949,6597703<<78>>
-\begin<<256>>tex2html_deferred<<256>>\par\end<<257>>tex2html_deferred<<257>>
+\begin<<257>>tex2html_deferred<<257>>\par\end<<258>>tex2html_deferred<<258>>
 Efforts to create a system which allows for users and even objects (in the case of license plates and sensitive documents) to register a preference for privacy and be 'scrubbed' from any published video have been explored. This does, however, require the cooperation of video producers and publishers by running their video through a central 'privacy scrubbing' service in a process that is comparable to a telemarketing 'do-not-call' list. While there is no technical reason preventing people from ignoring the video scrubbing process, publishers could be subjected to social and legal pressure to respect the privacy preference of others.
-\begin<<258>>tex2html_deferred<<258>>\par\end<<259>>tex2html_deferred<<259>>
+\begin<<259>>tex2html_deferred<<259>>\par\end<<260>>tex2html_deferred<<260>>
 Ironically, the need for users to identify their privacy preference as well as their timestamped location into the central database dictates that they must give up their locational privacy in order to preserve their video privacy.
 \cite<<79>>1420259<<79>>
-\begin<<260>>tex2html_deferred<<260>>\par\end<<261>>tex2html_deferred<<261>>
+\begin<<261>>tex2html_deferred<<261>>\par\end<<262>>tex2html_deferred<<262>>
 I propose that with additional countermeasures, the location of a user wishing to remain anonymous can be effectively verified while their identity remains a secret, provided several non-anonymous users whom the central privacy authority trusts each independently verifies the locational claim of the anonymous user via radio signal triangulation. In this way, the anonymous user can verify their location at a particular time without revealing any digital fingerprint or certificate to other nodes in the network including the central database.
 \subsection<<80>>Cloud Based Assisted Technologies<<80>>
-\begin<<262>>tex2html_deferred<<262>>\par\end<<263>>tex2html_deferred<<263>>
+\begin<<263>>tex2html_deferred<<263>>\par\end<<264>>tex2html_deferred<<264>>
 With the advance of internet connectivity, it is rare that modern mobile cellular devices are off line. If we are constantly in communication by means of a global (universal) IP address, It follows that we can achieve two things which we previously could not. 
-\begin<<264>>tex2html_deferred<<264>>\par\end<<265>>tex2html_deferred<<265>>
+\begin<<265>>tex2html_deferred<<265>>\par\end<<266>>tex2html_deferred<<266>>
 First, we can synchronize our local data with the data of others in real-time. This lends itself to instant news aggregation, social media, e-mail, instant messaging, and even VoIP technologies. This is not in itself extremely surprising as these features have existed in the scope of the desktop application since the dawn of always on high-speed broadband connections, but the ability to bring this to a widely distributed array of mobile devices brings the connectivity of our society (and the speed of information travel as a result) to an all new level.
-\begin<<266>>tex2html_deferred<<266>>\par\end<<267>>tex2html_deferred<<267>>
+\begin<<267>>tex2html_deferred<<267>>\par\end<<268>>tex2html_deferred<<268>>
 Second, we can now outsource services which are not desired or capable of running on the mobile device to another computer. While this is typically (as of yet) a cloud service provider's machine, it is reasonable to consider that over time software will develop which allows users to host their own content from a simple always-on home computer which serves as a personal hub for content including but not limited to public social media, geo-secure proxy access, private home surveillance, and data storage. By using strict private/public tags, and 'group' authentication on a server's data as well as RSS-style content aggregators, it should be possible to design a decentralized 'home cloud' service which can serve many useful purposes to a mobile user in the field.
 \iffalse
 \section<<81>>Digital Identification and Modeling<<81>>
-\begin<<268>>tex2html_deferred<<268>>\par\end<<269>>tex2html_deferred<<269>>
+\begin<<269>>tex2html_deferred<<269>>\par\end<<270>>tex2html_deferred<<270>>
 As our current trend of miniaturized mobile networked devices continues, the ability to stream high definition real-time media from many simple cellular devices is beginning to unfold. With higher quality cameras emerging in consumer devices as well as faster network connectivity emerging in the forms of 3G and 4G telecommunication services it is completely feasible (even today) to use two phones to achieve a long distance video conversation.
-\begin<<270>>tex2html_deferred<<270>>\par\end<<271>>tex2html_deferred<<271>>
+\begin<<271>>tex2html_deferred<<271>>\par\end<<272>>tex2html_deferred<<272>>
 It is interesting to consider that if we can stream enough information between two points to effectively allow a user to 'see' and 'hear' what is in another location, then theoretically speaking we must have processed and moved (via the VoIP phone system) enough information about the two locations to effectively understand (to the same degree the two communicating people were capable) what is happening at each of the locations. We as humans don't think about the image processing we do on a daily basis. We take for granted the fact that, somewhere between the rods and cones of our eyes and the high-level understanding we have of our surroundings, a lot of information was processed, stored, and acted upon.
-\begin<<272>>tex2html_deferred<<272>>\par\end<<273>>tex2html_deferred<<273>>
+\begin<<273>>tex2html_deferred<<273>>\par\end<<274>>tex2html_deferred<<274>>
 While the topic of Artificial Intelligence and Computer Vision is far from bridging this gap, impressive results have been found by re-thinking the ways we can facilitate enhanced modelling and identification techniques.
-\begin<<274>>tex2html_deferred<<274>>\par\end<<275>>tex2html_deferred<<275>>
+\begin<<275>>tex2html_deferred<<275>>\par\end<<276>>tex2html_deferred<<276>>
 \subsection<<82>>Bar Codes \& QR Codes<<82>>
 QR codes (or two-dimensional bar codes) can reference nearly anything. Ranging in size from 25x25 to 177x177, they are most often used to redirect a user to a URL containing anything from videos to product info to social media content \cite<<83>>6182398<<83>>
 Basic compression is done using run-length coding, where sequences of identical values are replaced with a single instance of that value followed by the repetition count. \cite<<84>>6182398<<84>>
 \subsection<<85>>RFID; NFC<<85>>
 \cite<<86>>5340296<<86>>
 \subsection<<87>>Real-Time Digital Modeling<<87>>
-\begin<<276>>tex2html_deferred<<276>>\par\end<<277>>tex2html_deferred<<277>>
+\begin<<277>>tex2html_deferred<<277>>\par\end<<278>>tex2html_deferred<<278>>
 \subsubsection<<88>>Triangulation \& Accelerometer based Orientated Positioning<<88>>
-\begin<<278>>tex2html_deferred<<278>>\par\end<<279>>tex2html_deferred<<279>>
+\begin<<279>>tex2html_deferred<<279>>\par\end<<280>>tex2html_deferred<<280>>
 If many radio-enabled devices (whether via wifi, bluetooth, gps, or other means) are within communication range, it is possible to use time-synchronized signals to triangulate the positions of the devices with respect to each other. If any of these devices were equipped with a GPS, it could communicate this information and allow neighbors to take their local position data (respective to each other) and place them globally.
-\begin<<280>>tex2html_deferred<<280>>\par\end<<281>>tex2html_deferred<<281>>
+\begin<<281>>tex2html_deferred<<281>>\par\end<<282>>tex2html_deferred<<282>>
 If any of these devices were equipped with an accelerometer and a camera, it is theoretically possible to calculate a position and orientation vector for the camera, effectively letting the device give extremely precise descriptions of what region of space is being recorded. This information (spatial meta-data, as well as the raw audio/video data) can be combined with other similar information from the region in order to provide high-fidelity reconstructions of recorded events. This information can be further augmented by other sensory input such as spectroscopes, depth-sensors, and environment monitors.
-\begin<<282>>tex2html_deferred<<282>>\par\end<<283>>tex2html_deferred<<283>>
+\begin<<283>>tex2html_deferred<<283>>\par\end<<284>>tex2html_deferred<<284>>
 Time-synchronization techniques are limited by the sample speed of the measuring apparatus' clock. Determining distance by means of the received signal strength do not require a clock, however the distance cannot be deduced from the signal strength alone without a calibration phase which takes into account the variance of each device's radio signal.
-\begin<<284>>tex2html_deferred<<284>>\par\end<<285>>tex2html_deferred<<285>>
+\begin<<285>>tex2html_deferred<<285>>\par\end<<286>>tex2html_deferred<<286>>
 \subsubsection<<89>>Stitching Multiple Images Together<<89>>
 In cases where images are not aligned, unwanted artifacts can be produced. Color and lighting inconsistencies can also be introduced which would create an unbalanced effect. A lack of references and identifiable control points can also make it difficult to correctly position image fragments. \cite<<90>>4359344,5397590<<90>>
-\begin<<286>>tex2html_deferred<<286>>\par\end<<287>>tex2html_deferred<<287>>
+\begin<<287>>tex2html_deferred<<287>>\par\end<<288>>tex2html_deferred<<288>>
 \subsubsection<<91>>Depth Maps for 3D Imaging<<91>>
 Depth imaging techniques have only previously existed in costly special-purpose applications. With the spread of large-scale production on Time-Of-Flight sensors (specifically, the Microsoft Kinect) the accessibility and spread of these devices has grown considerably. Time-Of-Flight technology involves measuring the delay between sending and receiving an infrared signal. With this information, triangulation techniques can be used to measure the depth between the device and the target. 
-\begin<<288>>tex2html_deferred<<288>>\par\end<<289>>tex2html_deferred<<289>>
+\begin<<289>>tex2html_deferred<<289>>\par\end<<290>>tex2html_deferred<<290>>
 These devices have been designed with object recognition in mind and are not particularly suited for 3D scanning applications. Low resolution and a large amount of noise are certainly factors when re-purposing these technologies for scanning\cite<<92>>6296662<<92>> 
 \subsection<<93>>Image Recognition and Classification<<93>>
 Image recognition is a complex problem often approached with a neural network model or similar fuzzy categorical organizer. If RGB information is augmented with depth information we can achieve much better results than if we were to rely on RGB information alone.
@@ -217,154 +217,155 @@ Image recognition is a complex problem often approached with a neural network mo
 \subsubsection<<96>>Improved Accuracy Through Domain-Specific Environments<<96>>
 telepresence surgery model - live data can be collected, then used to simulate the procedure virtually. 
 This effectively allows us to generate training programs which are extremely accurate within the domain of the live collected data.
-\begin<<290>>tex2html_deferred<<290>>\par\end<<291>>tex2html_deferred<<291>>
+\begin<<291>>tex2html_deferred<<291>>\par\end<<292>>tex2html_deferred<<292>>
 Imagine a doctor in front of device operates instrumentation which performs surgery on a remote patient.
 instrumentation includes a wide variety of I/O (controls and sensory output via microphone, video, and even tactic feedback)
 Assume access to highly detailed descriptions of our I/O over the duration of many operations (live experience captures)
 The challenge is to make a virtual model of the operating procedure in which the doctor can interact with a virtual patient in a way which is synonymous with the standard interactions they would encounter with a live patient.
-\begin<<292>>tex2html_deferred<<292>>\par\end<<293>>tex2html_deferred<<293>>
+\begin<<293>>tex2html_deferred<<293>>\par\end<<294>>tex2html_deferred<<294>>
 The challenge is considered 'solved' when the doctor cannot differentiate between a live patient telepresence experience and a simulated patient telepresence experience
 I call this challenge the ;SPMquot;Telepresence Turing Test;SPMquot;, and it can be applied to any activity or domain in which telepresence can augment.
-\begin<<294>>tex2html_deferred<<294>>\par\end<<295>>tex2html_deferred<<295>>
+\begin<<295>>tex2html_deferred<<295>>\par\end<<296>>tex2html_deferred<<296>>
 This challenge has a few interesting unknowns.
-\begin<<296>>tex2html_deferred<<296>>\par\end<<297>>tex2html_deferred<<297>>
+\begin<<297>>tex2html_deferred<<297>>\par\end<<298>>tex2html_deferred<<298>>
 How 'synonymous' with live data can we realistically make the experience?
-\begin<<298>>tex2html_deferred<<298>>\par\end<<299>>tex2html_deferred<<299>>
+\begin<<299>>tex2html_deferred<<299>>\par\end<<300>>tex2html_deferred<<300>>
 What are the most important factors we need to capture in our training data? What instrumentation can best capture those factors?
-\begin<<300>>tex2html_deferred<<300>>\par\end<<301>>tex2html_deferred<<301>>
+\begin<<301>>tex2html_deferred<<301>>\par\end<<302>>tex2html_deferred<<302>>
 From the training data (live experience captures), how can we best create and improve upon a simulation model?\cite<<97>>391769<<97>> 
 \fi
 \section<<98>>Identifying the Major Elements for a Lightweight Mobile Telepresence System<<98>>
-\begin<<302>>tex2html_deferred<<302>>\par\end<<303>>tex2html_deferred<<303>>
+\begin<<303>>tex2html_deferred<<303>>\par\end<<304>>tex2html_deferred<<304>>
 Lightweight mobile telepresence systems is a rapidly-evolving concept. Traditionally we have been bound by heavy and cumbersome desktop hardware, high-latency, and low network throughput. As these barriers have been reduced and removed, we have begun to redefine what it means to be connected.
-\begin<<304>>tex2html_deferred<<304>>\par\end<<305>>tex2html_deferred<<305>>
+\begin<<305>>tex2html_deferred<<305>>\par\end<<306>>tex2html_deferred<<306>>
 Always-Available network communication
-\begin<<306>>tex2html_deferred<<306>>\par\end<<307>>tex2html_deferred<<307>>
+\begin<<307>>tex2html_deferred<<307>>\par\end<<308>>tex2html_deferred<<308>>
 Real-Time video streaming
-\begin<<308>>tex2html_deferred<<308>>\par\end<<309>>tex2html_deferred<<309>>
+\begin<<309>>tex2html_deferred<<309>>\par\end<<310>>tex2html_deferred<<310>>
 Geolocational services
-\begin<<310>>tex2html_deferred<<310>>\par\end<<311>>tex2html_deferred<<311>>
+\begin<<311>>tex2html_deferred<<311>>\par\end<<312>>tex2html_deferred<<312>>
 Screen sharing (also useful for remote presentation)
-\begin<<312>>tex2html_deferred<<312>>\par\end<<313>>tex2html_deferred<<313>>
+\begin<<313>>tex2html_deferred<<313>>\par\end<<314>>tex2html_deferred<<314>>
 File sharing (p2p for reducing infrastructure and bottle necks)
-\begin<<314>>tex2html_deferred<<314>>\par\end<<315>>tex2html_deferred<<315>>
+\begin<<315>>tex2html_deferred<<315>>\par\end<<316>>tex2html_deferred<<316>>
 User/Group management and authentication
-\begin<<316>>tex2html_deferred<<316>>\par\end<<317>>tex2html_deferred<<317>>
+\begin<<317>>tex2html_deferred<<317>>\par\end<<318>>tex2html_deferred<<318>>
 \section<<99>>Summary<<99>>
-\begin<<318>>tex2html_deferred<<318>>\par\end<<319>>tex2html_deferred<<319>>
+\begin<<319>>tex2html_deferred<<319>>\par\end<<320>>tex2html_deferred<<320>>
 In conclusion, we are capable of much more than what is currently offered in terms of increasing the fidelity of our telepresence systems. On top of the increase in raw information storage capabilities, improvements in sensors as well as interactive peripherals have reshaped the way we use technology. If current trends continue we will soon find ourselves in a high density and highly distributed network of miniature devices, both as stand alone technologies (such as currently emerging smart phones) as well as embedded into every day consumer objects (as is the case with RFID tagging, QR coded items, and micro-controller enabled electronics). With this emerging paradigm it becomes much easier for computers to identify and process the objects around them, leading the way to many new modelling and digitizing techniques.
-\begin<<320>>tex2html_deferred<<320>>\par\end<<321>>tex2html_deferred<<321>>
+\begin<<321>>tex2html_deferred<<321>>\par\end<<322>>tex2html_deferred<<322>>
 \chapter<<100>>Designing OTA Mobile Telepresence Services<<100>>
 \section<<101>>Overview<<101>>
 \includegraphics[width=16cm]<<102>>NetworkModules<<102>>
 \includegraphics[width=16cm]<<103>>WidgetStructure<<103>>
-\section<<104>>Authentication Server<<104>>
+\includegraphics[width=16cm]<<104>>AuthServerOverview<<104>>
+\section<<105>>Authentication Server<<105>>
 The authentication server is in charge of identifying and connecting users. When a user connects to the website, a websocket connection is made between the authentication server and the client. Along with this connection a session ID is provided which we can use to identify the user over multiple transactions. When a user logs in, this session ID is coupled to their user name and marked as an active session. This allows other users to identify the user as online, as the session ID can be decoupled from the user name the moment the socket connection is closed.
-\section<<105>>Server Side Command Dispatcher<<105>>
+\section<<106>>Server Side Command Dispatcher<<106>>
 The authentication server receives data from the user in a 3-tuple form: ;SPMlt;sender, command, args;SPMgt;. The sender includes detailed information about the request origin. Not only are the user credentials included, but also which of the client application widgets made the request. This is to allow us to create a return route for the request. The command field is the name of the function we wish to invoke, and the args field is an array of arguments to pass to the function. The commands for authentication have been kept intentionally simple, consisting of operations to sign up, log in, and request contacts. 
-\section<<106>>Server Side RESTful Model<<106>>
+\section<<107>>Server Side RESTful Model<<107>>
 The authentication server works as a simple RESTful model. RESTful operations are primarily invoked from the server side command dispatcher which houses the business logic of the application. Our RESTful API only consists of four commands: 'create', 'read', 'update', and 'delete'. The user name of the client invoking the request is also included, allowing us to create permissive rules to limit who can access or modify groups of data.
-\section<<107>>Client Side Command Dispatcher<<107>>
+\section<<108>>Client Side Command Dispatcher<<108>>
 The client side command dispatcher is broken down into multiple parts. Commands may be launched from external sources such as the authentication server (eg. Describing bad log in credentials, or supplying a list of online users) or a P2P connection (such as a remote user initiating a call). Commands may also be launched from the clients web GUI.
-\begin<<322>>tex2html_deferred<<322>>\par\end<<323>>tex2html_deferred<<323>>
+\begin<<323>>tex2html_deferred<<323>>\par\end<<324>>tex2html_deferred<<324>>
 Each client widget has it's own command API, and the application has naming and routing mechanisms to relay commands from these various sources to the appropriate widget. The widget then handles the command however it pleases.
-\section<<108>>Client Side Widget Factory<<108>>
+\section<<109>>Client Side Widget Factory<<109>>
 As the list of client side widgets grow, the widget factory serves as a way to create and register new widgets. The widget factory is in charge of creating unique names for each widget for message routing.
-\section<<109>>Client Side Widget Structure<<109>>
+\section<<110>>Client Side Widget Structure<<110>>
 Each widget should be contain a function called 'widget' which will be invoked when the client creates a new widget instance. As input, we pass in any external dependencies the widget requires. This function is in charge of initializing the widget, building the widgets DOM and layout, as well as defining the external API the widget provides.
-\section<<110>>P2P Connection<<110>>
+\section<<111>>P2P Connection<<111>>
 A key component of this application will be the P2P widget. The P2P widget will be in charge of facilitating P2P connections with other users. Through this connection, users will be able to share VoIP communications, screencasts, and share files. The P2P connection will be in charge of connectivity, P2P routing, as well as stopping/starting telepresence calls.
-\section<<111>>Goals<<111>>
-\begin<<324>>tex2html_deferred<<324>>\par\end<<325>>tex2html_deferred<<325>>
+\section<<112>>Goals<<112>>
+\begin<<325>>tex2html_deferred<<325>>\par\end<<326>>tex2html_deferred<<326>>
 In order to improve on current telepresence technologies, we must revisit the main sensory obstacles in telepresence interaction and modify our implementations in a way that reduces such obstacles. To reiterate, these obstacles are:
-	\begin<<112>>enumerate<<112>>
+	\begin<<113>>enumerate<<113>>
 		\item The detection of sensory signals
 		\item The feedback of real-time sensory information to the operator
 		\item The presentation of this information in a form that can be easily detected, processed by the brain as a reflex action and responded to, since an excessive need for thought would detract from performance of the primary task.
-	\end<<113>>enumerate<<113>>
-	\begin<<114>>flushright<<114>>
-		\cite<<115>>540147<<115>>
-	\end<<116>>flushright<<116>>
-\begin<<326>>tex2html_deferred<<326>>\par\end<<327>>tex2html_deferred<<327>>
+	\end<<114>>enumerate<<114>>
+	\begin<<115>>flushright<<115>>
+		\cite<<116>>540147<<116>>
+	\end<<117>>flushright<<117>>
+\begin<<327>>tex2html_deferred<<327>>\par\end<<328>>tex2html_deferred<<328>>
 The goal of this project is to create a system which automates and facilitates the above in a helpful and intuitive way via data augmentation of the live stream. These three points will each be addressed individually by it's own software module placed between the telepresence device and the user's device.
-\begin<<328>>tex2html_deferred<<328>>\par\end<<329>>tex2html_deferred<<329>>
+\begin<<329>>tex2html_deferred<<329>>\par\end<<330>>tex2html_deferred<<330>>
 A good example would be to recognize and highlight a QR code should one come into the visual frame. The users options could be as simple as 'open URL in browser' or 'ignore'.
-\begin<<330>>tex2html_deferred<<330>>\par\end<<331>>tex2html_deferred<<331>>
+\begin<<331>>tex2html_deferred<<331>>\par\end<<332>>tex2html_deferred<<332>>
 A second example would be to alert the user when a presenter has entered the frame after a lengthy absence.
-\begin<<332>>tex2html_deferred<<332>>\par\end<<333>>tex2html_deferred<<333>>
+\begin<<333>>tex2html_deferred<<333>>\par\end<<334>>tex2html_deferred<<334>>
 Finally, if a group of two or more people collaborate to make a 'digital audience', tags, notes, and comments can be passed among audience members in real time. For example, if the professor leaves a particularly difficult equation on the board, audience members could be enabled to directly click on the location of the equation within the video in question and communicate their interest in a real time collaborative way. This information can be saved along with the video for the professors review at a later time.
-\begin<<334>>tex2html_deferred<<334>>\par\end<<335>>tex2html_deferred<<335>>
-\section<<117>>Assumptions<<117>>
-\begin<<336>>tex2html_deferred<<336>>\par\end<<337>>tex2html_deferred<<337>>
+\begin<<335>>tex2html_deferred<<335>>\par\end<<336>>tex2html_deferred<<336>>
+\section<<118>>Assumptions<<118>>
+\begin<<337>>tex2html_deferred<<337>>\par\end<<338>>tex2html_deferred<<338>>
 There are a wide variety of telepresence devices available, each with it's own features and limitations. This project will focus on the most common telepresence software available, which is the modern smart phone. We can assume that the telepresence device will come equipped with a camera and a microphone, as well as a wireless network connection capable of simultaneously transmitting and receiving audio/video data with latency low enough to qualify for 'real-time communication'. If required, benchmarks and data may later be supplied to demonstrate that this is indeed a common feature of modern hardware.
-\begin<<338>>tex2html_deferred<<338>>\par\end<<339>>tex2html_deferred<<339>>
-\section<<118>>Design<<118>>
-\begin<<340>>tex2html_deferred<<340>>\par\end<<341>>tex2html_deferred<<341>>
+\begin<<339>>tex2html_deferred<<339>>\par\end<<340>>tex2html_deferred<<340>>
+\section<<119>>Design<<119>>
+\begin<<341>>tex2html_deferred<<341>>\par\end<<342>>tex2html_deferred<<342>>
 In order to achieve our goals, the approach I intend to take involves scanning the raw telepresence data between clients in order to parse and extract some of the high level information out of it. If we can automate the detection of useful signals, gestures, queues, and events in the raw audio/video data, we can highlight and emphasize this information to the user. Furthermore, if the signals we parse can be responded with by a minimal subset of actions we are entirely capable of supplying these options in real-time and allowing the user to quickly decide how they choose to respond.
-\begin<<342>>tex2html_deferred<<342>>\par\end<<343>>tex2html_deferred<<343>>
+\begin<<343>>tex2html_deferred<<343>>\par\end<<344>>tex2html_deferred<<344>>
 If the mobile telepresence devices which collect and transmit the raw audio/video data are most likely to be modern smart phones, than we would be wise to treat these devices as thin clients in the sense that their purpose is limited to data collection and user interaction. The heavy processing involved with computer vision over large streams of image matrices would quickly overwhelm such devices.
-\begin<<344>>tex2html_deferred<<344>>\par\end<<345>>tex2html_deferred<<345>>
+\begin<<345>>tex2html_deferred<<345>>\par\end<<346>>tex2html_deferred<<346>>
 Because of this limitation I plan on deploying a cloud server which intercepts the data streams between clients in order to process the large amounts of raw data. This cloud will also store the streams and act as a database of past transmissions along with all the key meta-data we accumulate through our processing techniques.
-\begin<<346>>tex2html_deferred<<346>>\par\end<<347>>tex2html_deferred<<347>>
-\section<<119>>Networking<<119>>
-\begin<<348>>tex2html_deferred<<348>>\par\end<<349>>tex2html_deferred<<349>>
-\includegraphics[width=12cm]<<120>>overview<<120>>
-	\subsection<<121>>NAT traversal<<121>>
+\begin<<347>>tex2html_deferred<<347>>\par\end<<348>>tex2html_deferred<<348>>
+\section<<120>>Networking<<120>>
+\begin<<349>>tex2html_deferred<<349>>\par\end<<350>>tex2html_deferred<<350>>
+\includegraphics[width=12cm]<<121>>overview<<121>>
+	\subsection<<122>>NAT traversal<<122>>
 		(Graph to be completed soon)
-		\includegraphics[width=12cm]<<122>>networkModel<<122>>
-	\subsection<<123>>I/O Limitations<<123>>
-\begin<<350>>tex2html_deferred<<350>>\par\end<<351>>tex2html_deferred<<351>>
+		\includegraphics[width=12cm]<<123>>networkModel<<123>>
+	\subsection<<124>>I/O Limitations<<124>>
+\begin<<351>>tex2html_deferred<<351>>\par\end<<352>>tex2html_deferred<<352>>
 The hardware needed to deploy such a system requires high bandwidth and low latency. The proxy characteristics of the proposed computer vision cloud server will negatively effect latency, but should be appropriate for live communications in most cases.
-\begin<<352>>tex2html_deferred<<352>>\par\end<<353>>tex2html_deferred<<353>>
+\begin<<353>>tex2html_deferred<<353>>\par\end<<354>>tex2html_deferred<<354>>
 While I suspect treating the mobile end-point devices as a thin client (by offloading the live signal processing to a cloud server) is an obvious gain, the increased latency of adding a proxy server could theoretically be measured against the reduced computational power of the smart phone devices with respect to computer vision processing. For bandwidth reduction, a hybrid approach can be imagined in which the visual stream is pre-processed on site and only the derivative data is sent to the server directly, however this leaves the server without raw video data which would force the users to result to more contrived and elaborate means of seeing the presenters environment.
-\begin<<354>>tex2html_deferred<<354>>\par\end<<355>>tex2html_deferred<<355>>
+\begin<<355>>tex2html_deferred<<355>>\par\end<<356>>tex2html_deferred<<356>>
 In the situation where large groups of users wish to view a single location at the same time, it is increasingly likely that the host cannot serve the entire crowd at once. There are several ways to deal with this, the most obvious being that the host serves to one or more mirror sites which divide the user base amongst themselves. A more collaborative method would be to use the users as peer to peer mirrors, but the bandwidth available to the average peer could limit their outbound streaming ability past the point of usability.
-\begin<<356>>tex2html_deferred<<356>>\par\end<<357>>tex2html_deferred<<357>>
-\subsubsection<<124>>Optimizing Performance<<124>>
+\begin<<357>>tex2html_deferred<<357>>\par\end<<358>>tex2html_deferred<<358>>
+\subsubsection<<125>>Optimizing Performance<<125>>
 Using the above architecture, the cloud server receives live audio and video data from the presentation room and transmits it to each of the connected clients simultaneously. This data is further expanded with the augmented meta-data and communication between peers. A worthwhile study would include measuring the bandwidth this meta-data occupies, and deciding if there would be significant performance gains by offloading the task of relaying this information between peers to another device.
-\begin<<358>>tex2html_deferred<<358>>\par\end<<359>>tex2html_deferred<<359>>
+\begin<<359>>tex2html_deferred<<359>>\par\end<<360>>tex2html_deferred<<360>>
 Another consideration is which codec to use when compressing the audio and video data. Industry standards are heavily pushing the mpeg4 h264 codec, and after a brief overview I am inclined to agree with their methodology.
-\begin<<360>>tex2html_deferred<<360>>\par\end<<361>>tex2html_deferred<<361>>
+\begin<<361>>tex2html_deferred<<361>>\par\end<<362>>tex2html_deferred<<362>>
 Finally, the digital signal processing of the audio/video data on the server is certainly the most complex component of this project. The best technique to extract and process the incoming data is a vast and complex topic; One that is extremely circumstantial and unlikely to have a single clear-cut solution. Furthermore, the ability to accelerate real-time video data crunching via gpgpu and parallel techniques is extremely promising in an application such as this.
-\begin<<362>>tex2html_deferred<<362>>\par\end<<363>>tex2html_deferred<<363>>
-\subsection<<125>>Message Passing<<125>>
-\includegraphics[width=12cm]<<126>>blockDiagram<<126>>
-\begin<<364>>tex2html_deferred<<364>>\par\end<<365>>tex2html_deferred<<365>>
+\begin<<363>>tex2html_deferred<<363>>\par\end<<364>>tex2html_deferred<<364>>
+\subsection<<126>>Message Passing<<126>>
+\includegraphics[width=12cm]<<127>>blockDiagram<<127>>
+\begin<<365>>tex2html_deferred<<365>>\par\end<<366>>tex2html_deferred<<366>>
 Plenty of data needs to be transmitted through this system. Not only do we have the raw audio and video data, but we have to arrange a communication protocol which does at least two things. First, it needs to create and manage user sessions in a way that allows them to reliably connect to each other. Second, it needs to communicate the information we derive from each streaming session back to the user associated with the session.
-\begin<<366>>tex2html_deferred<<366>>\par\end<<367>>tex2html_deferred<<367>>
+\begin<<367>>tex2html_deferred<<367>>\par\end<<368>>tex2html_deferred<<368>>
 Because the two message passing use-cases are so mutually exclusive, it is entirely possible to divide the workload across two different servers; the first of which would handle authentication and user sessions and the second of which would be tasked with using visualization techniques on the streams and returning any results back to the users.
-		\subsubsection<<127>>Authentication<<127>>
+		\subsubsection<<128>>Authentication<<128>>
 			left,right,forward,backward
 			toggle mute
 			connect
-		\subsubsection<<128>>Visualization<<128>>
+		\subsubsection<<129>>Visualization<<129>>
 			audio
 			video
 			augmented overlay (another video stream)
-\begin<<368>>tex2html_deferred<<368>>\par\end<<369>>tex2html_deferred<<369>>
-\section<<129>>Digital Signal Processing<<129>>
-\includegraphics[width=12cm]<<130>>signalProcessing<<130>>
-\begin<<131>>itemize<<131>>
+\begin<<369>>tex2html_deferred<<369>>\par\end<<370>>tex2html_deferred<<370>>
+\section<<130>>Digital Signal Processing<<130>>
+\includegraphics[width=12cm]<<131>>signalProcessing<<131>>
+\begin<<132>>itemize<<132>>
 	\item computer vision module
 	\item raw video stream gathered from telepresence hardware
 	\item video analyzed using computer vision and pattern recognition (opencv)
 	\item client connected to this module will receive events via the audio/video analyzer
 	\item scripting language? HighGUI enough?
 	\item client can also potentially receive augmented audio/video data with the DSP module overlay
-\end<<132>>itemize<<132>>
-\begin<<370>>tex2html_deferred<<370>>\par\end<<371>>tex2html_deferred<<371>>
-\section<<133>>UI<<133>>
-\begin<<372>>tex2html_deferred<<372>>\par\end<<373>>tex2html_deferred<<373>>
-\includegraphics[width=16cm]<<134>>MobileGUI_Labeled<<134>>
-\begin<<374>>tex2html_deferred<<374>>\par\end<<375>>tex2html_deferred<<375>>
-\includegraphics[width=12cm]<<135>>MobileUI<<135>>
-\begin<<376>>tex2html_deferred<<376>>\par\end<<377>>tex2html_deferred<<377>>
-\chapter<<136>>Implementation Details<<136>>
-\section<<137>>Generic Video Capture<<137>>
-\section<<138>>Authentication<<138>>
-\section<<139>>Video Streaming<<139>>
-\section<<140>>QR Code reading<<140>>
-\section<<141>>Event Handlers<<141>>
-\bibliography<<142>>mastersthesis<<142>>
-\bibliographystyle<<143>>alpha<<143>>
-\end<<144>>document<<144>>
+\end<<133>>itemize<<133>>
+\begin<<371>>tex2html_deferred<<371>>\par\end<<372>>tex2html_deferred<<372>>
+\section<<134>>UI<<134>>
+\begin<<373>>tex2html_deferred<<373>>\par\end<<374>>tex2html_deferred<<374>>
+\includegraphics[width=16cm]<<135>>MobileGUI_Labeled<<135>>
+\begin<<375>>tex2html_deferred<<375>>\par\end<<376>>tex2html_deferred<<376>>
+\includegraphics[width=12cm]<<136>>MobileUI<<136>>
+\begin<<377>>tex2html_deferred<<377>>\par\end<<378>>tex2html_deferred<<378>>
+\chapter<<137>>Implementation Details<<137>>
+\section<<138>>Generic Video Capture<<138>>
+\section<<139>>Authentication<<139>>
+\section<<140>>Video Streaming<<140>>
+\section<<141>>QR Code reading<<141>>
+\section<<142>>Event Handlers<<142>>
+\bibliography<<143>>mastersthesis<<143>>
+\bibliographystyle<<144>>alpha<<144>>
+\end<<145>>document<<145>>

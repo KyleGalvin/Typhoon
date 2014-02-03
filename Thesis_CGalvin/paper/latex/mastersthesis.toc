@@ -11,22 +11,22 @@
 \contentsline {chapter}{\numberline {2}Designing OTA Mobile Telepresence Services}{12}{chapter.2}
 \contentsline {section}{\numberline {2.1}Overview}{13}{section.2.1}
 \contentsline {section}{\numberline {2.2}Authentication Server}{14}{section.2.2}
-\contentsline {section}{\numberline {2.3}Server Side Command Dispatcher}{14}{section.2.3}
-\contentsline {section}{\numberline {2.4}Server Side RESTful Model}{14}{section.2.4}
-\contentsline {section}{\numberline {2.5}Client Side Command Dispatcher}{14}{section.2.5}
-\contentsline {section}{\numberline {2.6}Client Side Widget Factory}{15}{section.2.6}
-\contentsline {section}{\numberline {2.7}Client Side Widget Structure}{15}{section.2.7}
-\contentsline {section}{\numberline {2.8}P2P Connection}{15}{section.2.8}
-\contentsline {section}{\numberline {2.9}Goals}{15}{section.2.9}
-\contentsline {section}{\numberline {2.10}Assumptions}{16}{section.2.10}
-\contentsline {section}{\numberline {2.11}Design}{16}{section.2.11}
+\contentsline {section}{\numberline {2.3}Server Side Command Dispatcher}{15}{section.2.3}
+\contentsline {section}{\numberline {2.4}Server Side RESTful Model}{15}{section.2.4}
+\contentsline {section}{\numberline {2.5}Client Side Command Dispatcher}{15}{section.2.5}
+\contentsline {section}{\numberline {2.6}Client Side Widget Factory}{16}{section.2.6}
+\contentsline {section}{\numberline {2.7}Client Side Widget Structure}{16}{section.2.7}
+\contentsline {section}{\numberline {2.8}P2P Connection}{16}{section.2.8}
+\contentsline {section}{\numberline {2.9}Goals}{16}{section.2.9}
+\contentsline {section}{\numberline {2.10}Assumptions}{17}{section.2.10}
+\contentsline {section}{\numberline {2.11}Design}{17}{section.2.11}
 \contentsline {section}{\numberline {2.12}Networking}{18}{section.2.12}
-\contentsline {subsection}{\numberline {2.12.1}NAT traversal}{18}{subsection.2.12.1}
+\contentsline {subsection}{\numberline {2.12.1}NAT traversal}{19}{subsection.2.12.1}
 \contentsline {subsection}{\numberline {2.12.2}I/O Limitations}{19}{subsection.2.12.2}
-\contentsline {subsubsection}{Optimizing Performance}{19}{section*.2}
+\contentsline {subsubsection}{Optimizing Performance}{20}{section*.2}
 \contentsline {subsection}{\numberline {2.12.3}Message Passing}{20}{subsection.2.12.3}
-\contentsline {subsubsection}{Authentication}{20}{section*.3}
-\contentsline {subsubsection}{Visualization}{20}{section*.4}
+\contentsline {subsubsection}{Authentication}{21}{section*.3}
+\contentsline {subsubsection}{Visualization}{21}{section*.4}
 \contentsline {section}{\numberline {2.13}Digital Signal Processing}{21}{section.2.13}
 \contentsline {section}{\numberline {2.14}UI}{22}{section.2.14}
 \contentsline {chapter}{\numberline {3}Implementation Details}{24}{chapter.3}
