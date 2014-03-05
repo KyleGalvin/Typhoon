@@ -16,6 +16,7 @@ app.set( 'view engine', 'ejs' )
 app.get('/',function(req,res){
 	res.render('index')
 })
+//serve our index.html page when the user request the root of our webserver
 app.get('/voip',function(req,res){
 	res.render('voip')
 })

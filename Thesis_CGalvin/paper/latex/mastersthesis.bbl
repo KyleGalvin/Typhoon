@@ -1,5 +1,5 @@
 \newcommand{\etalchar}[1]{$^{#1}$}
-\begin{thebibliography}{CWKG96}
+\begin{thebibliography}{FRF{\etalchar{+}}07}
 
 \bibitem[AH11]{6094998}
 A.P. Arias and U.D. Hanebeck.
@@ -13,13 +13,6 @@ J.J. Ahmad, H.A. Khan, and S.A. Khayam.
 \newblock {Energy efficient video compression for wireless sensor networks}.
 \newblock In {\em {Information Sciences and Systems, 2009. CISS 2009. 43rd
   Annual Conference on}}, pages 629--634, 2009.
-
-\bibitem[AWZ98]{726589}
-A.~Agah, R.~Walker, and R.~Ziemer.
-\newblock {A mobile camera robotic system controlled via a head mounted display
-  for telepresence}.
-\newblock In {\em {Systems, Man, and Cybernetics, 1998. 1998 IEEE International
-  Conference on}}, volume~4, pages 3526--3531 vol.4, 1998.
 
 \bibitem[Bra05]{1420259}
 J.~Brassil.
@@ -42,12 +35,6 @@ Samuel~L. Clemens, William~C. Faulkner, Elizabeth~B. Browning, Judith~S.
   StartPg--OtherPg, PlaceofPub, PubDateFreeForm PubYear. AuthorAddress,
   Publisher.
 \newblock Notes.
-
-\bibitem[CWKG96]{540147}
-D.~Caldwell, A.~Wardle, O.~Kocak, and M.~Goodwin.
-\newblock {Telepresence feedback and input systems for a twin armed mobile
-  robot}.
-\newblock {\em Robotics Automation Magazine, IEEE}, 3(3):29--38, 1996.
 
 \bibitem[Feh13]{6550384}
 G.~Feher.

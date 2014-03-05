@@ -17,18 +17,16 @@
 \BOOKMARK [1][-]{section.2.6}{Client Side Widget Factory}{chapter.2}% 17
 \BOOKMARK [1][-]{section.2.7}{Client Side Widget Structure}{chapter.2}% 18
 \BOOKMARK [1][-]{section.2.8}{P2P Connection}{chapter.2}% 19
-\BOOKMARK [1][-]{section.2.9}{Goals}{chapter.2}% 20
-\BOOKMARK [1][-]{section.2.10}{Assumptions}{chapter.2}% 21
-\BOOKMARK [1][-]{section.2.11}{Design}{chapter.2}% 22
-\BOOKMARK [1][-]{section.2.12}{Networking}{chapter.2}% 23
-\BOOKMARK [2][-]{subsection.2.12.1}{NAT traversal}{section.2.12}% 24
-\BOOKMARK [2][-]{subsection.2.12.2}{I/O Limitations}{section.2.12}% 25
-\BOOKMARK [2][-]{subsection.2.12.3}{Message Passing}{section.2.12}% 26
-\BOOKMARK [1][-]{section.2.13}{Digital Signal Processing}{chapter.2}% 27
-\BOOKMARK [1][-]{section.2.14}{UI}{chapter.2}% 28
-\BOOKMARK [0][-]{chapter.3}{Implementation Details}{}% 29
-\BOOKMARK [1][-]{section.3.1}{Generic Video Capture}{chapter.3}% 30
-\BOOKMARK [1][-]{section.3.2}{Authentication}{chapter.3}% 31
-\BOOKMARK [1][-]{section.3.3}{Video Streaming}{chapter.3}% 32
-\BOOKMARK [1][-]{section.3.4}{QR Code reading}{chapter.3}% 33
-\BOOKMARK [1][-]{section.3.5}{Event Handlers}{chapter.3}% 34
+\BOOKMARK [1][-]{section.2.9}{UI}{chapter.2}% 20
+\BOOKMARK [0][-]{chapter.3}{Framework Implementation Details}{}% 21
+\BOOKMARK [1][-]{section.3.1}{Authentication Server}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.2}{Server Side Command Dispatcher}{chapter.3}% 23
+\BOOKMARK [1][-]{section.3.3}{Server Side RESTful Model}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.4}{Client Side Command Dispatcher}{chapter.3}% 25
+\BOOKMARK [1][-]{section.3.5}{Client Side Widget Factory}{chapter.3}% 26
+\BOOKMARK [1][-]{section.3.6}{Client Side Widget Template Structure}{chapter.3}% 27
+\BOOKMARK [1][-]{section.3.7}{P2P Connection}{chapter.3}% 28
+\BOOKMARK [0][-]{chapter.4}{Widget Implementation Details}{}% 29
+\BOOKMARK [1][-]{section.4.1}{Login / Create User Widget}{chapter.4}% 30
+\BOOKMARK [1][-]{section.4.2}{Online Peers Widget}{chapter.4}% 31
+\BOOKMARK [1][-]{section.4.3}{P2P Call Widget}{chapter.4}% 32

@@ -1,7 +1,7 @@
 var modelHandler = require('./modelHandler')
 
 module.exports = {
-	call: function(cmd,args,fqid){
+	call: function(cmd,args){
 		console.log("calling command:",cmd)
 		if(_cmds[cmd]){
 			var result = _cmds[cmd](args)

@@ -1,3 +1,4 @@
+No implementation found for style `listings'
 No implementation found for style `titling'
 No implementation found for style `graphicx'
 
@@ -7,6 +8,6 @@ Substitution of arg to newlabelxx delayed.
 
 redefining command \ 
 
-? brace missing for \oldcontentsline
-
 ? brace missing for \oldnewlabel
+
+? brace missing for \oldcontentsline

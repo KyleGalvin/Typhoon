@@ -1,4 +1,6 @@
 report a4paper, 12pt,
+listings 
+color 
 html 
 titling 
 cite 

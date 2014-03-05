@@ -1,37 +1,32 @@
 \contentsline {chapter}{\numberline {1}Lightweight Telepresence Technologies}{4}{chapter.1}
-\contentsline {section}{\numberline {1.1}Emerging Mobile Technologies}{6}{section.1.1}
-\contentsline {section}{\numberline {1.2}Telepresence \& Real-Time Communications}{6}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Audio/Video Compression}{7}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Cellular Network Bandwidth Flow \& Optimization}{7}{subsection.1.2.2}
-\contentsline {subsection}{\numberline {1.2.3}Security}{7}{subsection.1.2.3}
-\contentsline {subsection}{\numberline {1.2.4}Privacy}{9}{subsection.1.2.4}
-\contentsline {subsection}{\numberline {1.2.5}Cloud Based Assisted Technologies}{10}{subsection.1.2.5}
-\contentsline {section}{\numberline {1.3}Identifying the Major Elements for a Lightweight Mobile Telepresence System}{11}{section.1.3}
-\contentsline {section}{\numberline {1.4}Summary}{11}{section.1.4}
-\contentsline {chapter}{\numberline {2}Designing OTA Mobile Telepresence Services}{12}{chapter.2}
-\contentsline {section}{\numberline {2.1}Overview}{12}{section.2.1}
+\contentsline {section}{\numberline {1.1}Emerging Mobile Technologies}{5}{section.1.1}
+\contentsline {section}{\numberline {1.2}Telepresence \& Real-Time Communications}{5}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Audio/Video Compression}{6}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Cellular Network Bandwidth Flow \& Optimization}{6}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Security}{6}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {1.2.4}Privacy}{8}{subsection.1.2.4}
+\contentsline {subsection}{\numberline {1.2.5}Cloud Based Assisted Technologies}{9}{subsection.1.2.5}
+\contentsline {section}{\numberline {1.3}Identifying the Major Elements for a Lightweight Mobile Telepresence System}{10}{section.1.3}
+\contentsline {section}{\numberline {1.4}Summary}{10}{section.1.4}
+\contentsline {chapter}{\numberline {2}Designing OTA Mobile Telepresence Services}{11}{chapter.2}
+\contentsline {section}{\numberline {2.1}Overview}{11}{section.2.1}
 \contentsline {section}{\numberline {2.2}Authentication Server}{14}{section.2.2}
-\contentsline {section}{\numberline {2.3}Server Side Command Dispatcher}{15}{section.2.3}
+\contentsline {section}{\numberline {2.3}Server Side Command Dispatcher}{14}{section.2.3}
 \contentsline {section}{\numberline {2.4}Server Side RESTful Model}{15}{section.2.4}
 \contentsline {section}{\numberline {2.5}Client Side Command Dispatcher}{15}{section.2.5}
-\contentsline {section}{\numberline {2.6}Client Side Widget Factory}{16}{section.2.6}
-\contentsline {section}{\numberline {2.7}Client Side Widget Structure}{16}{section.2.7}
+\contentsline {section}{\numberline {2.6}Client Side Widget Factory}{15}{section.2.6}
+\contentsline {section}{\numberline {2.7}Client Side Widget Structure}{15}{section.2.7}
 \contentsline {section}{\numberline {2.8}P2P Connection}{16}{section.2.8}
-\contentsline {section}{\numberline {2.9}Goals}{16}{section.2.9}
-\contentsline {section}{\numberline {2.10}Assumptions}{17}{section.2.10}
-\contentsline {section}{\numberline {2.11}Design}{17}{section.2.11}
-\contentsline {section}{\numberline {2.12}Networking}{18}{section.2.12}
-\contentsline {subsection}{\numberline {2.12.1}NAT traversal}{19}{subsection.2.12.1}
-\contentsline {subsection}{\numberline {2.12.2}I/O Limitations}{19}{subsection.2.12.2}
-\contentsline {subsubsection}{Optimizing Performance}{20}{section*.2}
-\contentsline {subsection}{\numberline {2.12.3}Message Passing}{20}{subsection.2.12.3}
-\contentsline {subsubsection}{Authentication}{21}{section*.3}
-\contentsline {subsubsection}{Visualization}{21}{section*.4}
-\contentsline {section}{\numberline {2.13}Digital Signal Processing}{21}{section.2.13}
-\contentsline {section}{\numberline {2.14}UI}{22}{section.2.14}
-\contentsline {chapter}{\numberline {3}Implementation Details}{24}{chapter.3}
-\contentsline {section}{\numberline {3.1}Generic Video Capture}{24}{section.3.1}
-\contentsline {section}{\numberline {3.2}Authentication}{24}{section.3.2}
-\contentsline {section}{\numberline {3.3}Video Streaming}{24}{section.3.3}
-\contentsline {section}{\numberline {3.4}QR Code reading}{24}{section.3.4}
-\contentsline {section}{\numberline {3.5}Event Handlers}{24}{section.3.5}
+\contentsline {section}{\numberline {2.9}UI}{16}{section.2.9}
+\contentsline {chapter}{\numberline {3}Framework Implementation Details}{18}{chapter.3}
+\contentsline {section}{\numberline {3.1}Authentication Server}{18}{section.3.1}
+\contentsline {section}{\numberline {3.2}Server Side Command Dispatcher}{20}{section.3.2}
+\contentsline {section}{\numberline {3.3}Server Side RESTful Model}{22}{section.3.3}
+\contentsline {section}{\numberline {3.4}Client Side Command Dispatcher}{22}{section.3.4}
+\contentsline {section}{\numberline {3.5}Client Side Widget Factory}{22}{section.3.5}
+\contentsline {section}{\numberline {3.6}Client Side Widget Template Structure}{22}{section.3.6}
+\contentsline {section}{\numberline {3.7}P2P Connection}{22}{section.3.7}
+\contentsline {chapter}{\numberline {4}Widget Implementation Details}{23}{chapter.4}
+\contentsline {section}{\numberline {4.1}Login / Create User Widget}{23}{section.4.1}
+\contentsline {section}{\numberline {4.2}Online Peers Widget}{23}{section.4.2}
+\contentsline {section}{\numberline {4.3}P2P Call Widget}{23}{section.4.3}
