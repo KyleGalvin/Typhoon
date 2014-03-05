@@ -1,4 +1,41 @@
 \documentclass[a4paper,12pt]{report}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{frame=tb,
+  language=JavaScript,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
 \usepackage{html}
 \usepackage{titling}
 \usepackage{cite}
@@ -25,7 +62,7 @@
 
 	\textsc{Copyright Kyle Galvin, 2013\\}
 	\textsc{Lakehead University\\[0.5cm]}
-	\textsc{All rights reserved. This thesis may not be reproduced in whole or in part, py photocopy or other means, without the permission of the author.}
+	\textsc{All rights reserved. This thesis may not be reproduced in whole or in part, by photocopy or other means, without the permission of the author.}
 	\end{center}
 \end{titlepage}
 \newpage
@@ -57,12 +94,10 @@ Density of information and computation as well as the speed of communication are
 
 By extrapolating on current computational growth trends, we can easily imagine the capabilities we will soon wield while developing applications to improve our everyday lives. By studying these applications (both mundane and whimsical alike) we are likely to find many exciting ideas which are attainable much more immediately than they first appeared as well as many which are just around the bend.
 
-Arthur C. Clarke once wrote "Any sufficiently advanced technology is indistinguishable from magic", and I am inclined to agree. Indeed many amazing discoveries can find roots in sci-fi and futuristic predictions which push the boundaries of our collective knowledge and explore the potential and logical conclusions of current technological progress. The most recent ideas which are moving from science fiction to science fact are telepresence and augmented reality. 
+Arthur C. Clarke once wrote "Any sufficiently advanced technology is indistinguishable from magic", and I am inclined to agree. Indeed many amazing discoveries can find roots in sci-fi and futuristic predictions which push the boundaries of our collective knowledge and explore the potential and logical conclusions of current technological progress. One of the most provocative ideas to emerge from these advancements is immersive telepresence. 
 	\begin{flushright}
 		\cite{0001}
 	\end{flushright}
-
-To introduce these ideas, I will start by defining telepresence:
 
 \begin{quotation}
 "Telepresence systems provide a human operator with the feeling of actual presence in a remote environment, the target environment. The feeling of presence is achieved by visual and acoustic sensory information recorded from the target environment and presented to the user on an immersive display."
@@ -70,7 +105,7 @@ To introduce these ideas, I will start by defining telepresence:
 		\cite{6094998}
 	\end{flushright}
 \end{quotation}
-
+\iffalse
 Augmented Reality (which is a branch of virtual reality (VR) technology) is a multifaceted topic that not only lends itself extremely well to telepresence applications but extends far beyond it. Here we will focus primarily on the intersection of the two ideas despite each existing independently of the other. Applications in this domain will not only use telepresence technologies to unite two remote locations, but they will use augmented reality techniques in order to make up for the loss in fidelity that occurs when we replace the user's natural environment with a virtual representation. Three sensory obstacles causing loss of information have been identified:
 \begin{quote}
 
@@ -97,7 +132,7 @@ It is important to note that this lack of fidelity is a huge obstacle to telepre
 		\cite{726589}
 	\end{flushright}
 \end{quote}
-
+\fi
 
 \section{Emerging Mobile Technologies}
 As microchip density increases, so does the mobility of computational and processing devices. While PDA and hand held gaming devices have been around for decades, the advance of cellular networks which allow for on-the-go personal telecommunications and widely dispersed access to internet services has really driven the shape and design of the current generation of mobile devices.
@@ -266,15 +301,19 @@ In conclusion, we are capable of much more than what is currently offered in ter
 \section{Overview}
 This telepresence system is built using both centralized and P2P routing techniques. While individual calls are handled using a P2P connection, a centralized authentication server is used to allow users to view who is currently online. The central server also plays a role in bootstrapping the P2P route when a call is first initialized.
 
-\includegraphics[width=16cm]{NetworkModules}
+When the client application is first retrieved from the server, the first task it must perform is creating and initializing the application widgets. Several of these widgets operate over the network using various communication channels that are implemented as widget dependencies. Opening a websocket connection with the authentication server and passing it into the widget constructor as a dependency allows network-enabled widgets to function correctly. 
+
+\includegraphics[width=16cm,height=10cm]{NetworkModules}
 
 The client application is built using javascript within a browser environment. The main application library consists of a widget factory which is in charge of creating the major application components and injecting their UI into the DOM. Several of these widgets depend on network connectivity, so we provide these upon widget initialization using dependency injection. Because of these network components, it is important that we initialize our network objects before building most of our widget components.
 
-\includegraphics[width=16cm]{WidgetStructure}
+The network dependencies that the widgets rely on primarily exist outside of the widget, and are passed in as references. In this way, several widgets can be utilizing the same socket connection. The socket connections handle addressing and message delivery seamlessly behind the scenes with some help from the widget factory, which registers each widget with a unique address identifier that is bound to each network message.
+
+\includegraphics[width=16cm,height=10cm]{WidgetStructure}
 
 The authentication server contains an abstract model coupled with a controller allowing for basic read/write operations. The model is managed by an authentication API, which is the interface that client applications directly interact with over a webSocket channel. This authentication API allows for applications to perform various authentication tasks such as creating a user, logging in, and checking which other users are currently online. The authentication API is coupled with a publisher/subscriber module which allows a client to be notified if a particular part of the model changes. This is useful for being alerted when another client changes status from online to offline.
 
-\includegraphics[width=16cm]{AuthServerOverview}
+\includegraphics[width=16cm,height=10cm]{AuthServerOverview}
 
 \section{Authentication Server}
 The authentication server is in charge of identifying and connecting users. When a user connects to the website, a websocket connection is made between the authentication server and the client. Along with this connection a session ID is provided which we can use to identify the user over multiple transactions. When a user logs in, this session ID is coupled to their user name and marked as an active session. This allows other users to identify the user as online, as the session ID can be decoupled from the user name the moment the socket connection is closed.
@@ -287,11 +326,16 @@ The client side command dispatcher is broken down into multiple parts. Commands 
 
 Each client widget has it's own command API, and the application has naming and routing mechanisms to relay commands from these various sources to the appropriate widget. The widget then handles the command however it pleases.
 \section{Client Side Widget Factory}
-As the list of client side widgets grow, the widget factory serves as a way to create and register new widgets. The widget factory is in charge of creating unique names for each widget for message routing.
+As the list of client side widgets grow, the widget factory serves as a way to create and register new widgets. The widget factory is in charge of creating unique names for each widget for message routing. It also acts as a factory/constructor for all client widgets. Because of this, the client side widget factory is a powerful high-level singleton that controls the initialization and address lookup for most of the application's contents
 \section{Client Side Widget Structure}
 Each widget should be contain a function called 'widget' which will be invoked when the client creates a new widget instance. As input, we pass in any external dependencies the widget requires. This function is in charge of initializing the widget, building the widgets DOM and layout, as well as defining the external API the widget provides.
+
+This external API can be accessed either internally from within the widget (via event handlers or timed events), externally from other local client-side widgets, externally from remote widgets on a connected peer machine, or externally from the centralized authentication server. The source of a request accessing the widget's API can be used to determine whether or not the widget performs the requested action.
 \section{P2P Connection}
 A key component of this application will be the P2P widget. The P2P widget will be in charge of facilitating P2P connections with other users. Through this connection, users will be able to share VoIP communications, screencasts, and share files. The P2P connection will be in charge of connectivity, P2P routing, as well as stopping/starting telepresence calls.
+
+The P2P connection will occur over the WebRTC API, which allows for ubiquitous P2P applications to connect within the browser. No additional dependencies, libraries, or plug-ins are required.
+\iffalse
 \section{Goals}
 
 In order to improve on current telepresence technologies, we must revisit the main sensory obstacles in telepresence interaction and modify our implementations in a way that reduces such obstacles. To reiterate, these obstacles are:
@@ -323,7 +367,6 @@ In order to achieve our goals, the approach I intend to take involves scanning t
 If the mobile telepresence devices which collect and transmit the raw audio/video data are most likely to be modern smart phones, than we would be wise to treat these devices as thin clients in the sense that their purpose is limited to data collection and user interaction. The heavy processing involved with computer vision over large streams of image matrices would quickly overwhelm such devices.
 
 Because of this limitation I plan on deploying a cloud server which intercepts the data streams between clients in order to process the large amounts of raw data. This cloud will also store the streams and act as a database of past transmissions along with all the key meta-data we accumulate through our processing techniques.
-
 \section{Networking}
 
 \includegraphics[width=12cm]{overview}
@@ -372,18 +415,144 @@ Finally, the digital signal processing of the audio/video data on the server is 
 	\item client can also potentially receive augmented audio/video data with the DSP module overlay
 \end{itemize}
 	
+\fi
 \section{UI}
 
 \includegraphics[width=16cm]{MobileGUI_Labeled}
 
 \includegraphics[width=12cm]{MobileUI}
 
-\chapter{Implementation Details}
-\section{Generic Video Capture}
-\section{Authentication}
-\section{Video Streaming}
-\section{QR Code reading}
-\section{Event Handlers}
+\chapter{Framework Implementation Details}
+\section{Authentication Server}
+The authentication server begins by initializing a web server which the client can connect to in order to download the client javascript application
+
+\begin{lstlisting}
+//create our webserver instance
+var express = require('express')
+var app = express()
+var server = require('http').createServer(app)
+var dispatcher = require('./cmdDispatch') 
+var sessions = {}
+//allow the user full read access of our public javascript directory
+//this allows us to link/embed custom javascript into the client application
+app.use(express.static(__dirname + '/public'))
+console.log("dirname:"+__dirname)
+//configure and initialize web server view template engine
+app.set( 'views', __dirname + '/../views' )
+app.set( 'view engine', 'ejs' )
+
+//serve our index.html page when the user requests the root of our webserver
+app.get('/',function(req,res){
+	res.render('index')
+})
+//serve our index.html page when the user request the root of our webserver
+app.get('/voip',function(req,res){
+	res.render('voip')
+})
+server.listen(80)
+
+
+\end{lstlisting}
+
+The authentication server then continues by providing a websocket upgrade to the previously initialized http request. This allows client applications to create a full-duplex real-time connection with the server over top of the existing stateless http protocol.
+
+\begin{lstlisting}
+//create websocket server/listener overtop the existing express.js web server
+var io = require('socket.io').listen(server)
+console.log("server stuff")
+//when an incoming connection is detected, we save the connection in our sessions table.
+//when we recieve a message from the client, we send the message to our command dispatcher.
+//if the dispatcher returns a response, we relay it back to the client application via the open socket.
+io.sockets.on('connection',function(socket){
+	sessions[socket.id] = {}
+	sessions[socket.id].created = new Date()
+	sessions[socket.id].socket = socket
+	socket.on('message',function(data){
+		if(data.command != null && data.args != null){
+			var response = dispatcher.call(data.command,data.args)
+			console.log("response?",response)
+			if(response){
+				console.log('sending response')
+				socket.send(response)
+			}
+		}
+	})
+})
+
+\end{lstlisting}
+
+This websocket connection provides a very simple mechanism. After a client opens a connection with the server, the server registers the socket ID in order to uniquely identify user sessions. The server then provides a messaging API which allows the client to send a JSON object (titled data) to the server. The socket handler passes this on to a command dispatcher object for processing, which is detailed in the next session. If the dispatcher chooses to return a response to the client (whether this be authentication information, error information, or simply to acknowledge that we received the message) any response generated by the command dispatcher is then returned back to the client through the same socket.
+\section{Server Side Command Dispatcher}
+
+The command dispatcher is built within the framework of a requireJS module. This allows the code to be broken up among multiple files and manage their own dependencies using the lookup and code loading mechanisms provided by requireJS. When code is requested via a call to require, an object model containing the required API is returned. Listed below is our dispatcher.call() method that the server side websocket connection uses to interpret client messages.
+
+Client messages are called with two types of data. First, the client supplies the action or command they wish to execute on the server. Secondly, an optional list of arguments or parameters is supplied to that command. 
+\begin{lstlisting}
+var modelHandler = require('./modelHandler')
+
+module.exports = {
+	call: function(cmd,args){
+		console.log("calling command:",cmd)
+		if(_cmds[cmd]){
+			var result = _cmds[cmd](args)
+			if(result){
+				console.log("returning result to sender",result)
+				return result
+			}
+		}else{
+			console.log("command not found!",cmd)
+		}
+	}
+}
+
+\end{lstlisting}
+
+the command dispatcher largely relies on a function table that supplies the underlying functionality. The structure of this is (unsurprisingly) a JSON table containing named functions that the user is allowed to invoke. We attempt to find the function the user requested, and pass along the user supplied arguments to it if found. If the function returns any result, the command dispatcher will return the results to the server side web socket, which will then continue to return the results to the client application.
+
+Below is the definition and implementation of our \_cmds table, which acts as the business layer logic for the server side application.
+
+The function table is ultimately responsible for manipulating the model that contains our user data. This includes creating new users, verifying the credentials supplied by a client application, and retrieving information about the online/offline status of users.
+
+\begin{lstlisting}
+_cmds = {
+	make_user : function(args){
+		console.log('in make user!',args)
+		if(args[1] == args[2] && args[1] !=null){
+			var isExistingUser = modelHandler.query('read',["model","users",stringToModelID(args[0])])
+			console.log("does user exist?",isExistingUser)
+			if(!isExistingUser){
+				var result = modelHandler.query('create',["model","users",stringToModelID(args[0])],{username:args[0] ,passwordSignature:stringToModelID(args[1])})
+				if (result){
+					return {success:true}
+				}else{
+					return {success:false,error:"unknown error with model creation"}
+
+				}
+			}else{
+				return {success:false,error:"user already exists"}
+			}
+		}else{
+			return {success:false,error:"passwords do not match"}
+		}
+	},
+	login : function(args){
+		console.log('in login!',args)
+		return {success:false,error:"function not built yet"}
+	}
+}
+
+\end{lstlisting}
+
+\section{Server Side RESTful Model}
+\section{Client Side Command Dispatcher}
+\section{Client Side Widget Factory}
+\section{Client Side Widget Template Structure}
+\section{P2P Connection}
+
+\chapter{Widget Implementation Details}
+\section{Login / Create User Widget}
+\section{Online Peers Widget}
+\section{P2P Call Widget}
 \bibliography{mastersthesis}
 \bibliographystyle{alpha}
 \end{document}
