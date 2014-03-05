@@ -1,5 +1,5 @@
 define(['clientConnection'], function(){
-	var widget = function(socket){
+	var widget = function(id,socket){
 		var loginaction = function(){
 			console.log("CC",socket)
 			alert('login action')

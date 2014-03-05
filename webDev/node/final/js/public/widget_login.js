@@ -1,10 +1,14 @@
 define(['clientConnection'], function(){
-	var widget = function(socket){
+	var widget = function(id,socket){
+		var handlemessage = function(message){
+			console.log("widget_login message returned!")
+		}
 		var loginaction = function(){
 			console.log("Logging In")
 			var username = $("#loginname").val()
 			var password = $("#loginpass").val()
 			var login = {}
+			login.address = id
 			login.command='login'
 			login.args=[username, new Hashes.SHA256().hex(username+password)]
 			socket.write(login)
@@ -15,6 +19,7 @@ define(['clientConnection'], function(){
 			var password = $("#signuppass").val()
 			console.log("signing up "+$("#signupname").val()+" with pass "+ $("#signuppass").val())
 			var makeUser = {}
+			makeUser.address = id
 			makeUser.command='make_user',
 			makeUser.args=[username, new Hashes.SHA256().hex(username+password)]
 			socket.write(makeUser)	

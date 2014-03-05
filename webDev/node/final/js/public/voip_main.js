@@ -1,16 +1,20 @@
-_WidgetTemplates = {}
+//_WidgetTemplates = {}
 var Hashes = {}
 requirejs(['jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection){
 	console.log("Done collecting requirements")
-	_WidgetTemplates = WidgetTemplates
+	console.log("after init")
+//	_WidgetTemplates = WidgetTemplates
+	console.log("after init")
+	var widgetTemplates = new WidgetTemplates()
+	new clientConnection('www.littlereddevshed.com',80,runApplication(),widgetTemplates)
 	Hashes = incomingHashes
+	console.log("after init")
 	$(document).ready(function(){
 		console.log("Document Ready")
-		runApplication()
 	})
 })
 
-var runApplication = function() {
+var runApplication = function(_WidgetTemplates) {
     console.log("Beginning Application")
 
 	var logo = $("<div class='logo'>")
@@ -157,16 +161,17 @@ var runApplication = function() {
 	footer.append(bottommenu)
 	logocontainer.appendTo("#footer, #header")
 
-	var client = new clientConnection()
-	client.connect("216.211.23.156",80)
+	//client.write({'val':'TEST CONNECTION1'})
 
-	var contactList_widget = _WidgetTemplates.create('contactList',client)
+	//client.connect("www.littlereddevshed.com",80)
+	//client.write(0,{'command':'TEST CONNECTION2','args':['arg1','arg2']})
+	var contactList_widget = _WidgetTemplates.create('contactList')
 	content.append(contactList_widget.view)
 
 	var raphGraph = _WidgetTemplates.create('raphaelWindow', null)	
 	content.append(raphGraph.view)
 
-	var login_widget = _WidgetTemplates.create('login',client)
+	var login_widget = _WidgetTemplates.create('login')
 	console.log('WIDGET"',raphGraph)
 	content.append(login_widget.view)
 
@@ -177,13 +182,14 @@ var runApplication = function() {
 	makeUser.command='make_user',
 	makeUser.args=[username, new Hashes.SHA256().hex(username+password)]
 	
-	client.write(makeUser)
+	//client.write(0,makeUser)
 
 	console.log("Logging In")
 	var login = {}
 	login.command='login'
 	login.args=[username, new Hashes.SHA256().hex(username+password)]
 	
-	var resp = client.write(login)
+	//var resp = client.write(0,login)
 	console.log("response?!", resp)
+
 }

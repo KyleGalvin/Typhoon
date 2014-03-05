@@ -68,7 +68,6 @@ var runApplication = function() {
 			"height":"60%",
 			    "width": "100%",
 			    "background": "rgba(0,0,0,0.75)",
-			
 		})
     var footer = $("<div id='footer'/>")
         .css({
@@ -157,12 +156,29 @@ var runApplication = function() {
 	footer.append(bottommenu)
 	logocontainer.appendTo("#footer, #header")
 
-	var gallery = $("<div class='galleria'>")
-	$('<style>.galleria {width:100%; height:100%;}</style>').appendTo(gallery)
+	var gallery = $("<div class='galleria'>").css({
+		'left':$(window).width/2,
+	})
+	$("head").append($('<style type="text/css">.galleria {width:600px; height:350px; margin-left:auto; margin-right:auto;}</style>'))
 	var img1 = $("<img data-title='My Title' data-description='This is my description' src='img/background.png'>")
-	gallery.append(img1)
+	var img2 = $("<img data-title='My Title' data-description='This is my description' src='img/somOneIteration.png'>")
+	var img3 = $("<img data-title='My Title' data-description='This is my description' src='img/somTrained.png'>")
+	var img4 = $("<img data-title='My Title' data-description='This is my description' src='img/somCluster.png'>")
+	var img5 = $("<img data-title='My Title' data-description='This is my description' src='img/somSelection.png'>")
+	var img6 = $("<img data-title='My Title' data-description='This is my description' src='img/somUntrained.png'>")
+	//gallery.append(img1)
+	gallery.append(img2)
+	gallery.append(img3)
+	gallery.append(img4)
+	gallery.append(img5)
+	gallery.append(img6)
 	content.append(gallery)
 	Galleria.loadTheme('galleria/themes/classic/galleria.classic.min.js')
+	Galleria.configure({
+		imageCrop:true,
+		autoplay:4000,
+		transition: 'fade',
+	})
 	Galleria.run('.galleria')
 	
 }

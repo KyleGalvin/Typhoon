@@ -11,6 +11,7 @@ module.exports = {
 			}
 		}else{
 			console.log("command not found!",cmd)
+			return {"test":"command not found returned"}
 		}
 	}
 }

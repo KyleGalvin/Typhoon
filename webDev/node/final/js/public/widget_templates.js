@@ -4,15 +4,20 @@ var WidgetTemplates ={
 	login:widget_login,	
 	contactList:widget_contactList,	
 	raphaelWindow:widget_realtimeMediaPresenter,
-	
 	counter: 0,
-	create : function(type, socket){
-		console.log("Counter:",this.counter, "type:",type, "deps:",socket)
+	widgetLookupTable = {},
+	socket : null,
+	create : function(type){
+		console.log("Counter:",this.counter, "type:",type, "deps:",this.socket)
 		this.counter = this.counter + 1
-		return new this[type](socket)
+		var widget = new this[type](this.counter,this.socket)
+		this.register(widget,this.counter)
+		return widget
 	},
 	register : function(widget, id){
-
+		console.log("before",this.socket.widgetLookupTable)
+		this.socket.widgetLookupTable[id] = widget
+		console.log("after",this.socket.widgetLookupTable)
 	},
 }
 return WidgetTemplates

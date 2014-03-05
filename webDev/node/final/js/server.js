@@ -32,12 +32,16 @@ io.sockets.on('connection',function(socket){
 	sessions[socket.id].created = new Date()
 	sessions[socket.id].socket = socket
 	socket.on('message',function(data){
-		if(data.command != null && data.args != null){
+		console.log("incoming Data:",data)
+		if(data && data.command != null && data.args != null){
 			var response = dispatcher.call(data.command,data.args)
-			console.log("response?",response)
+			console.log("response?",response,typeof(response))
 			if(response){
-				console.log('sending response')
-				socket.send(response)
+				response.address = data.address
+				console.log('sending response',response)
+				socket.send(JSON.stringify(response))
+				//console.log('socket:',socket)
+				
 			}
 		}
 	})
