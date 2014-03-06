@@ -1,16 +1,18 @@
 define(['clientConnection'], function(){
-	var widget = function(id,socket){
+	var widget = function(id,socket,Hashes){
+		console.log('hashes',Hashes)
 		var handlemessage = function(message){
 			console.log("widget_login message returned!")
 		}
 		var loginaction = function(){
-			console.log("Logging In")
+			console.log("Logging In",socket)
 			var username = $("#loginname").val()
 			var password = $("#loginpass").val()
 			var login = {}
 			login.address = id
 			login.command='login'
-			login.args=[username, new Hashes.SHA256().hex(username+password)]
+			login.args=[username, Hashes.hex(username+password)]
+			console.log('going to socket with message',login)
 			socket.write(login)
 		}
 		var signupaction = function(){
@@ -21,7 +23,7 @@ define(['clientConnection'], function(){
 			var makeUser = {}
 			makeUser.address = id
 			makeUser.command='make_user',
-			makeUser.args=[username, new Hashes.SHA256().hex(username+password)]
+			makeUser.args=[username, Hashes.hex(username+password)]
 			socket.write(makeUser)	
 		}
 		this.msgHandler = function(cmd,args){

@@ -1,21 +1,21 @@
-//_WidgetTemplates = {}
+//var _WidgetTemplates = {}
 var Hashes = {}
 requirejs(['jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection){
 	console.log("Done collecting requirements")
-	console.log("after init")
+	console.log("after init",incomingHashes)
 //	_WidgetTemplates = WidgetTemplates
 	console.log("after init")
-	var widgetTemplates = new WidgetTemplates()
-	new clientConnection('www.littlereddevshed.com',80,runApplication(),widgetTemplates)
+	//_WidgetTemplates = WidgetTemplates
 	Hashes = incomingHashes
-	console.log("after init")
 	$(document).ready(function(){
+		new clientConnection('www.littlereddevshed.com',80,runApplication,WidgetTemplates)
 		console.log("Document Ready")
 	})
 })
 
-var runApplication = function(_WidgetTemplates) {
-    console.log("Beginning Application")
+var runApplication = function(WidgetTemplates) {
+  	console.log("widget templates:",WidgetTemplates)
+	console.log("Beginning Application")
 
 	var logo = $("<div class='logo'>")
 		.css({
@@ -165,13 +165,15 @@ var runApplication = function(_WidgetTemplates) {
 
 	//client.connect("www.littlereddevshed.com",80)
 	//client.write(0,{'command':'TEST CONNECTION2','args':['arg1','arg2']})
-	var contactList_widget = _WidgetTemplates.create('contactList')
+	var contactList_widget = WidgetTemplates.create('contactList')
 	content.append(contactList_widget.view)
 
-	var raphGraph = _WidgetTemplates.create('raphaelWindow', null)	
+	var raphGraph = WidgetTemplates.create('raphaelWindow', null)	
 	content.append(raphGraph.view)
-
-	var login_widget = _WidgetTemplates.create('login')
+	console.log("hashes:",Hashes)
+	var sha = new Hashes.SHA256()
+	console.log('sha',sha)
+	var login_widget = WidgetTemplates.create('login',sha)
 	console.log('WIDGET"',raphGraph)
 	content.append(login_widget.view)
 
@@ -180,16 +182,16 @@ var runApplication = function(_WidgetTemplates) {
 	var password = '123'
 	var makeUser = {}
 	makeUser.command='make_user',
-	makeUser.args=[username, new Hashes.SHA256().hex(username+password)]
+	makeUser.args=[username, sha.hex(username+password)]
 	
 	//client.write(0,makeUser)
 
 	console.log("Logging In")
 	var login = {}
 	login.command='login'
-	login.args=[username, new Hashes.SHA256().hex(username+password)]
+	login.args=[username, sha.hex(username+password)]
 	
 	//var resp = client.write(0,login)
-	console.log("response?!", resp)
+	//console.log("response?!", resp)
 
 }
