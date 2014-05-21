@@ -1,8 +1,15 @@
 define(['clientConnection'], function(){
 	var widget = function(id,socket,Hashes){
 		console.log('hashes',Hashes)
-		var handlemessage = function(message){
-			console.log("widget_login message returned!")
+		this.handlemessage = function(message){
+			console.log("widget_login message returned!",message)
+			if (message.success && message.action =="login"){
+				var name = message.name
+				var contents = $("#login")
+				var contentsClone = contents.clone()
+				contents.empty()
+				contents.append("Logged in as " + name)
+			}
 		}
 		var loginaction = function(){
 			console.log("Logging In",socket)
@@ -12,7 +19,7 @@ define(['clientConnection'], function(){
 			login.address = id
 			login.command='login'
 			login.args=[username, Hashes.hex(username+password)]
-			console.log('going to socket with message',login)
+			console.log('going to socket with message',username,login)
 			socket.write(login)
 		}
 		var signupaction = function(){
@@ -29,6 +36,7 @@ define(['clientConnection'], function(){
 		this.msgHandler = function(cmd,args){
 
 		}
+
 		this.view = $("<div id='login'/>")
 			.css({
 				"border-radius":"25px 0px 0px 25px",
@@ -36,14 +44,28 @@ define(['clientConnection'], function(){
 				"background":"rgba(50,0,0,0.75)",
 				"height":"100%",
 				"color":"#FFF",
-				"width":"200px",
+				"width":"450px",
 				"float":"right"	
 			})
+		var leftside = $("<div id='leftside'>")
+			.css({
+				"float":"left",
+				"width":"200px",
+			})
+
+		var rightside = $("<div id='rightside'>")
+			.css({
+				"float":"right",
+				"width":"200px",
+			})
 		
+		this.view.append(leftside)
+		this.view.append(rightside)
+
 		var loginheader = $("<div id='loginheader'>")
 			.css({
 				"text-align":"center",
-				"font-size":"32px",			
+				"font-size":"20px",			
 			}).append("Login")
 
 		var logintop = $("<div id='logintop'>")
@@ -52,23 +74,28 @@ define(['clientConnection'], function(){
 				"height":"120px",
 			})
 		logintop.append(loginheader)
-		this.view.append(logintop)
+
+		leftside.append(logintop)
 		var logininputs = $("<div id='logininputs'>")
 			.css({
 				"text-align":"right",
+				"height":"20px",
 				"float":"right",
 				"width":"50%",
 			})
 		var nameinput = $("<input id='loginname' type='text'>").css({
 			"width":"80%",
+			"height":"15px",
 			"float":"left",
 		})
 		var passinput = $("<input id='loginpass' type='password'>").css({
 			"width":"80%",
 			"float":"left",
+			"height":"15px",
 		})
 		var loginbutton = $("<button>",{text:'Login'}).css({
 			"width":"80%",
+			"height":"20px",
 			"float":"left",
 
 		})
@@ -86,8 +113,13 @@ define(['clientConnection'], function(){
 				"width":"50%",
 			})
 
-		var namelabel =$("<div>").css({"width":"100%"}).append("User:")
-		var passlabel =$("<div>").append("Pass:")
+		var namelabel =$("<div>").css({
+			"width":"100%",
+			"font-size":"10px",
+			}).append("User:")
+		var passlabel =$("<div>").css({
+				"font-size":"10px",
+			}).append("Pass:")
 		loginlabels.append(namelabel)
 		loginlabels.append(passlabel)
 		
@@ -104,8 +136,8 @@ define(['clientConnection'], function(){
 			({
 				"width":"100%",
 			})
-		this.view.append(logintop)
-		this.view.append(option)
+		//this.view.append(logintop)
+		//this.view.append(option)
 		var loginbottom = $("<div id='loginbottom'>")
 			.css({
 				"width":"100%",
@@ -118,20 +150,24 @@ define(['clientConnection'], function(){
 			})
 		var signupnameinput = $("<input id='signupname' type='text'>").css({
 			"width":"80%",
+			"height":"15px",
+			"font-size":"8px",
 			"float":"left"
 		})
 		var signuppassinput = $("<input id='signuppass' type='password'>").css({
 			"width":"80%",
+			"height":"15px",
 			"float":"left",
-
 		})
 		var signuppassinput2 = $("<input id='signuppass' type='password'>").css({
 			"width":"80%",
+			"height":"15px",
 			"float":"left",
 
 		})
 		var signupbutton = $("<button>",{text:'Sign Up'}).css({
 			"width":"80%",
+			"height":"20px",
 			"float":"left",
 			})
 		signupbutton.click(signupaction)
@@ -145,11 +181,11 @@ define(['clientConnection'], function(){
 			.css({
 				"width":"100%",
 				"text-align":"center",
-				"font-size":"32px",			
+				"font-size":"20px",			
 			}).append("Sign Up")
 		loginbottom.append(signupheader)
 		loginbottom.append(signupinputs)
-		this.view.append(loginbottom)
+		rightside.append(loginbottom)
 		var signupnameinput = $("<input type='text'>").css({"width":"100%"})
 		var signuppassinput = $("<input type='password'>").css({"width":"100%"})
 		var signupinputs = $("<div id='signupinputs'>")
@@ -165,9 +201,16 @@ define(['clientConnection'], function(){
 				"width":"50%",
 			})
 
-		var signupnamelabel =$("<div>").css({"width":"100%"}).append("User:")
-		var signuppasslabel =$("<div>").append("Pass:")
-		var signuppasslabel2 =$("<div>").append("Pass(2):")
+		var signupnamelabel =$("<div>").css({
+				"font-size":"10px",
+				"width":"100%",
+			}).append("User:")
+		var signuppasslabel =$("<div>").css({
+				"font-size":"10px",
+			}).append("Pass:")
+		var signuppasslabel2 =$("<div>").css({
+				"font-size":"10px",
+			}).append("Pass(2):")
 		signuplabels.append(signupnamelabel)
 		signuplabels.append(signuppasslabel)
 		signuplabels.append(signuppasslabel2)

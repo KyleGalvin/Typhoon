@@ -1,14 +1,14 @@
 //var _WidgetTemplates = {}
 var Hashes = {}
-requirejs(['jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection){
+requirejs(['jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection','modelHandler'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection,modelHandler){
 	console.log("Done collecting requirements")
 	console.log("after init",incomingHashes)
 //	_WidgetTemplates = WidgetTemplates
-	console.log("after init")
+	console.log("after init",modelHandler)
 	//_WidgetTemplates = WidgetTemplates
 	Hashes = incomingHashes
 	$(document).ready(function(){
-		new clientConnection('www.littlereddevshed.com',80,runApplication,WidgetTemplates)
+		new clientConnection('www.littlereddevshed.com',80,runApplication,WidgetTemplates,modelHandler)
 		console.log("Document Ready")
 	})
 })
@@ -96,31 +96,31 @@ var runApplication = function(WidgetTemplates) {
     var topmenu = $("<div id='topmenu'>")
         .css({
 	    "font-family":"Lucida",
-            "line-height":"16px",
+            //"line-height":"16px",
             "width":"75%",
-            "margin-top":"-8px",
-            "vertical-align":"middle",
+            //"margin-top":"-8px",
+            //"vertical-align":"middle",
             "text-align":"right",
-            "padding":"0px 5% 0px 0px",
+            "padding":"0px 0px 0px 0px",
             "position":"relative",
-            "top":"50%",
+            //"top":"50%",
             "color":"white",
             "float":"right",
         })
-    var voiplink = $("<a href='./voip'>VoIP Software</a> | ")
+    var exitbutton = $("<a href='./'>Exit</a>")
         .css({
             "color":"#FFF"
         })
-	var computerVisionLink = $('<a href="http://www.youtube.com/watch?v=DE0C4kQ_ygI" target="_blank">Kinect Computer Vision</a> | ')
+	var messages = $('<a href="http://www.youtube.com/watch?v=DE0C4kQ_ygI" target="_blank">Messages</a> ')
 	.css({
 		"color":"#FFF"
 	})
-	var paperPdfLink = $('<a href="./Kyle_Galvin_Thesis.pdf" target="_blank">MSc Project Paper PDF format</a> | ')
+	var calls = $('<a href="./Kyle_Galvin_Thesis.pdf" target="_blank">Calls</a> ')
 	.css({
 		"color":"#FFF"
 	})
 
-	var paperDocLink = $('<a href="./APPresentation.pptx" target="_blank">HBSc Final Project Presentation</a> | ')
+	var files = $('<a href="./APPresentation.pptx" target="_blank">Files</a>')
 	.css({
 		"color":"#FFF"
 	})
@@ -133,15 +133,11 @@ var runApplication = function(WidgetTemplates) {
 		'position':'relative',
 		'left':'100px'
 	})
-	topmenu.append(voiplink)
-	topmenu.append(" | ")
-	topmenu.append(computerVisionLink)
-	topmenu.append(" | ")
-	topmenu.append(paperDocLink)
-	topmenu.append(" | ")
-	topmenu.append(paperPdfLink)
-	//column1.append(paperDocLink)
-	topmenu.append(column1)
+	//topmenu.append(messages)
+	//topmenu.append(calls)
+	//topmenu.append(files)
+	//topmenu.append(exitbutton)
+	//topmenu.append(column1)
 //        topmenu.append(" | Curriculum Vitae | Image Gallery | News")
     header.append(topmenu)
 
@@ -175,7 +171,7 @@ var runApplication = function(WidgetTemplates) {
 	console.log('sha',sha)
 	var login_widget = WidgetTemplates.create('login',sha)
 	console.log('WIDGET"',raphGraph)
-	content.append(login_widget.view)
+	topmenu.append(login_widget.view)
 
 	console.log("Creating User")
 	var username = 'Kyle Galvin'

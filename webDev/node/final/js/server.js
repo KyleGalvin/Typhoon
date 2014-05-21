@@ -23,19 +23,23 @@ app.get('/voip',function(req,res){
 server.listen(80)
 
 //create websocket server/listener overtop the existing express.js web server
-var io = require('socket.io').listen(server)
+var io = require('socket.io').listen(server,{log:false})
 console.log("server stuff")
 //when an incoming connection is detected, we save the connection in our sessions table.
 //when we recieve a message from the client, we send the message to our command dispatcher.
 //if the dispatcher returns a response, we relay it back to the client application via the open socket.
 io.sockets.on('connection',function(socket){
-	sessions[socket.id] = {}
-	sessions[socket.id].created = new Date()
-	sessions[socket.id].socket = socket
+
+	//put these into the object model instead
+	//sessions[socket.id] = {}
+	//sessions[socket.id].created = new Date()
+	//sessions[socket.id].socket = socket
+
+
 	socket.on('message',function(data){
 		console.log("incoming Data:",data)
 		if(data && data.command != null && data.args != null){
-			var response = dispatcher.call(data.command,data.args)
+			var response = dispatcher.call(data.command,socket.id,data.args)
 			console.log("response?",response,typeof(response))
 			if(response){
 				response.address = data.address
@@ -46,6 +50,13 @@ io.sockets.on('connection',function(socket){
 			}
 		}
 	})
+
+	socket.on('disconnect', function(){
+		console.log("disconnecting:",socket.id)
+		dispatcher.call("disconnect", socket.id)	
+	})
+
+	dispatcher.call("add_session",socket.id, [socket])
 })
 //var WocketServer = require('websocket').server
 //var http = require("http")

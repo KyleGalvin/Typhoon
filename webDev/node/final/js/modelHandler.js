@@ -1,42 +1,64 @@
 var model = {}
-
 module.exports = {
 	query: function(transactionType,id,data){
 		if(transactionType == 'create'){
 			return create(id,data)
 		}else if(transactionType == 'read'){
-			console.log("read!")
 			return read(id)
 		}else if(transactionType == 'update'){
-			console.log("update!")
 			return update(id,data)
 		}else if(transactionType == 'delete'){
-			console.log("delete!")
 			return del(id)
 		}else{
 			console.log("unknown REST command:",transactionType)
 		}
 	}
+
 }
 
+
+//TODO: get socket to push to subscribed users
+publish = function (id){
+	console.log("updated model:",model)
+	var address = ""
+	for (i=0;i<id.length;i++){
+		if(!(i==0)){
+			address+=","
+		}
+		address+= id[i]
+		var subList = read(["model","subscriptions",address])
+		if(subList){
+			console.log("publish alert:"+address)
+			for(var key in subList){
+				console.log("publish to:",key)
+				var session = read(["model","sessions",key])
+				if(!session || !session.socket){
+					del(["model","sessions",key])//if a dead session is found, we may as well clean it up
+					del(["model","subscriptions",address,key])
+				}else{
+					session.socket.send(JSON.stringify({broadcast:true,path:id, data:read(id)}))
+				}
+			}
+		}
+	}
+}
+
+
 create = function (id,data){
-console.log("creating...",id,data)
 	var node = model
-	console.log("original model:",model)
 	id.forEach(function(entry,i){
 		if(i == id.length-1){//last element is the element we apply data to
 				node[entry] = data	
-				console.log("hit bottom",node)
 		}else{
 			if(!node[entry]){//if it doesnt exist, add empty node
 				node[entry] = {}
-				console.log("new node:",node)
 			}	
 
 		}
 		node = node[entry]//traverse into next node
 	})
-	console.log("updated model:",model)
+
+	publish(id)
 	return true
 }
 
@@ -50,19 +72,30 @@ read = function (id){
 		}else{
 			if(!node[id[index]]){
 				return null//path does not exist
-			}else{
-				console.log("read traverse:",node[id[index]])
 			}
 		}
-		node=node[id[index]]
+		node=node[id[index]]//traverse to the specified element
 	}
-	console.log("returned json:",node)
 }
 
 update = function (id,data){
 
+	publish(id)
 }
 
 del = function (id){
-
+	var node = model
+	var index
+	for(index=0; index<id.length; ++index){
+		if(index == id.length-1){//delete the last element
+			delete node[id[index]]
+			publish(id)
+		}else{
+			if(!node[id[index]]){
+				return null//cannot delete path which does not exist
+			}
+			node = node[id[index]]//traverse to the specified element
+		}
+	}
 }
+
