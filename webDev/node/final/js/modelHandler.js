@@ -28,15 +28,19 @@ publish = function (id){
 		address+= id[i]
 		var subList = read(["model","subscriptions",address])
 		if(subList){
-			console.log("publish alert:"+address)
+			console.log("publish list:"+JSON.stringify(subList),address)
+			console.log("publish alert:"+address,Object.keys(subList).length)
 			for(var key in subList){
-				console.log("publish to:",key)
+				console.log("publish to:",key, subList[key])
 				var session = read(["model","sessions",key])
 				if(!session || !session.socket){
+					console.log("dead session",key)
 					del(["model","sessions",key])//if a dead session is found, we may as well clean it up
 					del(["model","subscriptions",address,key])
 				}else{
-					session.socket.send(JSON.stringify({broadcast:true,path:id, data:read(id)}))
+					//console.log("session data:",session)
+					console.log("ID:",id)
+					session.socket.send(JSON.stringify({address:subList[key], path:id, data:read(id)}))
 				}
 			}
 		}
@@ -57,7 +61,7 @@ create = function (id,data){
 		}
 		node = node[entry]//traverse into next node
 	})
-
+	console.log("creating data:",data," for id ",id)
 	publish(id)
 	return true
 }

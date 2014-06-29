@@ -1,5 +1,8 @@
 define(['clientConnection'], function(){
-	var widget = function(id,socket,Hashes){
+	var widget = function(wFactory,model,Hashes){
+		var id = wFactory.counter
+		console.log("factory id:",id)
+		var socket = wFactory.socket
 		console.log('hashes',Hashes)
 		this.handlemessage = function(message){
 			console.log("widget_login message returned!",message)
@@ -33,10 +36,6 @@ define(['clientConnection'], function(){
 			makeUser.args=[username, Hashes.hex(username+password)]
 			socket.write(makeUser)	
 		}
-		this.msgHandler = function(cmd,args){
-
-		}
-
 		this.view = $("<div id='login'/>")
 			.css({
 				"border-radius":"25px 0px 0px 25px",
@@ -49,12 +48,14 @@ define(['clientConnection'], function(){
 			})
 		var leftside = $("<div id='leftside'>")
 			.css({
+				"padding":"10px",
 				"float":"left",
 				"width":"200px",
 			})
 
 		var rightside = $("<div id='rightside'>")
 			.css({
+				"padding":"3px",
 				"float":"right",
 				"width":"200px",
 			})

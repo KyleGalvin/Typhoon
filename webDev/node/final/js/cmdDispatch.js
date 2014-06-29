@@ -1,10 +1,10 @@
 var modelHandler = require('./modelHandler')
 
 module.exports = {
-	call: function(cmd,sessionID,args){
-		console.log("calling command:",cmd)
+	call: function(cmd,sessionID,args,address){
+		console.log("calling command:",cmd,address)
 		if(_cmds[cmd]){
-			var result = _cmds[cmd](sessionID,args)
+			var result = _cmds[cmd](sessionID,args,address)
 			if(result){
 				console.log("returning result to sender",result)
 				return result
@@ -25,7 +25,8 @@ _cmds = {
 		modelHandler.query('delete',["model","sessions",stringToModelID(id)])
 	},
 	//function (sessionID, modelPath){
-	subscribe: function (id,args){
+	subscribe: function (id,args,address){
+		console.log("SUBSCRIBED")
 		var subscriptionList = modelHandler.query('read',
 			["model","subscriptions",stringToModelID(args.toString())]
 		)
@@ -37,12 +38,14 @@ _cmds = {
 		//}
 
 		//subscriptionList[args.toString()][id] = 'true'
-		subscriptionList[id] = 'true'
+		console.log("SUBSCRIPTION DATA:", id, address)
+		subscriptionList[id] = address
 
 		var result = modelHandler.query('create',
 			["model","subscriptions",stringToModelID(args.toString())],
 			subscriptionList
 		)
+		return {sucess:true}
 	
 	},
 
@@ -104,14 +107,15 @@ _cmds = {
 			return {success:false,error:"passwords do not match"}
 		}
 	},
-	login : function(id,args){
+	login : function(id,args,address){
+		console.log("LOGIN ADDRESS:",address)
 		var userData = modelHandler.query('read',['model','users',stringToModelID(args[0])])
 		if (userData && userData.passwordSignature == args[1]){
 			//set the user to online
 			modelHandler.query('create',['model','users',stringToModelID(args[0]),'online'],true)
 			//alert the user's group they are online
 			modelHandler.query('create',["model","group","users",stringToModelID(args[0]),'online'],true)
-			this.subscribe(id,["model","group","users"])
+			//this.subscribe(id,["model","group","users"],address)
 			return {success:true,action:"login",name:stringToModelID(args[0])}
 
 		}else{

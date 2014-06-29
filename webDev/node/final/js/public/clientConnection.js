@@ -1,9 +1,7 @@
-function clientConnection(ip,port,callback,widgetFactory,model){
-	console.log("model:",model)
+function clientConnection(ip,port,callback){
 	//var socket = new io.Socket()
 	var socket = io.connect('http://'+ip+":"+port)
 	var _this = this //we need to access parent scope from socket.on('connect')
-	var _model = model
 	/*this.connect = function(ip,port){
 		console.log("connecting")
 		socket = io.connect('http://'+ip+":"+port)
@@ -20,7 +18,7 @@ function clientConnection(ip,port,callback,widgetFactory,model){
 		console.log("type:",data)
 		if(data.address){
 			console.log("sending to address...",data.address)
-			widget = widgetFactory.widgetLookupTable
+			widget = _WidgetTemplates.widgetLookupTable
 			console.log("is there a widget?",widget)
 			widget[data.address].handlemessage(data)
 		}else if(data.broadcast){
@@ -35,8 +33,8 @@ function clientConnection(ip,port,callback,widgetFactory,model){
 	socket.on('connect',function(data){
 		console.log('client is connected',data)
 		//grab scope of parent function rather than this function
-		widgetFactory.socket = _this
-		callback(widgetFactory)
+		_WidgetTemplates.socket = _this
+		callback()
 	})
 	socket.on('disconnect',function(){})
 	return this

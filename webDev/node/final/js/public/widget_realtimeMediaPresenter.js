@@ -1,7 +1,9 @@
 
 var Raphael
 define(['raphael-min'], function(newRaphael){
-var widget = function(dependencies){
+var widget = function(wFactory,model,dependencies){
+	var id = wFactory.counter
+	var socket = wFactory.socket
 	Raphael=newRaphael
 	var files = []
 	var paperDOM = $("<div id='raphael' />")

@@ -39,7 +39,12 @@ io.sockets.on('connection',function(socket){
 	socket.on('message',function(data){
 		console.log("incoming Data:",data)
 		if(data && data.command != null && data.args != null){
-			var response = dispatcher.call(data.command,socket.id,data.args)
+			if(data.address){
+				var response = dispatcher.call(data.command,socket.id,data.args,data.address)
+			}else{
+				var response = dispatcher.call(data.command,socket.id,data.args)
+
+			}
 			console.log("response?",response,typeof(response))
 			if(response){
 				response.address = data.address

@@ -1,17 +1,18 @@
 define([],function modelHandler(){
+var modelHandler = function(){
 console.log("creating model")
 	var myModel = {
 		model:{},
 
 		query: function(transactionType,id,data){
 			if(transactionType == 'create'){
-				return create(id,data)
+				return this.create(id,data)
 			}else if(transactionType == 'read'){
-				return read(id)
+				return this.read(id)
 			}else if(transactionType == 'update'){
-				return update(id,data)
+				return this.update(id,data)
 			}else if(transactionType == 'delete'){
-				return del(id)
+				return this.del(id)
 			}else{
 				console.log("unknown REST command:",transactionType)
 			}
@@ -42,6 +43,7 @@ console.log("creating model")
 			}
 		},
 		create: function (id,data){
+			console.log("create:",id,data)
 			var node = this.model
 			id.forEach(function(entry,i){
 				if(i == id.length-1){//last element is the element we apply data to
@@ -59,6 +61,7 @@ console.log("creating model")
 			return true
 		},
 		read: function (id){
+			console.log("WIDGET MODEL READ!")
 			var node = this.model
 			var index
 			//var result = id.forEach(function(entry,i){
@@ -97,7 +100,9 @@ console.log("creating model")
 
 
 	}
-
 	myModel.create(["model"])
 	return myModel
+
+}
+return modelHandler
 })

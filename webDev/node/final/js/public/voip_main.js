@@ -1,35 +1,36 @@
 //var _WidgetTemplates = {}
 var Hashes = {}
+var _WidgetTemplates
 requirejs(['jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection','modelHandler'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection,modelHandler){
 	console.log("Done collecting requirements")
 	console.log("after init",incomingHashes)
-//	_WidgetTemplates = WidgetTemplates
-	console.log("after init",modelHandler)
+	_WidgetTemplates = WidgetTemplates
 	//_WidgetTemplates = WidgetTemplates
 	Hashes = incomingHashes
 	$(document).ready(function(){
-		new clientConnection('www.littlereddevshed.com',80,runApplication,WidgetTemplates,modelHandler)
+		new clientConnection('www.littlereddevshed.com',80,runApplication)
 		console.log("Document Ready")
 	})
 })
 
-var runApplication = function(WidgetTemplates) {
+var runApplication = function() {
+	var WidgetTemplates = _WidgetTemplates
   	console.log("widget templates:",WidgetTemplates)
 	console.log("Beginning Application")
 
 	var logo = $("<div class='logo'>")
 		.css({
 			"font-family":"Times New Roman",
-			"font-size":"30px",
+			"font-size":"55px",
 			"font-weight":"bold",
 			"position":"relative",
-			"border-radius":"25px",
-			"height":"50px",
-			"width":"50px",
+			"border-radius":"45px",
+			"height":"90px",
+			"width":"90px",
 			"text-align":"center",
-			"border":"1px solid white",
-			"line-height":"50px",
-			"margin-top":"-25px",
+			"border":"2px solid white",
+			"line-height":"90px",
+			"margin-top":"-45px",
 			"vertical-align":"middle",
 			"color":"#FFF",
 			"top":"50%",
@@ -52,14 +53,14 @@ var runApplication = function(WidgetTemplates) {
             "position": "absolute",
             "background": "rgba(0,0,0,0.75)",
             "width": "100%",
-            "height": "10%",
-            "top": "5%",
+            "height": "100px",
+            "top": "20px",
             "overflow": "hidden",
         })
     var main = $("<div id='main'/>")
         .css({
             "position":"absolute",
-            "background": "url('./img/background.png') no-repeat center",
+            "background": "url('./img/background.jpg')",
             "height":"100%",
             "width": "100%",
             "overflow": "hidden",
@@ -68,13 +69,13 @@ var runApplication = function(WidgetTemplates) {
 	var content = $("<div id='content'/>")
 		.css({
 			"position":"absolute",
-			"top":"20%",
+			"top":"170px",
 			"height":"60%",
 			    "width": "100%",
 			    "background": "rgba(0,0,0,0.75)",
 			
 		})
-    var footer = $("<div id='footer'/>")
+   /* var footer = $("<div id='footer'/>")
         .css({
             "position": "absolute",
             "background": "rgba(0,0,0,0.75)",
@@ -83,7 +84,7 @@ var runApplication = function(WidgetTemplates) {
             "bottom": "5%",
             "overflow": "hidden",
 
-        })
+        })*/
     $("body").css({
         "padding":"0px",
         "margin": "0px",
@@ -91,7 +92,7 @@ var runApplication = function(WidgetTemplates) {
     $("body").append(main)
 	$("body").append(content)
     $("body").append(header)
-    $("body").append(footer)
+   // $("body").append(footer)
 
     var topmenu = $("<div id='topmenu'>")
         .css({
@@ -141,7 +142,7 @@ var runApplication = function(WidgetTemplates) {
 //        topmenu.append(" | Curriculum Vitae | Image Gallery | News")
     header.append(topmenu)
 
-	var bottommenu = $("<div id='bottommenu'>")
+	/*var bottommenu = $("<div id='bottommenu'>")
 		.css({
 			"font-family":"Lucida",
 			"position":"relative",
@@ -154,40 +155,28 @@ var runApplication = function(WidgetTemplates) {
 			"float":"right",
 		})
 	bottommenu.append("email<br/>public key<br/>")
-	footer.append(bottommenu)
+	footer.append(bottommenu)*/
 	logocontainer.appendTo("#footer, #header")
 
 	//client.write({'val':'TEST CONNECTION1'})
 
 	//client.connect("www.littlereddevshed.com",80)
 	//client.write(0,{'command':'TEST CONNECTION2','args':['arg1','arg2']})
-	var contactList_widget = WidgetTemplates.create('contactList')
-	content.append(contactList_widget.view)
+	var leftPanel_widget = WidgetTemplates.create('leftPanel')
+	content.append(leftPanel_widget.view)
+	
+	//console.log("setting leftpanel view1")	
+	//var contactList_widget = WidgetTemplates.create('contactList')
+	//leftPanel_widget.view.append(contactList_widget.view)
 
-	var raphGraph = WidgetTemplates.create('raphaelWindow', null)	
-	content.append(raphGraph.view)
+	var rtc = WidgetTemplates.create('rtc', null)	
+	content.append(rtc.view)
 	console.log("hashes:",Hashes)
 	var sha = new Hashes.SHA256()
 	console.log('sha',sha)
 	var login_widget = WidgetTemplates.create('login',sha)
-	console.log('WIDGET"',raphGraph)
+	console.log('WIDGET"',rtc)
 	topmenu.append(login_widget.view)
 
-	console.log("Creating User")
-	var username = 'Kyle Galvin'
-	var password = '123'
-	var makeUser = {}
-	makeUser.command='make_user',
-	makeUser.args=[username, sha.hex(username+password)]
-	
-	//client.write(0,makeUser)
-
-	console.log("Logging In")
-	var login = {}
-	login.command='login'
-	login.args=[username, sha.hex(username+password)]
-	
-	//var resp = client.write(0,login)
-	//console.log("response?!", resp)
 
 }
