@@ -9,11 +9,20 @@ function clientConnection(ip,port,callback){
 		socket.emit('message',{'command':'test','args':['just connected. test send']})
 	}*/
 	this.write = function(json){
-		console.log("writing",json)
-		//json.address = id
-		socket.emit('message',json)
+		console.log("what am I writing?",json)	
+		if(json.local && (json.address || json.type)){
+			handleMessage(JSON.stringify(json))//communication between local widgets do not need to go over network
+		}else if(json.local){
+			console.log("local message with no address?")
+		}else{
+
+			console.log("writing",json)
+			//json.address = id
+			socket.emit('message',json)
+		}
 	}
-	socket.on('message', function(data,callback){
+
+	var handleMessage = function(data,callback){
 		data = jQuery.parseJSON(data)
 		console.log("type:",data)
 		if(data.address){
@@ -21,11 +30,24 @@ function clientConnection(ip,port,callback){
 			widget = _WidgetTemplates.widgetLookupTable
 			console.log("is there a widget?",widget)
 			widget[data.address].handlemessage(data)
+		}else if(data.type){
+			console.log("sending to widget...",data.type)
+			widget = _WidgetTemplates.widgetNameTable
+			console.log("is there a widget?",widget)
+			var namedWidgets = widget[data.type]
+			console.log('widgets with name ',data.type,': ',namedWidgets)
+			widget[data.type][0].handlemessage(data)
+			
 		}else if(data.broadcast){
 
 			console.log("broadcast recieved. Current model:",_model.query('read',["model"]))
 			//add to local model, hope a widget is subscribed to the info
 		}	
+
+	}
+
+	socket.on('message', function(data,callback){
+		handleMessage(data,callback)
 	})
 	socket.on('error',function(){
 		console.log("error!")

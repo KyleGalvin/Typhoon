@@ -1,4 +1,13 @@
 var modelHandler = require('./modelHandler')
+var path = require('path')
+var git = require('../node_modules/nodegit/')
+var fs = require('fs')
+var repositoryDir = '../../../..'
+//var Repo = function(){
+//	this.rawRepo = new git.raw.Repo()
+//}
+//Repo.prototype.open = function(directory, function(error,repository){
+//})
 
 module.exports = {
 	call: function(cmd,sessionID,args,address){
@@ -21,6 +30,80 @@ function stringToModelID(string){
 }
 
 _cmds = {
+
+	git_log: function(id,args){
+		console.log("git_log called.")
+		console.log("id:")
+		console.log(id)
+		console.log("args:")
+		console.log(args)
+		console.log('git:',git)
+		git.Repository.open('../../../../.git',function(error,repo){
+			console.log("repo open. In callback now")
+			console.log(repo)
+			if (error) throw error
+			repo.getBranch('master', function(error,branch){
+				if (error) throw error
+				console.log("found branch")
+				console.log(branch)
+				var history = branch.history()
+
+				history.on("commit",function(commit){
+					console.log('commit ',commit.sha())
+					console.log(commit.author().name())
+					console.log(commit.message())
+				})
+
+				history.start()
+			})
+		})
+		//git.repo('./',function(error,repo){
+		//	console.log('repo callback')
+		//})
+		//var repo = new git.Repo()
+		//var dir = repo.open("../../../.git",function(){
+
+		//})
+		return {success:true,note:"getTree"}
+
+	},
+	git_getDirectory: function(id,args){
+		console.log("git_getDirectory called still.")
+		var userResult = modelHandler.query('read',//action
+			["model","sessions"]
+		)
+
+		console.log('user result: ', userResult) 
+		var path = args[0]
+		var dir = fs.readdirSync(path)
+		var list = []
+		for(var i = 0; i < dir.length; i++){
+			var loc = path +'/' + dir[i]
+			var item = fs.statSync(loc)
+			console.log("inner:", item)
+			if (item.isDirectory()){
+				list.push( {type:'dir',path:loc})
+			}else if (item.isFile()){
+				list.push( {type:'file',path:loc})
+			}
+			else{
+				console.log('wtf')
+			}
+			console.log('item:',item)
+
+		}
+		return {success:true,identifier:true, list:list,path:path}
+		console.log('finished dir: ',dir)
+	},
+	git_retrieveDocument: function(id,args){
+		console.log('args into readFile:',args[0])
+		var data = fs.readFileSync(args[0],"utf8")
+		console.log("git_retrieveDocument called")
+		return {success:true,data:data}
+	},
+	git_commitDocument: function(id,args){
+
+	},
 	disconnect: function(id,args){
 		modelHandler.query('delete',["model","sessions",stringToModelID(id)])
 	},

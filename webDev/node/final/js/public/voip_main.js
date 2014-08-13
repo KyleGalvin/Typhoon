@@ -169,13 +169,15 @@ var runApplication = function() {
 	//var contactList_widget = WidgetTemplates.create('contactList')
 	//leftPanel_widget.view.append(contactList_widget.view)
 
-	var rtc = WidgetTemplates.create('rtc', null)	
-	content.append(rtc.view)
+//	var rtc = WidgetTemplates.create('rtc', null)	
+
+	var center = WidgetTemplates.create('centerPanel')
+	content.append(center.view)
 	console.log("hashes:",Hashes)
 	var sha = new Hashes.SHA256()
 	console.log('sha',sha)
 	var login_widget = WidgetTemplates.create('login',sha)
-	console.log('WIDGET"',rtc)
+	console.log('WIDGET"',center)
 	topmenu.append(login_widget.view)
 
 

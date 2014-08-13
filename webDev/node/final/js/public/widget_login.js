@@ -4,14 +4,46 @@ define(['clientConnection'], function(){
 		console.log("factory id:",id)
 		var socket = wFactory.socket
 		console.log('hashes',Hashes)
+		var loggedIn = $("<div id='loggedIn'>")
+			.css({
+				"width":"100%"
+			})
+		var save = $("<div id='save'>")
+			.css({
+				"position":"relative",
+				"float":"left",
+				"width":"50px",
+				"height":"50px",
+				"background":"blue",
+			}).append("SAVE")
+		var messages = $("<div id='messages'>")
+			.css({
+				"position":"relative",
+				"float":"left",
+				"width":"50px",
+				"height":"50px",
+				"background":"green",
+			}).append("MSGS 0")
+		loggedIn.append(save)
+		loggedIn.append(messages)
+		var loggedOut = $("<div id='loggedOut'>")
 		this.handlemessage = function(message){
 			console.log("widget_login message returned!",message)
 			if (message.success && message.action =="login"){
 				var name = message.name
-				var contents = $("#login")
-				var contentsClone = contents.clone()
-				contents.empty()
-				contents.append("Logged in as " + name)
+				//var contents = $("#login")
+				//var contentsClone = contents.clone()
+				//contents.empty()
+				loggedOut.hide()
+				var statusBox = $("<div id='status'>")
+					.css({
+						"position":"relative",
+						"float":"right",
+						"width":"100px",
+						"height":"50px",
+					}).append("Logged in as " + name)
+				loggedIn.append(statusBox)
+				loggedIn.show()
 			}
 		}
 		var loginaction = function(){
@@ -60,9 +92,11 @@ define(['clientConnection'], function(){
 				"width":"200px",
 			})
 		
-		this.view.append(leftside)
-		this.view.append(rightside)
-
+		this.view.append(loggedOut)
+		this.view.append(loggedIn)
+		loggedIn.hide()
+		loggedOut.append(leftside)
+		loggedOut.append(rightside)
 		var loginheader = $("<div id='loginheader'>")
 			.css({
 				"text-align":"center",

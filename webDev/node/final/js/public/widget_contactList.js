@@ -28,7 +28,27 @@ define(['clientConnection'], function(){
 								"float":"right",
 								"padding":"2px",
 								"width":"100%",
-							}).append("button")
+							})
+						var button2 = $("<div id='"+item+"_button2'>")
+							.css({
+								"width":"20px",
+								"float":"right",
+								"height":"100%",
+								"border":"2px solid black",
+								//"border-color":"#000000",
+								"background-color":"#0000FF",
+							})
+						menu.append(button2)
+						var button1 = $("<div id='"+item+"_button1'>")
+							.css({
+								"width":"20px",
+								"float":"right",
+								"height":"100%",
+								"border":"2px solid black",
+								//"border-color":"#000000",
+								"background-color":"#FF0000",
+							})
+						menu.append(button1)
 						loginnames.append(name)
 						loginmenus.append(menu)
 					}
@@ -54,7 +74,7 @@ define(['clientConnection'], function(){
 				"border-radius":"0px 25px 25px 0px",
 				"position":"relative",
 				"background":"rgba(50,0,0,0.75)",
-				"height":"100%",
+				"height":"80%",
 				"color":"#FFF",
 				"width":"200px",
 				"float":"left"	
