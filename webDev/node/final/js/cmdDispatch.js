@@ -31,6 +31,43 @@ function stringToModelID(string){
 
 _cmds = {
 
+	p2p_ice_candidate: function(id,args){
+		console.log("ice candidate called.")
+		console.log(args)
+		var name = args[1]
+		var userData = modelHandler.query('read',['model','users',name])
+		console.log("retrieved user: ",userData)
+		var session_id = modelHandler.query('read',["model","users",name,'session'])
+		var session = modelHandler.query('read',["model","sessions",session_id])
+		console.log("retrieved session: ",session)
+		var msg = {}
+		msg.type = "rtc"
+		msg.command = "ice_candidate"
+		msg.args = args[2]
+		console.log("sending message:",msg)
+		session.socket.send(JSON.stringify(msg))
+
+	},
+	p2p_sdp_connect: function(id,args){
+		console.log("sdp connect called.")
+		console.log(args)
+		var name = args[1]
+		var userData = modelHandler.query('read',['model','users',name])
+		console.log("retrieved user: ",userData)
+		var session_id = modelHandler.query('read',["model","users",name,'session'])
+		var session = modelHandler.query('read',["model","sessions",session_id])
+		console.log("retrieved session: ",session)
+		var msg = {}
+		msg.type = "rtc"
+		msg.command = "take_call"
+		msg.args = [args[0],args[1],args[2]]
+		if(session && session.socket){
+			console.log("sending message:",msg)
+			session.socket.send(JSON.stringify(msg))
+		}else{
+			console.log("p2p Socket does not exist!")
+		}
+	},
 	git_log: function(id,args){
 		console.log("git_log called.")
 		console.log("id:")
@@ -80,7 +117,7 @@ _cmds = {
 		for(var i = 0; i < dir.length; i++){
 			var loc = path +'/' + dir[i]
 			var item = fs.statSync(loc)
-			console.log("inner:", item)
+		//	console.log("inner:", item)
 			if (item.isDirectory()){
 				list.push( {type:'dir',path:loc})
 			}else if (item.isFile()){
@@ -89,7 +126,7 @@ _cmds = {
 			else{
 				console.log('wtf')
 			}
-			console.log('item:',item)
+		//	console.log('item:',item)
 
 		}
 		return {success:true,identifier:true, list:list,path:path}
@@ -198,6 +235,7 @@ _cmds = {
 			modelHandler.query('create',['model','users',stringToModelID(args[0]),'online'],true)
 			//alert the user's group they are online
 			modelHandler.query('create',["model","group","users",stringToModelID(args[0]),'online'],true)
+			modelHandler.query('create',["model","users",stringToModelID(args[0]),'session'],id)
 			//this.subscribe(id,["model","group","users"],address)
 			return {success:true,action:"login",name:stringToModelID(args[0])}
 

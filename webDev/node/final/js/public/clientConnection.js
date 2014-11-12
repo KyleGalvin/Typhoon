@@ -1,6 +1,6 @@
 function clientConnection(ip,port,callback){
 	//var socket = new io.Socket()
-	var socket = io.connect('http://'+ip+":"+port)
+	var socket = io.connect('https://'+ip+":")
 	var _this = this //we need to access parent scope from socket.on('connect')
 	/*this.connect = function(ip,port){
 		console.log("connecting")
@@ -42,11 +42,14 @@ function clientConnection(ip,port,callback){
 
 			console.log("broadcast recieved. Current model:",_model.query('read',["model"]))
 			//add to local model, hope a widget is subscribed to the info
+		}else{
+			console.log("lost packet in the system:",data)
 		}	
 
 	}
 
 	socket.on('message', function(data,callback){
+		console.log("incoming data:",data)
 		handleMessage(data,callback)
 	})
 	socket.on('error',function(){

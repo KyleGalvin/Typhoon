@@ -8,6 +8,7 @@ define([
 		'widget_webRTC',
 		'widget_editor',
 		'widget_centerPanel',
+		'widget_keyshare',
 		'modelHandler',
 	],
 	function(
@@ -20,6 +21,7 @@ define([
 		widget_rtc,
 		widget_editor,
 		widget_centerPanel,
+		widget_keyshare,
 		modelHandler
 	){
 	console.log("creating widgetbuilder")
@@ -33,6 +35,7 @@ define([
 		rtc:widget_rtc,
 		editor:widget_editor,
 		centerPanel:widget_centerPanel,
+		keyshare:widget_keyshare,
 		counter: 0,
 		widgetLookupTable : {},
 		widgetNameTable : {},

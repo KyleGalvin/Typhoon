@@ -3,6 +3,7 @@ define(['clientConnection'], function(){
 		var id = wFactory.counter
 		var socket = wFactory.socket
 		this.handlemessage = function(message){
+			console.log("handling login message")
 			if(message.path && message.data){
 				model.query("create",message.path,message.data)
 				var update = model.query("read",["model","group","users"])
@@ -29,16 +30,6 @@ define(['clientConnection'], function(){
 								"padding":"2px",
 								"width":"100%",
 							})
-						var button2 = $("<div id='"+item+"_button2'>")
-							.css({
-								"width":"20px",
-								"float":"right",
-								"height":"100%",
-								"border":"2px solid black",
-								//"border-color":"#000000",
-								"background-color":"#0000FF",
-							})
-						menu.append(button2)
 						var button1 = $("<div id='"+item+"_button1'>")
 							.css({
 								"width":"20px",
@@ -47,14 +38,45 @@ define(['clientConnection'], function(){
 								"border":"2px solid black",
 								//"border-color":"#000000",
 								"background-color":"#FF0000",
-							})
+							}).text("K")
+						var button3 = $("<div id='"+item+"_button1'>")
+							.css({
+								"width":"20px",
+								"float":"right",
+								"height":"100%",
+								"border":"2px solid black",
+								//"border-color":"#000000",
+								"background-color":"#00FF00",
+							}).text("C").click(item,startCall)
 						menu.append(button1)
+						menu.append(button3)
 						loginnames.append(name)
 						loginmenus.append(menu)
 					}
 				}
 			}
 		}
+
+		var startCall = function(event){
+			console.log("name:",event.data)
+			var share = {}
+			share.type = "rtc"
+			share.command='share',
+			share.local = true,
+			share.args=["screen",event.data]
+			socket.write(share)	
+		}
+	
+		
+		var keyshareClick = function(event){
+			console.log("keyshare click",event.data)
+			var keyshare = {}
+			keyshare.type = "keyshare"
+			keyshare.command='startShare'
+			keyshare.local=true
+			keyshare.item = event.data
+			socket.write(keyshare)
+		}	
 
 		var toggle_leftmenu = function(){
 			console.log("toggling menu")

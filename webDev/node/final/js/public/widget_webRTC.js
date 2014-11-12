@@ -1,9 +1,188 @@
-define(['clientConnection'], function(){
-	var widget = function(wFactory,model){
+define(['clientConnection'], function(con){
+
+
+
+
+	var widget = function(wFactory,model, libScreen){
+
+						var button2 = $( "<input type='file' id='file'>" )
+							.css({
+								"width":"50px",
+								"float":"left",
+								"height":"50px",
+								"border":"2px solid black",
+								"background":"#888888",
+							}).change(function(){
+								console.log("new file selected!")
+                                                                var file = this.files[0];
+                                                                var reader = new window.FileReader();
+                                                                reader.readAsDataURL(file);
+                                                                reader.onload = onReadAsDataURL;
+                                                                var chunkLength = 1000;
+                                                                function onReadAsDataURL(event, text) {
+                                                                    var data = {}; // data object to transmit over data channel
+
+                                                                    if (event) text = event.target.result; // on first invocation
+
+                                                                    if (text.length > chunkLength) {
+                                                                        data.message = text.slice(0, chunkLength); // getting chunk using predefined chunk length
+                                                                    } else {
+                                                                        data.message = text;
+                                                                        data.last = true;
+                                                                    }
+
+                                                                    dataChannel.send(JSON.stringify(data)); // use JSON.stringify for chrome!
+
+                                                                    var remainingDataURL = text.slice(data.message.length);
+                                                                    if (remainingDataURL.length) setTimeout(function () {
+                                                                        onReadAsDataURL(null, remainingDataURL); // continue transmitting
+                                                                    }, 500)
+                                                                }
+
+                                                        })
+						var loggedIn = $("#loggedIn")
+						loggedIn.append(button2)
+							console.log("my button!: ",button2)
+							console.log("loggedin!: ",loggedIn)
+
+
+		var img = $("<img id='remoteMouse' src='https://www.littlereddevshed.com/img/Cursor_Hand.png'>")
+		img.css({"position":"absolute"})
+		img.appendTo('body')
+		    document.onmousemove = handleMouseMove;
+		    function handleMouseMove(event) {
+			console.log("mouse moving")
+			var dot, eventDoc, doc, body, pageX, pageY;
+
+			event = event || window.event; // IE-ism
+
+			// If pageX/Y aren't available and clientX/Y are,
+			// calculate pageX/Y - logic taken from jQuery.
+			// (This is to support old IE)
+			if (event.pageX == null && event.clientX != null) {
+			    eventDoc = (event.target && event.target.ownerDocument) || document;
+			    doc = eventDoc.documentElement;
+			    body = eventDoc.body;
+
+			    event.pageX = event.clientX +
+			      (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
+			      (doc && doc.clientLeft || body && body.clientLeft || 0);
+			    event.pageY = event.clientY +
+			      (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
+			      (doc && doc.clientTop  || body && body.clientTop  || 0 );
+			 }
+			if(dataChannelOn){
+				dataChannel.send(JSON.stringify({x:event.pageX,y:event.pageY}))
+			}
+
+			// Use event.pageX / event.pageY here
+		    }
+
+		var screen = libScreen
 		var id = wFactory.counter
 		var socket = wFactory.socket
 		this.handlemessage = function(message){
+			console.log("webRTC message recieved. calling:",message)
 
+			if (message.command == "share"){
+				nameRemote = message.args[1]
+				nameLocal = $("#loginname").val()
+
+				call()
+				//P2PEndpoint.createOffer(localDescriptionCreated,message.args[2])
+			}else if(message.command == "toggleScreen"){
+				console.log("TOGGLING SHARE!")
+				if(sharingScreen){
+					constraints = {audio:true, video: true} 
+					navigator.getUserMedia(
+						constraints, 
+						function(mediaStream){
+							if(myMediaStream){
+							//	myMediaStream.stop()
+								P2PEndpoint.removeStream(myMediaStream)
+							}
+							myMediaStream = mediaStream
+							console.log("local stream enabled");
+							videoLocal = document.getElementById("screen1");
+							videoLocal.muted = true
+							videoRemote = document.getElementById("screen2");//initialize remote viewer too
+							localStream = mediaStream;
+							P2PEndpoint.addStream(localStream);
+							videoLocal.src = window.URL.createObjectURL(mediaStream);
+						if(nameRemote){
+							startLocal(call)
+						}else{
+							startLocal()
+						}
+						//call()
+						}, 
+						function(error) {
+							console.log("error details:", error)
+						}
+					);
+				}else{
+					constraints = 
+						{
+							audio: false,
+							video: {
+								mandatory: {
+									chromeMediaSource: 'screen',
+								}
+							}
+						}
+					navigator.getUserMedia(
+					 	constraints,
+						function(mediaStream){
+							if(myMediaStream){
+							//	myMediaStream.stop()
+								P2PEndpoint.removeStream(myMediaStream)
+							}
+							myMediaStream = mediaStream
+							console.log("local stream enabled");
+							videoLocal = document.getElementById("screen1");
+							videoLocal.muted = true
+							videoRemote = document.getElementById("screen2");//initialize remote viewer too
+							localStream = mediaStream;
+							P2PEndpoint.addStream(localStream);
+							videoLocal.src = window.URL.createObjectURL(mediaStream);
+						if(nameRemote){
+							startLocal(call)
+						}else{
+							startLocal()
+						}
+						//call()
+						}, 
+						function(error) {
+							console.log("error details:", error)
+						}
+					);
+				}
+				sharingScreen = !sharingScreen
+			}else if(message.command == "take_call"){
+				console.log("taking call:",message.args)
+					if(message.args[2].sdp.type === 'answer'){
+						nameRemote = message.args[0]
+						nameLocal = message.args[1]
+						console.log("--Accepting answer and finalizing handshake--");
+						P2PEndpoint.setRemoteDescription(new RTCSessionDescription(message.args[2].sdp));
+					}else if(message.args[2].sdp.type === 'offer'){
+						nameRemote = message.args[0]
+						nameLocal = message.args[1]
+					//	document.getElementById("accept").disabled=false;
+						console.log('--Recieved offer information. Waiting for the signal to answer--');
+						P2PEndpoint.setRemoteDescription(new RTCSessionDescription(message.args[2].sdp),
+						function(){
+							P2PEndpoint.createAnswer(localDescriptionCreated);
+						},
+						function(){
+							console.log('failed to set remote description');
+						});
+					}
+			}else if(message.command == "ice_candidate"){
+				console.log("ice candidate:",message.args)
+				P2PEndpoint.addIceCandidate(new RTCIceCandidate(message.args.candidate));
+				//WRTCOnIceCandidate(message.args)
+			}
 		}
 		console.log("webRTC module created")
 		//--Browser compatibility abstraction--//
@@ -14,14 +193,32 @@ define(['clientConnection'], function(){
 
 		//webrtc video streams & p2p connection handler
 		var P2PEndpoint = null;
+		var arrayToStoreChunks = []
+		var dataChannel = null
+		var offerSDP = null
 		var videoLocal;
+		var myMediaStream=null
+		var dataChannelOn = false;
 		var localStream = null;
+		var sharingScreen = true;
 		var videoRemote;
 		var remoteStream = null;
 		var isCaller=false;
+		var nameLocal=null;
+		var nameRemote=null;
+
+		var constraints = 
+				{
+					audio: false,
+					video: {
+						mandatory: {
+							chromeMediaSource: 'screen',
+						}
+					}
+				}
 		var servers = {iceServers:[{url:'stun:stun.l.google.com:19302'}]};//remote ICE servers for path discovery
 
-		function myIceEscape(key,val) {
+		/*function myIceEscape(key,val) {
 			if (typeof(val)!="string") return val;
 			return val
 				.replace(/[\"]/g, '\\"')
@@ -46,24 +243,31 @@ define(['clientConnection'], function(){
 				//.replace(/[\r]/g, '\\r')
 				.replace(/[\t]/g, '\\t')
 			; 
-		};
+		};*/
 
 		//--WebRTC media & connection handlers--//
 		function WRTCOnAddStream(event){
-			console.log('--Adding Incoming Stream--');
+			console.log('--Adding Incoming Stream--',event);
 			videoRemote.src = webkitURL.createObjectURL(event.stream);
 			remoteStream = event.stream;
 		}
+
 
 		function WRTCOnError(event){
 			alert('error: '+event);
 		}
 
 		function localDescriptionCreated(description){
-			console.log("--local information gathered. Relaying to remote peer--");
+			offerSDP = description
+			console.log("--local information gathered. Relaying to remote peer--",description);
 			P2PEndpoint.setLocalDescription(description);
-				var JSONString = JSON.stringify({ "sdp": description },mySdpEscape);//wrap in JSON and send to remote peeer
-				connection.send(JSONString);
+				var JSONString = { "sdp": description};//wrap in JSON and send to remote peeer
+				//connection.send(JSONString);
+				console.log("sharing to: ",nameRemote," from ",nameLocal)
+				var share = {}
+				share.command='p2p_sdp_connect',
+				share.args=[nameLocal,nameRemote,JSONString]
+				socket.write(share)	
 
 		}
 
@@ -71,32 +275,83 @@ define(['clientConnection'], function(){
 			if(event.candidate){
 				console.log('Time:'+new Date().getTime()+': Recieved Ice Candidate');
 				if(P2PEndpoint.localDescription != null){
-					connection.send(JSON.stringify({"candidate": event.candidate},myIceEscape));//wrap the event in JSON and let the other side call p2pendpoint.addIceCandidate()
+					var share = {}
+					share.command='p2p_ice_candidate',
+					share.args=[nameLocal,nameRemote,{"candidate":event.candidate}]
+					socket.write(share)
+					//socket.write(JSON.stringify({"candidate": event.candidate},myIceEscape));//wrap the event in JSON and let the other side call p2pendpoint.addIceCandidate()
 				}
 			}else{
 				console.log('end of candidates');
 			}
 		}
 
-		function WRTCInit(callback){
+		function WRTCInit(callbackcallback,callback){
 			console.log('--Initializing peer connection--');
 			P2PEndpoint = new window.RTC(servers) //webkitRTCPeerConnection(servers);
+			dataChannel = P2PEndpoint.createDataChannel("myLabel",{ordered:true,id:0,maxRetrasmitTime:3000})
+
+			dataChannel.onerror = function(error){
+				console.log("Data Channel Error:",error)
+			}
+			dataChannel.onmessage = function(event){
+				if(event.data){
+				//	console.log("p2p data:",event.data)
+					var data = JSON.parse(event.data)
+					if (data["x"]){
+						//console.log("exists x")
+						img.css({"left":data.x + 'px'})
+					}
+					if(data["y"]){
+						//console.log("exists y")
+						img.css({'top':data.y+'px'})
+					}
+					if(data.message){
+						    arrayToStoreChunks.push(data.message); // pushing chunks in array
+
+						    if (data.last) {
+							saveToDisk(arrayToStoreChunks.join(''), 'fileName');
+							arrayToStoreChunks = []; // resetting array
+						    }
+						console.log("Got data channel message! event:",data)
+
+					}
+	
+				}
+			}
+			dataChannel.onopen = function(){
+				console.log("new connection opened",dataChannel)
+				dataChannelOn = true;
+				//dataChannel.send("hello world")
+			}
+			dataChannel.onclose = function(){
+				dataChannelOn = false;
+				console.log("data channel closed")
+			}
+
 			P2PEndpoint.onicecandidate = WRTCOnIceCandidate;
 			P2PEndpoint.onaddstream = WRTCOnAddStream;
-			callback()
+			callback(callbackcallback)
 		}
+		function saveToDisk(fileUrl, fileName) {
+		    var save = document.createElement('a');
+		    save.href = fileUrl;
+		    save.target = '_blank';
+		    save.download = fileName || fileUrl;
+
+		    var event = document.createEvent('Event');
+		    event.initEvent('click', true, true);
+
+		    save.dispatchEvent(event);
+		    (window.URL || window.webkitURL).revokeObjectURL(save.href);
+		}
+
 
 		//--Triggers & User Interface Callbacks--//
 		function sendMsg(message){
 			connection.send('/msg '+message);//the msg flag is passed for general websocket chatroom use
 		}
 
-		document.onkeypress=function(event){
-			var charCode = (event.which) ? event.which : event.keyCode
-			if(charCode == 13 ){//the 'enter' key
-				sendMsg(document.getElementById('inputField').value);
-			}
-		}
 
 		function answer(){
 			console.log('--answering--');
@@ -108,16 +363,21 @@ define(['clientConnection'], function(){
 			P2PEndpoint.createOffer(localDescriptionCreated);
 		}
 
-		function startLocal(){
-			WRTCInit(startLocalVideo);
-			//startLocalVideo();
-		//	WSLobbyConnect();
+		function startLocal(callback){
+			WRTCInit(callback,startLocalVideo);
 		}
 
-		function startLocalVideo(){
+		function startLocalVideo(callback){
+			console.log('libscreen:',screen)
 			navigator.getUserMedia(
-				{audio:true, video: true}, 
+			 	constraints,
 				function(mediaStream){
+
+					if(myMediaStream){
+					//	myMediaStream.stop()
+						P2PEndpoint.removeStream(myMediaStream)
+					}
+					myMediaStream = mediaStream
 					console.log("local stream enabled");
 					videoLocal = document.getElementById("screen1");
 					videoLocal.muted = true
@@ -125,13 +385,14 @@ define(['clientConnection'], function(){
 					localStream = mediaStream;
 					P2PEndpoint.addStream(localStream);
 					videoLocal.src = window.URL.createObjectURL(mediaStream);
-					//document.getElementById("call").disabled=false;
 				}, 
 				function(error) {
-					alert('RTC errored:',error);
+					console.log("error details:", error)
 				}
 			);
-
+			if(callback){
+				callback()
+			}
 		}
 
 		function hangup(){
@@ -160,79 +421,3 @@ define(['clientConnection'], function(){
 	}
 	return widget
 })
-
-/*
-
-		//connection to websocket lobby
-		var connection = null;
-
-
-
-
-		//WebSocket logic
-		//--WebSocket Connection Handlers--//
-		function WSLobbyConnect(){
-			connection = new WebSocket('ws://192.168.0.20:8888','echo');
-			connection.onopen = myWSOnOpen;
-			connection.onmessage = myWSOnMessage;
-			connection.onerror = myWSOnError;
-
-			window.setInterval(updateNameListWidget,2000);
-		}
-
-		function myWSOnOpen() {
-			document.getElementById('textField').innerHTML='';//clear chat text
-		}
-
-		function myWSOnError(error) {
-			// an error occurred when sending/receiving data
-			console.log(error);
-		}
-
-		function myWSOnMessage(message) {
-			var patternJS=/^\/js/g;
-			var patternMSG=/^\/msg/g;
-			var patternListName=/^\/widgetupdate /g
-
-			if(patternJS.test(message.data)){
-				eval(message.data.replace(patternJS,""));
-			}else if(patternListName.test(message.data)){
-				message.data = message.data.replace(patternListName,"");//pop the first command string and continue with the rest
-				
-				document.getElementById('nameList').innerHTML="Online Users:<br>"+message.data.replace(patternListName,"");
-			
-			}else if(patternMSG.test(message.data)){
-				document.getElementById('textField').innerHTML+=message.data.replace(patternMSG,"")+'<br>';
-			}else{
-				//WebRTC signalling communication
-				var p2pSignal=JSON.parse(message.data);
-				if(p2pSignal.sdp){
-					if(p2pSignal.sdp.type === 'answer'){
-						console.log("--Accepting answer and finalizing handshake--");
-						P2PEndpoint.setRemoteDescription(new RTCSessionDescription(p2pSignal.sdp));
-					}else if(p2pSignal.sdp.type === 'offer'){
-						document.getElementById("accept").disabled=false;
-						console.log('--Recieved offer information. Waiting for the signal to answer--');
-						P2PEndpoint.setRemoteDescription(new RTCSessionDescription(p2pSignal.sdp),
-						function(){
-							P2PEndpoint.createAnswer(localDescriptionCreated);
-						},
-						function(){
-							console.log('failed to set remote description');
-						});
-					}
-				}else if(p2pSignal.candidate){
-					console.log('Time:'+new Date().getTime()+': Adding Ice Candidate');
-					P2PEndpoint.addIceCandidate(new RTCIceCandidate(p2pSignal.candidate));
-				}else{
-					console.log('unexpected message');
-				}
-			}
-		}
-
-		//NameList Widget
-		function updateNameListWidget(){
-			connection.send("/updatewidget list");
-		}
-
-*/

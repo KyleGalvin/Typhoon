@@ -1,14 +1,17 @@
 //var _WidgetTemplates = {}
 var Hashes = {}
+var screen 
 var _WidgetTemplates
-requirejs(['jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection','modelHandler'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection,modelHandler){
+requirejs(['jquery-1.10.2.min.js','widget_templates','hashes.min','clientConnection','modelHandler', 'libScreen'], function(jquery,WidgetTemplates,incomingHashes,ClientConnection,modelHandler, libScreen){
 	console.log("Done collecting requirements")
 	console.log("after init",incomingHashes)
+	console.log('after init screen:',libScreen)
 	_WidgetTemplates = WidgetTemplates
+	screen = libScreen
 	//_WidgetTemplates = WidgetTemplates
 	Hashes = incomingHashes
 	$(document).ready(function(){
-		new clientConnection('www.littlereddevshed.com',80,runApplication)
+		new clientConnection('www.littlereddevshed.com',443,runApplication)
 		console.log("Document Ready")
 	})
 })
@@ -170,15 +173,17 @@ var runApplication = function() {
 	//leftPanel_widget.view.append(contactList_widget.view)
 
 //	var rtc = WidgetTemplates.create('rtc', null)	
-
-	var center = WidgetTemplates.create('centerPanel')
-	content.append(center.view)
 	console.log("hashes:",Hashes)
 	var sha = new Hashes.SHA256()
 	console.log('sha',sha)
 	var login_widget = WidgetTemplates.create('login',sha)
 	console.log('WIDGET"',center)
 	topmenu.append(login_widget.view)
+	console.log("voip main screen:",screen)
+	var center = WidgetTemplates.create('centerPanel',screen)
+	content.append(center.view)
+	var keyshare = WidgetTemplates.create('keyshare')
+	content.append(keyshare.view)
 
 
 }

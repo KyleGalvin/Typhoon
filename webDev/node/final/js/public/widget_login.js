@@ -4,6 +4,13 @@ define(['clientConnection'], function(){
 		console.log("factory id:",id)
 		var socket = wFactory.socket
 		console.log('hashes',Hashes)
+		var toggleScreen = function(event){
+			var share = {}
+			share.type = "rtc"
+			share.command='toggleScreen',
+			share.local = true,
+			socket.write(share)	
+		}
 		var loggedIn = $("<div id='loggedIn'>")
 			.css({
 				"width":"100%"
@@ -14,17 +21,29 @@ define(['clientConnection'], function(){
 				"float":"left",
 				"width":"50px",
 				"height":"50px",
-				"background":"blue",
+				"background":"#888888",
+				'border':'1px solid black',
 			}).append("SAVE")
+		var screenToggle = $("<div id='messages'>")
+			.css({
+				"position":"relative",
+				"float":"left",
+				"width":"50px",
+				"height":"50px",
+				"background":"#888888",
+				'border':'1px solid black',
+			}).append("Toggle Display").click(toggleScreen)
 		var messages = $("<div id='messages'>")
 			.css({
 				"position":"relative",
 				"float":"left",
 				"width":"50px",
 				"height":"50px",
-				"background":"green",
+				"background":"#888888",
+				'border':'1px solid black',
 			}).append("MSGS 0")
 		loggedIn.append(save)
+		loggedIn.append(screenToggle)
 		loggedIn.append(messages)
 		var loggedOut = $("<div id='loggedOut'>")
 		this.handlemessage = function(message){
@@ -56,6 +75,7 @@ define(['clientConnection'], function(){
 			login.args=[username, Hashes.hex(username+password)]
 			console.log('going to socket with message',username,login)
 			socket.write(login)
+
 		}
 		var signupaction = function(){
 			console.log("Creating User")

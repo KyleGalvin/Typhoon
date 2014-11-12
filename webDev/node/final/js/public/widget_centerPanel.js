@@ -1,5 +1,5 @@
 define(['clientConnection'], function(){
-	var widget = function(wFactory,model){
+	var widget = function(wFactory,model,screen){
 		var id = wFactory.counter
 		var socket = wFactory.socket
 		this.handlemessage = function(message){
@@ -18,7 +18,7 @@ define(['clientConnection'], function(){
 		var editor = wFactory.create('editor')
 		editor.view.hide()
 		view.append(editor.view)
-		var rtc = wFactory.create('rtc')
+		var rtc = wFactory.create('rtc',screen)
 		view.append(rtc.view)
 
 	}
