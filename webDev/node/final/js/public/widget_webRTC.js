@@ -1,49 +1,71 @@
-define(['clientConnection'], function(con){
-
+define(['clientConnection','dropzone'], function(con,dz){
 
 
 
 	var widget = function(wFactory,model, libScreen){
+		var dropzone = dz
+		console.log("dropzone:",dropzone)
+		var handleFileChange = function(){
+			var file = button2.prop('files')[0]
+			console.log("new file selected!",file)
+			var reader = new window.FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = onReadAsDataURL;
+			var chunkLength = 1000;
+			function onReadAsDataURL(event, text) {
+			    var data = {}; // data object to transmit over data channel
 
-						var button2 = $( "<input type='file' id='file'>" )
+			    if (event) text = event.target.result; // on first invocation
+
+			    if (text.length > chunkLength) {
+				data.message = text.slice(0, chunkLength); // getting chunk using predefined chunk length
+			    } else {
+				data.message = text;
+				data.last = true;
+			    }
+
+			    dataChannel.send(JSON.stringify(data)); // use JSON.stringify for chrome!
+
+			    var remainingDataURL = text.slice(data.message.length);
+			    if (remainingDataURL.length) setTimeout(function () {
+				onReadAsDataURL(null, remainingDataURL); // continue transmitting
+			    }, 500)
+			}
+
+
+
+		}
+						var dropzoneForm= $("<form action='javascript:handleFileChange', class='dropzone'>")
+						var button2 = $( "<input type='file', class='dropzone',id='file'>" )
 							.css({
 								"width":"50px",
 								"float":"left",
 								"height":"50px",
 								"border":"2px solid black",
 								"background":"#888888",
-							}).change(function(){
-								console.log("new file selected!")
-                                                                var file = this.files[0];
-                                                                var reader = new window.FileReader();
-                                                                reader.readAsDataURL(file);
-                                                                reader.onload = onReadAsDataURL;
-                                                                var chunkLength = 1000;
-                                                                function onReadAsDataURL(event, text) {
-                                                                    var data = {}; // data object to transmit over data channel
+							})
 
-                                                                    if (event) text = event.target.result; // on first invocation
-
-                                                                    if (text.length > chunkLength) {
-                                                                        data.message = text.slice(0, chunkLength); // getting chunk using predefined chunk length
-                                                                    } else {
-                                                                        data.message = text;
-                                                                        data.last = true;
-                                                                    }
-
-                                                                    dataChannel.send(JSON.stringify(data)); // use JSON.stringify for chrome!
-
-                                                                    var remainingDataURL = text.slice(data.message.length);
-                                                                    if (remainingDataURL.length) setTimeout(function () {
-                                                                        onReadAsDataURL(null, remainingDataURL); // continue transmitting
-                                                                    }, 500)
-                                                                }
-
-                                                        })
+						button2.change(handleFileChange)
 						var loggedIn = $("#loggedIn")
-						loggedIn.append(button2)
+						loggedIn.append(dropzoneForm)
+						dropzoneForm.append(button2)
 							console.log("my button!: ",button2)
 							console.log("loggedin!: ",loggedIn)
+						//var myDropZone = new dropzone("#file",{url:""})
+
+
+			var div = $("#code")
+			console.log('code mirror div',div[0])
+
+		function simulateKeyPress(character) {
+			console.log("simulating key press:",character)
+			var div = $("#code")
+			console.log('code mirror div',div[0])
+			div.trigger("keypress",{ which : character.charCodeAt(0) });
+		}
+
+
+
 
 
 		var img = $("<img id='remoteMouse' src='https://www.littlereddevshed.com/img/Cursor_Hand.png'>")
@@ -54,11 +76,8 @@ define(['clientConnection'], function(con){
 			console.log("mouse moving")
 			var dot, eventDoc, doc, body, pageX, pageY;
 
-			event = event || window.event; // IE-ism
+			event = event || window.event; 
 
-			// If pageX/Y aren't available and clientX/Y are,
-			// calculate pageX/Y - logic taken from jQuery.
-			// (This is to support old IE)
 			if (event.pageX == null && event.clientX != null) {
 			    eventDoc = (event.target && event.target.ownerDocument) || document;
 			    doc = eventDoc.documentElement;
@@ -75,7 +94,6 @@ define(['clientConnection'], function(con){
 				dataChannel.send(JSON.stringify({x:event.pageX,y:event.pageY}))
 			}
 
-			// Use event.pageX / event.pageY here
 		    }
 
 		var screen = libScreen
@@ -182,6 +200,10 @@ define(['clientConnection'], function(con){
 				console.log("ice candidate:",message.args)
 				P2PEndpoint.addIceCandidate(new RTCIceCandidate(message.args.candidate));
 				//WRTCOnIceCandidate(message.args)
+			}else if(message.command == "message"){
+				console.log("webRTC widget recieving message command:", message.args)
+				dataChannel.send(JSON.stringify({address:"message",args:message.args}))
+
 			}
 		}
 		console.log("webRTC module created")
@@ -295,9 +317,29 @@ define(['clientConnection'], function(con){
 				console.log("Data Channel Error:",error)
 			}
 			dataChannel.onmessage = function(event){
+			
 				if(event.data){
 				//	console.log("p2p data:",event.data)
 					var data = JSON.parse(event.data)
+					if(data.address == "message"){
+						console.log("recieved P2P message. Routing to message widget",data.args)
+						msg = {}
+						msg.local = true
+						msg.type= "messaging"
+						msg.args = data.args
+						socket.write(msg)
+					}
+					if (data["key"]){
+						console.log("data channel recieved key press:",data)
+						var packet = {}
+						packet.local = true
+						packet.type =  "editor"
+						packet.command = "keypress"
+						packet.args = {}
+						packet.args[0] = data['key']
+						socket.write(packet)
+						//simulateKeyPress(data["key"])	
+					}
 					if (data["x"]){
 						//console.log("exists x")
 						img.css({"left":data.x + 'px'})
@@ -323,6 +365,13 @@ define(['clientConnection'], function(con){
 				console.log("new connection opened",dataChannel)
 				dataChannelOn = true;
 				//dataChannel.send("hello world")
+				if(dataChannelOn){
+					$('body').keypress(function(e) {
+						console.log("sending keystroke to remote endpoint:",e.which)
+						dataChannel.send(JSON.stringify({key:e.which}))
+					});
+
+				}
 			}
 			dataChannel.onclose = function(){
 				dataChannelOn = false;

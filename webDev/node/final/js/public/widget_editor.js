@@ -22,6 +22,9 @@ define(['codemirror-4.3/lib/codemirror','codemirror-4.3/mode/javascript/javascri
 				console.log("sending args?",message.args[0])
 				fileRequest.args=[message.args[0]]
 				socket.write(fileRequest)	
+			}else if(message.command == 'keypress'){
+				console.log("recieved editor keypress",String.fromCharCode(message.args[0]))
+				editor.doc.replaceSelection(String.fromCharCode(message.args[0]))
 			}else if(message.data){
 				console.log("recieved data:",message.data)
 				editor.getDoc().setValue(message.data)
@@ -43,6 +46,8 @@ define(['codemirror-4.3/lib/codemirror','codemirror-4.3/mode/javascript/javascri
 			lineNumbers:true,
 			lineWrapping:true
 		})
+
+		console.log("editor:",editor)
 		//$("#codemirror").css({"height":'100%'})
 		//editor.doc.setValue( textArea[0].value);
 		//console.log("editor:",editor)
